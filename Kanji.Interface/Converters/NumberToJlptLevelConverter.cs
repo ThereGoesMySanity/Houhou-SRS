@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Data;
+
 using Kanji.Common.Utility;
 
 namespace Kanji.Interface.Converters

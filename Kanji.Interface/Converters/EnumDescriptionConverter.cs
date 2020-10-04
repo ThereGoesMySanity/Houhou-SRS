@@ -9,7 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Data;
+
 using Kanji.Interface.Models;
 
 namespace Kanji.Interface.Converters

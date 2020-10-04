@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Threading;
+using Avalonia.Threading;
 using Kanji.Common.Models;
 using Kanji.Database.Dao;
 using Kanji.Interface.Helpers;

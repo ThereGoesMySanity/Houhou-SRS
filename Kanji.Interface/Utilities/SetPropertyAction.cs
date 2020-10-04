@@ -7,8 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
-using System.Windows;
-using System.Windows.Interactivity;
+
+
 
 namespace Kanji.Interface.Utilities
 {
