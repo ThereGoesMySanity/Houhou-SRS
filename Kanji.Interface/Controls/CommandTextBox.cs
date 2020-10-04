@@ -4,10 +4,11 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Interactivity;
 using Kanji.Common.Helpers;
 using Kanji.Interface.Helpers;
 
@@ -30,17 +31,13 @@ namespace Kanji.Interface.Controls
 
         #region Dependency Properties
 
-        public static readonly DependencyProperty IsKanaInputProperty =
-            DependencyProperty.Register("IsKanaInput",
-            typeof(bool), typeof(CommandTextBox), new PropertyMetadata(false));
+        public static readonly AvaloniaProperty IsKanaInputProperty = AvaloniaProperty.Register<CommandTextBox, bool>("IsKanaInput", false);
 
-        public static readonly DependencyProperty ValidationCommandProperty =
-            DependencyProperty.Register("ValidationCommand",
-            typeof(ICommand), typeof(CommandTextBox), null);
+        public static readonly AvaloniaProperty ValidationCommandProperty =
+            AvaloniaProperty.Register<CommandTextBox, ICommand>("ValidationCommand");
 
-        public static readonly DependencyProperty ValidationCommandParameterProperty =
-            DependencyProperty.Register("ValidationCommandParameter",
-            typeof(object), typeof(CommandTextBox), null);
+        public static readonly AvaloniaProperty ValidationCommandParameterProperty =
+            AvaloniaProperty.Register<CommandTextBox, object>("ValidationCommandParameter");
 
         #endregion
 
@@ -126,7 +123,7 @@ namespace Kanji.Interface.Controls
         /// Overrides the TextInput event handler to alter the text being typed
         /// if needed.
         /// </summary>
-        protected override void OnTextInput(TextCompositionEventArgs e)
+        protected override void OnTextInput(TextInputEventArgs e)
         {
             lock (_textLock)
             {
@@ -170,24 +167,25 @@ namespace Kanji.Interface.Controls
         /// Overrides the MouseUp event handler to erase the content when the
         /// middle click is pressed on the textbox.
         /// </summary>
-        protected override void OnMouseUp(MouseButtonEventArgs e)
+        protected override void OnPointerReleased(PointerReleasedEventArgs e)
         {
-            if (e.ChangedButton == MouseButton.Middle)
+            if (e.InitialPressMouseButton == MouseButton.Middle)
             {
                 this.Text = string.Empty;
                 ValidateInput();
             }
 
-            base.OnMouseUp(e);
+            base.OnPointerReleased(e);
         }
 
-        protected override void OnTextChanged(TextChangedEventArgs e)
+        //TODO: https://github.com/AvaloniaUI/Avalonia/issues/418
+        protected void OnTextChanged()
         {
-            if (!IsFocused)
-            {
-                ValidateInput();
-            }
-            base.OnTextChanged(e);
+        //    if (!IsFocused)
+        //    {
+        //        ValidateInput();
+        //    }
+        //    base.OnTextChanged(e);
         }
 
         #endregion
