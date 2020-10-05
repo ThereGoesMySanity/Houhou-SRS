@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Command;
 using Kanji.Common.Helpers;
 using Kanji.Interface.Actors;
+using MessageBox.Avalonia;
+using MessageBox.Avalonia.DTO;
+using MessageBox.Avalonia.Enums;
 
 namespace Kanji.Interface.ViewModels
 {
@@ -140,11 +143,13 @@ namespace Kanji.Interface.ViewModels
             }
 
             // Show dialog.
-            System.Windows.MessageBox.Show(NavigationActor.Instance.ActiveWindow,
-                    string.Format("Your user directory has been successfuly modified. Please restart Houhou completely now.{0}Please note that for safety reasons, your old directory has not been deleted.", Environment.NewLine),
-                    "User directory changed",
-                    System.Windows.MessageBoxButton.OK,
-                    System.Windows.MessageBoxImage.Information);
+            MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
+            {
+                ButtonDefinitions = ButtonEnum.Ok,
+                ContentTitle = "User directory changed",
+                ContentMessage = $"Your user directory has been successfuly modified. Please restart Houhou completely now.{Environment.NewLine}Please note that for safety reasons, your old directory has not been deleted.",
+                Icon = Icon.Info,
+            }).ShowDialog(NavigationActor.Instance.ActiveWindow).Wait();
 
             // Modify values.
             Properties.Settings.Default.UserDirectoryPath = _userDirectoryPath;

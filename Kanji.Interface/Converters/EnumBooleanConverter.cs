@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Avalonia;
+using Avalonia.Data.Converters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,10 +17,10 @@ namespace Kanji.Interface.Converters
         {
             string parameterString = parameter as string;
             if (parameterString == null)
-                return DependencyProperty.UnsetValue;
+                return AvaloniaProperty.UnsetValue;
 
             if (Enum.IsDefined(value.GetType(), value) == false)
-                return DependencyProperty.UnsetValue;
+                return AvaloniaProperty.UnsetValue;
 
             object parameterValue = Enum.Parse(value.GetType(), parameterString);
 
@@ -29,7 +31,7 @@ namespace Kanji.Interface.Converters
         {
             string parameterString = parameter as string;
             if (parameterString == null)
-                return DependencyProperty.UnsetValue;
+                return AvaloniaProperty.UnsetValue;
 
             return Enum.Parse(targetType, parameterString);
         }

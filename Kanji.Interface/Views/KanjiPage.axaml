@@ -1,0 +1,102 @@
+﻿<UserControl x:Class="Kanji.Interface.Views.KanjiPage"
+      xmlns="https://github.com/avaloniaui"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                   xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+             xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
+      xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF4"
+      xmlns:utilities="clr-namespace:Kanji.Interface.Utilities"
+      xmlns:controls="clr-namespace:Kanji.Interface.Controls"
+      mc:Ignorable="d" Focusable="true"
+      d:DesignHeight="300" d:DesignWidth="600" KeyDown="OnKeyDown" IsVisibleChanged="OnIsVisibleChanged">
+
+  <DockPanel>
+    <controls:NavigationBar DockPanel.Dock="Top" />
+    <Border Style="{StaticResource KanjiPageSeparator}" DockPanel.Dock="Top" />
+    <Border Style="{StaticResource KanjiPageBorder}">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="3*" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Filter control panel -->
+        <controls:KanjiFilterControl x:Name="KanjiFilterControl" DataContext="{Binding KanjiFilterVm}">
+          <!-- Collapse when the details panel is visible -->
+          <i:Interaction.Behaviors>
+            <ia:DataTriggerBehavior Binding="{Binding ElementName=KanjiDetailsControl, Path=IsVisible}"
+              Value="true">
+              <ia:ChangePropertyAction TargetObject="{Binding #KanjiFilterControl}" PropertyName="IsVisible" Value="false" />
+            </ia:DataTriggerBehavior>
+          </i:Interaction.Behaviors>
+        </controls:KanjiFilterControl>
+
+        <!-- Kanji details panel -->
+        <controls:KanjiDetails x:Name="KanjiDetailsControl" DataContext="{Binding KanjiDetailsVm}">
+          <!-- Collapse when the view model is null -->
+          <i:Interaction.Behaviors>
+            <ia:DataTriggerBehavior Binding="{Binding .}"
+              Value="{x:Null}">
+              <ia:ChangePropertyAction TargetObject="{Binding #KanjiDetailsControl}" PropertyName="IsVisible" Value="false" />
+            </ia:DataTriggerBehavior>
+          </i:Interaction.Behaviors>
+        </controls:KanjiDetails>
+
+        <!-- Right panel with action buttons & result list -->
+        <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Margin="5 0 0 0">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+          </Grid.RowDefinitions>
+          <!-- Action buttons panel -->
+          <StackPanel>
+            <Button x:Name="CloseKanjiPageButton" Content="Close the kanji page"
+                    Command="{Binding ClearSelectedKanjiCommand}" Margin="0,0,0,5" Style="{StaticResource ActionButton}">
+              <i:Interaction.Behaviors>
+                <ia:DataTriggerBehavior Binding="{Binding KanjiDetailsVm}" Value="{x:Null}">
+                  <ia:ChangePropertyAction PropertyName="IsVisible" Value="false" />
+                </ia:DataTriggerBehavior>
+              </i:Interaction.Behaviors>
+            </Button>
+            <Button x:Name="ClearFilterButton" Content="Clear all filters" ToolTip="(CTRL+Shift+C)"
+                    Command="{Binding ClearFilterCommand}" Margin="0,0,0,5" Style="{StaticResource ActionButton}">
+              <i:Interaction.Behaviors>
+                <ia:DataTriggerBehavior Binding="{Binding KanjiFilterVm.Radicals}" Value="{x:Null}">
+                  <ia:ChangePropertyAction PropertyName="IsEnabled" Value="false" />
+                </ia:DataTriggerBehavior>
+                <ia:DataTriggerBehavior Binding="{Binding #CloseKanjiPageButton.Visibility}" Value="true">
+                  <ia:ChangePropertyAction PropertyName="IsVisible" Value="false" />
+                </ia:DataTriggerBehavior>
+              </i:Interaction.Behaviors>
+            </Button>
+            <Button Content="Navigate back" Command="{Binding NavigateBackCommand}" Margin="0,0,0,5" Style="{StaticResource MiniActionButton}" IsVisible="false">
+              <i:Interaction.Behaviors>
+                <ia:DataTriggerBehavior Binding="{Binding CanNavigateBack}" Value="True">
+                  <ia:ChangePropertyAction PropertyName="IsVisible" Value="true" />
+                </ia:DataTriggerBehavior>
+              </i:Interaction.Behaviors>
+            </Button>
+            <Button x:Name="ApplyFilterButton" Command="{Binding ApplyFilterCommand}" Margin="0,0,0,5"
+                    Content="Apply Filter" ToolTip="(Enter or CTRL+Enter)" Style="{StaticResource MiniActionButton}" IsVisible="false">
+              <i:Interaction.Behaviors>
+                <ia:DataTriggerBehavior Binding="{Binding CanNavigateBack}" Value="True">
+                  <ia:ChangePropertyAction PropertyName="IsVisible" Value="false" />
+                </ia:DataTriggerBehavior>
+                <ia:DataTriggerBehavior Binding="{Binding CanApplyFilter}" Value="True">
+                  <ia:ChangePropertyAction PropertyName="IsVisible" Value="true" />
+                </ia:DataTriggerBehavior>
+              </i:Interaction.Behaviors>
+            </Button>
+            <Separator />
+          </StackPanel>
+          <!-- Kanji list -->
+          <controls:KanjiList Grid.Row="1" DataContext="{Binding KanjiListVm}" />
+        </Grid>
+      </Grid>
+    </Border>
+  </DockPanel>
+</UserControl>

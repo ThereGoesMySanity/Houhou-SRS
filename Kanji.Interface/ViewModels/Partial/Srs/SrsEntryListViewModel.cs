@@ -14,6 +14,10 @@ using System.ComponentModel;
 using Kanji.Interface.Actors;
 using Kanji.Common.Helpers;
 using Kanji.Common.Utility;
+using MessageBox.Avalonia;
+using MessageBox.Avalonia.DTO;
+using MessageBox.Avalonia.Enums;
+using Avalonia.Controls;
 
 namespace Kanji.Interface.ViewModels
 {
@@ -464,7 +468,7 @@ namespace Kanji.Interface.ViewModels
             {
                 // Show the modal entry edition window.
                 EditSrsEntryWindow wnd = new EditSrsEntryWindow(item.Reference.Clone());
-                wnd.ShowDialog();
+                wnd.ShowDialog(NavigationActor.Instance.ActiveWindow);
 
                 // When it is closed, get the result.
                 ExtendedSrsEntry result = wnd.Result;
@@ -748,14 +752,14 @@ namespace Kanji.Interface.ViewModels
                     (BulkEditMode == BulkEditModeEnum.ReadingNote ? "reading note" :
                     "tag"));
 
-            if (System.Windows.MessageBox.Show(
-                NavigationActor.Instance.ActiveWindow,
-                messageBoxContent,
-                "Bulk edition confirmation",
-                System.Windows.MessageBoxButton.YesNo,
-                System.Windows.MessageBoxImage.Question,
-                System.Windows.MessageBoxResult.Cancel)
-                == System.Windows.MessageBoxResult.Yes)
+            var result = MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
+            {
+                ButtonDefinitions = ButtonEnum.YesNo,
+                ContentTitle = "Bulk edition confirmation",
+                ContentMessage = messageBoxContent,
+            }).ShowDialog(NavigationActor.Instance.ActiveWindow);
+
+            if (result.Result == ButtonResult.Yes)
             {
                 BulkEditTaskEnum task = BulkEditMode == BulkEditModeEnum.MeaningNote ?
                     BulkEditTaskEnum.MeaningNote :
@@ -781,18 +785,16 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         private void OnBulkEditLevelApply()
         {
-            if (System.Windows.MessageBox.Show(
-                NavigationActor.Instance.ActiveWindow,
-                string.Format("Do you really want to reset all {0} selected "
-                + "items to this level?{1}The current levels and next review "
-                + "dates will be permanently overwritten.",
-                SelectedItems.Count,
-                Environment.NewLine),
-                "Bulk edition confirmation",
-                System.Windows.MessageBoxButton.YesNo,
-                System.Windows.MessageBoxImage.Question,
-                System.Windows.MessageBoxResult.Cancel)
-                == System.Windows.MessageBoxResult.Yes)
+            var result = MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
+            {
+                ContentTitle = "Bulk edition confirmation",
+                ContentMessage = $"Do you really want to reset all {SelectedItems.Count} selected "
+                    + $"items to this level?{Environment.NewLine}The current levels and next review "
+                    + "dates will be permanently overwritten.",
+                ButtonDefinitions = ButtonEnum.YesNo,
+            }).ShowDialog(NavigationActor.Instance.ActiveWindow);
+
+            if (result.Result == ButtonResult.Yes)
             {
                 BulkEdit(BulkEditTaskEnum.Level,
                     SelectedItems.Select(i => i.Reference).ToArray(),
@@ -816,15 +818,14 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         private void OnBulkSuspend()
         {
-            if (System.Windows.MessageBox.Show(
-                NavigationActor.Instance.ActiveWindow,
-                string.Format("Do you really want to suspend all {0} items?",
-                SelectedItems.Count),
-                "Bulk suspension confirmation",
-                System.Windows.MessageBoxButton.YesNo,
-                System.Windows.MessageBoxImage.Question,
-                System.Windows.MessageBoxResult.Cancel)
-                == System.Windows.MessageBoxResult.Yes)
+            var result = MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
+            {
+                ContentTitle = "Bulk suspension confirmation",
+                ContentMessage = $"Do you really want to suspend all {SelectedItems.Count} items?",
+                ButtonDefinitions = ButtonEnum.YesNo,
+            }).ShowDialog(NavigationActor.Instance.ActiveWindow);
+
+            if (result.Result == ButtonResult.Yes)
             {
                 BulkEdit(BulkEditTaskEnum.Suspend,
                     SelectedItems.Select(i => i.Reference).ToArray());
@@ -836,15 +837,14 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         private void OnBulkResume()
         {
-            if (System.Windows.MessageBox.Show(
-                NavigationActor.Instance.ActiveWindow,
-                string.Format("Do you really want to resume all {0} items?",
-                SelectedItems.Count),
-                "Bulk resume confirmation",
-                System.Windows.MessageBoxButton.YesNo,
-                System.Windows.MessageBoxImage.Question,
-                System.Windows.MessageBoxResult.Cancel)
-                == System.Windows.MessageBoxResult.Yes)
+            var result = MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
+            {
+                ContentTitle = "Bulk resume confirmation",
+                ContentMessage = $"Do you really want to resume all {SelectedItems.Count} items?",
+                ButtonDefinitions = ButtonEnum.YesNo,
+            }).ShowDialog(NavigationActor.Instance.ActiveWindow);
+
+            if (result.Result == ButtonResult.Yes)
             {
                 BulkEdit(BulkEditTaskEnum.Resume,
                     SelectedItems.Select(i => i.Reference).ToArray());
@@ -856,16 +856,15 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         private void OnBulkDelete()
         {
-            if (System.Windows.MessageBox.Show(
-                NavigationActor.Instance.ActiveWindow,
-                string.Format("Do you really want to delete all {0} items?{1}"
-                + "These items will be lost FOREVER.",
-                SelectedItems.Count, Environment.NewLine),
-                "Bulk deletion confirmation",
-                System.Windows.MessageBoxButton.YesNo,
-                System.Windows.MessageBoxImage.Question,
-                System.Windows.MessageBoxResult.Cancel)
-                == System.Windows.MessageBoxResult.Yes)
+            var result = MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
+            {
+                ContentTitle = "Bulk deletion confirmation",
+                ContentMessage = $"Do you really want to delete all {SelectedItems.Count} items?{Environment.NewLine}"
+                    + "These items will be lost FOREVER.",
+                ButtonDefinitions = ButtonEnum.YesNo,
+            }).ShowDialog(NavigationActor.Instance.ActiveWindow);
+
+            if (result.Result == ButtonResult.Yes)
             {
                 BulkEdit(BulkEditTaskEnum.Delete,
                     SelectedItems.Select(i => i.Reference).ToArray());
@@ -885,17 +884,15 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         private void OnBulkRescheduleApply()
         {
-            if (System.Windows.MessageBox.Show(
-                NavigationActor.Instance.ActiveWindow,
-                string.Format("Do you really want to reset the review date of all {0} selected "
-                    + "items?{1}This action is not reversible.",
-                    SelectedItems.Count,
-                    Environment.NewLine),
-                "Bulk edition confirmation",
-                System.Windows.MessageBoxButton.YesNo,
-                System.Windows.MessageBoxImage.Question,
-                System.Windows.MessageBoxResult.Cancel)
-                == System.Windows.MessageBoxResult.Yes)
+            var result = MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
+            {
+                ContentTitle = "Bulk edition confirmation",
+                ContentMessage = $"Do you really want to reset the review date of all {SelectedItems.Count} selected "
+                    + $"items to this level?{Environment.NewLine}This action is not reversible.",
+                ButtonDefinitions = ButtonEnum.YesNo,
+            }).ShowDialog(NavigationActor.Instance.ActiveWindow);
+
+            if (result.Result == ButtonResult.Yes)
             {
                 // Apply the timing.
                 TimingVm.ApplyTiming(_selectedItems.Select(e => e.Reference).ToList());
@@ -911,15 +908,14 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         private void OnBulkDelayApply()
         {
-            if (System.Windows.MessageBox.Show(
-                NavigationActor.Instance.ActiveWindow,
-                string.Format("Do you really want to delay the review date of all {0} selected items?",
-                    SelectedItems.Count),
-                "Bulk edition confirmation",
-                System.Windows.MessageBoxButton.YesNo,
-                System.Windows.MessageBoxImage.Question,
-                System.Windows.MessageBoxResult.Cancel)
-                == System.Windows.MessageBoxResult.Yes)
+            var result = MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
+            {
+                ContentTitle = "Bulk edition confirmation",
+                ContentMessage = $"Do you really want to delay the review date of all {SelectedItems.Count} selected items?",
+                ButtonDefinitions = ButtonEnum.YesNo,
+            }).ShowDialog(NavigationActor.Instance.ActiveWindow);
+
+            if (result.Result == ButtonResult.Yes)
             {
                 // Apply the delay.
                 foreach (SrsEntry entry in _selectedItems.Select(e => e.Reference))
@@ -948,20 +944,20 @@ namespace Kanji.Interface.ViewModels
         private void OnExport()
         {
             // Create SaveFileDialog 
-            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            SaveFileDialog dlg = new SaveFileDialog();
 
             // Set dialog parameters
-            dlg.FileName = "HouhouExport.csv";
-            dlg.Filter = "CSV document|*.csv";
+            dlg.DefaultExtension = "csv";
+            dlg.InitialFileName = "HouhouExport.csv";
 
             // Show SaveFileDialog and get its result
-            Nullable<bool> result = dlg.ShowDialog();
-            if (result == true)
+            var result = dlg.ShowAsync(NavigationActor.Instance.ActiveWindow).Result;
+            if (result != null)
             {
                 // We have a result. Use it.
                 try
                 {
-                    using (CsvFileWriter csv = new CsvFileWriter(dlg.FileName))
+                    using (CsvFileWriter csv = new CsvFileWriter(result))
                     {
                         csv.Delimiter = ';';
                         
@@ -1005,14 +1001,13 @@ namespace Kanji.Interface.ViewModels
                     LogHelper.GetLogger("Export").Error("An exception occured during an export operation.", ex);
 
                     // And show a dialog with the error.
-                    System.Windows.MessageBox.Show(
-                        string.Format("An error occured during the export: \"{0}\".{1}{1}{2}",
-                        ex.GetType().Name,
-                        Environment.NewLine,
-                        ex.Message),
-                        "Export error",
-                        System.Windows.MessageBoxButton.OK,
-                        System.Windows.MessageBoxImage.Error);
+                    MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
+                    {
+                        ContentTitle = "Export error",
+                        ContentMessage = $"An error occurred during the export: \"{ex.GetType().Name}\".{Environment.NewLine}{Environment.NewLine}{ex.Message}",
+                        Icon = Icon.Error,
+                        ButtonDefinitions = ButtonEnum.Ok,
+                    }).ShowDialog(NavigationActor.Instance.ActiveWindow);
                 }
             }
         }

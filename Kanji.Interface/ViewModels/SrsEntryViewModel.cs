@@ -14,6 +14,9 @@ using Kanji.Interface.Internationalization;
 using Kanji.Interface.Models;
 using Kanji.Interface.Utilities;
 using Kanji.Database.Helpers;
+using MessageBox.Avalonia;
+using MessageBox.Avalonia.DTO;
+using MessageBox.Avalonia.Enums;
 
 namespace Kanji.Interface.ViewModels
 {
@@ -686,14 +689,13 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         private void OnDelete()
         {
-            if (System.Windows.MessageBox.Show(
-                NavigationActor.Instance.ActiveWindow,
-                "Do you really want to delete this SRS item?",
-                "Delete the SRS item",
-                System.Windows.MessageBoxButton.YesNo,
-                System.Windows.MessageBoxImage.Question,
-                System.Windows.MessageBoxResult.Cancel)
-                == System.Windows.MessageBoxResult.Yes)
+            var result = MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
+            {
+                ContentTitle = "Delete the SRS item",
+                ContentMessage = "Do you really want to delete the SRS item?",
+                ButtonDefinitions = MessageBox.Avalonia.Enums.ButtonEnum.YesNo,
+            }).ShowDialog(NavigationActor.Instance.ActiveWindow);
+            if (result.Result == ButtonResult.Yes)
             {
                 SendEntity(SrsEntryOperationEnum.Delete);
             }

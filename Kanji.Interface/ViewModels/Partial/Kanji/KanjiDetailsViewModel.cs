@@ -13,13 +13,16 @@ using Kanji.Interface.Extensions;
 using System.ComponentModel;
 using Kanji.Interface.Helpers;
 using Kanji.Database.Dao;
-using SharpVectors.Converters;
 using System.IO;
 using Kanji.Common.Helpers;
 
 using System.Text.RegularExpressions;
 
 using System.Diagnostics;
+using Avalonia.Threading;
+using Avalonia.Media;
+using Avalonia;
+using Kanji.Interface.Actors;
 
 namespace Kanji.Interface.ViewModels
 {
@@ -303,8 +306,9 @@ namespace Kanji.Interface.ViewModels
             if (StrokesDrawingGroup != null)
             {
                 int startX = (CurrentStroke - 1) * StrokeSquareWidth;
-                StrokesDrawingGroup.ClipGeometry = new RectangleGeometry(
-                    new System.Windows.Rect(startX, 0, StrokeSquareWidth, StrokesDrawingGroup.Bounds.Height));
+                //TODO
+                //StrokesDrawingGroup.ClipGeometry = new RectangleGeometry(
+                //    new Rect(startX, 0, StrokeSquareWidth, StrokesDrawingGroup.GetBounds().Height));
             }
         }
 
@@ -335,26 +339,27 @@ namespace Kanji.Interface.ViewModels
                 KanjiStrokes strokes = dao.GetKanjiStrokes(_kanjiEntity.DbKanji.ID);
                 if (strokes != null && strokes.FramesSvg.Length > 0)
                 {
+                    //TODO
                     // If the strokes was successfuly retrieved, we have to read the compressed SVG contained inside.
-                    SharpVectors.Renderers.Wpf.WpfDrawingSettings settings = new SharpVectors.Renderers.Wpf.WpfDrawingSettings();
-                    using (FileSvgReader r = new FileSvgReader(settings))
-                    {
-                        // Unzip the stream and remove instances of "px" that are problematic for SharpVectors.
-                        string svgString = StringCompressionHelper.Unzip(strokes.FramesSvg);
-                        svgString = svgString.Replace("px", string.Empty);
-                        StrokesCount = Regex.Matches(svgString, "<circle").Count;
-                        using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(svgString)))
-                        {
-                            // Then read the stream to a DrawingGroup.
-                            // We are forced to do this operation on the UI thread because DrawingGroups must
-                            // be always manipulated by the same thread.
-                            DispatcherHelper.Invoke(() => 
-                                {
-                                    StrokesDrawingGroup = r.Read(stream);
-                                    SetCurrentStroke(1);
-                                });
-                        }
-                    }
+                    //SharpVectors.Renderers.Wpf.WpfDrawingSettings settings = new SharpVectors.Renderers.Wpf.WpfDrawingSettings();
+                    //using (FileSvgReader r = new FileSvgReader(settings))
+                    //{
+                    //    // Unzip the stream and remove instances of "px" that are problematic for SharpVectors.
+                    //    string svgString = StringCompressionHelper.Unzip(strokes.FramesSvg);
+                    //    svgString = svgString.Replace("px", string.Empty);
+                    //    StrokesCount = Regex.Matches(svgString, "<circle").Count;
+                    //    using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(svgString)))
+                    //    {
+                    //        // Then read the stream to a DrawingGroup.
+                    //        // We are forced to do this operation on the UI thread because DrawingGroups must
+                    //        // be always manipulated by the same thread.
+                    //        DispatcherHelper.Invoke(() => 
+                    //            {
+                    //                StrokesDrawingGroup = r.Read(stream);
+                    //                SetCurrentStroke(1);
+                    //            });
+                    //    }
+                    //}
                 }
             }
         }
@@ -401,7 +406,7 @@ namespace Kanji.Interface.ViewModels
 
             // Show the modal entry edition window.
             EditSrsEntryWindow wnd = new EditSrsEntryWindow(entry);
-            wnd.ShowDialog();
+            wnd.ShowDialog(NavigationActor.Instance.ActiveWindow);
 
             // When it is closed, get the result.
             ExtendedSrsEntry result = wnd.Result;
@@ -424,7 +429,7 @@ namespace Kanji.Interface.ViewModels
             {
                 // Show the modal entry edition window.
                 EditSrsEntryWindow wnd = new EditSrsEntryWindow(SrsEntry.Reference.Clone());
-                wnd.ShowDialog();
+                wnd.ShowDialog(NavigationActor.Instance.ActiveWindow);
 
                 // When it is closed, get the result.
                 ExtendedSrsEntry result = wnd.Result;

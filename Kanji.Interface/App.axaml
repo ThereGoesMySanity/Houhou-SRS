@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application
+    x:Class="Kanji.Interface.App"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Application.Styles>
+      <StyleInclude Source="pack://application:,,,/ViewResources/Style.axaml"/>
+    </Application.Styles>
+</Application>

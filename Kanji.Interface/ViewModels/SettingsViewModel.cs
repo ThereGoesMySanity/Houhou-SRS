@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Command;
 using Kanji.Interface.Actors;
 using Kanji.Interface.Models;
+using MessageBox.Avalonia;
+using MessageBox.Avalonia.DTO;
+using MessageBox.Avalonia.Enums;
 
 namespace Kanji.Interface.ViewModels
 {
@@ -191,20 +194,20 @@ namespace Kanji.Interface.ViewModels
 
             if (ContentViewModel.IsChangePending)
             {
-                MessageBoxResult choice = MessageBox.Show(NavigationActor.Instance.ActiveWindow,
-                    string.Format("Some changes were not saved.{0}Do you want to save them?",
-                        Environment.NewLine),
-                    "Pending changes",
-                    System.Windows.MessageBoxButton.YesNoCancel,
-                    System.Windows.MessageBoxImage.Information,
-                    MessageBoxResult.Cancel);
-
-                switch (choice)
+                var task = MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
                 {
-                    case MessageBoxResult.Yes:
+                    ContentTitle = "Pending changes",
+                    ContentMessage = $"Some changes were not saved{Environment.NewLine}Do you want to save them?",
+                    ButtonDefinitions = ButtonEnum.YesNoCancel,
+                    Icon = Icon.Info,
+                }).ShowDialog(NavigationActor.Instance.ActiveWindow);
+
+                switch (task.Result)
+                {
+                    case ButtonResult.Yes:
                         OnSaveSettings();
                         break;
-                    case MessageBoxResult.Cancel:
+                    case ButtonResult.Cancel:
                         return; // Do not navigate on cancel.
                 }
             }
@@ -225,11 +228,13 @@ namespace Kanji.Interface.ViewModels
 
             if (needRestart)
             {
-                MessageBox.Show(NavigationActor.Instance.ActiveWindow,
-                    string.Format("Some changes will not take effect until the application is restarted."),
-                    "Some settings need restart",
-                    System.Windows.MessageBoxButton.OK,
-                    System.Windows.MessageBoxImage.Information);
+                MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
+                {
+                    ButtonDefinitions = ButtonEnum.Ok,
+                    ContentTitle = "Some settings need restart",
+                    ContentMessage = "Some changes will not take effect until the application is restarted.",
+                    Icon = Icon.Info,
+                }).ShowDialog(NavigationActor.Instance.ActiveWindow);
             }
         }
 

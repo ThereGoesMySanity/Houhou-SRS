@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Avalonia;
+using Avalonia.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,12 +14,7 @@ namespace Kanji.Interface.Controls
     {
         #region Dependency properties
 
-        public static readonly DependencyProperty IsInlineProperty =
-            DependencyProperty.Register(
-            "IsInline",
-            typeof(bool),
-            typeof(SrsEntryFilterControlBase),
-            new PropertyMetadata(true));
+        public static readonly AvaloniaProperty IsInlineProperty = AvaloniaProperty.Register<SrsEntryFilterControlBase, bool>("IsInline", true);
 
         #endregion
 

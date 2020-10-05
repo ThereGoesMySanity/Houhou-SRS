@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Avalonia.Data.Converters;
 using Kanji.Database.Helpers;
 using Kanji.Interface.Models;
 

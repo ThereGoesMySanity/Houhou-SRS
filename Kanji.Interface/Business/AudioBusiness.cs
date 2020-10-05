@@ -257,16 +257,16 @@ namespace Kanji.Interface.Business
             //}
             //TODO
 
-            if (duration.Ticks == UnavailableDurationTicks)
-            {
-                // Probably unavailable (or we're having terrible, terrible luck)
-                if (_playingVocab != null)
-                {
-                    _playingVocab.State = VocabAudioState.Unavailable;
-                    _playingVocab = null;
-                }
-                IsBusy = false;
-            }
+            //if (duration.Ticks == UnavailableDurationTicks)
+            //{
+            //    // Probably unavailable (or we're having terrible, terrible luck)
+            //    if (_playingVocab != null)
+            //    {
+            //        _playingVocab.State = VocabAudioState.Unavailable;
+            //        _playingVocab = null;
+            //    }
+            //    IsBusy = false;
+            //}
             //else
             //{
             //    _player.Position = TimeSpan.Zero;

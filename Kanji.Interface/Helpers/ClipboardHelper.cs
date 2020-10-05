@@ -18,16 +18,17 @@ namespace Kanji.Interface.Helpers
         {
             // This code is totally awful but if we don't do that, we'll run into an issue for some users.
             // Thank you Robert Wagner (http://stackoverflow.com/questions/68666/clipbrd-e-cant-open-error-when-setting-the-clipboard-from-net).
-            for (int i = 0; i < 10; i++)
-            {
-                try
-                {
-                    System.Windows.Clipboard.SetText(value);
-                    return true;
-                }
-                catch { }
-                System.Threading.Thread.Sleep(10);
-            }
+            //TODO: platform-specific
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    try
+            //    {
+            //        System.Windows.Clipboard.SetText(value);
+            //        return true;
+            //    }
+            //    catch { }
+            //    System.Threading.Thread.Sleep(10);
+            //}
 
             return false;
         }

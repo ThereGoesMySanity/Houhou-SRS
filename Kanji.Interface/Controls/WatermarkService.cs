@@ -2,9 +2,14 @@
 // http://stackoverflow.com/questions/833943/watermark-hint-text-textbox-in-wpf
 
 using Avalonia;
+using Avalonia.Collections;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
+using Avalonia.Data;
+using Avalonia.Input;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -67,30 +72,24 @@ namespace Kanji.Interface.Controls
         private static void OnWatermarkChanged(AvaloniaPropertyChangedEventArgs e)
         {
             Control control = (Control)e.Sender;
-            control.Loaded += Control_Loaded;
+            control.Initialized += Control_Loaded;
 
-            if (d is ComboBox || d is TextBox)
+            if (control is ComboBox || control is TextBox)
             {
-                control.GotKeyboardFocus += Control_GotKeyboardFocus;
-                control.LostKeyboardFocus += Control_Loaded;
+                control.GotFocus += Control_GotKeyboardFocus;
+                control.LostFocus += Control_Loaded;
             }
 
-            if (d is TextBox)
+            if (control is TextBox textBox)
             {
-                (control as TextBox).TextChanged += Control_TextChanged;
+                textBox.GetObservable(TextBox.TextProperty).Subscribe(val => Control_TextChanged(textBox));
             }
 
-            if (d is ItemsControl && !(d is ComboBox))
+            if (control is ItemsControl i && !(control is ComboBox))
             {
-                ItemsControl i = (ItemsControl)d;
-
                 // for Items property  
-                i.ItemContainerGenerator.ItemsChanged += ItemsChanged;
+                (i.Items as INotifyCollectionChanged).WeakSubscribe(ItemsChanged);
                 itemsControls.Add(i.ItemContainerGenerator, i);
-
-                // for ItemsSource property  
-                AvaloniaPropertyDescriptor prop = AvaloniaPropertyDescriptor.FromProperty(ItemsControl.ItemsSourceProperty, i.GetType());
-                prop.AddValueChanged(i, ItemsSourceChanged);
             }
         }
 
@@ -101,7 +100,7 @@ namespace Kanji.Interface.Controls
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="RoutedEventArgs"/> that contains the event data.</param>
-        private static void Control_GotKeyboardFocus(object sender, RoutedEventArgs e)
+        private static void Control_GotKeyboardFocus(object sender, GotFocusEventArgs e)
         {
             Control c = (Control)sender;
             if (ShouldShowWatermark(c))
@@ -110,10 +109,10 @@ namespace Kanji.Interface.Controls
             }
         }
 
-        static void Control_TextChanged(object sender, TextChangedEventArgs e)
+        static void Control_TextChanged(object sender)
         {
             Control control = (Control)sender;
-            if (ShouldShowWatermark(control) && !control.IsKeyboardFocused)
+            if (ShouldShowWatermark(control) && !control.IsFocused)
             {
                 ShowWatermark(control);
             }
@@ -127,8 +126,8 @@ namespace Kanji.Interface.Controls
         /// Handle the Loaded and LostFocus event on the control
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">A <see cref="RoutedEventArgs"/> that contains the event data.</param>
-        private static void Control_Loaded(object sender, RoutedEventArgs e)
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+        private static void Control_Loaded(object sender, EventArgs e)
         {
             Control control = (Control)sender;
             if (ShouldShowWatermark(control))
@@ -138,36 +137,11 @@ namespace Kanji.Interface.Controls
         }
 
         /// <summary>
-        /// Event handler for the items source changed event
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        private static void ItemsSourceChanged(object sender, EventArgs e)
-        {
-            ItemsControl c = (ItemsControl)sender;
-            if (c.ItemsSource != null)
-            {
-                if (ShouldShowWatermark(c))
-                {
-                    ShowWatermark(c);
-                }
-                else
-                {
-                    RemoveWatermark(c);
-                }
-            }
-            else
-            {
-                ShowWatermark(c);
-            }
-        }
-
-        /// <summary>
         /// Event handler for the items changed event
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="ItemsChangedEventArgs"/> that contains the event data.</param>
-        private static void ItemsChanged(object sender, ItemsChangedEventArgs e)
+        private static void ItemsChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             ItemsControl control;
             if (itemsControls.TryGetValue(sender, out control))
@@ -191,25 +165,25 @@ namespace Kanji.Interface.Controls
         /// Remove the watermark from the specified element
         /// </summary>
         /// <param name="control">Element to remove the watermark from</param>
-        private static void RemoveWatermark(UIElement control)
+        private static void RemoveWatermark(IControl control)
         {
             AdornerLayer layer = AdornerLayer.GetAdornerLayer(control);
 
             // layer could be null if control is no longer in the visual tree
             if (layer != null)
             {
-                Adorner[] adorners = layer.GetAdorners(control);
+                Avalonia.Controls.Controls adorners = layer.Children;
                 if (adorners == null)
                 {
                     return;
                 }
 
-                foreach (Adorner adorner in adorners)
+                foreach (Control adorner in adorners)
                 {
                     if (adorner is WatermarkAdorner)
                     {
-                        adorner.Visibility = Visibility.Hidden;
-                        layer.Remove(adorner);
+                        adorner.IsVisible = false;
+                        layer.Children.Remove(adorner);
                     }
                 }
             }
@@ -226,7 +200,7 @@ namespace Kanji.Interface.Controls
             // layer could be null if control is no longer in the visual tree
             if (layer != null)
             {
-                layer.Add(new WatermarkAdorner(control, GetWatermark(control)));
+                layer.Children.Add(new WatermarkAdorner(control, GetWatermark(control)));
             }
         }
 
@@ -237,17 +211,17 @@ namespace Kanji.Interface.Controls
         /// <returns>true if the watermark should be shown; false otherwise</returns>
         private static bool ShouldShowWatermark(Control c)
         {
-            if (c is ComboBox)
+            if (c is ComboBox combo)
             {
-                return (c as ComboBox).Text == string.Empty;
+                return combo.SelectedItem.ToString() == string.Empty;
             }
-            else if (c is TextBoxBase)
+            else if (c is TextBox text)
             {
-                return (c as TextBox).Text == string.Empty;
+                return text.Text == string.Empty;
             }
             else if (c is ItemsControl)
             {
-                return (c as ItemsControl).Items.Count == 0;
+                return (c as ItemsControl).ItemCount == 0;
             }
             else
             {
