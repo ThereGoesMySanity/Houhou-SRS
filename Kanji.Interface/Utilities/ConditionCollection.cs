@@ -13,7 +13,7 @@ namespace Kanji.Interface.Utilities
 {
     class ConditionCollection : AvaloniaList<IAvaloniaObject>
     {
-        public event EventHandler<AvaloniaPropertyChangedEventArgs> CollectionIsSatisfied;
+        public event EventHandler<ConditionEqualityChangedEventArgs> CollectionIsSatisfied;
         public ConditionCollection()
         {
             CollectionChanged += ConditionCollection_CollectionChanged;
@@ -37,7 +37,7 @@ namespace Kanji.Interface.Utilities
                 VerifyType(changedItem);
                 (changedItem as Condition).EqualityChanged += CollectionCheckEquality;
             }
-            CollectionCheckEquality(sender, null);
+            CollectionCheckEquality(this, null);
         }
 
         private void CollectionCheckEquality(object? sender, EventArgs args)
@@ -48,7 +48,7 @@ namespace Kanji.Interface.Utilities
             };
             if (collectionArgs.NewValue)
             {
-                CollectionIsSatisfied(this, args);
+                CollectionIsSatisfied(this, collectionArgs);
             }
         }
 
@@ -61,4 +61,4 @@ namespace Kanji.Interface.Utilities
         }
     }
 }
-}
+
