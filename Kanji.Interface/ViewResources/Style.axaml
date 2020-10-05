@@ -595,53 +595,39 @@
         </ia:DataTriggerBehavior>
         <ia:DataTriggerBehavior Binding="{Binding Audio.State}" Value="Failed">
           <ia:ChangePropertyAction PropertyName="Content" Value="(Failed)" />
+          <ia:ChangePropertyAction PropertyName="BorderBrush" Value ="DarkRed" />
         </ia:DataTriggerBehavior>
         <ia:DataTriggerBehavior Binding="{Binding Audio.State}" Value="Unavailable">
           <ia:ChangePropertyAction PropertyName="Content" Value="(No audio)" />
+          <ia:ChangePropertyAction PropertyName="BorderBrush" Value ="DarkRed" />
+        </ia:DataTriggerBehavior>
+        <utility:MultiDataTriggerBehavior>
+          <utility:MultiDataTriggerBehavior.Conditions>
+            <utility:Condition Binding="{Binding IsBusy, Source={x:Static business:AudioBusiness.Instance}}" Value="False" />
+            <utility:Condition Binding="{Binding Audio.State}" Value="Unknown" />
+          </utility:MultiDataTriggerBehavior.Conditions>
+          <ia:ChangePropertyAction PropertyName="IsEnabled" Value="True" />
+        </utility:MultiDataTriggerBehavior>
+        <utility:MultiDataTriggerBehavior>
+          <utility:MultiDataTriggerBehavior.Conditions>
+            <utility:Condition Binding="{Binding IsBusy, Source={x:Static business:AudioBusiness.Instance}}" Value="False" />
+            <utility:Condition Binding="{Binding Audio.State}" Value="Playable" />
+          </utility:MultiDataTriggerBehavior.Conditions>
+          <ia:ChangePropertyAction PropertyName="IsEnabled" Value="True" />
+        </utility:MultiDataTriggerBehavior>
+        <utility:MultiDataTriggerBehavior>
+          <utility:MultiDataTriggerBehavior.Conditions>
+            <utility:Condition Binding="{Binding IsBusy, Source={x:Static business:AudioBusiness.Instance}}" Value="False" />
+            <utility:Condition Binding="{Binding Audio.State}" Value="Failed" />
+          </utility:MultiDataTriggerBehavior.Conditions>
+          <ia:ChangePropertyAction PropertyName="IsEnabled" Value="True" />
+        </utility:MultiDataTriggerBehavior>
+        <ia:DataTriggerBehavior Binding="{Binding IsMouseOver}" Value="True">
+          <ia:ChangePropertyAction PropertyName="Opacity" Value="1" />
+          <ia:ChangePropertyAction PropertyName="BorderBrush" Value="#99042880" />
         </ia:DataTriggerBehavior>
       </i:Interaction.Behaviors>
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding Audio.State}" Value="Loading">
-                <Setter Property="Content" Value="(Loading)" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding Audio.State}" Value="Playing">
-                <Setter Property="Content" Value="(Playing)" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding Audio.State}" Value="Failed">
-                <Setter Property="Content" Value="(Failed)" />
-                <Setter Property="BorderBrush" Value="DarkRed" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding Audio.State}" Value="Unavailable">
-                <Setter Property="Content" Value="(No audio)" />
-                <Setter Property="BorderBrush" Value="DarkRed" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding IsBusy, Source={x:Static business:AudioBusiness.Instance}}" Value="False" />
-                    <Condition Binding="{Binding Audio.State}" Value="Unknown" />
-                </MultiDataTrigger.Conditions>
-                <Setter Property="IsEnabled" Value="True" />
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding IsBusy, Source={x:Static business:AudioBusiness.Instance}}" Value="False" />
-                    <Condition Binding="{Binding Audio.State}" Value="Playable" />
-                </MultiDataTrigger.Conditions>
-                <Setter Property="IsEnabled" Value="True" />
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding IsBusy, Source={x:Static business:AudioBusiness.Instance}}" Value="False" />
-                    <Condition Binding="{Binding Audio.State}" Value="Failed" />
-                </MultiDataTrigger.Conditions>
-                <Setter Property="IsEnabled" Value="True" />
-            </MultiDataTrigger>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Opacity" Value="1" />
-                <Setter Property="BorderBrush" Value="#99042880" />
-            </Trigger>
-        </Style.Triggers>
-        <Setter Property="Content" Value="Listen" />
+      <Setter Property="Content" Value="Listen" />
         <Setter Property="IsEnabled" Value="False" />
         <Setter Property="FontSize" Value="10" />
         <Setter Property="ToolTip" Value="Attempt to retrieve and play the audio for this word." />
@@ -694,14 +680,14 @@
     </ControlTemplate>
 
     <Style TargetType="{x:Type ListBoxItem}" x:Key="MiniRadicalInList">
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding HasImage}" Value="True">
-                <Setter Property="Template" Value="{StaticResource MiniRadicalInListImageTemplate}" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding HasImage}" Value="False">
-                <Setter Property="Template" Value="{StaticResource MiniRadicalInListTextTemplate}" />
-            </DataTrigger>
-        </Style.Triggers>
+      <i:Interaction.Behaviors>
+        <ia:DataTriggerBehavior Binding="{Binding HasImage}" Value="True">
+          <ia:ChangePropertyAction PropertyName="Template" Value="{StaticResource MiniRadicalInListImageTemplate}" />
+        </ia:DataTriggerBehavior>
+        <ia:DataTriggerBehavior Binding="{Binding HasImage}" Value="False">
+          <ia:ChangePropertyAction PropertyName="Template" Value="{StaticResource MiniRadicalInListTextTemplate}" />
+        </ia:DataTriggerBehavior>
+      </i:Interaction.Behaviors>
         <Setter Property="ToolTip" Value="{Binding Path=Name}" />
     </Style>
 
@@ -762,35 +748,33 @@
     <Style TargetType="{x:Type ListBoxItem}" x:Key="RadicalInList">
         <Setter Property="Foreground" Value="White" />
         <Setter Property="Background" Value="#86469B" />
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding Reference.HasImage}" Value="True">
-                <Setter Property="Template" Value="{StaticResource RadicalInListImageTemplate}" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding Reference.HasImage}" Value="False">
-                <Setter Property="Template" Value="{StaticResource RadicalInListTextTemplate}" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding IsRelevant}" Value="False">
-                <Setter Property="Background" Value="#333333" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding IsAvailable}" Value="Hidden">
-                <Setter Property="Visibility" Value="Collapsed" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding IsAvailable}" Value="SemiHidden">
-                <Setter Property="Opacity" Value="0.5" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                <Setter Property="Background" Value="#FF2277CB" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" Value="True" />
-                    <Condition Binding="{Binding IsSelected}" Value="False" />
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Background" Value="#8646DD" />
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-        </Style.Triggers>
+      <i:Interaction.Behaviors>
+        <ia:DataTriggerBehavior Binding="{Binding Reference.HasImage}" Value="True">
+          <ia:ChangePropertyAction PropertyName="Template" Value="{StaticResource RadicalInListImageTemplate}" />
+        </ia:DataTriggerBehavior>
+        <ia:DataTriggerBehavior Binding="{Binding Reference.HasImage}" Value="False">
+          <ia:ChangePropertyAction PropertyName="Template" Value="{StaticResource RadicalInListTextTemplate}" />
+        </ia:DataTriggerBehavior>
+        <ia:DataTriggerBehavior Binding="{Binding IsRelevant}" Value="False">
+          <ia:ChangePropertyAction PropertyName="Background" Value="#333333" />
+        </ia:DataTriggerBehavior>
+        <ia:DataTriggerBehavior Binding="{Binding IsAvailable}" Value="Hidden">
+          <ia:ChangePropertyAction PropertyName="Background" Value="#333333" />
+        </ia:DataTriggerBehavior>
+        <ia:DataTriggerBehavior Binding="{Binding IsAvailable}" Value="SemiHidden">
+          <ia:ChangePropertyAction PropertyName="Opacity" Value="0.5" />
+        </ia:DataTriggerBehavior>
+        <ia:DataTriggerBehavior Binding="{Binding IsSelected}" Value="SemiHidden">
+          <ia:ChangePropertyAction PropertyName="Background" Value="#FF2277CB" />
+        </ia:DataTriggerBehavior>
+        <utility:MultiDataTriggerBehavior>
+          <utility:MultiDataTriggerBehavior.Conditions>
+            <utility:Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" Value="True" />
+            <utility:Condition Binding="{Binding IsSelected}" Value="False" />
+          </utility:MultiDataTriggerBehavior.Conditions>
+          <ia:ChangePropertyAction PropertyName="Background" Value="#8646DD" />
+        </utility:MultiDataTriggerBehavior>
+      </i:Interaction.Behaviors>
     </Style>
 
     <Style TargetType="{x:Type ListBoxItem}" x:Key="KanjiInList">
