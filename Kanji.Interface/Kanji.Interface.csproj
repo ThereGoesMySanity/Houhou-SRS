@@ -11,15 +11,21 @@
     <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.9.11" />
-    <PackageReference Include="Avalonia.Desktop" Version="0.9.11" />
+    <PackageReference Include="Avalonia" Version="0.10.0-preview5" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" Version="0.10.0-preview5" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.10.0-preview5" />
+    <PackageReference Include="Avalonia.Xaml.Behaviors" Version="0.9.12" />
+    <PackageReference Include="Avalonia.Xaml.Interactions" Version="0.9.12" />
+    <PackageReference Include="Avalonia.Xaml.Interactivity" Version="0.9.12" />
     <PackageReference Include="CommonServiceLocator" Version="2.0.5" />
     <PackageReference Include="log4net" Version="2.0.11" />
+    <PackageReference Include="MessageBox.Avalonia" Version="0.9.6.1" />
     <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="SharpVectors" Version="1.0.0" />
+    <PackageReference Include="Svg.Skia.Avalonia" Version="0.10.0-preview7" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AvaloniaGif\AvaloniaGif\AvaloniaGif.csproj" />
     <ProjectReference Include="..\Kanji.Common\Kanji.Common.csproj" />
     <ProjectReference Include="..\Kanji.Database\Kanji.Database.csproj" />
   </ItemGroup>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Avalonia.Threading;
 using Kanji.Common.Helpers;
 
 namespace Kanji.Interface.Helpers
@@ -19,8 +20,7 @@ namespace Kanji.Interface.Helpers
         /// <param name="action">Action to invoke.</param>
         public static void Invoke(Action action)
         {
-            
-                App.Current.Dispatcher.Invoke(action);
+            Dispatcher.UIThread.InvokeAsync(action).Wait();
             
         }
 
@@ -35,7 +35,7 @@ namespace Kanji.Interface.Helpers
         {
             try
             {
-                return App.Current.Dispatcher.Invoke<T>(action);
+                return Dispatcher.UIThread.InvokeAsync<T>(action).Result;
             }
             catch (Exception ex)
             {
@@ -52,7 +52,7 @@ namespace Kanji.Interface.Helpers
         {
             try
             {
-                App.Current.Dispatcher.InvokeAsync(action);
+                Dispatcher.UIThread.InvokeAsync(action);
             }
             catch (Exception ex)
             {

@@ -210,9 +210,9 @@ namespace Kanji.Interface.Actors
                 {
                     DispatcherHelper.Invoke(() =>
                     {
-                        if (MainWindow.WindowState == System.Windows.WindowState.Minimized)
+                        if (MainWindow.WindowState == WindowState.Minimized)
                         {
-                            MainWindow.WindowState = System.Windows.WindowState.Normal;
+                            MainWindow.WindowState = WindowState.Normal;
                         }
 
                         MainWindow.Activate();

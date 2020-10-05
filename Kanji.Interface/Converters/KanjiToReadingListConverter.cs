@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Kanji.Interface.Models;
 using Kanji.Database.Helpers;
 using Kanji.Common.Helpers;
+using Avalonia.Data.Converters;
 
 namespace Kanji.Interface.Converters
 {

@@ -1,6 +1,10 @@
 ﻿// Thank you Rohit Vats
 // http://stackoverflow.com/questions/12125764/change-style-of-last-item-in-listbox
 
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Controls.Generators;
+using Avalonia.Data.Converters;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -18,10 +22,11 @@ namespace Kanji.Interface.Converters
         public object Convert(object value, Type targetType,
                               object parameter, CultureInfo culture)
         {
-            DependencyObject item = (DependencyObject)value;
-            ItemsControl ic = ItemsControl.ItemsControlFromItemContainer(item);
+            //TODO
+            //AvaloniaObject item = (AvaloniaObject)value;
+            //ItemsControl ic = ItemsControl.ItemsControlFromItemContainer(item);
 
-            return ic.ItemContainerGenerator.IndexFromContainer(item) == 0;
+            return (value as ItemContainerInfo).Index == 0;
                 //== ic.Items.Count - 1;
         }
 

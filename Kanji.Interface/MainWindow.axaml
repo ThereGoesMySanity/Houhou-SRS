@@ -1,0 +1,55 @@
+﻿<Window x:Class="Kanji.Interface.MainWindow"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+             xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
+        xmlns:controls="clr-namespace:Kanji.Interface.Controls"
+        xmlns:views="clr-namespace:Kanji.Interface.Views"
+        xmlns:actors="clr-namespace:Kanji.Interface.Actors"
+        xmlns:models="clr-namespace:Kanji.Interface.Models"
+        Title="Houhou" Height="600" Width="1000" KeyDown="OnKeyDown">
+
+    <Grid>
+      <views:HomePage x:Name="HomePage" IsVisible="False">
+        <i:Interaction.Behaviors>
+          <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}"
+              Value="{x:Static models:NavigationPageEnum.Home}">
+            <ia:ChangePropertyAction TargetObject="{Binding #HomePage}" PropertyName="IsVisible" Value="true" />
+          </ia:DataTriggerBehavior>
+        </i:Interaction.Behaviors>
+      </views:HomePage>
+      <views:KanjiPage IsVisible="False">
+        <i:Interaction.Behaviors>
+          <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}"
+              Value="{x:Static models:NavigationPageEnum.Kanji}">
+            <ia:ChangePropertyAction PropertyName="IsVisible" Value="true" />
+          </ia:DataTriggerBehavior>
+        </i:Interaction.Behaviors>
+      </views:KanjiPage>
+      <views:VocabPage IsVisible="False">
+        <i:Interaction.Behaviors>
+          <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}"
+              Value="{x:Static models:NavigationPageEnum.Vocab}">
+            <ia:ChangePropertyAction PropertyName="IsVisible" Value="true" />
+          </ia:DataTriggerBehavior>
+        </i:Interaction.Behaviors>
+      </views:VocabPage>
+      <views:SrsPage IsVisible="False">
+        <i:Interaction.Behaviors>
+          <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}"
+              Value="{x:Static models:NavigationPageEnum.Srs}">
+            <ia:ChangePropertyAction PropertyName="IsVisible" Value="true" />
+          </ia:DataTriggerBehavior>
+        </i:Interaction.Behaviors>
+      </views:SrsPage>
+      <views:SettingsPage IsVisible="False">
+        <i:Interaction.Behaviors>
+          <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}"
+              Value="{x:Static models:NavigationPageEnum.Settings}">
+            <ia:ChangePropertyAction PropertyName="IsVisible" Value="true" />
+          </ia:DataTriggerBehavior>
+        </i:Interaction.Behaviors>
+      </views:SettingsPage>
+      <!--<TextBlock FontFamily="./NotoSansCJKjp-Thin.otf#Noto Sans CJK JP Thin" FontSize="32" Foreground="Black" Text="Mahaoren 見ている" />-->
+    </Grid>
+</Window>

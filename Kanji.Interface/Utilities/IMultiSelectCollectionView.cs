@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Utilities
 {
-    public interface IMultiSelectCollectionView
-    {
-        void AddControl(Selector selector);
-        void RemoveControl(Selector selector);
-    }  
+    //public interface IMultiSelectCollectionView
+    //{
+    //    void AddControl(Selector selector);
+    //    void RemoveControl(Selector selector);
+    //}  
 }

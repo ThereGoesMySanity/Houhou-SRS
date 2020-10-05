@@ -52,7 +52,8 @@ namespace Kanji.Interface.ViewModels
         protected override void DoSaveSetting()
         {
             Properties.Settings.Default.TrayCheckInterval = TimeSpan.FromMinutes(Interval);
-            TrayBusiness.Instance.ReloadConfiguration();
+            //TODO
+            //TrayBusiness.Instance.ReloadConfiguration();
         }
 
         public override bool IsSettingChanged()

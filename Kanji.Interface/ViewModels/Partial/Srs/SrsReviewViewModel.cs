@@ -14,6 +14,8 @@ using Kanji.Interface.Business;
 using Kanji.Interface.Models;
 using Kanji.Interface.Views;
 using Kanji.Interface.Extensions;
+using Kanji.Interface.Actors;
+using Avalonia.Threading;
 
 namespace Kanji.Interface.ViewModels
 {
@@ -832,7 +834,7 @@ namespace Kanji.Interface.ViewModels
             {
                 // Show the modal entry edition window.
                 EditSrsEntryWindow wnd = new EditSrsEntryWindow(CurrentQuestionGroup.Reference.Clone());
-                wnd.ShowDialog();
+                wnd.ShowDialog(NavigationActor.Instance.ActiveWindow);
 
                 // When it is closed, get the result.
                 ExtendedSrsEntry result = wnd.Result;

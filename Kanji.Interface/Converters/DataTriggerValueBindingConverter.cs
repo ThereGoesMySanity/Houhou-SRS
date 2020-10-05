@@ -1,6 +1,8 @@
 ﻿// Credits to Alex's C# and .NET blog
 // http://alexcdotnet.blogspot.fr/2011/11/datatrigger-binding-to-value.html
 
+using Avalonia;
+using Avalonia.Data.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +29,7 @@ namespace Kanji.Interface.Converters
         /// <param name="parameter">This optional parameter expects a </param>
         /// <param name="culture">redundant</param>
         /// <returns>returns true if the comparer matches the value</returns>
-        public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(IList<object> values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             if (values.Count() != 2)
                 throw new InvalidOperationException("This converter expects only two bound values, the first is your comparer object and the second is the bound value. "
@@ -36,7 +38,7 @@ namespace Kanji.Interface.Converters
             if (parameter is Type)
             {
                 if (values[0] != null && values[1] != null &&
-                    values[0] != DependencyProperty.UnsetValue && values[1] != DependencyProperty.UnsetValue)
+                    values[0] != AvaloniaProperty.UnsetValue && values[1] != AvaloniaProperty.UnsetValue)
                 {
                     //we are dynamically casting our System.Object to its apparent type passed in as the parameter
                     dynamic val1 = System.Convert.ChangeType(values[0], (Type)parameter);
