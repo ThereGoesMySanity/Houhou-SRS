@@ -15,7 +15,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         
-        <TextBlock Text="Level must be" Style="{StaticResource LegendText}" VerticalAlignment="Center" />
+        <TextBlock Text="Level must be" Classes="LegendText" VerticalAlignment="Center" />
         <ComboBox Grid.Column="1" Margin="5 0" VerticalAlignment="Center" VerticalContentAlignment="Center"
             FontSize="15" FontWeight="SemiBold"
             ItemsSource="{Binding Source={StaticResource ComparisonOperatorEnum}}"

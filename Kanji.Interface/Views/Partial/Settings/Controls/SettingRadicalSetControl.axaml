@@ -14,9 +14,9 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBlock Style="{StaticResource SettingText}" Text="Set of radicals to use in the kanji tab:" />
+        <TextBlock Classes="SettingText" Text="Set of radicals to use in the kanji tab:" />
 
-        <ListBox Grid.Row="1" Style="{StaticResource SettingUserResourceListBox}"
+        <ListBox Grid.Row="1" Classes="SettingUserResourceListBox"
             ItemsSource="{Binding AvailableSets, Source={x:Static business:RadicalStore.Instance}, Mode=OneWay}" />
         
     </Grid>

@@ -37,38 +37,38 @@
 
                 <!-- "Reviews available" text -->
                 <TextBlock Grid.Column="1" FontSize="22" Foreground="#CCFFFFFF" Margin="0 0 0 0" Text="reviews available">
-                    <TextBlock.Style>
+                    <TextBlock.Styles>
                         <Style Selector="TextBlock">
+                            <Setter Property="Text" Value="reviews available!"/>
+                        </Style>
+                    </TextBlock.Styles>
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.AvailableReviewsCount,
                                                         Source={x:Static business:SrsBusiness.Instance}}" Value="1">
                                     <ia:ChangePropertyAction Value="review available!" PropertyName="Text"/>
                                 </ia:DataTriggerBehavior>
                             </i:Interaction.Behaviors>
-                            <Setter Property="Text" Value="reviews available!"/>
-                        </Style>
-                    </TextBlock.Style>
                 </TextBlock>
 
                 <!-- No reviews available panel -->
                 <Grid x:Name="NoReviewsPanel" Grid.Row="1" Grid.Column="1" Margin="0 0 0 0">
-                    <Grid.Style>
+                    <Grid.Styles>
                         <Style Selector="Grid">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </Style>
+                    </Grid.Styles>
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.AvailableReviewsCount,
                                                          Source={x:Static business:SrsBusiness.Instance}}" Value="0">
                                     <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
                                 </ia:DataTriggerBehavior>
                             </i:Interaction.Behaviors>
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </Style>
-                    </Grid.Style>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Text="Next review:" Style="{StaticResource LegendText}" FontSize="10" Foreground="#99FFFFFF" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Next review:" Classes="LegendText" FontSize="10" Foreground="#99FFFFFF" HorizontalAlignment="Center"/>
                     <TextBlock Grid.Row="1" Margin="0 -6 0 0" HorizontalAlignment="Center" Text="{Binding CurrentReviewInfo.FirstReviewDate,
                                                        Source={x:Static business:SrsBusiness.Instance},
                                                        Converter={StaticResource DateTimeToStringConverter},
@@ -80,15 +80,14 @@
 
                 <!-- Start review button -->
                 <Button Grid.Row="1" Grid.Column="1" Content="Start reviewing" ToolTip="(CTRL+Enter)" Height="34" Command="{Binding StartReviewsCommand}">
-                    <Button.Style>
-                        <Style Selector="Button" BasedOn="{StaticResource BrightActionButton}">
-                            <i:Interaction.Behaviors>
-                                <ia:DataTriggerBehavior Binding="{Binding Visibility, ElementName=NoReviewsPanel}" Value="Visible">
-                                    <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
-                                </ia:DataTriggerBehavior>
-                            </i:Interaction.Behaviors>
-                        </Style>
-                    </Button.Style>
+                    <Button.Styles>
+                        <Style Selector="Button" InheritanceParent="{StaticResource BrightActionButton}" />
+                    </Button.Styles>
+                  <i:Interaction.Behaviors>
+                    <ia:DataTriggerBehaviordontchange Binding="{Binding Visibility, ElementName=NoReviewsPanel}" Value="Visible">
+                      <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
+                    </ia:DataTriggerBehaviordontchange>
+                  </i:Interaction.Behaviors>
                 </Button>
             </Grid>
         </Grid>

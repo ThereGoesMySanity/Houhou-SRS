@@ -19,7 +19,7 @@
         <controls:ListInfoHeaderControl />
 
         <!-- Kanji list -->
-        <ListBox x:Name="KanjiListBox" Grid.Row="1" Style="{StaticResource KanjiList}"
+        <ListBox x:Name="KanjiListBox" Grid.Row="1" Classes="KanjiList"
                  ItemsSource="{Binding LoadedItems, IsAsync=False, Mode=OneWay}"
                  SelectedItem="{Binding SelectedKanji, Mode=TwoWay}"
                  SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" />

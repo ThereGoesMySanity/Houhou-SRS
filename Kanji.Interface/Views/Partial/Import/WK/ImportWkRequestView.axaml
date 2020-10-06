@@ -12,8 +12,8 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
             <StackPanel>
                 <TextBlock>
-                    <TextBlock.Style>
-                        <Style BasedOn="{StaticResource LegendText}" Selector="TextBlock">
+                    <TextBlock.Styles>
+                        <Style InheritanceParent="{StaticResource LegendText}" Selector="TextBlock">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding IsComplete}" Value="True">
                                     <ia:ChangePropertyAction Value="The request was successful. Press the Next button to continue." PropertyName="Text"/>
@@ -25,10 +25,10 @@
                             <Setter Property="Text" Value="Requesting WaniKani. Please wait..."/>
                             <Setter Property="TextWrapping" Value="Wrap"/>
                         </Style>
-                    </TextBlock.Style>
+                    </TextBlock.Styles>
                 </TextBlock>
                 <ProgressBar Height="25" Margin="0 5">
-                    <ProgressBar.Style>
+                    <ProgressBar.Styles>
                         <Style Selector="ProgressBar">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding IsError}" Value="True">
@@ -43,14 +43,14 @@
                             </i:Interaction.Behaviors>
                             <Setter Property="IsIndeterminate" Value="True"/>
                         </Style>
-                    </ProgressBar.Style>
+                    </ProgressBar.Styles>
                 </ProgressBar>
-                <TextBox Style="{StaticResource ErrorLabel}" Text="{Binding Error, Mode=OneWay}"/>
+                <TextBox Classes="ErrorLabel" Text="{Binding Error, Mode=OneWay}"/>
 
                 <Border Visibility="{Binding IsComplete, Converter={StaticResource ValueToVisibilityConverter}}">
                     <HeaderedContentControl BorderBrush="#666666" Padding="5" Margin="0 5 0 0">
                         <HeaderedContentControl.Header>
-                            <TextBlock Text="Results" Style="{StaticResource SettingCategoryTitle}"/>
+                            <TextBlock Text="Results" Classes="SettingCategoryTitle"/>
                         </HeaderedContentControl.Header>
                         <StackPanel>
                             <TextBlock>
@@ -79,8 +79,8 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button Style="{StaticResource ActionButton}" Content="Back" Width="100" Command="{Binding ParentMode.PreviousStepCommand}" IsEnabled="{Binding IsWorking, Converter={StaticResource BooleanInverterConverter}}"/>
-            <Button Grid.Column="2" Style="{StaticResource ActionButton}" Content="Next" Width="100" Command="{Binding ParentMode.NextStepCommand}" IsEnabled="{Binding IsComplete}"/>
+            <Button Classes="ActionButton" Content="Back" Width="100" Command="{Binding ParentMode.PreviousStepCommand}" IsEnabled="{Binding IsWorking, Converter={StaticResource BooleanInverterConverter}}"/>
+            <Button Grid.Column="2" Classes="ActionButton" Content="Next" Width="100" Command="{Binding ParentMode.NextStepCommand}" IsEnabled="{Binding IsComplete}"/>
         </Grid>
     </Grid>
 </UserControl>

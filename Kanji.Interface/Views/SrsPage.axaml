@@ -12,11 +12,11 @@
 
     <DockPanel>
         <controls:NavigationBar DockPanel.Dock="Top"/>
-        <Border Style="{StaticResource SrsPageSeparator}" DockPanel.Dock="Top"/>
-        <Border Style="{StaticResource SrsPageBorder}">
+        <Border Classes="SrsPageSeparator" DockPanel.Dock="Top"/>
+        <Border Classes="SrsPageBorder">
             <Grid>
                 <Grid>
-                    <Grid.Style>
+                    <Grid.Styles>
                         <Style Selector="Grid">
                             <i:Interaction.Behaviors>
                                 <!-- Hide the grid when there is an SRS Reviews session running. -->
@@ -25,7 +25,7 @@
                                 </ia:DataTriggerBehavior>
                             </i:Interaction.Behaviors>
                         </Style>
-                    </Grid.Style>
+                    </Grid.Styles>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
@@ -50,7 +50,7 @@
                     </Grid>
                     
                     <!-- Below that, the item count per level group listbox, visible only in Dashboard mode -->
-                    <ListBox Grid.Row="1" Style="{StaticResource ItemsPerLevelGroupListbox}" Margin="0 5 0 0" Visibility="{Binding ControlMode,
+                    <ListBox Grid.Row="1" Classes="ItemsPerLevelGroupListbox" Margin="0 5 0 0" Visibility="{Binding ControlMode,
                           Converter={StaticResource ValueToVisibilityConverter},
                           ConverterParameter=Dashboard}"/>
                     

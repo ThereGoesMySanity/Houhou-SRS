@@ -7,15 +7,15 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <StackPanel>
         <StackPanel Visibility="{Binding IsEditMode, Converter={StaticResource ValueToVisibilityConverter}, ConverterParameter=False}">
-            <TextBlock Style="{StaticResource LegendText}" Text="User directory path" />
+            <TextBlock Classes="LegendText" Text="User directory path" />
             <TextBlock Text="{Binding UserDirectoryPath,Mode=OneWay}" />
-            <Button Style="{StaticResource MiniActionButton}" Content="Modify" Width="100" Margin="0 5 0 0" HorizontalAlignment="Left" Command="{Binding EnterEditModeCommand}" />
+            <Button Classes="MiniActionButton" Content="Modify" Width="100" Margin="0 5 0 0" HorizontalAlignment="Left" Command="{Binding EnterEditModeCommand}" />
         </StackPanel>
         <StackPanel Visibility="{Binding IsEditMode, Converter={StaticResource ValueToVisibilityConverter}}">
-            <TextBox FontSize="14" TextWrapping="Wrap" Style="{StaticResource ErrorLabel}" Text="{Binding ErrorMessage, Mode=OneWay}" />
-            <TextBlock Style="{StaticResource LegendText}" Text="User directory path" />
+            <TextBox FontSize="14" TextWrapping="Wrap" Classes="ErrorLabel" Text="{Binding ErrorMessage, Mode=OneWay}" />
+            <TextBlock Classes="LegendText" Text="User directory path" />
             <TextBox Text="{Binding UserDirectoryPath,Mode=TwoWay}" />
-            <Button Style="{StaticResource MiniActionButton}" Content="Save this path" Width="100" Margin="0 5 0 0" HorizontalAlignment="Left" Command="{Binding SetDirectoryCommand}" />
+            <Button Classes="MiniActionButton" Content="Save this path" Width="100" Margin="0 5 0 0" HorizontalAlignment="Left" Command="{Binding SetDirectoryCommand}" />
         </StackPanel>
     </StackPanel>
 </UserControl>

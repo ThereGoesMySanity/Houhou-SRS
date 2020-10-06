@@ -7,7 +7,7 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <Style Selector="Border" x:Key="StatBox">
+            <Style Selector="Border.StatBox" >
                 <Setter Property="BorderBrush" Value="{StaticResource FadedBorderBrush}"/>
                 <Setter Property="BorderThickness" Value="1"/>
                 <Setter Property="Padding" Value="5"/>
@@ -16,7 +16,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <UserControl.Style>
+    <UserControl.Styles>
         <Style Selector="UserControl">
             <i:Interaction.Behaviors>
                 <ia:DataTriggerBehavior Binding="{Binding SelectedItems.Count}" Value="0">
@@ -24,11 +24,11 @@
                 </ia:DataTriggerBehavior>
             </i:Interaction.Behaviors>
         </Style>
-    </UserControl.Style>
+    </UserControl.Styles>
     
     <UniformGrid Rows="1" Margin="0 0 0 5">
         <!-- Total review count -->
-        <Border Style="{StaticResource StatBox}">
+        <Border Classes="StatBox">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3*"/>
@@ -47,23 +47,23 @@
                 
                 <Viewbox Grid.Row="1">
                     <TextBlock Foreground="#99FFFFFF">
-                        <TextBlock.Style>
-                            <Style Selector="TextBlock" BasedOn="{StaticResource LegendText}">
                                 <i:Interaction.Behaviors>
-                                    <ia:DataTriggerBehavior Binding="{Binding SelectionTotalReviews}" Value="1">
+                                    <ia:DataTriggerBehaviordontchange Binding="{Binding SelectionTotalReviews}" Value="1">
                                         <ia:ChangePropertyAction Value="totalled review" PropertyName="Text"/>
-                                    </ia:DataTriggerBehavior>
+                                    </ia:DataTriggerBehaviordontchange>
                                 </i:Interaction.Behaviors>
+                        <TextBlock.Styles>
+                            <Style Selector="TextBlock" InheritanceParent="{StaticResource LegendText}">
                                 <Setter Property="Text" Value="totalled reviews"/>
                             </Style>
-                        </TextBlock.Style>
+                        </TextBlock.Styles>
                     </TextBlock>
                 </Viewbox>
             </Grid>
         </Border>
         
         <!-- Total success count -->
-        <Border Style="{StaticResource StatBox}">
+        <Border Classes="StatBox">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3*"/>
@@ -82,23 +82,23 @@
 
                 <Viewbox Grid.Row="1">
                     <TextBlock Foreground="#99FFFFFF">
-                        <TextBlock.Style>
-                            <Style Selector="TextBlock" BasedOn="{StaticResource LegendText}">
                                 <i:Interaction.Behaviors>
-                                    <ia:DataTriggerBehavior Binding="{Binding SelectionTotalSuccesses}" Value="1">
+                                    <ia:DataTriggerBehaviordontchange Binding="{Binding SelectionTotalSuccesses}" Value="1">
                                         <ia:ChangePropertyAction Value="totalled success" PropertyName="Text"/>
-                                    </ia:DataTriggerBehavior>
+                                    </ia:DataTriggerBehaviordontchange>
                                 </i:Interaction.Behaviors>
+                        <TextBlock.Styles>
+                            <Style Selector="TextBlock" InheritanceParent="{StaticResource LegendText}">
                                 <Setter Property="Text" Value="totalled successes"/>
                             </Style>
-                        </TextBlock.Style>
+                        </TextBlock.Styles>
                     </TextBlock>
                 </Viewbox>
             </Grid>
         </Border>
         
         <!-- Total failure count -->
-        <Border Style="{StaticResource StatBox}">
+        <Border Classes="StatBox">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3*"/>
@@ -117,23 +117,23 @@
 
                 <Viewbox Grid.Row="1">
                     <TextBlock Foreground="#99FFFFFF">
-                        <TextBlock.Style>
-                            <Style Selector="TextBlock" BasedOn="{StaticResource LegendText}">
                                 <i:Interaction.Behaviors>
-                                    <ia:DataTriggerBehavior Binding="{Binding SelectionTotalFailures}" Value="1">
+                                    <ia:DataTriggerBehaviordontchange Binding="{Binding SelectionTotalFailures}" Value="1">
                                         <ia:ChangePropertyAction Value="totalled failure" PropertyName="Text"/>
-                                    </ia:DataTriggerBehavior>
+                                    </ia:DataTriggerBehaviordontchange>
                                 </i:Interaction.Behaviors>
+                        <TextBlock.Styles>
+                            <Style Selector="TextBlock" InheritanceParent="{StaticResource LegendText}">
                                 <Setter Property="Text" Value="totalled failures"/>
                             </Style>
-                        </TextBlock.Style>
+                        </TextBlock.Styles>
                     </TextBlock>
                 </Viewbox>
             </Grid>
         </Border>
         
         <!-- Average success ratio -->
-        <Border Style="{StaticResource StatBox}">
+        <Border Classes="StatBox">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3*"/>
@@ -153,7 +153,7 @@
                 </Viewbox>
 
                 <Viewbox Grid.Row="1">
-                    <TextBlock Foreground="#99FFFFFF" Style="{StaticResource LegendText}" Text="average success"/>
+                    <TextBlock Foreground="#99FFFFFF" Classes="LegendText" Text="average success"/>
                 </Viewbox>
             </Grid>
         </Border>
