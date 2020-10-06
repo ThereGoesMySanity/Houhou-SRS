@@ -124,7 +124,7 @@
                         </TextBlock>
                         <ComboBox x:Name="NoTypeComboBox"
                             ItemsSource="{Binding Source={StaticResource CsvImportNoTypeBehaviorEnum}}"
-                            SelectedItem="{Binding NoTypeBehavior, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            SelectedItem="{Binding NoTypeBehavior, Mode=TwoWay}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}" />

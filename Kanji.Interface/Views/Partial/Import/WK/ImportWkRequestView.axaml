@@ -1,72 +1,66 @@
-﻿<UserControl x:Class="Kanji.Interface.Controls.ImportWkRequestView"
-             xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="430" d:DesignWidth="690">
+<?xml version="1.0" ?><UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" x:Class="Kanji.Interface.Controls.ImportWkRequestView" mc:Ignorable="d" d:DesignHeight="430" d:DesignWidth="690">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
             <StackPanel>
                 <TextBlock>
                     <TextBlock.Style>
                         <Style BasedOn="{StaticResource LegendText}" TargetType="TextBlock">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsComplete}" Value="True">
-                                    <Setter Property="Text" Value="The request was successful. Press the Next button to continue." />
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding IsError}" Value="True">
-                                    <Setter Property="Text" Value="The request failed." />
-                                </DataTrigger>
-                            </Style.Triggers>
-                            <Setter Property="Text" Value="Requesting WaniKani. Please wait..." />
-                            <Setter Property="TextWrapping" Value="Wrap" />
+                            <i:Interaction.Behaviors>
+                                <ia:DataTriggerBehavior Binding="{Binding IsComplete}" Value="True">
+                                    <ia:ChangePropertyAction Value="The request was successful. Press the Next button to continue." PropertyName="Text"/>
+                                </ia:DataTriggerBehavior>
+                                <ia:DataTriggerBehavior Binding="{Binding IsError}" Value="True">
+                                    <ia:ChangePropertyAction Value="The request failed." PropertyName="Text"/>
+                                </ia:DataTriggerBehavior>
+                            </i:Interaction.Behaviors>
+                            <Setter Property="Text" Value="Requesting WaniKani. Please wait..."/>
+                            <Setter Property="TextWrapping" Value="Wrap"/>
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
                 <ProgressBar Height="25" Margin="0 5">
                     <ProgressBar.Style>
                         <Style TargetType="ProgressBar">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsError}" Value="True">
-                                    <Setter Property="Foreground" Value="Red" />
-                                    <Setter Property="IsIndeterminate" Value="False" />
-                                    <Setter Property="Value" Value="100" />
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding IsComplete}" Value="True">
-                                    <Setter Property="IsIndeterminate" Value="False" />
-                                    <Setter Property="Value" Value="100" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                            <Setter Property="IsIndeterminate" Value="True" />
+                            <i:Interaction.Behaviors>
+                                <ia:DataTriggerBehavior Binding="{Binding IsError}" Value="True">
+                                    <ia:ChangePropertyAction Value="Red" PropertyName="Foreground"/>
+                                    <ia:ChangePropertyAction Value="False" PropertyName="IsIndeterminate"/>
+                                    <ia:ChangePropertyAction Value="100" PropertyName="Value"/>
+                                </ia:DataTriggerBehavior>
+                                <ia:DataTriggerBehavior Binding="{Binding IsComplete}" Value="True">
+                                    <ia:ChangePropertyAction Value="False" PropertyName="IsIndeterminate"/>
+                                    <ia:ChangePropertyAction Value="100" PropertyName="Value"/>
+                                </ia:DataTriggerBehavior>
+                            </i:Interaction.Behaviors>
+                            <Setter Property="IsIndeterminate" Value="True"/>
                         </Style>
                     </ProgressBar.Style>
                 </ProgressBar>
-                <TextBox Style="{StaticResource ErrorLabel}" Text="{Binding Error, Mode=OneWay}" />
+                <TextBox Style="{StaticResource ErrorLabel}" Text="{Binding Error, Mode=OneWay}"/>
 
                 <Border Visibility="{Binding IsComplete, Converter={StaticResource ValueToVisibilityConverter}}">
                     <GroupBox BorderBrush="#666666" Padding="5" Margin="0 5 0 0">
                         <GroupBox.Header>
-                            <TextBlock Text="Results" Style="{StaticResource SettingCategoryTitle}" />
+                            <TextBlock Text="Results" Style="{StaticResource SettingCategoryTitle}"/>
                         </GroupBox.Header>
                         <StackPanel>
                             <TextBlock>
                                 <TextBlock.Text>
-                                    <Binding Path="Result.Username" StringFormat="{}Username: {0}" />
+                                    <Binding Path="Result.Username" StringFormat="{}Username: {0}"/>
                                 </TextBlock.Text>
                             </TextBlock>
                             <TextBlock>
                                 <TextBlock.Text>
-                                    <Binding Path="Result.KanjiCount" StringFormat="{}Kanji count: {0}" />
+                                    <Binding Path="Result.KanjiCount" StringFormat="{}Kanji count: {0}"/>
                                 </TextBlock.Text>
                             </TextBlock>
                             <TextBlock>
                                 <TextBlock.Text>
-                                    <Binding Path="Result.VocabCount" StringFormat="{}Vocab count: {0}" />
+                                    <Binding Path="Result.VocabCount" StringFormat="{}Vocab count: {0}"/>
                                 </TextBlock.Text>
                             </TextBlock>
                         </StackPanel>
@@ -76,14 +70,12 @@
         </ScrollViewer>
         <Grid Grid.Row="1" Margin="0 5 0 0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button Style="{StaticResource ActionButton}" Content="Back" Width="100" Command="{Binding ParentMode.PreviousStepCommand}"
-                IsEnabled="{Binding IsWorking, Converter={StaticResource BooleanInverterConverter}}" />
-            <Button Grid.Column="2" Style="{StaticResource ActionButton}" Content="Next" Width="100" Command="{Binding ParentMode.NextStepCommand}"
-                IsEnabled="{Binding IsComplete}" />
+            <Button Style="{StaticResource ActionButton}" Content="Back" Width="100" Command="{Binding ParentMode.PreviousStepCommand}" IsEnabled="{Binding IsWorking, Converter={StaticResource BooleanInverterConverter}}"/>
+            <Button Grid.Column="2" Style="{StaticResource ActionButton}" Content="Next" Width="100" Command="{Binding ParentMode.NextStepCommand}" IsEnabled="{Binding IsComplete}"/>
         </Grid>
     </Grid>
 </UserControl>
