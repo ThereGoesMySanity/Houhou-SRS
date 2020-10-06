@@ -9,32 +9,32 @@
 
     <StackPanel>
 
-        <GroupBox BorderBrush="#666666">
-            <GroupBox.Header>
+        <HeaderedContentControl BorderBrush="#666666">
+            <HeaderedContentControl.Header>
                 <TextBlock Text="Radical configuration" Style="{StaticResource SettingCategoryTitle}" />
-            </GroupBox.Header>
+            </HeaderedContentControl.Header>
             <StackPanel Margin="6 10">
                 <controls:SettingRadicalSetControl DataContext="{Binding RadicalSetVm}" />
             </StackPanel>
-        </GroupBox>
+        </HeaderedContentControl>
 
-        <GroupBox BorderBrush="#666666" Margin="0 20 0 0">
-            <GroupBox.Header>
+        <HeaderedContentControl BorderBrush="#666666" Margin="0 20 0 0">
+            <HeaderedContentControl.Header>
                 <TextBlock Text="Kanji list" Style="{StaticResource SettingCategoryTitle}" />
-            </GroupBox.Header>
+            </HeaderedContentControl.Header>
             <StackPanel Margin="6 10">
                 <controls:SettingKanjiPerPageControl DataContext="{Binding KanjiPerPageVm}" />
             </StackPanel>
-        </GroupBox>
+        </HeaderedContentControl>
 
-        <GroupBox BorderBrush="#666666" Margin="0 20 0 0">
-            <GroupBox.Header>
+        <HeaderedContentControl BorderBrush="#666666" Margin="0 20 0 0">
+            <HeaderedContentControl.Header>
                 <TextBlock Text="Kanji details" Style="{StaticResource SettingCategoryTitle}" />
-            </GroupBox.Header>
+            </HeaderedContentControl.Header>
             <StackPanel Margin="6 10">
                 <controls:SettingKanjiInfoControl DataContext="{Binding KanjiInfoVm}" />
             </StackPanel>
-        </GroupBox>
+        </HeaderedContentControl>
 
     </StackPanel>
 </UserControl>
