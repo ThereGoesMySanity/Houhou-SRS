@@ -33,14 +33,14 @@ namespace Kanji.Interface.Utilities
         public MultiDataTriggerBehavior()
         {
         }
-        private void OnSatisfied(object? sender, AvaloniaPropertyChangedEventArgs args)
+        private void OnSatisfied(object? sender, ConditionEqualityChangedEventArgs args)
         {
             if (AssociatedObject == null)
             {
                 return;
             }
 
-            DataBindingHelper.RefreshDataBindingsOnActions(dataTriggerBehavior.Actions);
+            DataBindingHelper.RefreshDataBindingsOnActions(Actions);
 
             // NOTE: In UWP version binding null check is not present but Avalonia throws exception as Bindings are null when first initialized.
             var binding = (sender as ConditionCollection).All(c => (c as Condition).Binding != null);
