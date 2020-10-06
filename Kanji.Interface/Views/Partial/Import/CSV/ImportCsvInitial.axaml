@@ -53,7 +53,7 @@
                                         <Style TargetType="TextBox">
                                             <i:Interaction.Behaviors>
                                                 <ia:DataTriggerBehavior Binding="{Binding SelectedEncodingIndex}" Value="0">
-                                                    <ia:ChangePropertyAction Value="Visible" PropertyName="Visibility"/>
+                                                    <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
                                                 </ia:DataTriggerBehavior>
                                             </i:Interaction.Behaviors>
                                             <Setter Property="Visibility" Value="Hidden"/>

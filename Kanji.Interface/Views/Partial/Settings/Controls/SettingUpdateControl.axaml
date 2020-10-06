@@ -13,8 +13,7 @@
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">
                             <Setter Property="Text" Value="Not checked yet"/>
-                            <Setter Property="ToolTip" Value="If automatic update check is disabled, Houhou will not check for updates until you click the 'Check for updates' button.
-If automatic update check is enabled, be aware that there is a delay before updates are checked."/>
+                            <Setter Property="ToolTip" Value="If automatic update check is disabled, Houhou will not check for updates until you click the 'Check for updates' button. If automatic update check is enabled, be aware that there is a delay before updates are checked."/>
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding CheckStatus}" Value="MostRecent">
                                     <ia:ChangePropertyAction Value="No updates" PropertyName="Text"/>
@@ -22,8 +21,7 @@ If automatic update check is enabled, be aware that there is a delay before upda
                                         <ia:ChangePropertyAction.Value>
                                             <TextBlock>
                                                 <TextBlock.Text>
-                                                    <Binding Path="LastCheckDate" StringFormat="You are using the latest version of Houhou.
-(Last checked: {0})"/>
+                                                    <Binding Path="LastCheckDate" StringFormat="You are using the latest version of Houhou. (Last checked: {0})"/>
                                                 </TextBlock.Text>
                                             </TextBlock>
                                         </ia:ChangePropertyAction.Value>
@@ -35,9 +33,7 @@ If automatic update check is enabled, be aware that there is a delay before upda
                                         <ia:ChangePropertyAction.Value>
                                             <TextBlock>
                                                 <TextBlock.Text>
-                                                    <Binding Path="LastCheckDate" StringFormat="There is an update available to download.
-Click the Update button on the right to update.
-(Last checked: {0})"/>
+                                                    <Binding Path="LastCheckDate" StringFormat="There is an update available to download. Click the Update button on the right to update. (Last checked: {0})"/>
                                                 </TextBlock.Text>
                                             </TextBlock>
                                         </ia:ChangePropertyAction.Value>
@@ -49,8 +45,7 @@ Click the Update button on the right to update.
                                         <ia:ChangePropertyAction.Value>
                                             <TextBlock>
                                                 <TextBlock.Text>
-                                                    <Binding Path="LastCheckDate" StringFormat="An error occured during the last check attempt ({0}).
-Check your internet connection."/>
+                                                    <Binding Path="LastCheckDate" StringFormat="An error occured during the last check attempt ({0}). Check your internet connection."/>
                                                 </TextBlock.Text>
                                             </TextBlock>
                                         </ia:ChangePropertyAction.Value>
@@ -74,13 +69,12 @@ Check your internet connection."/>
                 </TextBlock>
             </StackPanel>
         </Border>
-        <Button Margin="10 0 0 0" Width="150" Height="44" Content="Check for updates" Command="{Binding CheckCommand}" ToolTip="Check for available Houhou updates.
-Requires an internet connection.">
+        <Button Margin="10 0 0 0" Width="150" Height="44" Content="Check for updates" Command="{Binding CheckCommand}" ToolTip="Check for available Houhou updates. Requires an internet connection.">
             <Button.Style>
                 <Style TargetType="Button" BasedOn="{StaticResource ActionButton}">
                     <i:Interaction.Behaviors>
                         <ia:DataTriggerBehavior Binding="{Binding CheckStatus}" Value="UpdateAvailable">
-                            <ia:ChangePropertyAction Value="Collapsed" PropertyName="Visibility"/>
+                            <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
                         </ia:DataTriggerBehavior>
                         <ia:DataTriggerBehavior Binding="{Binding CheckStatus}" Value="Checking">
                             <ia:ChangePropertyAction Value="False" PropertyName="IsEnabled"/>
@@ -96,8 +90,7 @@ Requires an internet connection.">
             <Button.ToolTip>
                 <TextBlock>
                     <TextBlock.Text>
-                        <MultiBinding StringFormat="Version: {0}
-Description: {1}">
+                        <MultiBinding StringFormat="Version: {0} Description: {1}">
                             <MultiBinding.Bindings>
                                 <Binding Path="LastUpdate.Version"/>
                                 <Binding Path="LastUpdate.Description"/>
@@ -110,7 +103,7 @@ Description: {1}">
                 <Style TargetType="Button" BasedOn="{StaticResource ActionButton}">
                     <i:Interaction.Behaviors>
                         <ia:DataTriggerBehavior Binding="{Binding CheckStatus}" Value="UpdateAvailable">
-                            <ia:ChangePropertyAction Value="Visible" PropertyName="Visibility"/>
+                            <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
                         </ia:DataTriggerBehavior>
                     </i:Interaction.Behaviors>
                     <Setter Property="Visibility" Value="Collapsed"/>

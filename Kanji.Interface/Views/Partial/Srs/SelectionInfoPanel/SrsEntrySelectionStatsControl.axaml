@@ -20,7 +20,7 @@
         <Style TargetType="UserControl">
             <i:Interaction.Behaviors>
                 <ia:DataTriggerBehavior Binding="{Binding SelectedItems.Count}" Value="0">
-                    <ia:ChangePropertyAction Value="Collapsed" PropertyName="Visibility"/>
+                    <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
                 </ia:DataTriggerBehavior>
             </i:Interaction.Behaviors>
         </Style>
@@ -145,11 +145,11 @@
                         <TranslateTransform X="-1" Y="-1"/>
                     </Viewbox.RenderTransform>
                     <TextBlock Foreground="Black" FontWeight="SemiBold" Text="{Binding SelectionSuccessRatio,
-                         Converter={StaticResource PercentageToStringConverter}}"/>
+                          Converter={StaticResource PercentageToStringConverter}}"/>
                 </Viewbox>
                 <Viewbox>
                     <TextBlock Foreground="White" FontWeight="SemiBold" Text="{Binding SelectionSuccessRatio,
-                         Converter={StaticResource PercentageToStringConverter}}"/>
+                          Converter={StaticResource PercentageToStringConverter}}"/>
                 </Viewbox>
 
                 <Viewbox Grid.Row="1">

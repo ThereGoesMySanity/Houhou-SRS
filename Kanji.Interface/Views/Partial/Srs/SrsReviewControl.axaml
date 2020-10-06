@@ -11,7 +11,7 @@
         <Style TargetType="UserControl">
             <i:Interaction.Behaviors>
                 <ia:DataTriggerBehavior Binding="{Binding .}" Value="{x:Null}">
-                    <ia:ChangePropertyAction Value="Collapsed" PropertyName="Visibility"/>
+                    <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
                 </ia:DataTriggerBehavior>
             </i:Interaction.Behaviors>
         </Style>
@@ -111,7 +111,7 @@
                         <Style TargetType="Border">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding PreviewNextLevel}" Value="{x:Null}">
-                                    <ia:ChangePropertyAction Value="Collapsed" PropertyName="Visibility"/>
+                                    <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
                                 </ia:DataTriggerBehavior>
                             </i:Interaction.Behaviors>
                         </Style>
@@ -152,7 +152,7 @@
                             </TextBlock.Style>
                         </TextBlock>
                         <Border Grid.Column="1" Background="{Binding PreviewNextLevel.ParentGroup.Color,
-                                 Converter={StaticResource ColorToBrushConverter}}" Padding="5 2" BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="0 2 5 2">
+                                  Converter={StaticResource ColorToBrushConverter}}" Padding="5 2" BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="0 2 5 2">
                             <Grid>
                                 <TextBlock Foreground="Black" Text="{Binding PreviewNextLevel.Name}" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <TextBlock.RenderTransform>
@@ -253,7 +253,7 @@
                 <Style TargetType="Grid">
                     <i:Interaction.Behaviors>
                         <ia:DataTriggerBehavior Binding="{Binding ReviewState}" Value="Input">
-                            <ia:ChangePropertyAction Value="Collapsed" PropertyName="Visibility"/>
+                            <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
                         </ia:DataTriggerBehavior>
                     </i:Interaction.Behaviors>
                 </Style>
@@ -281,7 +281,7 @@
                     <Style TargetType="Border">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding CurrentQuestion.Question}" Value="Meaning">
-                                <ia:ChangePropertyAction Value="Visible" PropertyName="Visibility"/>
+                                <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
                             </ia:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
                         <Setter Property="Visibility" Value="Collapsed"/>
@@ -297,7 +297,7 @@
                     <Style TargetType="Border">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding CurrentQuestion.Question}" Value="Reading">
-                                <ia:ChangePropertyAction Value="Visible" PropertyName="Visibility"/>
+                                <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
                             </ia:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
                         <Setter Property="Visibility" Value="Collapsed"/>
@@ -323,7 +323,7 @@
                         <Style TargetType="Button" BasedOn="{StaticResource ActionButton}">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding ReviewState}" Value="Ignore">
-                                    <ia:ChangePropertyAction Value="Collapsed" PropertyName="Visibility"/>
+                                    <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
                                 </ia:DataTriggerBehavior>
                             </i:Interaction.Behaviors>
                         </Style>
@@ -335,7 +335,7 @@
                         <Style TargetType="Button" BasedOn="{StaticResource ActionButton}">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding ReviewState}" Value="Failure">
-                                    <ia:ChangePropertyAction Value="Visible" PropertyName="Visibility"/>
+                                    <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
                                 </ia:DataTriggerBehavior>
                                 <ia:DataTriggerBehavior Binding="{Binding CurrentQuestion.Question}" Value="Meaning">
                                     <ia:ChangePropertyAction Value="Add to meanings" PropertyName="Content"/>
@@ -354,7 +354,7 @@
                         <Style TargetType="Button" BasedOn="{StaticResource ActionButton}">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding ReviewState}" Value="Ignore">
-                                    <ia:ChangePropertyAction Value="Collapsed" PropertyName="Visibility"/>
+                                    <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
                                 </ia:DataTriggerBehavior>
                             </i:Interaction.Behaviors>
                         </Style>
