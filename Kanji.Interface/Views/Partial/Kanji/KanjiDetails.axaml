@@ -185,9 +185,9 @@
                     <Border.Styles>
                         <Style Selector="Border">
                             <i:Interaction.Behaviors>
-                                <ia:DataTriggerBehavior Binding="{Binding IsMouseOver}" Value="True">
+                                <Trigger Property="IsMouseOver" Value="True">
                                     <ia:ChangePropertyAction Value="#3359B859" PropertyName="Background"/>
-                                </ia:DataTriggerBehavior>
+                                </Trigger>
                             </i:Interaction.Behaviors>
                             <Setter Property="Background" Value="#3377FF77"/>
                         </Style>

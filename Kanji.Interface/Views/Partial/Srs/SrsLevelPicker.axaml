@@ -51,11 +51,12 @@
                                                                              $parent[ListBoxItem].DataContext.Color,
                                                          Converter={StaticResource ColorToBrushConverter}}" PropertyName="Background"/>
                                                     <ia:ChangePropertyAction Value="White" PropertyName="Foreground"/>
-                                            </ia:DataTriggerBehaviordontchange>
-                                            <ia:DataTriggerBehavior Binding="{Binding IsMouseOver}" Value="True">
-                                                <ia:ChangePropertyAction Value="White" PropertyName="Foreground"/>
-                                                <ia:ChangePropertyAction Value="0.8" PropertyName="Opacity"/>
+                                                </ia:DataTriggerBehavior.Actions>
                                             </ia:DataTriggerBehavior>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Foreground" Value="White" />
+                                                <Setter Property="Opacity" Value="0.8" />
+                                            </Trigger>
                                         </i:Interaction.Behaviors>
                                     </ControlTemplate>
                                 </Setter.Value>
