@@ -2,15 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Markup.Xaml;
 using Kanji.Common.Helpers;
 using Kanji.Interface.Actors;
 using Kanji.Interface.Business;
@@ -30,6 +24,11 @@ namespace Kanji.Interface
             InitializeComponent();
         }
 
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
+        }
+
         #endregion
 
         #region Methods
@@ -47,9 +46,8 @@ namespace Kanji.Interface
         /// </summary>
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
-            KeyboardDevice keyboardDevice = e.KeyboardDevice;
 
-            if (keyboardDevice.IsKeyDown(Key.LeftCtrl) || keyboardDevice.IsKeyDown(Key.RightCtrl))
+            if (e.KeyModifiers.HasFlag(KeyModifiers.Control))
             {
                 // Use CTRL+Numbers (starting at 1) to navigate to the respective tabs.
 
@@ -81,7 +79,7 @@ namespace Kanji.Interface
 
                 if (navigationTarget.HasValue)
                 {
-                    NavigableViewModel navModel = (NavigableViewModel)HomePage.DataContext;
+                    NavigableViewModel navModel = (NavigableViewModel)this.Find<HomePage>("HomePage").DataContext;
                     navModel.NavigateCommand.Execute(navigationTarget.Value);
                     e.Handled = true;
                 }

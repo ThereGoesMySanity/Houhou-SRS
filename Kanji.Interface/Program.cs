@@ -14,6 +14,9 @@ using Kanji.Interface.Helpers;
 using Kanji.Interface.Models;
 using Kanji.Interface.Utilities;
 using System.Diagnostics;
+using Avalonia.Controls;
+using Avalonia;
+using Avalonia.Controls.ApplicationLifetimes;
 
 namespace Kanji.Interface
 {
@@ -27,6 +30,8 @@ namespace Kanji.Interface
         public static bool RunMainWindow;
 
         #endregion
+
+        public static AppBuilder BuildAvaloniaApp() => AppBuilder.Configure<App>().UsePlatformDetect();
 
         [STAThread]
         public static void Main(string[] args)
@@ -80,9 +85,6 @@ namespace Kanji.Interface
             // Initialize the configuration system.
             ConfigurationHelper.InitializeConfiguration();
 
-            // Create the application.
-            App app = new App();
-
             // Load the navigation actor.
             NavigationActor.Instance = new NavigationActor();
 
@@ -106,12 +108,10 @@ namespace Kanji.Interface
                 PipeActor.Initialize(pipeHandler);
                 pipeHandler.StartListening();
 
-                // Run the app.
-                app.InitializeComponent();
                 AppDomain.CurrentDomain.UnhandledException += OnAppDomainUnhandledException;
-                app.DispatcherUnhandledException += OnUnhandledException;
+                //app.DispatcherUnhandledException += OnUnhandledException;
                 TaskScheduler.UnobservedTaskException += OnUnobservedTaskException;
-                app.Run();
+                BuildAvaloniaApp().StartWithClassicDesktopLifetime(new string[] { });
 
                 // The execution blocks here until the application exits.
             }
@@ -158,9 +158,9 @@ namespace Kanji.Interface
         /// <summary>
         /// Event trigger. Called when an unhandled exception is thrown by the Dispatcher thread.
         /// </summary>
-        private static void OnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        private static void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            OnUnhandledException(e.Exception);
+            OnUnhandledException(e.ExceptionObject as Exception ?? new Exception("Unknown fatal error."));
         }
 
         /// <summary>
@@ -222,7 +222,7 @@ namespace Kanji.Interface
         public static void Shutdown()
         {
             Kanji.Interface.Properties.Settings.Default.Save();
-            DispatcherHelper.Invoke(() => { App.Current.Shutdown(); });
+            DispatcherHelper.Invoke(() => { (App.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime).Shutdown(0); });
         }
     }
 }

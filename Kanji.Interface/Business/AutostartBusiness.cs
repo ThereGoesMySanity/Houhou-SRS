@@ -85,11 +85,12 @@ namespace Kanji.Interface.Business
 
             try
             {
-                using (RegistryKey regKey = Registry.CurrentUser.OpenSubKey(RegistryKeyPath, true))
-                {
-                    result = regKey.GetValue(RegistryValueName) != null;
-                    regKey.Close();
-                }
+                //TODO: abstract into separate os implementations
+                //using (RegistryKey regKey = Registry.CurrentUser.OpenSubKey(RegistryKeyPath, true))
+                //{
+                //    result = regKey.GetValue(RegistryValueName) != null;
+                //    regKey.Close();
+                //}
             }
             catch (Exception ex)
             {
@@ -119,22 +120,22 @@ namespace Kanji.Interface.Business
         {
             try
             {
-                using (RegistryKey regKey = Registry.CurrentUser.OpenSubKey(RegistryKeyPath, true))
-                {
-                    if (AutoStart)
-                    {
-                        // Set the value.
-                        regKey.SetValue(RegistryValueName, string.Format("\"{0}\" False",
-                            System.Reflection.Assembly.GetEntryAssembly().Location));
-                    }
-                    else
-                    {
-                        // Delete the value.
-                        regKey.DeleteValue(RegistryValueName, false);
-                    }
+                //using (RegistryKey regKey = Registry.CurrentUser.OpenSubKey(RegistryKeyPath, true))
+                //{
+                //    if (AutoStart)
+                //    {
+                //        // Set the value.
+                //        regKey.SetValue(RegistryValueName, string.Format("\"{0}\" False",
+                //            System.Reflection.Assembly.GetEntryAssembly().Location));
+                //    }
+                //    else
+                //    {
+                //        // Delete the value.
+                //        regKey.DeleteValue(RegistryValueName, false);
+                //    }
 
-                    regKey.Close();
-                }
+                //    regKey.Close();
+                //}
             }
             catch (Exception ex)
             {

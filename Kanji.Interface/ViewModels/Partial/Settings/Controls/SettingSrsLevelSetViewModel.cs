@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 using Kanji.Interface.Actors;
 using Kanji.Interface.Models;
+using MessageBox.Avalonia;
+using MessageBox.Avalonia.DTO;
+using MessageBox.Avalonia.Enums;
 
 namespace Kanji.Interface.ViewModels
 {
@@ -23,15 +26,17 @@ namespace Kanji.Interface.ViewModels
         protected override bool CanChangeSet(UserResourceSetInfo setInfo)
         {
             // Show validation messagebox.
-            return MessageBox.Show(NavigationActor.Instance.ActiveWindow,
-                string.Format("Please be aware that modifying the SRS level set may block "
+            var result = MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
+            {
+                ContentTitle = "SRS level set change warning",
+                ContentMessage = "Please be aware that modifying the SRS level set may block "
                 + "some existing SRS items in the case where the new level set has less "
-                + "levels than the previous one.{0}Also, please note that the current "
-                + "scheduled review dates will not be affected.", Environment.NewLine),
-                "SRS level set change warning",
-                MessageBoxButton.OKCancel,
-                MessageBoxImage.Warning,
-                MessageBoxResult.Cancel) == MessageBoxResult.OK;
+                + $"levels than the previous one.{Environment.NewLine}Also, please note that the current "
+                + "scheduled review dates will not be affected.",
+                ButtonDefinitions = ButtonEnum.OkCancel,
+                Icon = Icon.Warning,
+            }).ShowDialog(NavigationActor.Instance.ActiveWindow);
+            return result.Result == ButtonResult.Ok;
         }
 
         public override bool IsSettingChanged()

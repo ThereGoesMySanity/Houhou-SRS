@@ -1,17 +1,13 @@
-﻿using System;
+﻿using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Interactivity;
+using Avalonia.Markup.Xaml;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Kanji.Interface.Controls
 {
@@ -19,20 +15,15 @@ namespace Kanji.Interface.Controls
     {
         #region Dependency properties
 
-        public static readonly DependencyProperty CommandProperty =
-            DependencyProperty.Register("Command", typeof(ICommand), typeof(CollapsiblePanelBase));
+        public static readonly AvaloniaProperty CommandProperty = AvaloniaProperty.Register<CollapsiblePanelBase, ICommand>("Command");
 
-        public static readonly DependencyProperty CommandParameterProperty =
-            DependencyProperty.Register("CommandParameter", typeof(object), typeof(CollapsiblePanelBase));
+        public static readonly AvaloniaProperty CommandParameterProperty = AvaloniaProperty.Register<CollapsiblePanelBase, object>("CommandParameter");
 
-        public static readonly DependencyProperty IsContentShownProperty =
-            DependencyProperty.Register("IsContentShown", typeof(bool), typeof(CollapsiblePanelBase));
+        public static readonly AvaloniaProperty IsContentShownProperty = AvaloniaProperty.Register<CollapsiblePanelBase, bool>("IsContentShown");
 
-        public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register("Text", typeof(string), typeof(CollapsiblePanelBase));
+        public static readonly AvaloniaProperty TextProperty = AvaloniaProperty.Register<CollapsiblePanelBase, string>("Text");
 
-        public static readonly DependencyProperty HeaderContentProperty =
-            DependencyProperty.Register("HeaderContent", typeof(object), typeof(CollapsiblePanelBase));
+        public static readonly AvaloniaProperty HeaderContentProperty = AvaloniaProperty.Register<CollapsiblePanelBase, object>("HeaderContent");
 
         #endregion
 
@@ -98,6 +89,12 @@ namespace Kanji.Interface.Controls
         {
             InitializeComponent();
         }
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
+            CommandButton = this.FindControl<Button>("CommandButton");
+        }
+        public Button CommandButton { get; private set; }
 
         private void OnCommandButtonClick(object sender, RoutedEventArgs e)
         {

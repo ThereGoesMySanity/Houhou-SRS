@@ -1,17 +1,29 @@
-﻿using System;
+﻿using Avalonia;
+using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Markup.Xaml;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
-using System.Windows;
+
 
 namespace Kanji.Interface
 {
     public partial class App : Application
     {
-        protected override void OnStartup(StartupEventArgs e)
+        public override void Initialize()
         {
-            base.OnStartup(e);
+            AvaloniaXamlLoader.Load(this);
+        }
+        public override void OnFrameworkInitializationCompleted()
+        {
+            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            {
+                desktop.MainWindow = new MainWindow();
+            }
+
+            base.OnFrameworkInitializationCompleted();
         }
     }
 }

@@ -1,5 +1,10 @@
-﻿<Window x:Class="Kanji.Interface.TrayWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
+        xmlns:business="clr-namespace:Kanji.Interface.Business"
+        Title="Houhou SRS Tray" IsVisible="False" ShowInTaskbar="False" />
+<!--<Window x:Class="Kanji.Interface.TrayWindow"
+        xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:tb="http://www.hardcodet.net/taskbar"
         xmlns:business="clr-namespace:Kanji.Interface.Business"
@@ -19,4 +24,4 @@
             </ContextMenu>
         </tb:TaskbarIcon.ContextMenu>
     </tb:TaskbarIcon>
-</Window>
+</Window>-->

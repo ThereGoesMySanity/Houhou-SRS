@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Avalonia.Data.Converters;
 using Kanji.Common.Helpers;
 using Kanji.Database.Helpers;
 using Kanji.Interface.Helpers;

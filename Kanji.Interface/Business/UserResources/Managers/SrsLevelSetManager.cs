@@ -10,6 +10,7 @@ using Kanji.Common.Extensions;
 using Kanji.Common.Helpers;
 
 using Kanji.Interface.Helpers;
+using Avalonia.Media;
 
 namespace Kanji.Interface.Business
 {

@@ -2,15 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Markup.Xaml;
+using Kanji.Interface.Controls;
 using Kanji.Interface.ViewModels;
 
 namespace Kanji.Interface.Views
@@ -25,6 +21,25 @@ namespace Kanji.Interface.Views
             DataContext = new KanjiViewModel();
         }
 
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
+            KanjiDetailsControl = this.FindControl<KanjiDetails>("KanjiDetailsControl");
+            KanjiFilterControl = this.FindControl<KanjiFilterControl>("KanjiFilterControl");
+            ClearFilterButton = this.FindControl<Button>("ClearFilterButton");
+            ApplyFilterButton = this.FindControl<Button>("ApplyFilterButton");
+            CloseKanjiPageButton = this.FindControl<Button>("CloseKanjiPageButton");
+        }
+        #endregion
+
+        #region Properties
+
+        public KanjiDetails KanjiDetailsControl { get; private set; }
+        public KanjiFilterControl KanjiFilterControl { get; private set; }
+        public Button ClearFilterButton { get; private set; }
+        public Button ApplyFilterButton { get; private set; }
+        public Button CloseKanjiPageButton { get; private set; }
+
         #endregion
 
         #region Methods
@@ -35,12 +50,10 @@ namespace Kanji.Interface.Views
         /// </summary>
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
-            if (KanjiDetailsControl.Visibility == Visibility.Visible)
+            if (KanjiDetailsControl.IsVisible)
                 return;
 
-            KeyboardDevice keyboardDevice = e.KeyboardDevice;
-
-            if (keyboardDevice.IsKeyDown(Key.LeftCtrl) || keyboardDevice.IsKeyDown(Key.RightCtrl))
+            if (e.KeyModifiers.HasFlag(KeyModifiers.Control))
             {
                 switch (e.Key)
                 {
@@ -65,7 +78,7 @@ namespace Kanji.Interface.Views
                         e.Handled = true;
                         break;
                     case Key.C:
-                        if (!keyboardDevice.IsKeyDown(Key.LeftShift) && !keyboardDevice.IsKeyDown(Key.RightShift))
+                        if (!e.KeyModifiers.HasFlag(KeyModifiers.Shift))
                             break;
                         ClearFilterButton.Command.Execute(null);
                         e.Handled = true;
@@ -82,7 +95,7 @@ namespace Kanji.Interface.Views
             }
         }
 
-        private void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void OnIsVisibleChanged(object sender, AvaloniaPropertyChangedEventArgs e)
         {
             // Focus the page once it becomes visible.
             // This is so that the navigation bar does not keep the focus, which would prevent shortcut keys from working.

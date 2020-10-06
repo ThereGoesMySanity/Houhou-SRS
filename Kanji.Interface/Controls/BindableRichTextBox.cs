@@ -15,8 +15,8 @@ namespace Kanji.Interface.Controls
 {
     //class BindableRichTextBox : RichTextBox
     //{
-    //    public static readonly DependencyProperty DocumentProperty =
-    //        DependencyProperty.Register("Document", typeof(FlowDocument),
+    //    public static readonly AvaloniaProperty DocumentProperty =
+    //        AvaloniaProperty.Register("Document", typeof(FlowDocument),
     //        typeof(BindableRichTextBox), new FrameworkPropertyMetadata
     //        (null, new PropertyChangedCallback(OnDocumentChanged)));
 
@@ -33,8 +33,8 @@ namespace Kanji.Interface.Controls
     //        }
     //    }
 
-    //    public static void OnDocumentChanged(DependencyObject obj,
-    //        DependencyPropertyChangedEventArgs args)
+    //    public static void OnDocumentChanged(AvaloniaObject obj,
+    //        AvaloniaPropertyChangedEventArgs args)
     //    {
     //        RichTextBox rtb = (RichTextBox)obj;
     //        rtb.Dispatcher.Invoke(() =>

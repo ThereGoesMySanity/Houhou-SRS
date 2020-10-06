@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
+
+
+
+
+
+using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Markup.Xaml;
+using Kanji.Interface.Models;
 
 namespace Kanji.Interface.Controls
 {
@@ -23,6 +24,18 @@ namespace Kanji.Interface.Controls
         {
             InitializeComponent();
         }
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
+            VocabFilter = this.FindControl<VocabFilterControl>("VocabFilter");
+            VocabList = this.FindControl<VocabList>("VocabList");
+        }
+
+        #endregion
+
+        #region Properties
+        public VocabFilterControl VocabFilter { get; private set; }
+        public VocabList VocabList { get; private set; }
 
         #endregion
 
@@ -34,9 +47,7 @@ namespace Kanji.Interface.Controls
         /// </summary>
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
-            KeyboardDevice keyboardDevice = e.KeyboardDevice;
-
-            if (keyboardDevice.IsKeyDown(Key.LeftCtrl) || keyboardDevice.IsKeyDown(Key.RightCtrl))
+            if (e.KeyModifiers.HasFlag(KeyModifiers.Control))
             {
                 switch (e.Key)
                 {
@@ -58,7 +69,7 @@ namespace Kanji.Interface.Controls
                         break;
                     case Key.C:
                         // We can't just use CTRL+C here, because that would not work if a text box had focus.
-                        if (keyboardDevice.IsKeyDown(Key.LeftAlt) || keyboardDevice.IsKeyDown(Key.RightAlt))
+                        if (e.KeyModifiers.HasFlag(KeyModifiers.Alt))
                         {
                             VocabFilter.CategoryFilter.ComboBox.Focus();
                             e.Handled = true;

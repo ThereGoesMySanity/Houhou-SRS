@@ -7,8 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
-
-
+using Avalonia.Controls;
 
 namespace Kanji.Interface.Utilities
 {
@@ -18,67 +17,67 @@ namespace Kanji.Interface.Utilities
     /// TargetObject is not supplied then the property is set on the object
     /// to which the trigger is attached.
     /// </summary>
-    public class SetPropertyAction : TriggerAction<FrameworkElement>
-    {
-        // PropertyName DependencyProperty.
+    //public class SetPropertyAction : TriggerAction<Control>
+    //{
+    //    // PropertyName AvaloniaProperty.
 
-        /// <summary>
-        /// The property to be executed in response to the trigger.
-        /// </summary>
-        public string PropertyName
-        {
-            get { return (string)GetValue(PropertyNameProperty); }
-            set { SetValue(PropertyNameProperty, value); }
-        }
+    //    /// <summary>
+    //    /// The property to be executed in response to the trigger.
+    //    /// </summary>
+    //    public string PropertyName
+    //    {
+    //        get { return (string)GetValue(PropertyNameProperty); }
+    //        set { SetValue(PropertyNameProperty, value); }
+    //    }
 
-        public static readonly DependencyProperty PropertyNameProperty
-            = DependencyProperty.Register("PropertyName", typeof(string),
-            typeof(SetPropertyAction));
-
-
-        // PropertyValue DependencyProperty.
-
-        /// <summary>
-        /// The value to set the property to.
-        /// </summary>
-        public object PropertyValue
-        {
-            get { return GetValue(PropertyValueProperty); }
-            set { SetValue(PropertyValueProperty, value); }
-        }
-
-        public static readonly DependencyProperty PropertyValueProperty
-            = DependencyProperty.Register("PropertyValue", typeof(object),
-            typeof(SetPropertyAction));
+    //    public static readonly AvaloniaProperty PropertyNameProperty
+    //        = AvaloniaProperty.Register("PropertyName", typeof(string),
+    //        typeof(SetPropertyAction));
 
 
-        // TargetObject DependencyProperty.
+    //    // PropertyValue AvaloniaProperty.
 
-        /// <summary>
-        /// Specifies the object upon which to set the property.
-        /// </summary>
-        public object TargetObject
-        {
-            get { return GetValue(TargetObjectProperty); }
-            set { SetValue(TargetObjectProperty, value); }
-        }
+    //    /// <summary>
+    //    /// The value to set the property to.
+    //    /// </summary>
+    //    public object PropertyValue
+    //    {
+    //        get { return GetValue(PropertyValueProperty); }
+    //        set { SetValue(PropertyValueProperty, value); }
+    //    }
 
-        public static readonly DependencyProperty TargetObjectProperty
-            = DependencyProperty.Register("TargetObject", typeof(object),
-            typeof(SetPropertyAction));
+    //    public static readonly AvaloniaProperty PropertyValueProperty
+    //        = AvaloniaProperty.Register("PropertyValue", typeof(object),
+    //        typeof(SetPropertyAction));
 
 
-        // Private Implementation.
+    //    // TargetObject AvaloniaProperty.
 
-        protected override void Invoke(object parameter)
-        {
-            object target = TargetObject ?? AssociatedObject;
-            PropertyInfo propertyInfo = target.GetType().GetProperty(
-                PropertyName,
-                BindingFlags.Instance|BindingFlags.Public
-                |BindingFlags.NonPublic|BindingFlags.InvokeMethod);
+    //    /// <summary>
+    //    /// Specifies the object upon which to set the property.
+    //    /// </summary>
+    //    public object TargetObject
+    //    {
+    //        get { return GetValue(TargetObjectProperty); }
+    //        set { SetValue(TargetObjectProperty, value); }
+    //    }
 
-            propertyInfo.SetValue(target, PropertyValue);
-        }
-    }
+    //    public static readonly AvaloniaProperty TargetObjectProperty
+    //        = AvaloniaProperty.Register("TargetObject", typeof(object),
+    //        typeof(SetPropertyAction));
+
+
+    //    // Private Implementation.
+
+    //    protected override void Invoke(object parameter)
+    //    {
+    //        object target = TargetObject ?? AssociatedObject;
+    //        PropertyInfo propertyInfo = target.GetType().GetProperty(
+    //            PropertyName,
+    //            BindingFlags.Instance|BindingFlags.Public
+    //            |BindingFlags.NonPublic|BindingFlags.InvokeMethod);
+
+    //        propertyInfo.SetValue(target, PropertyValue);
+    //    }
+    //}
 }

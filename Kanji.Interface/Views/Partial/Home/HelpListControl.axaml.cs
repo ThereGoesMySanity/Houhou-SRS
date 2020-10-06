@@ -1,17 +1,20 @@
-﻿using System;
+﻿using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Markup.Xaml;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
+
+
+
+
+
+
+
+
 
 namespace Kanji.Interface.Controls
 {
@@ -21,22 +24,24 @@ namespace Kanji.Interface.Controls
         {
             InitializeComponent();
         }
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
+        }
 
         /// <summary>
         /// Redistribute the mouse wheel event on the parent.
         /// We don't want the sublist to catch the mouse wheel events because it would
         /// prevent scrolling in the parent list.
         /// </summary>
-        private void OnSubListBoxPreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        private void OnSubListBoxPreviewMouseWheel(object sender, PointerWheelEventArgs e)
         {
             if (!e.Handled)
             {
+                //TODO
                 e.Handled = true;
-                var eventArg = new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta);
-                eventArg.RoutedEvent = UIElement.MouseWheelEvent;
-                eventArg.Source = sender;
-                var parent = ((Control)sender).Parent as UIElement;
-                parent.RaiseEvent(eventArg);
+                var parent = ((Control)sender).Parent;
+                parent.RaiseEvent(e);
             }
         }
     }

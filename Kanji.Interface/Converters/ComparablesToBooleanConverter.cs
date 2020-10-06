@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Avalonia.Data.Converters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +20,7 @@ namespace Kanji.Interface.Converters
 
     class ComparablesToBooleanConverter : IMultiValueConverter
     {
-        public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(IList<object> values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             if (values.Count() == 2 &&
                 (parameter == null || parameter is ComparablesToBooleanConversionEnum))

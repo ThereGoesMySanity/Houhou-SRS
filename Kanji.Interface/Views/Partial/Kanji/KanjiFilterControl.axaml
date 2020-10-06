@@ -1,5 +1,5 @@
 ﻿<UserControl x:Class="Kanji.Interface.Controls.KanjiFilterControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
@@ -103,8 +103,8 @@
         <TextBlock Grid.Row="3" Grid.ColumnSpan="4" Text="containing the selected radicals:" />
         
         <!-- 3. Radical list -->
-        <ListBox Grid.Row="4" Grid.ColumnSpan="4" Style="{StaticResource RadicalList}" Margin="0 2"
-            ItemsSource="{Binding Radicals}" utilities:MultiSelect.IsEnabled="True" />
+        <ListBox Name="RadicalList" Grid.Row="4" Grid.ColumnSpan="4" Style="{StaticResource RadicalList}" Margin="0 2"
+            ItemsSource="{Binding Radicals Mode=TwoWay}" SelectionMode="Multiple,Toggle" />
         
         <!-- 4. Radical filter -->
         <Grid Grid.Row="5" Grid.ColumnSpan="4" Margin="0 5">

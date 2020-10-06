@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
+
+
+
+
+using Avalonia.Controls;
+using Avalonia.Markup.Xaml;
+
+
+
+
 using Kanji.Interface.ViewModels;
 using Kanji.Interface.Models;
 
@@ -24,6 +26,13 @@ namespace Kanji.Interface.Controls
             InitializeComponent();
             SrsList.SelectionChanged += SrsList_SelectionChanged;
         }
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
+            SrsList = this.FindControl<DataGrid>("SrsList");
+        }
+        public DataGrid SrsList { get; private set; }
+
 
         void SrsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
