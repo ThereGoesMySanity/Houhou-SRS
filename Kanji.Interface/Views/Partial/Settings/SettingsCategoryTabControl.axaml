@@ -5,24 +5,24 @@
                     xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" x:Class="Kanji.Interface.Controls.SettingsCategoryTabControl" mc:Ignorable="d" d:DesignHeight="80" d:DesignWidth="300">
 
-    <UserControl.Style>
+    <UserControl.Styles>
         <Style Selector="UserControl">
             <i:Interaction.Behaviors>
                 <ia:DataTriggerBehavior Binding="{Binding IsMouseOver}" Value="True">
                     <ia:ChangePropertyAction Value="0.8" PropertyName="Opacity"/>
                 </ia:DataTriggerBehavior>
-                <ia:DataTriggerBehavior Value="True">
-                    <ia:DataTriggerBehavior.Binding>
+                <ia:DataTriggerBehaviordontchange Value="True">
+                    <ia:DataTriggerBehaviordontchange.Binding>
                         <MultiBinding Converter="{StaticResource ComparablesToBooleanConverter}">
                             <Binding Path="Tag" RelativeSource="{RelativeSource Self}"/>
                             <Binding Path="CurrentCategory"/>
                         </MultiBinding>
-                    </ia:DataTriggerBehavior.Binding>
+                    </ia:DataTriggerBehaviordontchange.Binding>
                     <ia:ChangePropertyAction Value="0.8" PropertyName="Opacity"/>
-                </ia:DataTriggerBehavior>
+                </ia:DataTriggerBehaviordontchange>
             </i:Interaction.Behaviors>
         </Style>
-    </UserControl.Style>
+    </UserControl.Styles>
     
     <Border BorderThickness="1" BorderBrush="#FF999999">
         <Grid>

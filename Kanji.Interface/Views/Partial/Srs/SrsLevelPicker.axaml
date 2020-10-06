@@ -11,7 +11,7 @@
         <ResourceDictionary>
             
             <!-- Child level listbox style -->
-            <Style Selector="ListBox" x:Key="SrsLevelSublist">
+            <Style Selector="ListBox.SrsLevelSublist" >
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="ItemsPanel">
                     <Setter.Value>
@@ -45,22 +45,13 @@
                                         <i:Interaction.Behaviors>
                                             <!-- Compare the CurrentGrade of the SrsEntry of the ViewModel far above,
                                             with the Value of the level. If >=, remove the white background. -->
-                                            <ia:DataTriggerBehavior Value="True">
-                                                <ia:DataTriggerBehavior.Binding>
-                                                    <MultiBinding Converter="{StaticResource ComparablesToBooleanConverter}" ConverterParameter="{x:Static converters:ComparablesToBooleanConversionEnum.GreaterOrEqual}">
-                                                        <MultiBinding.Bindings>
-                                                            <Binding RelativeSource="{RelativeSource AncestorType={x:Type controls:SrsLevelPicker}}" Path="DataContext.CurrentLevelValue"/>
-                                                            <Binding Path="Value"/>
-                                                        </MultiBinding.Bindings>
-                                                    </MultiBinding>
-                                                </ia:DataTriggerBehavior.Binding>
-                                                <ia:DataTriggerBehavior.Actions>
-                                                    <ia:ChangePropertyAction Value="{Binding                                                         DataContext.Color,
-                                                         RelativeSource={RelativeSource AncestorType=ListBoxItem},
+                                            <ia:DataTriggerBehaviordontchange Binding="{Binding $parent[controls:SrsLevelPicker].DataContext.CurrentLevelValue}" 
+                                                                    ComparisonCondition="GreaterThanOrEqual" Value="{Binding Value}">
+                                                    <ia:ChangePropertyAction Value="{Binding
+                                                                             $parent[ListBoxItem].DataContext.Color,
                                                          Converter={StaticResource ColorToBrushConverter}}" PropertyName="Background"/>
                                                     <ia:ChangePropertyAction Value="White" PropertyName="Foreground"/>
-                                                </ia:DataTriggerBehavior.Actions>
-                                            </ia:DataTriggerBehavior>
+                                            </ia:DataTriggerBehaviordontchange>
                                             <ia:DataTriggerBehavior Binding="{Binding IsMouseOver}" Value="True">
                                                 <ia:ChangePropertyAction Value="White" PropertyName="Foreground"/>
                                                 <ia:ChangePropertyAction Value="0.8" PropertyName="Opacity"/>
@@ -77,7 +68,7 @@
             </Style>
 
             <!-- Group ListBox style -->
-            <Style Selector="ListBox" x:Key="SrsLevelSelectionList">
+            <Style Selector="ListBox.SrsLevelSelectionList" >
                 <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="ItemsPanel">
@@ -94,7 +85,7 @@
                                 <Setter.Value>
                                     <ControlTemplate TargetType="ListBoxItem">
                                         <Border BorderThickness="1" BorderBrush="#444444" Background="{Binding Color, Converter={StaticResource ColorToBrushConverter}}" Margin="0 0 2 0">
-                                            <ListBox ItemsSource="{Binding Levels}" Style="{StaticResource SrsLevelSublist}"/>
+                                            <ListBox ItemsSource="{Binding Levels}" Classes="SrsLevelSublist"/>
                                         </Border>
                                     </ControlTemplate>
                                 </Setter.Value>
@@ -107,5 +98,5 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <ListBox Grid.ColumnSpan="2" Grid.Row="2" Style="{StaticResource SrsLevelSelectionList}" Margin="0 3 0 0" ItemsSource="{Binding SrsLevelGroups}"/>
+    <ListBox Grid.ColumnSpan="2" Grid.Row="2" Classes="SrsLevelSelectionList" Margin="0 3 0 0" ItemsSource="{Binding SrsLevelGroups}"/>
 </UserControl>

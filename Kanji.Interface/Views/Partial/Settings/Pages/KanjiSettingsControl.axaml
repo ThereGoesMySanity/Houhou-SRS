@@ -11,7 +11,7 @@
 
         <HeaderedContentControl BorderBrush="#666666">
             <HeaderedContentControl.Header>
-                <TextBlock Text="Radical configuration" Style="{StaticResource SettingCategoryTitle}" />
+                <TextBlock Text="Radical configuration" Classes="SettingCategoryTitle" />
             </HeaderedContentControl.Header>
             <StackPanel Margin="6 10">
                 <controls:SettingRadicalSetControl DataContext="{Binding RadicalSetVm}" />
@@ -20,7 +20,7 @@
 
         <HeaderedContentControl BorderBrush="#666666" Margin="0 20 0 0">
             <HeaderedContentControl.Header>
-                <TextBlock Text="Kanji list" Style="{StaticResource SettingCategoryTitle}" />
+                <TextBlock Text="Kanji list" Classes="SettingCategoryTitle" />
             </HeaderedContentControl.Header>
             <StackPanel Margin="6 10">
                 <controls:SettingKanjiPerPageControl DataContext="{Binding KanjiPerPageVm}" />
@@ -29,7 +29,7 @@
 
         <HeaderedContentControl BorderBrush="#666666" Margin="0 20 0 0">
             <HeaderedContentControl.Header>
-                <TextBlock Text="Kanji details" Style="{StaticResource SettingCategoryTitle}" />
+                <TextBlock Text="Kanji details" Classes="SettingCategoryTitle" />
             </HeaderedContentControl.Header>
             <StackPanel Margin="6 10">
                 <controls:SettingKanjiInfoControl DataContext="{Binding KanjiInfoVm}" />

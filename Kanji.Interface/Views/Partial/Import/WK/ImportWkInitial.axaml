@@ -15,14 +15,14 @@
             <StackPanel>
                 <HeaderedContentControl BorderBrush="#666666" Padding="5" Margin="0 5 0 0">
                     <HeaderedContentControl.Header>
-                        <TextBlock Text="WaniKani API key" Style="{StaticResource SettingCategoryTitle}" />
+                        <TextBlock Text="WaniKani API key" Classes="SettingCategoryTitle" />
                     </HeaderedContentControl.Header>
                     <StackPanel>
-                        <TextBlock Style="{StaticResource LegendText}" TextWrapping="Wrap">
+                        <TextBlock Classes="LegendText" TextWrapping="Wrap">
                             Please enter your WaniKani API key in the box below.<LineBreak />
                             This key can be found on your Account Settings page on WaniKani.com.
                         </TextBlock>
-                        <TextBox Style="{StaticResource ErrorLabel}" TextWrapping="Wrap" Text="{Binding ApiKeyError}" />
+                        <TextBox Classes="ErrorLabel" TextWrapping="Wrap" Text="{Binding ApiKeyError}" />
                         <AdornerDecorator Margin="0 5 0 0">
                             <TextBox Text="{Binding ParentMode.ApiKey, Mode=TwoWay}" Height="22">
                                 <controls:WatermarkService.Watermark>
@@ -38,10 +38,10 @@
 
                 <HeaderedContentControl BorderBrush="#666666" Padding="5" Margin="0 10 0 0">
                     <HeaderedContentControl.Header>
-                        <TextBlock Text="WaniKani import settings" Style="{StaticResource SettingCategoryTitle}" />
+                        <TextBlock Text="WaniKani import settings" Classes="SettingCategoryTitle" />
                     </HeaderedContentControl.Header>
                     <StackPanel>
-                        <TextBlock Style="{StaticResource LegendText}">
+                        <TextBlock Classes="LegendText">
                             Import...
                         </TextBlock>
                         <StackPanel Orientation="Horizontal">
@@ -62,7 +62,7 @@
                         <CheckBox IsChecked="{Binding ParentMode.DoImportReviewDate, Mode=TwoWay}" Margin="0 5 0 0" Content="Use WaniKani's review date" 
                             ToolTip="If this is checked, the import will keep WaniKani's next review date when it is possible." />
 
-                        <TextBlock Style="{StaticResource LegendText}" ToolTip="Defines how the Tags field is filled. The special text '%level%' will be replaced by the WaniKani level of the item."
+                        <TextBlock Classes="LegendText" ToolTip="Defines how the Tags field is filled. The special text '%level%' will be replaced by the WaniKani level of the item."
                             Margin="0 5 0 0">
                             Tags field [?]
                         </TextBlock>
@@ -83,8 +83,8 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <Button Style="{StaticResource ActionButton}" Content="Back" Width="100" Command="{Binding ParentMode.PreviousStepCommand}" />
-            <Button Grid.Column="2" Style="{StaticResource ActionButton}" Content="Next" Width="100" Command="{Binding ParentMode.NextStepCommand}" />
+            <Button Classes="ActionButton" Content="Back" Width="100" Command="{Binding ParentMode.PreviousStepCommand}" />
+            <Button Grid.Column="2" Classes="ActionButton" Content="Next" Width="100" Command="{Binding ParentMode.NextStepCommand}" />
         </Grid>
     </Grid>
 </UserControl>

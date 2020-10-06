@@ -9,8 +9,8 @@
     
     <DockPanel>
         <controls:NavigationBar DockPanel.Dock="Top" />
-        <Border Style="{StaticResource VocabPageSeparator}" DockPanel.Dock="Top" />
-        <Border Style="{StaticResource VocabPageBorder}">
+        <Border Classes="VocabPageSeparator" DockPanel.Dock="Top" />
+        <Border Classes="VocabPageBorder">
             <Grid Margin="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />

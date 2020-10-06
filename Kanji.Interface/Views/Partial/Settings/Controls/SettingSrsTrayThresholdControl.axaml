@@ -7,8 +7,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="25" d:DesignWidth="350">
     <StackPanel Orientation="Horizontal">
-        <TextBlock Style="{StaticResource SettingText}" Text="Do not notify when under" Margin="0 0 7 0" />
+        <TextBlock Classes="SettingText" Text="Do not notify when under" Margin="0 0 7 0" />
         <xctk:LongUpDown Minimum="0" Maximum="9999" Value="{Binding Threshold}" Width="60" />
-        <TextBlock Style="{StaticResource SettingText}" Text="review(s) available." Margin="7 0 0 0" />
+        <TextBlock Classes="SettingText" Text="review(s) available." Margin="7 0 0 0" />
     </StackPanel>
 </UserControl>

@@ -14,9 +14,9 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBlock Style="{StaticResource SettingText}" Text="Set of SRS levels to use:" />
+        <TextBlock Classes="SettingText" Text="Set of SRS levels to use:" />
 
-        <ListBox Grid.Row="1" Style="{StaticResource SettingUserResourceListBox}"
+        <ListBox Grid.Row="1" Classes="SettingUserResourceListBox"
             ItemsSource="{Binding AvailableSets, Source={x:Static business:SrsLevelStore.Instance}, Mode=OneWay}" />
 
     </Grid>
