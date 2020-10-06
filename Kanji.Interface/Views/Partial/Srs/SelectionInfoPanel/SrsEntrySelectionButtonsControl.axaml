@@ -17,7 +17,7 @@
                     <Style TargetType="Button" BasedOn="{StaticResource MiniActionButton}">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding SelectedItems.Count}" Value="0">
-                                <ia:ChangePropertyAction Value="Collapsed" PropertyName="Visibility"/>
+                                <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
                             </ia:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
                     </Style>

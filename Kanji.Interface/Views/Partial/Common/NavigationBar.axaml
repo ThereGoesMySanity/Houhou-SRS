@@ -42,11 +42,11 @@
                     <Style TargetType="TextBlock">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.AvailableReviewsCount,
-                                  Source={x:Static business:SrsBusiness.Instance}}" Value="0">
-                                <ia:ChangePropertyAction Value="Collapsed" PropertyName="Visibility"/>
+                                   Source={x:Static business:SrsBusiness.Instance}}" Value="0">
+                                <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
                             </ia:DataTriggerBehavior>
                             <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.AvailableReviewsCount,
-                                  Source={x:Static business:SrsBusiness.Instance}}" Value="1">
+                                   Source={x:Static business:SrsBusiness.Instance}}" Value="1">
                                 <ia:ChangePropertyAction Value="1 review" PropertyName="Text"/>
                             </ia:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
@@ -96,7 +96,7 @@
                     <Style TargetType="TextBlock">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding CheckStatus,
-                                  Source={x:Static business:VersionBusiness.Instance}}" Value="UpdateAvailable">
+                                   Source={x:Static business:VersionBusiness.Instance}}" Value="UpdateAvailable">
                                 <ia:ChangePropertyAction Value="Update available!" PropertyName="Text"/>
                             </ia:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
