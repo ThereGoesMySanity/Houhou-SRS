@@ -1,4 +1,10 @@
-<?xml version="1.0" ?><Window xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:controls="clr-namespace:Kanji.Interface.Controls" xmlns:converters="clr-namespace:Kanji.Interface.Converters" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="Kanji.Interface.Views.EditSrsEntryWindow" Height="500" Width="500" KeyDown="OnKeyDown">
+<?xml version="1.0" ?><Window xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:Kanji.Interface.Controls"
+                    xmlns:converters="clr-namespace:Kanji.Interface.Converters"
+                    xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+                    xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
+                    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="Kanji.Interface.Views.EditSrsEntryWindow" Height="500" Width="500" KeyDown="OnKeyDown">
     <Window.Style>
         <Style TargetType="Window">
             <i:Interaction.Behaviors>

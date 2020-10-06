@@ -1,4 +1,9 @@
-<?xml version="1.0" ?><UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" x:Class="Kanji.Interface.Controls.SrsPageNavigationControl" mc:Ignorable="d" d:DesignHeight="50" d:DesignWidth="500">
+<?xml version="1.0" ?><UserControl xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+                    xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" x:Class="Kanji.Interface.Controls.SrsPageNavigationControl" mc:Ignorable="d" d:DesignHeight="50" d:DesignWidth="500">
 
     <UniformGrid Rows="1">
         <Button Content="Add a kanji item" ToolTip="Add a new kanji SRS item to your list (CTRL+K)" Margin="0 0 5 0" Command="{Binding AddKanjiItemCommand}" Style="{StaticResource ActionButton}"/>
