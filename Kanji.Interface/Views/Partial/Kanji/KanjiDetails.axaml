@@ -1,4 +1,12 @@
-<?xml version="1.0" ?><UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:converters="clr-namespace:Kanji.Interface.Converters" xmlns:controls="clr-namespace:Kanji.Interface.Controls" xmlns:svgc="http://sharpvectors.codeplex.com/svgc/" xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity" xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions" x:Class="Kanji.Interface.Controls.KanjiDetails" mc:Ignorable="d" KeyDown="OnKeyDown" d:DesignHeight="300" d:DesignWidth="600">
+<?xml version="1.0" ?><UserControl xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:converters="clr-namespace:Kanji.Interface.Converters"
+                    xmlns:controls="clr-namespace:Kanji.Interface.Controls"
+                    xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
+                    xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+                    xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions" x:Class="Kanji.Interface.Controls.KanjiDetails" mc:Ignorable="d" KeyDown="OnKeyDown" d:DesignHeight="300" d:DesignWidth="600">
     
     <Grid>
         <Grid.ColumnDefinitions>
@@ -177,9 +185,9 @@
                     <Border.Style>
                         <Style TargetType="Border">
                             <i:Interaction.Behaviors>
-                                <Trigger Property="IsMouseOver" Value="True">
+                                <ia:DataTriggerBehavior Binding="{Binding IsMouseOver}" Value="True">
                                     <ia:ChangePropertyAction Value="#3359B859" PropertyName="Background"/>
-                                </Trigger>
+                                </ia:DataTriggerBehavior>
                             </i:Interaction.Behaviors>
                             <Setter Property="Background" Value="#3377FF77"/>
                         </Style>

@@ -1,4 +1,15 @@
-<?xml version="1.0" ?><Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity" xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions" xmlns:converters="clr-namespace:Kanji.Interface.Converters" xmlns:models="clr-namespace:Kanji.Interface.Models" xmlns:controls="clr-namespace:Kanji.Interface.Controls" xmlns:actors="clr-namespace:Kanji.Interface.Actors" xmlns:business="clr-namespace:Kanji.Interface.Business" xmlns:utility="clr-namespace:Kanji.Interface.Utilities" xmlns:cmodels="clr-namespace:Kanji.Common.Models;assembly=Kanji.Common">
+<?xml version="1.0" ?><Styles xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+                    xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
+                    xmlns:converters="clr-namespace:Kanji.Interface.Converters"
+                    xmlns:models="clr-namespace:Kanji.Interface.Models"
+                    xmlns:controls="clr-namespace:Kanji.Interface.Controls"
+                    xmlns:actors="clr-namespace:Kanji.Interface.Actors"
+                    xmlns:business="clr-namespace:Kanji.Interface.Business"
+                    xmlns:utility="clr-namespace:Kanji.Interface.Utilities"
+                    xmlns:cmodels="clr-namespace:Kanji.Common.Models;assembly=Kanji.Common">
     <converters:KanjiToStringConverter x:Key="KanjiToStringConverter"/>
     <converters:KanjiToColorConverter x:Key="KanjiToColorConverter"/>
     <converters:KanjiReadingToListConverter x:Key="KanjiReadingToListConverter"/>
@@ -99,9 +110,9 @@
           <ia:ChangePropertyAction TargetObject="{Binding #Bd}" PropertyName="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
         </ia:DataTriggerBehavior>
       </i:Interaction.Behaviors>-->
-      <!--<Trigger Property="IsGrouping" Value="True">
+      <!--<ia:DataTriggerBehavior Binding="{Binding IsGrouping}" Value="True">
                 <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
-            </Trigger>-->
+            </ia:DataTriggerBehavior>-->
     </ControlTemplate>
 
     <!-- STYLES -->
@@ -408,7 +419,7 @@
                     </Border>
 
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
+                        <ia:DataTriggerBehavior Binding="{Binding IsMouseOver}" Value="True">
                             <Setter Property="Background">
                                 <Setter.Value>
                                     <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
@@ -420,11 +431,11 @@
                                 </Setter.Value>
                             </Setter>
                             <Setter Property="Foreground" Value="White" />
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="True">
+                        </ia:DataTriggerBehavior>
+                        <ia:DataTriggerBehavior Binding="{Binding IsPressed}" Value="True">
                             <Setter Property="BorderThickness" Value="3,2,1,1" />
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="False">
+                        </ia:DataTriggerBehavior>
+                        <ia:DataTriggerBehavior Binding="{Binding IsEnabled}" Value="False">
                             <Setter Property="Background">
                                 <Setter.Value>
                                     <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
@@ -436,7 +447,7 @@
                                 </Setter.Value>
                             </Setter>
                             <Setter Property="Foreground" Value="LightGray" />
-                        </Trigger>
+                        </ia:DataTriggerBehavior>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -802,13 +813,13 @@
                         <ia:DataTriggerBehavior Binding="{Binding DbKanji.MostUsedRank}" Value="{x:Null}">
                             <ia:ChangePropertyAction Value="LightGray" PropertyName="Background"/>
                         </ia:DataTriggerBehavior>
-                        <Trigger Property="IsSelected" Value="True">
+                        <ia:DataTriggerBehavior Binding="{Binding IsSelected}" Value="True">
                             <ia:ChangePropertyAction Value="10,0,0,0" PropertyName="Margin"/>
                             <ia:ChangePropertyAction Value="#220000FF" PropertyName="Background"/>
-                        </Trigger>
-                        <Trigger Property="IsMouseOver" Value="True">
+                        </ia:DataTriggerBehavior>
+                        <ia:DataTriggerBehavior Binding="{Binding IsMouseOver}" Value="True">
                             <ia:ChangePropertyAction Value="#220000FF" PropertyName="Background"/>
-                        </Trigger>
+                        </ia:DataTriggerBehavior>
                     </i:Interaction.Behaviors>
                 </ControlTemplate>
             </Setter.Value>
@@ -917,14 +928,14 @@
                                 </TextBox>
                                 <i:Interaction.Behaviors>
                                     <utility:MultiDataTriggerBehavior>
-                                        <utility:MultiDataTriggerBinding.Conditions>
+                                        <utility:MultiDataTriggerBehavior.Conditions>
                                             <utility:Condition Binding="{Binding HasKanji}" Value="True"/>
                                             <utility:Condition Binding="{Binding RelativeSource={RelativeSource Self},
                                                  Path=IsMouseOver}" Value="True"/>
-                                        </utility:MultiDataTriggerBinding.Conditions>
-                                        <utility:MultiDataTriggerBinding.Actions>
+                                        </utility:MultiDataTriggerBehavior.Conditions>
+                                        <utility:MultiDataTriggerBehavior.Actions>
                                             <ia:ChangePropertyAction Value="True" PropertyName="Tag"/>
-                                        </utility:MultiDataTriggerBinding.Actions>
+                                        </utility:MultiDataTriggerBehavior.Actions>
                                     </utility:MultiDataTriggerBehavior>
                                 </i:Interaction.Behaviors>
                             </ControlTemplate>
@@ -1007,9 +1018,9 @@
     
     <Style TargetType="TextBlock" x:Key="VocabVariantText">
         <i:Interaction.Behaviors>
-            <Trigger Property="IsMouseOver" Value="True">
+            <ia:DataTriggerBehavior Binding="{Binding IsMouseOver}" Value="True">
                 <ia:ChangePropertyAction Value="Black" PropertyName="Foreground"/>
-            </Trigger>
+            </ia:DataTriggerBehavior>
             <ia:DataTriggerBehavior Binding="{Binding Variant.IsMain}" Value="True">
                 <ia:ChangePropertyAction Value="SemiBold" PropertyName="FontWeight"/>
                 <ia:ChangePropertyAction Value="#AAAA0000" PropertyName="Foreground"/>
@@ -1132,9 +1143,9 @@
                                                         <ia:ChangePropertyAction Value="#22000000" PropertyName="Background"/>
                                                         <ia:ChangePropertyAction Value="0.8" PropertyName="Opacity"/>
                                                     </ia:DataTriggerBehavior>
-                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                    <ia:DataTriggerBehavior Binding="{Binding IsMouseOver}" Value="True">
                                                         <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
-                                                    </Trigger>
+                                                    </ia:DataTriggerBehavior>
                                                 </i:Interaction.Behaviors>
                                             </Style>
                                         </Border.Style>
@@ -1409,10 +1420,10 @@
                                                                         <ia:DataTriggerBehavior Binding="{Binding DbVocab.KanjiWriting}" Value="">
                                                                             <ia:ChangePropertyAction Value="Collapsed" PropertyName="Visibility"/>
                                                                         </ia:DataTriggerBehavior>
-                                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                                        <ia:DataTriggerBehavior Binding="{Binding IsMouseOver}" Value="True">
                                                                             <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
                                                                             <ia:ChangePropertyAction Value="#99042880" PropertyName="BorderBrush"/>
-                                                                        </Trigger>
+                                                                        </ia:DataTriggerBehavior>
                                                                     </i:Interaction.Behaviors>
                                                                     <Setter Property="Opacity" Value="0.15"/>
                                                                     <Setter Property="BorderBrush" Value="Transparent"/>
@@ -1427,10 +1438,10 @@
                                                             <Button.Style>
                                                                 <Style TargetType="Button" BasedOn="{StaticResource MiniActionButton}">
                                                                     <i:Interaction.Behaviors>
-                                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                                        <ia:DataTriggerBehavior Binding="{Binding IsMouseOver}" Value="True">
                                                                             <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
                                                                             <ia:ChangePropertyAction Value="#99042880" PropertyName="BorderBrush"/>
-                                                                        </Trigger>
+                                                                        </ia:DataTriggerBehavior>
                                                                     </i:Interaction.Behaviors>
                                                                     <Setter Property="Opacity" Value="0.15"/>
                                                                     <Setter Property="BorderBrush" Value="Transparent"/>
@@ -1504,9 +1515,9 @@
                                                 <Border.Style>
                                                     <Style TargetType="Border">
                                                         <i:Interaction.Behaviors>
-                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                            <ia:DataTriggerBehavior Binding="{Binding IsMouseOver}" Value="True">
                                                                 <ia:ChangePropertyAction Value="#FFE0E0E0" PropertyName="Background"/>
-                                                            </Trigger>
+                                                            </ia:DataTriggerBehavior>
                                                         </i:Interaction.Behaviors>
                                                         <Setter Property="Margin" Value="0 0 5 1"/>
                                                         <Setter Property="Background" Value="White"/>
@@ -2098,9 +2109,9 @@
             <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}" Value="{x:Static models:NavigationPageEnum.Kanji}">
                 <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
             </ia:DataTriggerBehavior>
-            <Trigger Property="IsMouseOver" Value="False">
+            <ia:DataTriggerBehavior Binding="{Binding IsMouseOver}" Value="False">
                 <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
-            </Trigger>
+            </ia:DataTriggerBehavior>
         </i:Interaction.Behaviors>
         <Setter Property="Background" Value="{StaticResource KanjiTabGradient}"/>
     </Style>
@@ -2115,9 +2126,9 @@
             <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}" Value="{x:Static models:NavigationPageEnum.Srs}">
                 <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
             </ia:DataTriggerBehavior>
-            <Trigger Property="IsMouseOver" Value="False">
+            <ia:DataTriggerBehavior Binding="{Binding IsMouseOver}" Value="False">
                 <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
-            </Trigger>
+            </ia:DataTriggerBehavior>
         </i:Interaction.Behaviors>
         <Setter Property="Background" Value="{StaticResource SrsTabGradient}"/>
     </Style>
@@ -2132,9 +2143,9 @@
             <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}" Value="{x:Static models:NavigationPageEnum.Vocab}">
                 <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
             </ia:DataTriggerBehavior>
-            <Trigger Property="IsMouseOver" Value="False">
+            <ia:DataTriggerBehavior Binding="{Binding IsMouseOver}" Value="False">
                 <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
-            </Trigger>
+            </ia:DataTriggerBehavior>
         </i:Interaction.Behaviors>
         <Setter Property="Background" Value="{StaticResource VocabTabGradient}"/>
     </Style>
@@ -2149,9 +2160,9 @@
             <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}" Value="{x:Static models:NavigationPageEnum.Settings}">
                 <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
             </ia:DataTriggerBehavior>
-            <Trigger Property="IsMouseOver" Value="False">
+            <ia:DataTriggerBehavior Binding="{Binding IsMouseOver}" Value="False">
                 <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
-            </Trigger>
+            </ia:DataTriggerBehavior>
         </i:Interaction.Behaviors>
         <Setter Property="Background" Value="{StaticResource SettingsTabGradient}"/>
     </Style>
@@ -2166,9 +2177,9 @@
             <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}" Value="{x:Static models:NavigationPageEnum.Home}">
                 <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
             </ia:DataTriggerBehavior>
-            <Trigger Property="IsMouseOver" Value="False">
+            <ia:DataTriggerBehavior Binding="{Binding IsMouseOver}" Value="False">
                 <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
-            </Trigger>
+            </ia:DataTriggerBehavior>
         </i:Interaction.Behaviors>
         <Setter Property="Background" Value="{StaticResource HomeTabGradient}"/>
     </Style>

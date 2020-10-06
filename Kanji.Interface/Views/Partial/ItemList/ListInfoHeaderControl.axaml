@@ -1,4 +1,12 @@
-<?xml version="1.0" ?><UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:converters="clr-namespace:Kanji.Interface.Converters" x:Class="Kanji.Interface.Controls.ListInfoHeaderControl" mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
+<?xml version="1.0" ?><UserControl xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+                    xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
+                    xmlns:utility="clr-namespace:Kanji.Interface.Utilities"
+                    xmlns:converters="clr-namespace:Kanji.Interface.Converters" x:Class="Kanji.Interface.Controls.ListInfoHeaderControl" mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
 
     <TextBlock>
         <TextBlock.Resources>
@@ -24,19 +32,19 @@
                     </ia:DataTriggerBehavior>
                     <!-- Loaded but no results: display an appropriate message -->
                     <utility:MultiDataTriggerBehavior>
-                        <utility:MultiDataTriggerBinding.Conditions>
+                        <utility:MultiDataTriggerBehavior.Conditions>
                             <utility:Condition Binding="{Binding LoadedItems.Count}" Value="0"/>
                             <utility:Condition Binding="{Binding TotalItemCount}" Value="0"/>
                             <utility:Condition Binding="{Binding IsFiltering}" Value="True"/>
-                        </utility:MultiDataTriggerBinding.Conditions>
+                        </utility:MultiDataTriggerBehavior.Conditions>
                         <ia:ChangePropertyAction Value="There are no results for this request." PropertyName="Text"/>
                     </utility:MultiDataTriggerBehavior>
                     <!-- Loaded with one single result: display an appropriate message -->
                     <utility:MultiDataTriggerBehavior>
-                        <utility:MultiDataTriggerBinding.Conditions>
+                        <utility:MultiDataTriggerBehavior.Conditions>
                             <utility:Condition Binding="{Binding LoadedItems.Count}" Value="1"/>
                             <utility:Condition Binding="{Binding TotalItemCount}" Value="1"/>
-                        </utility:MultiDataTriggerBinding.Conditions>
+                        </utility:MultiDataTriggerBehavior.Conditions>
                         <ia:ChangePropertyAction Value="Displaying the only result." PropertyName="Text"/>
                     </utility:MultiDataTriggerBehavior>
                     <!-- If loading: display loading indicator -->
@@ -48,7 +56,7 @@
                     </ia:DataTriggerBehavior>
                     <!-- Max priority: display the number of items being loaded. -->
                     <utility:MultiDataTriggerBehavior>
-                        <utility:MultiDataTriggerBinding.Conditions>
+                        <utility:MultiDataTriggerBehavior.Conditions>
                             <utility:Condition Binding="{Binding LoadedItems.Count}" Value="0"/>
                             <utility:Condition Value="True">
                                 <utility:Condition.Binding>
@@ -58,7 +66,7 @@
                                     </MultiBinding>
                                 </utility:Condition.Binding>
                             </utility:Condition>
-                        </utility:MultiDataTriggerBinding.Conditions>
+                        </utility:MultiDataTriggerBehavior.Conditions>
                         <ia:ChangePropertyAction PropertyName="Text">
                             <ia:ChangePropertyAction.Value>
                                 <Binding Path="TotalItemCount" Mode="OneWay" StringFormat="{}Loading {0} results. Please wait."/>
@@ -67,13 +75,13 @@
                     </utility:MultiDataTriggerBehavior>
                     <!-- (if loading one single result: display an appropriate message) -->
                     <utility:MultiDataTriggerBehavior>
-                        <utility:MultiDataTriggerBinding.Conditions>
+                        <utility:MultiDataTriggerBehavior.Conditions>
                             <utility:Condition Binding="{Binding LoadedItems.Count}" Value="0"/>
                             <utility:Condition Binding="{Binding TotalItemCount}" Value="1"/>
-                        </utility:MultiDataTriggerBinding.Conditions>
-                        <utility:MultiDataTriggerBinding.Actions>
+                        </utility:MultiDataTriggerBehavior.Conditions>
+                        <utility:MultiDataTriggerBehavior.Actions>
                             <ia:ChangePropertyAction Value="Loading 1 result. Please wait." PropertyName="Text"/>
-                        </utility:MultiDataTriggerBinding.Actions>
+                        </utility:MultiDataTriggerBehavior.Actions>
                     </utility:MultiDataTriggerBehavior>
                 </i:Interaction.Behaviors>
                 <!-- Default case: show the number of displayed items and the total number of results -->

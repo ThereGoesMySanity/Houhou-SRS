@@ -1,4 +1,13 @@
-<?xml version="1.0" ?><UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:controls="clr-namespace:Kanji.Interface.Controls" xmlns:utilities="clr-namespace:Kanji.Interface.Utilities" xmlns:behaviors="clr-namespace:Kanji.Interface.Behaviors" xmlns:models="clr-namespace:Kanji.Interface.Models" x:Class="Kanji.Interface.Controls.KanjiFilterControl" mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="600">
+<?xml version="1.0" ?><UserControl xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:controls="clr-namespace:Kanji.Interface.Controls"
+                    xmlns:utilities="clr-namespace:Kanji.Interface.Utilities"
+                    xmlns:behaviors="clr-namespace:Kanji.Interface.Behaviors"
+                    xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+                    xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
+                    xmlns:models="clr-namespace:Kanji.Interface.Models" x:Class="Kanji.Interface.Controls.KanjiFilterControl" mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="600">
     
     <Grid Margin="0">
         <Grid.ColumnDefinitions>
