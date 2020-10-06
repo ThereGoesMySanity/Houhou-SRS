@@ -13,7 +13,7 @@
             <StackPanel>
                 <TextBlock>
                     <TextBlock.Style>
-                        <Style BasedOn="{StaticResource LegendText}" TargetType="TextBlock">
+                        <Style BasedOn="{StaticResource LegendText}" Selector="TextBlock">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding IsComplete}" Value="True">
                                     <ia:ChangePropertyAction Value="The request was successful. Press the Next button to continue." PropertyName="Text"/>
@@ -29,7 +29,7 @@
                 </TextBlock>
                 <ProgressBar Height="25" Margin="0 5">
                     <ProgressBar.Style>
-                        <Style TargetType="ProgressBar">
+                        <Style Selector="ProgressBar">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding IsError}" Value="True">
                                     <ia:ChangePropertyAction Value="Red" PropertyName="Foreground"/>

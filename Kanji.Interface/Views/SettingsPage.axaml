@@ -27,7 +27,7 @@
                 <!-- Content title -->
                 <Border Grid.Column="1" BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="1" Padding="10 0 0 0">
                     <Border.Style>
-                        <Style TargetType="Border">
+                        <Style Selector="Border">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding CurrentCategory}" Value="{x:Static models:SettingsCategoryEnum.Srs}">
                                     <ia:ChangePropertyAction Value="{StaticResource SrsTabFadeBrush}" PropertyName="Background"/>
@@ -52,7 +52,7 @@
                         <Viewbox HorizontalAlignment="Left" Margin="0 0 0 5">
                             <TextBlock FontWeight="SemiBold">
                                 <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
+                                    <Style Selector="TextBlock">
                                         <i:Interaction.Behaviors>
                                             <ia:DataTriggerBehavior Binding="{Binding CurrentCategory}" Value="{x:Static models:SettingsCategoryEnum.Srs}">
                                                 <ia:ChangePropertyAction Value="{StaticResource SrsTabGradientEndBrush}" PropertyName="Foreground"/>

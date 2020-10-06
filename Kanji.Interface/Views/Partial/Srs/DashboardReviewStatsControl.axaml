@@ -8,7 +8,7 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <Style TargetType="Border" x:Key="StatBox">
+            <Style Selector="Border" x:Key="StatBox">
                 <Setter Property="BorderBrush" Value="{StaticResource FadedBorderBrush}"/>
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="Padding" Value="5"/>
@@ -43,7 +43,7 @@
                 <Viewbox Grid.Row="1">
                     <TextBlock Foreground="#99FFFFFF" TextAlignment="Center">
                         <TextBlock.Style>
-                            <Style TargetType="TextBlock" BasedOn="{StaticResource LegendText}">
+                            <Style Selector="TextBlock" BasedOn="{StaticResource LegendText}">
                                 <i:Interaction.Behaviors>
                                     <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TodayReviewsCount,
                                          Source={x:Static business:SrsBusiness.Instance}}" Value="1">
@@ -64,7 +64,7 @@
                 <StackPanel>
                     <TextBlock>
                         <TextBlock.Style>
-                            <Style TargetType="TextBlock">
+                            <Style Selector="TextBlock">
                                 <i:Interaction.Behaviors>
                                     <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.KanjiItemsCount,
                                          Source={x:Static business:SrsBusiness.Instance}}" Value="1">
@@ -81,7 +81,7 @@
                     </TextBlock>
                     <TextBlock>
                         <TextBlock.Style>
-                            <Style TargetType="TextBlock">
+                            <Style Selector="TextBlock">
                                 <i:Interaction.Behaviors>
                                     <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.VocabItemsCount,
                                          Source={x:Static business:SrsBusiness.Instance}}" Value="1">
@@ -119,7 +119,7 @@
                 <Viewbox Grid.Row="1">
                     <TextBlock Foreground="#99FFFFFF">
                         <TextBlock.Style>
-                            <Style TargetType="TextBlock" BasedOn="{StaticResource LegendText}">
+                            <Style Selector="TextBlock" BasedOn="{StaticResource LegendText}">
                                 <i:Interaction.Behaviors>
                                     <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TotalItemsCount,
                                          Source={x:Static business:SrsBusiness.Instance}}" Value="1">
@@ -140,7 +140,7 @@
                 <StackPanel>
                     <TextBlock>
                         <TextBlock.Style>
-                            <Style TargetType="TextBlock">
+                            <Style Selector="TextBlock">
                                 <i:Interaction.Behaviors>
                                     <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TotalSuccessCount,
                                          Source={x:Static business:SrsBusiness.Instance}}" Value="1">
@@ -157,7 +157,7 @@
                     </TextBlock>
                     <TextBlock>
                         <TextBlock.Style>
-                            <Style TargetType="TextBlock">
+                            <Style Selector="TextBlock">
                                 <i:Interaction.Behaviors>
                                     <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TotalFailureCount,
                                          Source={x:Static business:SrsBusiness.Instance}}" Value="1">
@@ -195,7 +195,7 @@
                 <Viewbox Grid.Row="1">
                     <TextBlock Foreground="#99FFFFFF">
                         <TextBlock.Style>
-                            <Style TargetType="TextBlock" BasedOn="{StaticResource LegendText}">
+                            <Style Selector="TextBlock" BasedOn="{StaticResource LegendText}">
                                 <i:Interaction.Behaviors>
                                     <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TotalReviewsCount,
                                          Source={x:Static business:SrsBusiness.Instance}}" Value="1">

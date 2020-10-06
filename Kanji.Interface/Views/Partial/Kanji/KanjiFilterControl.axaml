@@ -49,7 +49,7 @@
                     </TextBlock>
                 </controls:WatermarkService.Watermark>
                 <controls:CommandTextBox.Style>
-                    <Style TargetType="controls:CommandTextBox">
+                    <Style Selector="controls:CommandTextBox">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding MainFilterMode, Mode=OneWay}" Value="{x:Static models:KanjiFilterModeEnum.Meaning}">
                                 <ia:ChangePropertyAction Value="False" PropertyName="IsKanaInput"/>
@@ -118,7 +118,7 @@
             </AdornerDecorator>
             <Button Grid.Column="1" Margin="5 0" Content="pack://application:,,,/Data/UI/SortAlphabetIcon.png" ToolTip="Sort radicals by name" Command="{Binding SetRadicalSortModeCommand}" CommandParameter="{x:Static models:RadicalSortModeEnum.Alphabetic}">
                 <Button.Style>
-                    <Style TargetType="Button" BasedOn="{StaticResource ImageActionButton}">
+                    <Style Selector="Button" BasedOn="{StaticResource ImageActionButton}">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding RadicalSortMode}" Value="{x:Static models:RadicalSortModeEnum.Alphabetic}">
                                 <ia:ChangePropertyAction Value="True" PropertyName="Tag"/>
@@ -130,7 +130,7 @@
             </Button>
             <Button Grid.Column="2" Content="pack://application:,,,/Data/UI/SortFrequencyIcon.png" ToolTip="Sort radicals by frequency" Command="{Binding SetRadicalSortModeCommand}" CommandParameter="{x:Static models:RadicalSortModeEnum.Frequency}">
                 <Button.Style>
-                    <Style TargetType="Button" BasedOn="{StaticResource ImageActionButton}">
+                    <Style Selector="Button" BasedOn="{StaticResource ImageActionButton}">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding RadicalSortMode}" Value="{x:Static models:RadicalSortModeEnum.Frequency}">
                                 <ia:ChangePropertyAction Value="True" PropertyName="Tag"/>

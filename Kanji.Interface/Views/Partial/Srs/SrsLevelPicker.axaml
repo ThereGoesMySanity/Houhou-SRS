@@ -11,7 +11,7 @@
         <ResourceDictionary>
             
             <!-- Child level listbox style -->
-            <Style TargetType="ListBox" x:Key="SrsLevelSublist">
+            <Style Selector="ListBox" x:Key="SrsLevelSublist">
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="ItemsPanel">
                     <Setter.Value>
@@ -22,7 +22,7 @@
                 </Setter>
                 <Setter Property="ItemContainerStyle">
                     <Setter.Value>
-                        <Style TargetType="ListBoxItem">
+                        <Style Selector="ListBoxItem">
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="ListBoxItem">
@@ -77,7 +77,7 @@
             </Style>
 
             <!-- Group ListBox style -->
-            <Style TargetType="ListBox" x:Key="SrsLevelSelectionList">
+            <Style Selector="ListBox" x:Key="SrsLevelSelectionList">
                 <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="ItemsPanel">
@@ -89,7 +89,7 @@
                 </Setter>
                 <Setter Property="ItemContainerStyle">
                     <Setter.Value>
-                        <Style TargetType="ListBoxItem">
+                        <Style Selector="ListBoxItem">
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="ListBoxItem">

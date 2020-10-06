@@ -11,7 +11,7 @@
             <xctk:DoubleUpDown Value="{Binding QuickDelayHours}" Width="60"/>
             <TextBlock Margin="6 0 0 0" Foreground="Black">
                 <TextBlock.Style>
-                    <Style TargetType="TextBlock" BasedOn="{StaticResource LegendText}">
+                    <Style Selector="TextBlock" BasedOn="{StaticResource LegendText}">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding QuickDelayHours}" Value="1">
                                 <ia:ChangePropertyAction Value="hour" PropertyName="Text"/>

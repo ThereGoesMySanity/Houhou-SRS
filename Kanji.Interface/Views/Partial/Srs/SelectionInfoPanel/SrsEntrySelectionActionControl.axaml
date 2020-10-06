@@ -32,7 +32,7 @@
         <!-- Multiple items selected -->
         <Grid>
             <Grid.Style>
-                <Style TargetType="Grid">
+                <Style Selector="Grid">
                     <i:Interaction.Behaviors>
                         <ia:DataTriggerBehavior Binding="{Binding Visibility, ElementName=OneItemPanel}" Value="Visible">
                             <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
@@ -66,7 +66,7 @@
             <!-- BulkEditMode in (ReadingNote, MeaningNote, Tags) -->
             <Grid>
                 <Grid.Style>
-                    <Style TargetType="Grid">
+                    <Style Selector="Grid">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="ReadingNote">
                                 <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
@@ -90,7 +90,7 @@
                 <DockPanel LastChildFill="False">
                     <TextBlock DockPanel.Dock="Left">
                         <TextBlock.Style>
-                            <Style TargetType="TextBlock" BasedOn="{StaticResource LegendText}">
+                            <Style Selector="TextBlock" BasedOn="{StaticResource LegendText}">
                                 <i:Interaction.Behaviors>
                                     <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="MeaningNote">
                                         <ia:ChangePropertyAction Value="Meaning notes:" PropertyName="Text"/>
@@ -111,7 +111,7 @@
 
                 <TextBox Grid.Row="1" Margin="0 5 0 2" Text="{Binding BulkEditValue, Mode=TwoWay}">
                     <TextBox.Style>
-                        <Style TargetType="TextBox">
+                        <Style Selector="TextBox">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="MeaningNote">
                                     <ia:ChangePropertyAction Value="1000" PropertyName="MaxLength"/>
@@ -135,7 +135,7 @@
                       Converter={StaticResource ValueToVisibilityConverter},
                       ConverterParameter=Level}">
                 <Grid.Style>
-                    <Style TargetType="Grid">
+                    <Style Selector="Grid">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="Tags">
                                 <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
@@ -167,7 +167,7 @@
                       Converter={StaticResource ValueToVisibilityConverter},
                       ConverterParameter=Timing}">
                 <Grid.Style>
-                    <Style TargetType="Grid">
+                    <Style Selector="Grid">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="Tags">
                                 <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
@@ -219,7 +219,7 @@
                       Converter={StaticResource ValueToVisibilityConverter},
                       ConverterParameter=Delay}">
                 <Grid.Style>
-                    <Style TargetType="Grid">
+                    <Style Selector="Grid">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="Tags">
                                 <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
@@ -239,7 +239,7 @@
                             <xctk:DoubleUpDown Value="{Binding TimingDelay}" Width="60"/>
                             <TextBlock Margin="6 0 0 0" Foreground="Black">
                                 <TextBlock.Style>
-                                    <Style TargetType="TextBlock" BasedOn="{StaticResource LegendText}">
+                                    <Style Selector="TextBlock" BasedOn="{StaticResource LegendText}">
                                         <i:Interaction.Behaviors>
                                             <ia:DataTriggerBehavior Binding="{Binding TimingDelay}" Value="1">
                                                 <ia:ChangePropertyAction Value="hour" PropertyName="Text"/>
@@ -309,7 +309,7 @@
                             </TextBlock>
                         </TextBlock.ToolTip>
                         <TextBlock.Style>
-                            <Style TargetType="TextBlock" BasedOn="{StaticResource LegendText}">
+                            <Style Selector="TextBlock" BasedOn="{StaticResource LegendText}">
                                 <i:Interaction.Behaviors>
                                     <ia:DataTriggerBehavior Binding="{Binding BulkEditResultCount}" Value="-1">
                                         <ia:ChangePropertyAction Value="... but an error occured" PropertyName="Text"/>
