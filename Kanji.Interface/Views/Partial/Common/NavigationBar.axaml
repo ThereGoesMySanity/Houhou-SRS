@@ -8,7 +8,7 @@
                     xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
                     xmlns:business="clr-namespace:Kanji.Interface.Business" x:Class="Kanji.Interface.Controls.NavigationBar" mc:Ignorable="d" d:DesignHeight="100" d:DesignWidth="600">
     
-    <Grid Style="{StaticResource NavigationPanel}">
+    <Grid Classes="NavigationPanel">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -18,92 +18,88 @@
         </Grid.ColumnDefinitions>
         
         <!-- HOME tab -->
-        <Grid x:Name="NavigationPanelToolbar" Style="{StaticResource NavigationPanelHomeTab}">
+        <Grid x:Name="NavigationPanelToolbar" Classes="NavigationPanelHomeTab">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <DockPanel>
-                <Label DockPanel.Dock="Left" Style="{StaticResource NavigationPanelTabTitleKanji}" Content="方法" FontSize="36" FontWeight="Normal" Margin="5 0 3 7"/>
-                <Label Style="{StaticResource NavigationPanelTabTitle}" Content="HOME"/>
+                <Label DockPanel.Dock="Left" Classes="NavigationPanelTabTitleKanji" Content="方法" FontSize="36" FontWeight="Normal" Margin="5 0 3 7"/>
+                <Label Classes="NavigationPanelTabTitle" Content="HOME"/>
             </DockPanel>
-            <Button Grid.ColumnSpan="2" Style="{StaticResource NavigationPanelButton}" Command="{Binding NavigateCommand}" CommandParameter="{x:Static models:NavigationPageEnum.Home}" ToolTip="(CTRL+1)"/>
+            <Button Grid.ColumnSpan="2" Classes="NavigationPanelButton" Command="{Binding NavigateCommand}" CommandParameter="{x:Static models:NavigationPageEnum.Home}" ToolTip="(CTRL+1)"/>
         </Grid>
         
         <!-- SRS tab -->
-        <Grid x:Name="SrsTab" Grid.Column="1" Style="{StaticResource NavigationPanelSrsTab}">
+        <Grid x:Name="SrsTab" Grid.Column="1" Classes="NavigationPanelSrsTab">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10*"/>
                 <ColumnDefinition Width="80*"/>
                 <ColumnDefinition Width="10*"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="1" Style="{StaticResource NavigationPanelTabTitle}" Content="SRS"/>
+            <Label Grid.Column="1" Classes="NavigationPanelTabTitle" Content="SRS"/>
             <TextBlock Grid.ColumnSpan="3" VerticalAlignment="Bottom" Margin="0 0 0 3" HorizontalAlignment="Center" Foreground="White" FontWeight="SemiBold">
-                <TextBlock.Style>
+                <TextBlock.Styles>
                     <Style Selector="TextBlock">
-                        <i:Interaction.Behaviors>
-                            <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.AvailableReviewsCount,
-                                   Source={x:Static business:SrsBusiness.Instance}}" Value="0">
-                                <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
-                            </ia:DataTriggerBehavior>
-                            <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.AvailableReviewsCount,
-                                   Source={x:Static business:SrsBusiness.Instance}}" Value="1">
-                                <ia:ChangePropertyAction Value="1 review" PropertyName="Text"/>
-                            </ia:DataTriggerBehavior>
-                        </i:Interaction.Behaviors>
                         <Setter Property="Text">
                             <Setter.Value>
                                 <Binding Path="CurrentReviewInfo.AvailableReviewsCount" Source="{x:Static business:SrsBusiness.Instance}" StringFormat="{}{0} reviews"/>
                             </Setter.Value>
                         </Setter>
                     </Style>
-                </TextBlock.Style>
+                </TextBlock.Styles>
+              <i:Interaction.Behaviors>
+                <ia:DataTriggerBehaviordontchange Binding="{Binding CurrentReviewInfo.AvailableReviewsCount,
+                                   Source={x:Static business:SrsBusiness.Instance}}" Value="0">
+                  <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
+                </ia:DataTriggerBehaviordontchange>
+                <ia:DataTriggerBehaviordontchange Binding="{Binding CurrentReviewInfo.AvailableReviewsCount,
+                                   Source={x:Static business:SrsBusiness.Instance}}" Value="1">
+                  <ia:ChangePropertyAction Value="1 review" PropertyName="Text"/>
+                </ia:DataTriggerBehaviordontchange>
+              </i:Interaction.Behaviors>
             </TextBlock>
-            <Button Grid.ColumnSpan="3" Style="{StaticResource NavigationPanelButton}" Command="{Binding NavigateCommand}" CommandParameter="{x:Static models:NavigationPageEnum.Srs}" ToolTip="(CTRL+2)"/>
+            <Button Grid.ColumnSpan="3" Classes="NavigationPanelButton" Command="{Binding NavigateCommand}" CommandParameter="{x:Static models:NavigationPageEnum.Srs}" ToolTip="(CTRL+2)"/>
         </Grid>
 
         <!-- Kanji tab -->
-        <Grid x:Name="KanjiTab" Grid.Column="2" Style="{StaticResource NavigationPanelKanjiTab}">
+        <Grid x:Name="KanjiTab" Grid.Column="2" Classes="NavigationPanelKanjiTab">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10*"/>
                 <ColumnDefinition Width="80*"/>
                 <ColumnDefinition Width="10*"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="1" Style="{StaticResource NavigationPanelTabTitle}" Content="KANJI"/>
-            <Button Grid.ColumnSpan="3" Style="{StaticResource NavigationPanelButton}" Command="{Binding NavigateCommand}" CommandParameter="{x:Static models:NavigationPageEnum.Kanji}" ToolTip="(CTRL+3)"/>
+            <Label Grid.Column="1" Classes="NavigationPanelTabTitle" Content="KANJI"/>
+            <Button Grid.ColumnSpan="3" Classes="NavigationPanelButton" Command="{Binding NavigateCommand}" CommandParameter="{x:Static models:NavigationPageEnum.Kanji}" ToolTip="(CTRL+3)"/>
         </Grid>
 
         <!-- Vocab tab -->
-        <Grid x:Name="VocabTab" Grid.Column="3" Style="{StaticResource NavigationPanelVocabTab}">
+        <Grid x:Name="VocabTab" Grid.Column="3" Classes="NavigationPanelVocabTab">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10*"/>
                 <ColumnDefinition Width="80*"/>
                 <ColumnDefinition Width="10*"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="1" Style="{StaticResource NavigationPanelTabTitle}" Content="VOCAB"/>
-            <Button Grid.ColumnSpan="3" Style="{StaticResource NavigationPanelButton}" Command="{Binding NavigateCommand}" CommandParameter="{x:Static models:NavigationPageEnum.Vocab}" ToolTip="(CTRL+4)"/>
+            <Label Grid.Column="1" Classes="NavigationPanelTabTitle" Content="VOCAB"/>
+            <Button Grid.ColumnSpan="3" Classes="NavigationPanelButton" Command="{Binding NavigateCommand}" CommandParameter="{x:Static models:NavigationPageEnum.Vocab}" ToolTip="(CTRL+4)"/>
         </Grid>
 
         <!-- Settings tab -->
-        <Grid x:Name="SettingsTab" Grid.Column="4" Style="{StaticResource NavigationPanelSettingsTab}">
+        <Grid x:Name="SettingsTab" Grid.Column="4" Classes="NavigationPanelSettingsTab">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10*"/>
                 <ColumnDefinition Width="80*"/>
                 <ColumnDefinition Width="10*"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="1" Style="{StaticResource NavigationPanelTabTitle}" Content="SETTINGS"/>
+            <Label Grid.Column="1" Classes="NavigationPanelTabTitle" Content="SETTINGS"/>
             <TextBlock Grid.ColumnSpan="3" VerticalAlignment="Bottom" Margin="0 0 0 3" HorizontalAlignment="Center" Foreground="White" FontWeight="SemiBold">
-                <TextBlock.Style>
-                    <Style Selector="TextBlock">
-                        <i:Interaction.Behaviors>
-                            <ia:DataTriggerBehavior Binding="{Binding CheckStatus,
+              <i:Interaction.Behaviors>
+                <ia:DataTriggerBehaviordontchange Binding="{Binding CheckStatus,
                                    Source={x:Static business:VersionBusiness.Instance}}" Value="UpdateAvailable">
-                                <ia:ChangePropertyAction Value="Update available!" PropertyName="Text"/>
-                            </ia:DataTriggerBehavior>
-                        </i:Interaction.Behaviors>
-                    </Style>
-                </TextBlock.Style>
+                  <ia:ChangePropertyAction Value="Update available!" PropertyName="Text"/>
+                </ia:DataTriggerBehaviordontchange>
+              </i:Interaction.Behaviors>
             </TextBlock>
-            <Button Grid.ColumnSpan="3" Style="{StaticResource NavigationPanelButton}" Command="{Binding NavigateCommand}" CommandParameter="{x:Static models:NavigationPageEnum.Settings}" ToolTip="(CTRL+5)"/>
+            <Button Grid.ColumnSpan="3" Classes="NavigationPanelButton" Command="{Binding NavigateCommand}" CommandParameter="{x:Static models:NavigationPageEnum.Settings}" ToolTip="(CTRL+5)"/>
         </Grid>
     </Grid>
 </UserControl>

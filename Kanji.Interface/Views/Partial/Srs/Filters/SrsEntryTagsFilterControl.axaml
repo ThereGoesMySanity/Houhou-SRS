@@ -18,7 +18,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Containing the tag:" Style="{StaticResource LegendText}" VerticalAlignment="Center" Margin="0 0 5 0"/>
+                    <TextBlock Text="Containing the tag:" Classes="LegendText" VerticalAlignment="Center" Margin="0 0 5 0"/>
 
                     <AdornerDecorator Grid.Column="1">
                         <controls:CommandTextBox x:Name="FilterTextBox" MaxLength="100" ToolTip="Enter the tag filter. (CTRL+T)" Text="{Binding TagFilter}" ValidationCommand="{Binding ValidateCommand}">
@@ -41,7 +41,7 @@
         </ResourceDictionary>
     </controls:SrsEntryFilterControlBase.Resources>
 
-    <controls:SrsEntryFilterControlBase.Style>
+    <controls:SrsEntryFilterControlBase.Styles>
         <Style Selector="{x:Type controls:SrsEntryFilterControlBase}">
             <Style.Triggers>
                 <Trigger Property="IsInline" Value="True">
@@ -56,7 +56,7 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
-                            <TextBlock Text="Containing the tag:" Style="{StaticResource LegendText}"/>
+                            <TextBlock Text="Containing the tag:" Classes="LegendText"/>
 
                             <StackPanel Grid.Row="1">
                                 <AdornerDecorator>
@@ -74,5 +74,5 @@ When unchecked, matches any value containing this tag expression." IsChecked="{B
                 </Setter.Value>
             </Setter>
         </Style>
-    </controls:SrsEntryFilterControlBase.Style>
+    </controls:SrsEntryFilterControlBase.Styles>
 </controls:SrsEntryFilterControlBase>

@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <StackPanel>
-        <TextBlock Style="{StaticResource LegendText}" Margin="0 0 0 4">
+        <TextBlock Classes="LegendText" Margin="0 0 0 4">
             Action when closing Houhou's main window
         </TextBlock>
         <RadioButton Content="Keep running in tray and show a notification" Margin="0 0 0 4" IsChecked="{Binding CloseAction, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Warn}" />

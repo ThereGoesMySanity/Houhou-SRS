@@ -7,7 +7,7 @@
                     xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
                     xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
                     xmlns:behaviors="clr-namespace:Kanji.Interface.Behaviors" x:Class="Kanji.Interface.Controls.SrsReviewControl" mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="600" behaviors:InputBindingsBehavior.TakesInputBindingPrecedence="True">
-    <UserControl.Style>
+    <UserControl.Styles>
         <Style Selector="UserControl">
             <i:Interaction.Behaviors>
                 <ia:DataTriggerBehavior Binding="{Binding .}" Value="{x:Null}">
@@ -15,7 +15,7 @@
                 </ia:DataTriggerBehavior>
             </i:Interaction.Behaviors>
         </Style>
-    </UserControl.Style>
+    </UserControl.Styles>
 
     <UserControl.InputBindings>
         <KeyBinding Key="Back" Command="{Binding IgnoreAnswerShortcutCommand}"/>
@@ -42,8 +42,8 @@
             
             <!-- Wrap Up button -->
             <Button Command="{Binding WrapUpCommand}">
-                <Button.Style>
-                    <Style Selector="Button" BasedOn="{StaticResource MiniActionButton}">
+                <Button.Styles>
+                    <Style Selector="Button" InheritanceParent="{StaticResource MiniActionButton}">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding IsWrappingUp}" Value="True">
                                 <ia:ChangePropertyAction Value="False" PropertyName="IsEnabled"/>
@@ -55,20 +55,20 @@
                         <Setter Property="Content" Value="Wrap up"/>
                         <Setter Property="ToolTip" Value="Wraps up this review session. Shortcut if enabled: (CTRL+W)."/>
                     </Style>
-                </Button.Style>
+                </Button.Styles>
             </Button>
 
             <!-- Exit without wrapping up button -->
-            <Button Grid.Column="1" Command="{Binding StopSessionCommand}" Content="X" ToolTip="Exits this review session immediately. Some data may be lost." Style="{StaticResource MiniActionButton}"/>
+            <Button Grid.Column="1" Command="{Binding StopSessionCommand}" Content="X" ToolTip="Exits this review session immediately. Some data may be lost." Classes="MiniActionButton"/>
         </Grid>
 
         <Border Grid.Row="1">
-            <ProgressBar Style="{StaticResource SrsReviewProgressBar}" Value="{Binding AnsweredReviewsCount}" Maximum="{Binding TotalReviewsCount}"/>
+            <ProgressBar Classes="SrsReviewProgressBar" Value="{Binding AnsweredReviewsCount}" Maximum="{Binding TotalReviewsCount}"/>
         </Border>
         
         <!-- Item display -->
         <Border Grid.Row="2">
-            <Border.Style>
+            <Border.Styles>
                 <Style Selector="Border">
                     <i:Interaction.Behaviors>
                         <ia:DataTriggerBehavior Binding="{Binding CurrentQuestion.ParentGroup.IsKanji}" Value="True">
@@ -77,7 +77,7 @@
                     </i:Interaction.Behaviors>
                     <Setter Property="Background" Value="#FF8B00C9"/>
                 </Style>
-            </Border.Style>
+            </Border.Styles>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="40*"/>
@@ -91,7 +91,7 @@
                 </Grid.RowDefinitions>
                 
                 <!-- Progress indicator -->
-                <TextBlock Grid.ColumnSpan="3" Grid.RowSpan="3" Style="{StaticResource SrsReviewsCountIndicator}">
+                <TextBlock Grid.ColumnSpan="3" Grid.RowSpan="3" Classes="SrsReviewsCountIndicator">
                     <TextBlock.Text>
                         <MultiBinding StringFormat="{}{0}/{1}">
                             <Binding Path="AnsweredReviewsCount"/>
@@ -102,12 +102,12 @@
                 
                 <!-- Text representation of the item -->
                 <Viewbox Grid.Column="1" Grid.Row="1">
-                    <TextBox Style="{StaticResource LabelBox}" Text="{Binding CurrentQuestion.ParentGroup.Item, Mode=OneWay}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBox Classes="LabelBox" Text="{Binding CurrentQuestion.ParentGroup.Item, Mode=OneWay}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Viewbox>
 
                 <!-- Level up indicator -->
                 <Border Grid.ColumnSpan="3" Grid.RowSpan="3" Background="#DD333333" BorderThickness="1" BorderBrush="#FF000000" CornerRadius="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="60" Height="30" Margin="0 0 5 5">
-                    <Border.Style>
+                    <Border.Styles>
                         <Style Selector="Border">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding PreviewNextLevel}" Value="{x:Null}">
@@ -115,14 +115,14 @@
                                 </ia:DataTriggerBehavior>
                             </i:Interaction.Behaviors>
                         </Style>
-                    </Border.Style>
+                    </Border.Styles>
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontWeight="Bold" Padding="0 0 0 5">
-                            <TextBlock.Style>
+                            <TextBlock.Styles>
                                 <Style Selector="TextBlock">
                                     <i:Interaction.Behaviors>
                                         <ia:DataTriggerBehavior Value="True">
@@ -149,7 +149,7 @@
                                     <Setter Property="Text" Value="="/>
                                     <Setter Property="Foreground" Value="#CC0066FF"/>
                                 </Style>
-                            </TextBlock.Style>
+                            </TextBlock.Styles>
                         </TextBlock>
                         <Border Grid.Column="1" Background="{Binding PreviewNextLevel.ParentGroup.Color,
                                   Converter={StaticResource ColorToBrushConverter}}" Padding="5 2" BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="0 2 5 2">
@@ -169,7 +169,7 @@
 
         <!-- Question textblock -->
         <Border Grid.Row="3">
-            <Border.Style>
+            <Border.Styles>
                 <Style Selector="Border">
                     <i:Interaction.Behaviors>
                         <ia:DataTriggerBehavior Binding="{Binding CurrentQuestion.Question}" Value="Meaning">
@@ -180,9 +180,9 @@
                         </ia:DataTriggerBehavior>
                     </i:Interaction.Behaviors>
                 </Style>
-            </Border.Style>
+            </Border.Styles>
             <TextBlock Grid.Row="2" FontSize="16" Margin="0 10 0 10" HorizontalAlignment="Center">
-                <TextBlock.Style>
+                <TextBlock.Styles>
                     <Style Selector="TextBlock">
                         <i:Interaction.Behaviors>
                             <utility:MultiDataTriggerBehavior>
@@ -221,7 +221,7 @@
                             </ia:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
                     </Style>
-                </TextBlock.Style>
+                </TextBlock.Styles>
             </TextBlock>
         </Border>
 
@@ -230,7 +230,7 @@
             <TextBox.InputBindings>
                 <KeyBinding Key="Enter" Command="{Binding SubmitCommand}"/>
             </TextBox.InputBindings>
-            <TextBox.Style>
+            <TextBox.Styles>
                 <Style Selector="TextBox">
                     <i:Interaction.Behaviors>
                         <ia:DataTriggerBehavior Binding="{Binding ReviewState}" Value="Success">
@@ -244,12 +244,12 @@
                     </i:Interaction.Behaviors>
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
                 </Style>
-            </TextBox.Style>
+            </TextBox.Styles>
         </TextBox>
 
         <!-- SRS item info (displayed only when the answer is submitted) -->
         <Grid Grid.Row="5">
-            <Grid.Style>
+            <Grid.Styles>
                 <Style Selector="Grid">
                     <i:Interaction.Behaviors>
                         <ia:DataTriggerBehavior Binding="{Binding ReviewState}" Value="Input">
@@ -257,7 +257,7 @@
                         </ia:DataTriggerBehavior>
                     </i:Interaction.Behaviors>
                 </Style>
-            </Grid.Style>
+            </Grid.Styles>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
@@ -277,7 +277,7 @@
             
             <!-- Meaning/reading notes -->
             <Border Grid.Row="1" Margin="0 5 0 5">
-                <Border.Style>
+                <Border.Styles>
                     <Style Selector="Border">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding CurrentQuestion.Question}" Value="Meaning">
@@ -286,14 +286,14 @@
                         </i:Interaction.Behaviors>
                         <Setter Property="Visibility" Value="Collapsed"/>
                     </Style>
-                </Border.Style>
+                </Border.Styles>
                 <StackPanel Orientation="Vertical">
-                    <TextBlock Style="{StaticResource LegendText}" Text="Meaning notes:"/>
+                    <TextBlock Classes="LegendText" Text="Meaning notes:"/>
                     <TextBlock Text="{Binding CurrentQuestion.ParentGroup.Reference.MeaningNote, Mode=OneWay}" TextWrapping="Wrap"/>
                 </StackPanel>
             </Border>
             <Border Grid.Row="1" Margin="0 5 0 5">
-                <Border.Style>
+                <Border.Styles>
                     <Style Selector="Border">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding CurrentQuestion.Question}" Value="Reading">
@@ -302,10 +302,10 @@
                         </i:Interaction.Behaviors>
                         <Setter Property="Visibility" Value="Collapsed"/>
                     </Style>
-                </Border.Style>
+                </Border.Styles>
                 <StackPanel Orientation="Vertical">
-                    <Button Style="{StaticResource VocabAudioButton}" Width="120" HorizontalAlignment="Left" BorderBrush="Black" DataContext="{Binding CurrentQuestion.ParentGroup.Audio}" Visibility="{Binding CurrentQuestion.ParentGroup.IsVocab, Converter={StaticResource ValueToVisibilityConverter}}"/>
-                    <TextBlock Style="{StaticResource LegendText}" Text="Reading notes:"/>
+                    <Button Classes="VocabAudioButton" Width="120" HorizontalAlignment="Left" BorderBrush="Black" DataContext="{Binding CurrentQuestion.ParentGroup.Audio}" Visibility="{Binding CurrentQuestion.ParentGroup.IsVocab, Converter={StaticResource ValueToVisibilityConverter}}"/>
+                    <TextBlock Classes="LegendText" Text="Reading notes:"/>
                     <TextBlock Text="{Binding CurrentQuestion.ParentGroup.Reference.ReadingNote, Mode=OneWay}" TextWrapping="Wrap"/>
                 </StackPanel>
             </Border>
@@ -319,20 +319,20 @@
                 </Grid.ColumnDefinitions>
 
                 <Button Grid.Column="0" Content="Ignore answer" ToolTip="Use this button to ignore the answer you gave. The question will come back later. Shortcut if enabled: (Backspace)" Command="{Binding IgnoreAnswerCommand}" Margin="5 0">
-                    <Button.Style>
-                        <Style Selector="Button" BasedOn="{StaticResource ActionButton}">
+                    <Button.Styles>
+                        <Style Selector="Button" InheritanceParent="{StaticResource ActionButton}">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding ReviewState}" Value="Ignore">
                                     <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
                                 </ia:DataTriggerBehavior>
                             </i:Interaction.Behaviors>
                         </Style>
-                    </Button.Style>
+                    </Button.Styles>
                 </Button>
 
                 <Button Grid.Column="1" Command="{Binding AddAnswerCommand}" Margin="5 0">
-                    <Button.Style>
-                        <Style Selector="Button" BasedOn="{StaticResource ActionButton}">
+                    <Button.Styles>
+                        <Style Selector="Button" InheritanceParent="{StaticResource ActionButton}">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding ReviewState}" Value="Failure">
                                     <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
@@ -346,19 +346,19 @@
                             <Setter Property="Content" Value="Add to readings"/>
                             <Setter Property="ToolTip" Value="Mark your answer as correct and add the answer as a correct reading. Shortcut if enabled: (+)"/>
                         </Style>
-                    </Button.Style>
+                    </Button.Styles>
                 </Button>
 
                 <Button Grid.Column="2" Content="Edit this item" ToolTip="Open the item edition window. Does not change your answer or its effects." Command="{Binding EditSrsEntryCommand}" Margin="5 0">
-                    <Button.Style>
-                        <Style Selector="Button" BasedOn="{StaticResource ActionButton}">
+                    <Button.Styles>
+                        <Style Selector="Button" InheritanceParent="{StaticResource ActionButton}">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding ReviewState}" Value="Ignore">
                                     <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
                                 </ia:DataTriggerBehavior>
                             </i:Interaction.Behaviors>
                         </Style>
-                    </Button.Style>
+                    </Button.Styles>
                 </Button>
 
             </Grid>

@@ -7,20 +7,20 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <HeaderedContentControl BorderBrush="#666666" Padding="5" DataContext="{Binding ParentMode.DuplicateOptions}">
         <HeaderedContentControl.Header>
-            <TextBlock Text="Duplicate case behavior" Style="{StaticResource SettingCategoryTitle}" />
+            <TextBlock Text="Duplicate case behavior" Classes="SettingCategoryTitle" />
         </HeaderedContentControl.Header>
         <StackPanel>
-            <TextBlock Style="{StaticResource LegendText}" TextWrapping="Wrap" Margin="0 0 0 8">
+            <TextBlock Classes="LegendText" TextWrapping="Wrap" Margin="0 0 0 8">
                                 When an already existing item has the same kanji reading and item type...
             </TextBlock>
 
-            <TextBlock Style="{StaticResource LegendText}" TextWrapping="Wrap" Margin="0 0 0 0">
+            <TextBlock Classes="LegendText" TextWrapping="Wrap" Margin="0 0 0 0">
                                 About the imported item...
             </TextBlock>
             <RadioButton x:Name="DuplicateNewImport" GroupName="DuplicateNewBehavior" Content="Import the new item" IsChecked="{Binding DuplicateNewItemAction, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Import}" />
             <RadioButton GroupName="DuplicateNewBehavior" Content="Ignore the new item" IsChecked="{Binding DuplicateNewItemAction, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Ignore}" />
             <Separator Margin="5 12 5 8" />
-            <TextBlock Style="{StaticResource LegendText}" TextWrapping="Wrap" Margin="0 0 0 0">
+            <TextBlock Classes="LegendText" TextWrapping="Wrap" Margin="0 0 0 0">
                                 About the existing item...
             </TextBlock>
             <StackPanel IsEnabled="{Binding ElementName=DuplicateNewImport, Path=IsChecked}">

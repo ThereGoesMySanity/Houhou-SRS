@@ -10,7 +10,7 @@
     <StackPanel>
         <HeaderedContentControl BorderBrush="#666666">
             <HeaderedContentControl.Header>
-                <TextBlock Text="SRS level configuration" Style="{StaticResource SettingCategoryTitle}" />
+                <TextBlock Text="SRS level configuration" Classes="SettingCategoryTitle" />
             </HeaderedContentControl.Header>
             <StackPanel Margin="6 10">
                 <controls:SettingSrsLevelSetControl DataContext="{Binding SrsLevelSetVm}" />
@@ -18,7 +18,7 @@
         </HeaderedContentControl>
         <HeaderedContentControl BorderBrush="#666666" Margin="0 20 0 0">
             <HeaderedContentControl.Header>
-                <TextBlock Text="Reviews" Style="{StaticResource SettingCategoryTitle}" />
+                <TextBlock Text="Reviews" Classes="SettingCategoryTitle" />
             </HeaderedContentControl.Header>
             <StackPanel Margin="6 10">
                 <controls:SettingAutoSkipControl DataContext="{Binding AutoSkipVm}" />
@@ -28,7 +28,7 @@
 
         <HeaderedContentControl BorderBrush="#666666" Margin="0 20 0 0">
             <HeaderedContentControl.Header>
-                <TextBlock Text="SRS items browsing" Style="{StaticResource SettingCategoryTitle}" />
+                <TextBlock Text="SRS items browsing" Classes="SettingCategoryTitle" />
             </HeaderedContentControl.Header>
             <StackPanel Margin="6 10">
                 <controls:SettingSrsEntriesPerPageControl DataContext="{Binding EntriesPerPageVm}" />

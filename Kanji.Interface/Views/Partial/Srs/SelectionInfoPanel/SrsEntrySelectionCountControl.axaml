@@ -8,23 +8,23 @@
     <Border BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="0 0 0 1" Padding="0 0 0 5" Margin="0 0 0 5">
         <Viewbox>
             <TextBlock Foreground="{StaticResource LegendTextBrush}">
-                <TextBlock.Style>
-                    <Style Selector="TextBlock">
                         <i:Interaction.Behaviors>
-                            <ia:DataTriggerBehavior Binding="{Binding SelectedItems.Count}" Value="0">
+                            <ia:DataTriggerBehaviordontchange Binding="{Binding SelectedItems.Count}" Value="0">
                                 <ia:ChangePropertyAction Value="No items selected" PropertyName="Text"/>
-                            </ia:DataTriggerBehavior>
-                            <ia:DataTriggerBehavior Binding="{Binding SelectedItems.Count}" Value="1">
+                            </ia:DataTriggerBehaviordontchange>
+                            <ia:DataTriggerBehaviordontchange Binding="{Binding SelectedItems.Count}" Value="1">
                                 <ia:ChangePropertyAction Value="1 item selected" PropertyName="Text"/>
-                            </ia:DataTriggerBehavior>
+                            </ia:DataTriggerBehaviordontchange>
                         </i:Interaction.Behaviors>
+                <TextBlock.Styles>
+                    <Style Selector="TextBlock">
                         <Setter Property="Text">
                             <Setter.Value>
                                 <Binding Path="SelectedItems.Count" StringFormat="{}{0} items selected"/>
                             </Setter.Value>
                         </Setter>
                     </Style>
-                </TextBlock.Style>
+                </TextBlock.Styles>
             </TextBlock>
         </Viewbox>
     </Border>

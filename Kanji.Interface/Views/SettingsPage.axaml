@@ -9,8 +9,8 @@
 
     <DockPanel>
         <controls:NavigationBar DockPanel.Dock="Top"/>
-        <Border Style="{StaticResource SettingsPageSeparator}" DockPanel.Dock="Top"/>
-        <Border Style="{StaticResource SettingsPageBorder}">
+        <Border Classes="SettingsPageSeparator" DockPanel.Dock="Top"/>
+        <Border Classes="SettingsPageBorder">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -26,7 +26,7 @@
                 
                 <!-- Content title -->
                 <Border Grid.Column="1" BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="1" Padding="10 0 0 0">
-                    <Border.Style>
+                    <Border.Styles>
                         <Style Selector="Border">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding CurrentCategory}" Value="{x:Static models:SettingsCategoryEnum.Srs}">
@@ -43,7 +43,7 @@
                                 </ia:DataTriggerBehavior>
                             </i:Interaction.Behaviors>
                         </Style>
-                    </Border.Style>
+                    </Border.Styles>
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="50"/>
@@ -51,7 +51,7 @@
                         </Grid.RowDefinitions>
                         <Viewbox HorizontalAlignment="Left" Margin="0 0 0 5">
                             <TextBlock FontWeight="SemiBold">
-                                <TextBlock.Style>
+                                <TextBlock.Styles>
                                     <Style Selector="TextBlock">
                                         <i:Interaction.Behaviors>
                                             <ia:DataTriggerBehavior Binding="{Binding CurrentCategory}" Value="{x:Static models:SettingsCategoryEnum.Srs}">
@@ -68,7 +68,7 @@
                                             </ia:DataTriggerBehavior>
                                         </i:Interaction.Behaviors>
                                     </Style>
-                                </TextBlock.Style>
+                                </TextBlock.Styles>
                                 <TextBlock.Text>
                                     <Binding Path="CurrentCategory" Converter="{StaticResource EnumDescriptionConverter}" StringFormat="{}{0} settings"/>
                                 </TextBlock.Text>

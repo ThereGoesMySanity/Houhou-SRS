@@ -6,7 +6,7 @@
                     xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
                     xmlns:controls="clr-namespace:Kanji.Interface.Controls" x:Class="Kanji.Interface.Controls.CollapsiblePanel" mc:Ignorable="d" d:DesignHeight="100" d:DesignWidth="300">
 
-    <controls:CollapsiblePanelBase.Style>
+    <controls:CollapsiblePanelBase.Styles>
         <Style Selector="controls:CollapsiblePanelBase">
             <Setter Property="Background" Value="#99000000"/>
             <Setter Property="Template">
@@ -23,16 +23,14 @@
                                     <TextBlock Text="{TemplateBinding Text}" Foreground="White" VerticalAlignment="Center" Margin="0 0 0 7"/>
                                     <ContentPresenter Content="{TemplateBinding HeaderContent}"/>
                                     <TextBlock Foreground="#1CFFFFFF" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="10" Tag="{TemplateBinding IsContentShown}">
-                                        <TextBlock.Style>
+                                        <TextBlock.Styles>
                                             <Style Selector="TextBlock">
-                                                <i:Interaction.Behaviors>
-                                                    <ia:DataTriggerBehavior Binding="{Binding Tag, RelativeSource={RelativeSource Self}}" Value="True">
-                                                        <ia:ChangePropertyAction Value="▲ ▲ ▲ ▲ ▲" PropertyName="Text"/>
-                                                    </ia:DataTriggerBehavior>
-                                                </i:Interaction.Behaviors>
                                                 <Setter Property="Text" Value="▼ ▼ ▼ ▼ ▼"/>
                                             </Style>
-                                        </TextBlock.Style>
+                                          <Style Selector="TextBlock[Tag=True]">
+                                            <Setter Value="▲ ▲ ▲ ▲ ▲" Property="Text"/>
+                                          </Style>
+                                        </TextBlock.Styles>
                                     </TextBlock>
                                     <Button x:Name="CommandButton" Click="OnCommandButtonClick" Opacity="0" Command="{TemplateBinding Command}" CommandParameter="{TemplateBinding CommandParameter}"/>
                                 </Grid>
@@ -45,5 +43,5 @@
                 </Setter.Value>
             </Setter>
         </Style>
-    </controls:CollapsiblePanelBase.Style>
+    </controls:CollapsiblePanelBase.Styles>
 </controls:CollapsiblePanelBase>

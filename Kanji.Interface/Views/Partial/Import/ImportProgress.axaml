@@ -15,7 +15,7 @@
         <Border Padding="0 5">
             <StackPanel>
                 <TextBlock FontSize="15">
-                    <TextBlock.Style>
+                    <TextBlock.Styles>
                         <Style Selector="TextBlock">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding IsFinished}" Value="true">
@@ -24,21 +24,21 @@
                             </i:Interaction.Behaviors>
                             <Setter Property="Text" Value="Please wait while items are being imported..."/>
                         </Style>
-                    </TextBlock.Style>
+                    </TextBlock.Styles>
                 </TextBlock>
                 <ProgressBar Height="30" Margin="0 5 0 0" Value="{Binding ProgressCount, Mode=OneWay}" Minimum="0" Maximum="{Binding ParentMode.NewEntries.Count, Mode=OneWay}"/>
                 <TextBlock FontSize="16" HorizontalAlignment="Center">
-                    <TextBlock.Style>
+                    <TextBlock.Styles>
                         <Style Selector="TextBlock">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding IsFinished}" Value="false">
                                     <ia:ChangePropertyAction PropertyName="Text">
-                                        <ia:ChangePropertyAction.Value>
+                                        <Setter.Value>
                                             <MultiBinding StringFormat="{}Importing item {0} out of {1}...">
                                                 <Binding Path="ProgressCount" Mode="OneWay"/>
                                                 <Binding Path="ParentMode.NewEntries.Count" Mode="OneWay"/>
                                             </MultiBinding>
-                                        </ia:ChangePropertyAction.Value>
+                                        </Setter.Value>
                                     </ia:ChangePropertyAction>
                                 </ia:DataTriggerBehavior>
                             </i:Interaction.Behaviors>
@@ -48,7 +48,7 @@
                                 </Setter.Value>
                             </Setter>
                         </Style>
-                    </TextBlock.Style>
+                    </TextBlock.Styles>
                 </TextBlock>
             </StackPanel>
         </Border>
@@ -65,7 +65,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="2" Style="{StaticResource ActionButton}" Content="Finish" Width="100" Command="{Binding ParentMode.NextStepCommand}" IsEnabled="{Binding IsFinished}"/>
+            <Button Grid.Column="2" Classes="ActionButton" Content="Finish" Width="100" Command="{Binding ParentMode.NextStepCommand}" IsEnabled="{Binding IsFinished}"/>
         </Grid>
         
     </Grid>

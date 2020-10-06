@@ -17,10 +17,10 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <TextBlock Text="JLPT Level" Style="{StaticResource LegendText}" />
+        <TextBlock Text="JLPT Level" Classes="LegendText" />
         <TextBlock Grid.Column="1"
                    Text="{Binding Value, Converter={StaticResource NumberToJlptLevelConverter}, ElementName=LevelSlider}"
-                   Style="{StaticResource LegendText}"
+                   Classes="LegendText"
                    Width="70"
                    Margin="5,0"
                    TextAlignment="Center"/>

@@ -12,13 +12,13 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <Style Selector="ComboBox" x:Key="FieldComboBox">
+            <Style Selector="ComboBox.FieldComboBox" >
                 
             </Style>
-            <Style Selector="ComboBox" BasedOn="{StaticResource FieldComboBox}" x:Key="RequiredFieldComboBox">
+            <Style Selector="ComboBox.RequiredFieldComboBox" InheritanceParent="{StaticResource FieldComboBox}" >
                 <Setter Property="BorderBrush" Value="#FFFF0000" />
             </Style>
-            <Style Selector="StackPanel" x:Key="FieldStackPanel">
+            <Style Selector="StackPanel.FieldStackPanel" >
                 <Setter Property="Margin" Value="5" />
             </Style>
         </ResourceDictionary>
@@ -33,7 +33,7 @@
             <StackPanel>
                 <HeaderedContentControl BorderBrush="#666666" Padding="5">
                     <HeaderedContentControl.Header>
-                        <TextBlock Text="Field configuration" Style="{StaticResource SettingCategoryTitle}" />
+                        <TextBlock Text="Field configuration" Classes="SettingCategoryTitle" />
                     </HeaderedContentControl.Header>
                     <StackPanel>
                         <TextBlock FontSize="14" TextWrapping="Wrap" Margin="0 0 0 3">
@@ -53,73 +53,73 @@
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                         
-                            <StackPanel Style="{StaticResource FieldStackPanel}">
-                                <TextBlock Style="{StaticResource LegendText}">
+                            <StackPanel Classes="FieldStackPanel">
+                                <TextBlock Classes="LegendText">
                                     * Kanji reading
                                 </TextBlock>
-                                <ComboBox Style="{StaticResource RequiredFieldComboBox}" ItemsSource="{Binding RequiredColumns}" SelectedIndex="{Binding KanjiReadingColumn, Mode=TwoWay}" />
+                                <ComboBox Classes="RequiredFieldComboBox" ItemsSource="{Binding RequiredColumns}" SelectedIndex="{Binding KanjiReadingColumn, Mode=TwoWay}" />
                             </StackPanel>
 
-                            <StackPanel Grid.Column="1" Style="{StaticResource FieldStackPanel}">
-                                <TextBlock Style="{StaticResource LegendText}">
+                            <StackPanel Grid.Column="1" Classes="FieldStackPanel">
+                                <TextBlock Classes="LegendText">
                                     * Accepted readings
                                 </TextBlock>
-                                <ComboBox Style="{StaticResource RequiredFieldComboBox}" ItemsSource="{Binding RequiredColumns}" SelectedIndex="{Binding AcceptedReadingsColumn, Mode=TwoWay}" />
+                                <ComboBox Classes="RequiredFieldComboBox" ItemsSource="{Binding RequiredColumns}" SelectedIndex="{Binding AcceptedReadingsColumn, Mode=TwoWay}" />
                             </StackPanel>
 
-                            <StackPanel Grid.Row="1" Style="{StaticResource FieldStackPanel}">
-                                <TextBlock Style="{StaticResource LegendText}">
+                            <StackPanel Grid.Row="1" Classes="FieldStackPanel">
+                                <TextBlock Classes="LegendText">
                                     * Accepted meanings
                                 </TextBlock>
-                                <ComboBox Style="{StaticResource RequiredFieldComboBox}" ItemsSource="{Binding RequiredColumns}" SelectedIndex="{Binding AcceptedMeaningsColumn, Mode=TwoWay}" />
+                                <ComboBox Classes="RequiredFieldComboBox" ItemsSource="{Binding RequiredColumns}" SelectedIndex="{Binding AcceptedMeaningsColumn, Mode=TwoWay}" />
                             </StackPanel>
 
-                            <StackPanel Grid.Row="1" Grid.Column="1" Style="{StaticResource FieldStackPanel}">
-                                <TextBlock Style="{StaticResource LegendText}" ToolTip="Expected values are 'K' for a kanji or 'V' for a vocab item.">
+                            <StackPanel Grid.Row="1" Grid.Column="1" Classes="FieldStackPanel">
+                                <TextBlock Classes="LegendText" ToolTip="Expected values are 'K' for a kanji or 'V' for a vocab item.">
                                     Item type [?]
                                 </TextBlock>
-                                <ComboBox Style="{StaticResource FieldComboBox}" ItemsSource="{Binding OptionalColumns}" SelectedIndex="{Binding ItemTypeColumn, Mode=TwoWay}" />
+                                <ComboBox Classes="FieldComboBox" ItemsSource="{Binding OptionalColumns}" SelectedIndex="{Binding ItemTypeColumn, Mode=TwoWay}" />
                             </StackPanel>
 
-                            <StackPanel Grid.Row="2" Grid.Column="0" Style="{StaticResource FieldStackPanel}">
-                                <TextBlock Style="{StaticResource LegendText}">
+                            <StackPanel Grid.Row="2" Grid.Column="0" Classes="FieldStackPanel">
+                                <TextBlock Classes="LegendText">
                                     Meaning notes
                                 </TextBlock>
-                                <ComboBox Style="{StaticResource FieldComboBox}" ItemsSource="{Binding OptionalColumns}" SelectedIndex="{Binding MeaningNotesColumn, Mode=TwoWay}" />
+                                <ComboBox Classes="FieldComboBox" ItemsSource="{Binding OptionalColumns}" SelectedIndex="{Binding MeaningNotesColumn, Mode=TwoWay}" />
                             </StackPanel>
 
-                            <StackPanel Grid.Row="2" Grid.Column="1" Style="{StaticResource FieldStackPanel}">
-                                <TextBlock Style="{StaticResource LegendText}">
+                            <StackPanel Grid.Row="2" Grid.Column="1" Classes="FieldStackPanel">
+                                <TextBlock Classes="LegendText">
                                     Reading notes
                                 </TextBlock>
-                                <ComboBox Style="{StaticResource FieldComboBox}" ItemsSource="{Binding OptionalColumns}" SelectedIndex="{Binding ReadingNotesColumn, Mode=TwoWay}" />
+                                <ComboBox Classes="FieldComboBox" ItemsSource="{Binding OptionalColumns}" SelectedIndex="{Binding ReadingNotesColumn, Mode=TwoWay}" />
                             </StackPanel>
 
-                            <StackPanel Grid.Row="3" Grid.Column="0" Style="{StaticResource FieldStackPanel}">
-                                <TextBlock Style="{StaticResource LegendText}">
+                            <StackPanel Grid.Row="3" Grid.Column="0" Classes="FieldStackPanel">
+                                <TextBlock Classes="LegendText">
                                     Tags
                                 </TextBlock>
-                                <ComboBox Style="{StaticResource FieldComboBox}" ItemsSource="{Binding OptionalColumns}" SelectedIndex="{Binding TagsColumn, Mode=TwoWay}" />
+                                <ComboBox Classes="FieldComboBox" ItemsSource="{Binding OptionalColumns}" SelectedIndex="{Binding TagsColumn, Mode=TwoWay}" />
                             </StackPanel>
 
-                            <StackPanel Grid.Row="3" Grid.Column="1" Style="{StaticResource FieldStackPanel}">
-                                <TextBlock Style="{StaticResource LegendText}" ToolTip="Order number of the SRS level to set for the item. Starts at 0. Default is 0.">
+                            <StackPanel Grid.Row="3" Grid.Column="1" Classes="FieldStackPanel">
+                                <TextBlock Classes="LegendText" ToolTip="Order number of the SRS level to set for the item. Starts at 0. Default is 0.">
                                     Start SRS level [?]
                                 </TextBlock>
-                                <ComboBox Style="{StaticResource FieldComboBox}" ItemsSource="{Binding OptionalColumns}" SelectedIndex="{Binding StartLevelColumn, Mode=TwoWay}" />
+                                <ComboBox Classes="FieldComboBox" ItemsSource="{Binding OptionalColumns}" SelectedIndex="{Binding StartLevelColumn, Mode=TwoWay}" />
                             </StackPanel>
 
-                            <StackPanel Grid.Row="4" Grid.Column="0" Style="{StaticResource FieldStackPanel}">
-                                <TextBlock Style="{StaticResource LegendText}" ToolTip="Expected format is 'yyyy-MM-dd H:mm:ss'.&#x0a;Example: '2014-12-24 13:37:00'.&#x0a;Date is local.">
+                            <StackPanel Grid.Row="4" Grid.Column="0" Classes="FieldStackPanel">
+                                <TextBlock Classes="LegendText" ToolTip="Expected format is 'yyyy-MM-dd H:mm:ss'.&#x0a;Example: '2014-12-24 13:37:00'.&#x0a;Date is local.">
                                     Next review date [?]
                                 </TextBlock>
-                                <ComboBox Style="{StaticResource FieldComboBox}" ItemsSource="{Binding OptionalColumns}" SelectedIndex="{Binding NextReviewDateColumn, Mode=TwoWay}" />
+                                <ComboBox Classes="FieldComboBox" ItemsSource="{Binding OptionalColumns}" SelectedIndex="{Binding NextReviewDateColumn, Mode=TwoWay}" />
                             </StackPanel>
                         </Grid>
                     
                         <Separator Margin="8" />
                         
-                        <TextBlock Style="{StaticResource LegendText}">
+                        <TextBlock Classes="LegendText">
                             When "Item type" is not specified...
                         </TextBlock>
                         <ComboBox x:Name="NoTypeComboBox"
@@ -147,8 +147,8 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <Button Style="{StaticResource ActionButton}" Content="Back" Width="100" Command="{Binding ParentMode.PreviousStepCommand}" />
-            <Button Grid.Column="2" Style="{StaticResource ActionButton}" Content="Next" Width="100" Command="{Binding ParentMode.NextStepCommand}" />
+            <Button Classes="ActionButton" Content="Back" Width="100" Command="{Binding ParentMode.PreviousStepCommand}" />
+            <Button Grid.Column="2" Classes="ActionButton" Content="Next" Width="100" Command="{Binding ParentMode.NextStepCommand}" />
         </Grid>
     </Grid>
 </UserControl>
