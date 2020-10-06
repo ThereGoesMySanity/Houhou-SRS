@@ -13,8 +13,8 @@
 
   <DockPanel>
     <controls:NavigationBar DockPanel.Dock="Top" />
-    <Border Style="{StaticResource KanjiPageSeparator}" DockPanel.Dock="Top" />
-    <Border Style="{StaticResource KanjiPageBorder}">
+    <Border Classes="KanjiPageSeparator" DockPanel.Dock="Top" />
+    <Border Classes="KanjiPageBorder">
       <Grid>
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="3*" />
@@ -39,10 +39,10 @@
         <controls:KanjiDetails x:Name="KanjiDetailsControl" DataContext="{Binding KanjiDetailsVm}">
           <!-- Collapse when the view model is null -->
           <i:Interaction.Behaviors>
-            <ia:DataTriggerBehavior Binding="{Binding .}"
+            <ia:DataTriggerBehaviordontchange Binding="{Binding .}"
               Value="{x:Null}">
               <ia:ChangePropertyAction TargetObject="{Binding #KanjiDetailsControl}" PropertyName="IsVisible" Value="false" />
-            </ia:DataTriggerBehavior>
+            </ia:DataTriggerBehaviordontchange>
           </i:Interaction.Behaviors>
         </controls:KanjiDetails>
 
@@ -55,40 +55,40 @@
           <!-- Action buttons panel -->
           <StackPanel>
             <Button x:Name="CloseKanjiPageButton" Content="Close the kanji page"
-                    Command="{Binding ClearSelectedKanjiCommand}" Margin="0,0,0,5" Style="{StaticResource ActionButton}">
+                    Command="{Binding ClearSelectedKanjiCommand}" Margin="0,0,0,5" Classes="ActionButton">
               <i:Interaction.Behaviors>
-                <ia:DataTriggerBehavior Binding="{Binding KanjiDetailsVm}" Value="{x:Null}">
+                <ia:DataTriggerBehaviordontchange Binding="{Binding KanjiDetailsVm}" Value="{x:Null}">
                   <ia:ChangePropertyAction PropertyName="IsVisible" Value="false" />
-                </ia:DataTriggerBehavior>
+                </ia:DataTriggerBehaviordontchange>
               </i:Interaction.Behaviors>
             </Button>
             <Button x:Name="ClearFilterButton" Content="Clear all filters" ToolTip="(CTRL+Shift+C)"
-                    Command="{Binding ClearFilterCommand}" Margin="0,0,0,5" Style="{StaticResource ActionButton}">
+                    Command="{Binding ClearFilterCommand}" Margin="0,0,0,5" Classes="ActionButton">
               <i:Interaction.Behaviors>
-                <ia:DataTriggerBehavior Binding="{Binding KanjiFilterVm.Radicals}" Value="{x:Null}">
+                <ia:DataTriggerBehaviordontchange Binding="{Binding KanjiFilterVm.Radicals}" Value="{x:Null}">
                   <ia:ChangePropertyAction PropertyName="IsEnabled" Value="false" />
-                </ia:DataTriggerBehavior>
-                <ia:DataTriggerBehavior Binding="{Binding #CloseKanjiPageButton.Visibility}" Value="true">
+                </ia:DataTriggerBehaviordontchange>
+                <ia:DataTriggerBehaviordontchange Binding="{Binding #CloseKanjiPageButton.Visibility}" Value="true">
                   <ia:ChangePropertyAction PropertyName="IsVisible" Value="false" />
-                </ia:DataTriggerBehavior>
+                </ia:DataTriggerBehaviordontchange>
               </i:Interaction.Behaviors>
             </Button>
-            <Button Content="Navigate back" Command="{Binding NavigateBackCommand}" Margin="0,0,0,5" Style="{StaticResource MiniActionButton}" IsVisible="false">
+            <Button Content="Navigate back" Command="{Binding NavigateBackCommand}" Margin="0,0,0,5" Classes="MiniActionButton" IsVisible="false">
               <i:Interaction.Behaviors>
-                <ia:DataTriggerBehavior Binding="{Binding CanNavigateBack}" Value="True">
+                <ia:DataTriggerBehaviordontchange Binding="{Binding CanNavigateBack}" Value="True">
                   <ia:ChangePropertyAction PropertyName="IsVisible" Value="true" />
-                </ia:DataTriggerBehavior>
+                </ia:DataTriggerBehaviordontchange>
               </i:Interaction.Behaviors>
             </Button>
             <Button x:Name="ApplyFilterButton" Command="{Binding ApplyFilterCommand}" Margin="0,0,0,5"
-                    Content="Apply Filter" ToolTip="(Enter or CTRL+Enter)" Style="{StaticResource MiniActionButton}" IsVisible="false">
+                    Content="Apply Filter" ToolTip="(Enter or CTRL+Enter)" Classes="MiniActionButton" IsVisible="false">
               <i:Interaction.Behaviors>
-                <ia:DataTriggerBehavior Binding="{Binding CanNavigateBack}" Value="True">
+                <ia:DataTriggerBehaviordontchange Binding="{Binding CanNavigateBack}" Value="True">
                   <ia:ChangePropertyAction PropertyName="IsVisible" Value="false" />
-                </ia:DataTriggerBehavior>
-                <ia:DataTriggerBehavior Binding="{Binding CanApplyFilter}" Value="True">
+                </ia:DataTriggerBehaviordontchange>
+                <ia:DataTriggerBehaviordontchange Binding="{Binding CanApplyFilter}" Value="True">
                   <ia:ChangePropertyAction PropertyName="IsVisible" Value="true" />
-                </ia:DataTriggerBehavior>
+                </ia:DataTriggerBehaviordontchange>
               </i:Interaction.Behaviors>
             </Button>
             <Separator />

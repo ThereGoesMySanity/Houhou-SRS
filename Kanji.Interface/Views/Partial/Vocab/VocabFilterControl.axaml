@@ -44,7 +44,7 @@
         <!-- Category filter -->
         <AdornerDecorator Grid.Row="0" Grid.Column="2" Margin="5,0,5,0">
             <Grid>
-                <TextBlock Text="Category Filter" Style="{StaticResource LegendText}"/>
+                <TextBlock Text="Category Filter" Classes="LegendText"/>
                 <controls:CategoryFilterControl x:Name="CategoryFilter" Margin="80,0,0,0" DataContext="{Binding}"/>
             </Grid>
         </AdornerDecorator>
@@ -52,8 +52,8 @@
         <!-- Filter buttons -->
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="3" Margin="5 0 0 0">
             <Button Content="pack://application:,,,/Data/UI/SortFrequencyIcon.png" Command="{Binding SwitchCommonOrderCommand}">
-                <Button.Style>
-                    <Style Selector="Button" BasedOn="{StaticResource ImageActionButton}">
+                <Button.Styles>
+                    <Style Selector="Button" InheritanceParent="{StaticResource ImageActionButton}">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding IsCommonFirst}" Value="True">
                                 <ia:ChangePropertyAction Value="True" PropertyName="Tag"/>
@@ -77,11 +77,11 @@
                             </Setter.Value>
                         </Setter>
                     </Style>
-                </Button.Style>
+                </Button.Styles>
             </Button>
             <Button Content="pack://application:,,,/Data/UI/SortLengthIcon.png" Command="{Binding SwitchWritingLengthOrderCommand}" Margin="5 0 0 0">
-                <Button.Style>
-                    <Style Selector="Button" BasedOn="{StaticResource ImageActionButton}">
+                <Button.Styles>
+                    <Style Selector="Button" InheritanceParent="{StaticResource ImageActionButton}">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding IsShortReadingFirst}" Value="True">
                                 <ia:ChangePropertyAction Value="True" PropertyName="Tag"/>
@@ -105,7 +105,7 @@
                             </Setter.Value>
                         </Setter>
                     </Style>
-                </Button.Style>
+                </Button.Styles>
             </Button>
         </StackPanel>
 
@@ -113,6 +113,6 @@
         <controls:WkLevelFilterControl x:Name="WkLevelFilter" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" DataContext="{Binding}"/>
         <controls:JlptLevelFilterControl x:Name="JlptLevelFilter" Grid.Row="2" Grid.Column="2" Margin="5,0,0,0" DataContext="{Binding}"/>
 
-        <Button x:Name="ApplyFilterButton" Style="{StaticResource MiniActionButton}" Command="{Binding ApplyFilterCommand}" Content="Apply Filter" ToolTip="(Enter)" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <Button x:Name="ApplyFilterButton" Classes="MiniActionButton" Command="{Binding ApplyFilterCommand}" Content="Apply Filter" ToolTip="(Enter)" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
     </Grid>
 </UserControl>

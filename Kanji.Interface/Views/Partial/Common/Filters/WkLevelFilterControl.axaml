@@ -17,10 +17,10 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <TextBlock Text="WaniKani Level" Style="{StaticResource LegendText}" />
+        <TextBlock Text="WaniKani Level" Classes="LegendText" />
         <TextBlock Grid.Column="1"
                    Text="{Binding Value, Converter={StaticResource NumberToWkConverter}, ElementName=LevelSlider}"
-                   Style="{StaticResource LegendText}"
+                   Classes="LegendText"
                    Width="100"
                    Margin="5,0"
                    TextAlignment="Center"/>

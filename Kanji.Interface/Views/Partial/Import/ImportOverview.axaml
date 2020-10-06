@@ -12,13 +12,13 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <StackPanel>
-            <TextBlock Style="{StaticResource LegendText}" TextWrapping="Wrap">
+            <TextBlock Classes="LegendText" TextWrapping="Wrap">
                 <TextBlock.Text>
                     <Binding Path="ParentMode.NewEntries.Count" Mode="OneWay"
                              StringFormat="{}{0} item(s) are ready to be imported." />
                 </TextBlock.Text>
             </TextBlock>
-            <TextBlock Style="{StaticResource LegendText}" TextWrapping="Wrap">
+            <TextBlock Classes="LegendText" TextWrapping="Wrap">
                 Please consult the pre-import log on the tab below if you want more details.
             </TextBlock>
         </StackPanel>
@@ -40,8 +40,8 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <Button Style="{StaticResource ActionButton}" Content="Back" Width="100" Command="{Binding ParentMode.PreviousStepCommand}" />
-            <Button Grid.Column="2" Style="{StaticResource ActionButton}" Content="Start import" Width="100" Command="{Binding ParentMode.NextStepCommand}" />
+            <Button Classes="ActionButton" Content="Back" Width="100" Command="{Binding ParentMode.PreviousStepCommand}" />
+            <Button Grid.Column="2" Classes="ActionButton" Content="Start import" Width="100" Command="{Binding ParentMode.NextStepCommand}" />
         </Grid>
     </Grid>
 </UserControl>

@@ -11,30 +11,30 @@
     <Grid>
         <!-- "Load more" button grid -->
         <Grid x:Name="LoadedPanel">
-            <Grid.Style>
+            <Grid.Styles>
                 <Style Selector="Grid">
-                    <i:Interaction.Behaviors>
-                        <utility:MultiDataTriggerBehavior>
-                            <utility:MultiDataTriggerBehavior.Conditions>
-                                <utility:Condition Binding="{Binding ElementName=LoadingPanel, Path=Visibility}" Value="Collapsed"/>
-                                <utility:Condition Value="False">
-                                    <utility:Condition.Binding>
-                                        <MultiBinding Converter="{StaticResource DataTriggerValueBindingConverter}" ConverterParameter="{x:Type s:Int32}">
-                                            <Binding Path="LoadedItemCount" Mode="OneWay"/>
-                                            <Binding Path="TotalItemCount" Mode="OneWay"/>
-                                        </MultiBinding>
-                                    </utility:Condition.Binding>
-                                </utility:Condition>
-                            </utility:MultiDataTriggerBehavior.Conditions>
-                            <utility:MultiDataTriggerBehavior.Actions>
-                                <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
-                            </utility:MultiDataTriggerBehavior.Actions>
-                        </utility:MultiDataTriggerBehavior>
-                    </i:Interaction.Behaviors>
                     <Setter Property="Visibility" Value="Collapsed"/>
                 </Style>
-            </Grid.Style>
-            <Button Style="{StaticResource BigActionButton}" HorizontalAlignment="Stretch" Command="{Binding LoadMoreCommand}">
+            </Grid.Styles>
+          <i:Interaction.Behaviors>
+            <utility:MultiDataTriggerBehaviordontchange>
+              <utility:MultiDataTriggerBehaviordontchange.Conditions>
+                <utility:Condition Binding="{Binding ElementName=LoadingPanel, Path=Visibility}" Value="Collapsed"/>
+                <utility:Condition Value="False">
+                  <utility:Condition.Binding>
+                    <MultiBinding Converter="{StaticResource DataTriggerValueBindingConverter}" ConverterParameter="{x:Type s:Int32}">
+                      <Binding Path="LoadedItemCount" Mode="OneWay"/>
+                      <Binding Path="TotalItemCount" Mode="OneWay"/>
+                    </MultiBinding>
+                  </utility:Condition.Binding>
+                </utility:Condition>
+              </utility:MultiDataTriggerBehaviordontchange.Conditions>
+              <utility:MultiDataTriggerBehaviordontchange.Actions>
+                <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
+              </utility:MultiDataTriggerBehaviordontchange.Actions>
+            </utility:MultiDataTriggerBehaviordontchange>
+          </i:Interaction.Behaviors>
+          <Button Classes="BigActionButton" HorizontalAlignment="Stretch" Command="{Binding LoadMoreCommand}">
                 <Button.Resources>
                     <s:String x:Key="ButtonStringFormat" xml:space="preserve">Load more </s:String>
                 </Button.Resources>
@@ -49,8 +49,6 @@
 
         <!-- "Loading items" label panel -->
         <StackPanel x:Name="LoadingPanel" Orientation="Horizontal">
-            <StackPanel.Style>
-                <Style Selector="StackPanel">
                     <i:Interaction.Behaviors>
                         <!--<DataTrigger Value="False">
                             <DataTrigger.Binding>
@@ -64,17 +62,19 @@
                                 <Setter Property="Visibility" Value="Visible" />
                             </DataTrigger.Setters>
                         </DataTrigger>-->
-                        <ia:DataTriggerBehavior Binding="{Binding IsLoading, Mode=OneWay}" Value="True">
-                            <ia:DataTriggerBehavior.Actions>
+                        <ia:DataTriggerBehaviordontchange Binding="{Binding IsLoading, Mode=OneWay}" Value="True">
+                            <ia:DataTriggerBehaviordontchange.Actions>
                                 <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
-                            </ia:DataTriggerBehavior.Actions>
-                        </ia:DataTriggerBehavior>
+                            </ia:DataTriggerBehaviordontchange.Actions>
+                        </ia:DataTriggerBehaviordontchange>
                     </i:Interaction.Behaviors>
+            <StackPanel.Styles>
+                <Style Selector="StackPanel">
                     <Setter Property="Visibility" Value="Collapsed"/>
                 </Style>
-            </StackPanel.Style>
+            </StackPanel.Styles>
             <controls:GifImage GifSource="/Data/UI/loading.gif" Width="24" Height="24" AutoStart="True" Stretch="Fill"/>
-            <TextBox Style="{StaticResource LabelBox}" VerticalAlignment="Center" FontSize="18" Margin="5,0,0,0" Text="Loading items..."/>
+            <TextBox Classes="LabelBox" VerticalAlignment="Center" FontSize="18" Margin="5,0,0,0" Text="Loading items..."/>
         </StackPanel>
     </Grid>
 </UserControl>

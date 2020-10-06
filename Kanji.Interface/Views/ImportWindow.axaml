@@ -5,11 +5,11 @@
         xmlns:controls="clr-namespace:Kanji.Interface.Controls"
         Title="SRS Item Import"
         Width="700" Height="440">
-    <Window.Style>
+    <Window.Styles>
         <Style Selector="Window">
             <Setter Property="Background" Value="#E4FBD0" />
         </Style>
-    </Window.Style>
+    </Window.Styles>
     
     <Border Margin="5">
         <ContentControl Content="{Binding ActiveVm}">

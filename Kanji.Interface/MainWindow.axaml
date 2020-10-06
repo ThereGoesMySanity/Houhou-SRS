@@ -14,7 +14,7 @@
         <i:Interaction.Behaviors>
           <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}"
               Value="{x:Static models:NavigationPageEnum.Home}">
-            <ia:ChangePropertyAction TargetObject="{Binding #HomePage}" PropertyName="IsVisible" Value="true" />
+            <ia:ChangePropertyAction PropertyName="IsVisible" Value="true" />
           </ia:DataTriggerBehavior>
         </i:Interaction.Behaviors>
       </views:HomePage>
