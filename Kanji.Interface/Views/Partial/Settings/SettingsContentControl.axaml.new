@@ -1,0 +1,45 @@
+<?xml version="1.0" ?><UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:controls="clr-namespace:Kanji.Interface.Controls" x:Class="Kanji.Interface.Controls.SettingsContentControl" mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
+    
+    <UserControl.Style>
+        <Style TargetType="UserControl">
+            <i:Interaction.Behaviors>
+                <ia:DataTriggerBehavior Binding="{Binding CurrentCategory}" Value="Application">
+                    <ia:ChangePropertyAction PropertyName="Template">
+                        <ia:ChangePropertyAction.Value>
+                            <ControlTemplate>
+                                <controls:ApplicationSettingsControl DataContext="{Binding ContentViewModel}"/>
+                            </ControlTemplate>
+                        </ia:ChangePropertyAction.Value>
+                    </ia:ChangePropertyAction>
+                </ia:DataTriggerBehavior>
+                <ia:DataTriggerBehavior Binding="{Binding CurrentCategory}" Value="Kanji">
+                    <ia:ChangePropertyAction PropertyName="Template">
+                        <ia:ChangePropertyAction.Value>
+                            <ControlTemplate>
+                                <controls:KanjiSettingsControl DataContext="{Binding ContentViewModel}"/>
+                            </ControlTemplate>
+                        </ia:ChangePropertyAction.Value>
+                    </ia:ChangePropertyAction>
+                </ia:DataTriggerBehavior>
+                <ia:DataTriggerBehavior Binding="{Binding CurrentCategory}" Value="Vocab">
+                    <ia:ChangePropertyAction PropertyName="Template">
+                        <ia:ChangePropertyAction.Value>
+                            <ControlTemplate>
+                                <controls:VocabSettingsControl DataContext="{Binding ContentViewModel}"/>
+                            </ControlTemplate>
+                        </ia:ChangePropertyAction.Value>
+                    </ia:ChangePropertyAction>
+                </ia:DataTriggerBehavior>
+                <ia:DataTriggerBehavior Binding="{Binding CurrentCategory}" Value="Srs">
+                    <ia:ChangePropertyAction PropertyName="Template">
+                        <ia:ChangePropertyAction.Value>
+                            <ControlTemplate>
+                                <controls:SrsSettingsControl DataContext="{Binding ContentViewModel}"/>
+                            </ControlTemplate>
+                        </ia:ChangePropertyAction.Value>
+                    </ia:ChangePropertyAction>
+                </ia:DataTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </Style>
+    </UserControl.Style>
+</UserControl>

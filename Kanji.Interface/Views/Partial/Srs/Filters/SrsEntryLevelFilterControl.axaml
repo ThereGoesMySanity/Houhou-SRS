@@ -19,7 +19,7 @@
         <ComboBox Grid.Column="1" Margin="5 0" VerticalAlignment="Center" VerticalContentAlignment="Center"
             FontSize="15" FontWeight="SemiBold"
             ItemsSource="{Binding Source={StaticResource ComparisonOperatorEnum}}"
-            SelectedItem="{Binding ComparisonOperator, UpdateSourceTrigger=PropertyChanged}"
+            SelectedItem="{Binding ComparisonOperator}"
             behaviors:SelectionChangedBehavior.Command="{Binding FilterChangedCommand}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>

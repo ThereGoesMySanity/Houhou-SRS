@@ -21,7 +21,7 @@
 
                     <AdornerDecorator Grid.Column="1">
                         <controls:CommandTextBox x:Name="FilterTextBox" MaxLength="100" ToolTip="Enter the meaning filter. (CTRL+M)"
-                            Text="{Binding MeaningFilter, UpdateSourceTrigger=PropertyChanged}"
+                            Text="{Binding MeaningFilter}"
                             ValidationCommand="{Binding ValidateCommand}">
                             <controls:WatermarkService.Watermark>
                                 <TextBlock HorizontalAlignment="Center">Meaning filter</TextBlock>
@@ -53,7 +53,7 @@
                             <StackPanel Grid.Row="1">
                                 <AdornerDecorator>
                                     <controls:CommandTextBox x:Name="FilterTextBox" MaxLength="100" ToolTip="Enter the meaning filter. (CTRL+M)"
-                                    Text="{Binding MeaningFilter, UpdateSourceTrigger=PropertyChanged}"
+                                    Text="{Binding MeaningFilter}"
                                     ValidationCommand="{Binding ValidateCommand}">
                                         <controls:WatermarkService.Watermark>
                                             <TextBlock HorizontalAlignment="Center">Meaning filter</TextBlock>

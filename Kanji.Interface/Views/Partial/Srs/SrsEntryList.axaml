@@ -27,7 +27,7 @@
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding Visibility, ElementName=ListGrid, UpdateSourceTrigger=PropertyChanged}" Value="Visible">
+                            <DataTrigger Binding="{Binding Visibility, ElementName=ListGrid}" Value="Visible">
                                 <Setter Property="Visibility" Value="Collapsed" />
                             </DataTrigger>
                         </Style.Triggers>
@@ -111,13 +111,13 @@
                                             Padding="2 0" BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="2 0 2 0"
                                             Height="Auto">
                                         <Grid>
-                                            <TextBlock Foreground="Black" Text="{Binding Level.Name, IsAsync=False, UpdateSourceTrigger=PropertyChanged}"
+                                            <TextBlock Foreground="Black" Text="{Binding Level.Name, IsAsync=False}"
                                                        HorizontalAlignment="Center" VerticalAlignment="Center">
                                                 <TextBlock.RenderTransform>
                                                     <TranslateTransform X="-1" Y="-1" />
                                                 </TextBlock.RenderTransform>
                                             </TextBlock>
-                                            <TextBlock Foreground="White" Text="{Binding Level.Name, IsAsync=False, UpdateSourceTrigger=PropertyChanged}"
+                                            <TextBlock Foreground="White" Text="{Binding Level.Name, IsAsync=False}"
                                                        HorizontalAlignment="Center" VerticalAlignment="Center" />
                                         </Grid>
                                     </Border>

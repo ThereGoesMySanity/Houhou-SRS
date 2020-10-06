@@ -28,7 +28,7 @@
         <TextBlock Style="{StaticResource SettingText}" Text="When Houhou starts, show:" Margin="0 0 8 0" />
         <ComboBox Grid.Column="1"
             ItemsSource="{Binding Source={StaticResource StartPageEnum}}"
-            SelectedItem="{Binding StartPage, UpdateSourceTrigger=PropertyChanged}"
+            SelectedItem="{Binding StartPage}"
             behaviors:SelectionChangedBehavior.Command="{Binding SettingChangeCommand}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
