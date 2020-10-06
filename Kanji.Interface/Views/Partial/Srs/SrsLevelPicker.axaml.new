@@ -22,7 +22,8 @@
                                         <Border Background="{TemplateBinding Background}" Width="40" Height="30">
                                             <i:Interaction.Behaviors>
                                                 <ia:EventTriggerBehavior EventName="PreviewMouseLeftButtonUp">
-                                                    <ia:InvokeCommandAction Command="{Binding DataContext.SelectSrsLevelCommand,                                                         RelativeSource={RelativeSource AncestorType={x:Type controls:SrsLevelPicker}}}" CommandParameter="{Binding .}"/>
+                                                    <ia:InvokeCommandAction Command="{Binding DataContext.SelectSrsLevelCommand,
+                                                         RelativeSource={RelativeSource AncestorType={x:Type controls:SrsLevelPicker}}}" CommandParameter="{Binding .}"/>
                                                 </ia:EventTriggerBehavior>
                                             </i:Interaction.Behaviors>
                                             <Grid>
@@ -47,7 +48,9 @@
                                                     </MultiBinding>
                                                 </ia:DataTriggerBehavior.Binding>
                                                 <ia:DataTriggerBehavior.Actions>
-                                                    <ia:ChangePropertyAction Value="{Binding                                                         DataContext.Color,                                                         RelativeSource={RelativeSource AncestorType=ListBoxItem},                                                         Converter={StaticResource ColorToBrushConverter}}" PropertyName="Background"/>
+                                                    <ia:ChangePropertyAction Value="{Binding                                                         DataContext.Color,
+                                                         RelativeSource={RelativeSource AncestorType=ListBoxItem},
+                                                         Converter={StaticResource ColorToBrushConverter}}" PropertyName="Background"/>
                                                     <ia:ChangePropertyAction Value="White" PropertyName="Foreground"/>
                                                 </ia:DataTriggerBehavior.Actions>
                                             </ia:DataTriggerBehavior>

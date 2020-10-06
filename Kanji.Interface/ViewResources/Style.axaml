@@ -819,11 +819,6 @@
                             <!-- Kanji most used rank label -->
                             <TextBlock Grid.Column="1" Grid.Row="1">
                                 <TextBlock.Style>
-                                      <i:Interaction.Behaviors>
-                                        <ia:DataTriggerBehavior Binding="{Binding DbKanji.MostUsedRank}" Value="True">
-                                          <ia:ChangePropertyAction PropertyName="Template" Value="{StaticResource RadicalInListImageTemplate}" />
-                                        </ia:DataTriggerBehavior>
-                                      </i:Interaction.Behaviors>
                                     <Style TargetType="{x:Type TextBlock}">
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding DbKanji.MostUsedRank}" Value="{x:Null}">

@@ -139,10 +139,12 @@
                     <Viewbox.RenderTransform>
                         <TranslateTransform X="-1" Y="-1"/>
                     </Viewbox.RenderTransform>
-                    <TextBlock Foreground="Black" FontWeight="SemiBold" Text="{Binding SelectionSuccessRatio,                         Converter={StaticResource PercentageToStringConverter}}"/>
+                    <TextBlock Foreground="Black" FontWeight="SemiBold" Text="{Binding SelectionSuccessRatio,
+                         Converter={StaticResource PercentageToStringConverter}}"/>
                 </Viewbox>
                 <Viewbox>
-                    <TextBlock Foreground="White" FontWeight="SemiBold" Text="{Binding SelectionSuccessRatio,                         Converter={StaticResource PercentageToStringConverter}}"/>
+                    <TextBlock Foreground="White" FontWeight="SemiBold" Text="{Binding SelectionSuccessRatio,
+                         Converter={StaticResource PercentageToStringConverter}}"/>
                 </Viewbox>
 
                 <Viewbox Grid.Row="1">
