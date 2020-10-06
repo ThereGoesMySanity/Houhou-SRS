@@ -1,69 +1,46 @@
-﻿<controls:SrsEntryFilterControlBase x:Class="Kanji.Interface.Controls.SrsEntryTypeFilterControl"
-             xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:controls="clr-namespace:Kanji.Interface.Controls"
-             mc:Ignorable="d" 
-             d:DesignHeight="30" d:DesignWidth="500">
+<?xml version="1.0" ?><controls:SrsEntryFilterControlBase xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:controls="clr-namespace:Kanji.Interface.Controls" x:Class="Kanji.Interface.Controls.SrsEntryTypeFilterControl" mc:Ignorable="d" d:DesignHeight="30" d:DesignWidth="500">
 
     <controls:SrsEntryFilterControlBase.Style>
         <Style TargetType="{x:Type controls:SrsEntryFilterControlBase}">
-            <Style.Triggers>
+            <i:Interaction.Behaviors>
                 <Trigger Property="IsInline" Value="True">
-                    <Setter Property="Template">
-                        <Setter.Value>
+                    <ia:ChangePropertyAction PropertyName="Template">
+                        <ia:ChangePropertyAction.Value>
                             <!-- Inline template -->
                             <ControlTemplate TargetType="UserControl">
                                 <Grid VerticalAlignment="Center">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <CheckBox Content="Kanji items" HorizontalAlignment="Center"
-                                        IsChecked="{Binding IsKanjiItemEnabled}"
-                                        Command="{Binding FilterChangedCommand}"
-                                        ToolTip="Include kanji items (CTRL+Alt+K)" />
-                                    <CheckBox Grid.Column="1" Content="Vocab items"
-                                        HorizontalAlignment="Center"
-                                        IsChecked="{Binding IsVocabItemEnabled}"
-                                        Command="{Binding FilterChangedCommand}"
-                                        ToolTip="Include vocab items (CTRL+Alt+V)" />
+                                    <CheckBox Content="Kanji items" HorizontalAlignment="Center" IsChecked="{Binding IsKanjiItemEnabled}" Command="{Binding FilterChangedCommand}" ToolTip="Include kanji items (CTRL+Alt+K)"/>
+                                    <CheckBox Grid.Column="1" Content="Vocab items" HorizontalAlignment="Center" IsChecked="{Binding IsVocabItemEnabled}" Command="{Binding FilterChangedCommand}" ToolTip="Include vocab items (CTRL+Alt+V)"/>
                                 </Grid>
                             </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
+                        </ia:ChangePropertyAction.Value>
+                    </ia:ChangePropertyAction>
                 </Trigger>
-            </Style.Triggers>
+            </i:Interaction.Behaviors>
             <Setter Property="Template">
                 <Setter.Value>
                     <!-- NON-Inline template -->
                     <ControlTemplate TargetType="UserControl">
                         <Grid VerticalAlignment="Center">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Text="Kanji items" Style="{StaticResource LegendText}"
-                                HorizontalAlignment="Center" Margin="0 0 0 5" />
-                            <TextBlock Grid.Column="1" Text="Vocab items" Style="{StaticResource LegendText}"
-                                HorizontalAlignment="Center" Margin="0 0 0 5" />
+                            <TextBlock Text="Kanji items" Style="{StaticResource LegendText}" HorizontalAlignment="Center" Margin="0 0 0 5"/>
+                            <TextBlock Grid.Column="1" Text="Vocab items" Style="{StaticResource LegendText}" HorizontalAlignment="Center" Margin="0 0 0 5"/>
                             
-                            <CheckBox Grid.Row="1" HorizontalAlignment="Center"
-                                IsChecked="{Binding IsKanjiItemEnabled}"
-                                Command="{Binding FilterChangedCommand}"
-                                ToolTip="Include kanji items (CTRL+Alt+K)" />
-                            <CheckBox Grid.Row="1" Grid.Column="1"
-                                HorizontalAlignment="Center"
-                                IsChecked="{Binding IsVocabItemEnabled}"
-                                Command="{Binding FilterChangedCommand}"
-                                ToolTip="Include vocab items (CTRL+Alt+V)" />
+                            <CheckBox Grid.Row="1" HorizontalAlignment="Center" IsChecked="{Binding IsKanjiItemEnabled}" Command="{Binding FilterChangedCommand}" ToolTip="Include kanji items (CTRL+Alt+K)"/>
+                            <CheckBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" IsChecked="{Binding IsVocabItemEnabled}" Command="{Binding FilterChangedCommand}" ToolTip="Include vocab items (CTRL+Alt+V)"/>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
