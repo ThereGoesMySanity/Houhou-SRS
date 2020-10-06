@@ -48,10 +48,10 @@
                 <TextBox Style="{StaticResource ErrorLabel}" Text="{Binding Error, Mode=OneWay}"/>
 
                 <Border Visibility="{Binding IsComplete, Converter={StaticResource ValueToVisibilityConverter}}">
-                    <GroupBox BorderBrush="#666666" Padding="5" Margin="0 5 0 0">
-                        <GroupBox.Header>
+                    <HeaderedContentControl BorderBrush="#666666" Padding="5" Margin="0 5 0 0">
+                        <HeaderedContentControl.Header>
                             <TextBlock Text="Results" Style="{StaticResource SettingCategoryTitle}"/>
-                        </GroupBox.Header>
+                        </HeaderedContentControl.Header>
                         <StackPanel>
                             <TextBlock>
                                 <TextBlock.Text>
@@ -69,7 +69,7 @@
                                 </TextBlock.Text>
                             </TextBlock>
                         </StackPanel>
-                    </GroupBox>
+                    </HeaderedContentControl>
                 </Border>
             </StackPanel>
         </ScrollViewer>
