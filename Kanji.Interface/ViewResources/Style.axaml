@@ -41,6 +41,7 @@
     <converters:WikipediaRankToBrushConverter x:Key="WikipediaRankToBrushConverter"/>
     <converters:ExtendedVocabToVariantListConverter x:Key="ExtendedVocabToVariantListConverter"/>
     <converters:NullValueToVisibilityConverter x:Key="NullValueToVisibilityConverter"/>
+    <converters:BorderGapMaskConverter x:Key="BorderGapMaskConverter"/>
 
     <!-- ObjectDataProviders --><!--
     <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="KanjiFilterModeEnum">
@@ -99,9 +100,9 @@
     <ControlTemplate x:Key="PaddinglessListbox" TargetType="{x:Type ListBox}">
         <!-- The paddingless listbox is a listbox that does not have any padding.
         The original listbox control has an unremovable padding so that's why this is required. -->
-        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="0" SnapsToDevicePixels="True">
+        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="0" UseLayoutRounding="True">
             <ScrollViewer Focusable="False" Padding="{TemplateBinding Padding}">
-                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                <ItemsPresenter UseLayoutRounding="{TemplateBinding UseLayoutRounding}"/>
             </ScrollViewer>
         </Border>
         <!--TODO: Can't get controlbrushkey and IsGrouping doesn't exist in Avalonia-->
@@ -2262,14 +2263,30 @@
 
     </Style>
 
-    <BorderGapMaskConverter x:Key="BorderGapMaskConverter"/>
-    <Style x:Key="{x:Type GroupBox}" TargetType="{x:Type GroupBox}">
+  <Style Selector="HeaderedContentControl">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate>
+          <Border>
+            <StackPanel>
+              <ContentPresenter TextBlock.FontWeight="Bold" Content="{TemplateBinding Header}" />
+              <Border
+                  BorderBrush="{TemplateBinding Background}"
+                  BorderThickness="2"
+                  CornerRadius="5">
+                <ContentPresenter Content="{TemplateBinding Content}" />
+              </Border>
+            </StackPanel>
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
         <Setter Property="BorderBrush" Value="#D5DFE5"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type GroupBox}">
-                    <Grid SnapsToDevicePixels="true">
+                <ControlTemplate TargetType="{x:Type HeaderedContentControl}">
+                    <Grid UseLayoutRounding="true">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="6"/>
                             <ColumnDefinition Width="Auto"/>
@@ -2284,9 +2301,9 @@
                         </Grid.RowDefinitions>
                         <Border CornerRadius="4" Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="4" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="Transparent" Background="{TemplateBinding Background}"/>
                         <Border x:Name="Header" Padding="3,1,3,0" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1">
-                            <ContentPresenter ContentSource="Header" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            <ContentPresenter ContentSource="Header" RecognizesAccessKey="True" UseLayoutRounding="{TemplateBinding UseLayoutRounding}"/>
                         </Border>
-                        <ContentPresenter Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        <ContentPresenter Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="{TemplateBinding Padding}" UseLayoutRounding="{TemplateBinding UseLayoutRounding}"/>
                         <Border CornerRadius="4" Grid.Row="1" Grid.RowSpan="3" Grid.ColumnSpan="4" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
                             <Border.OpacityMask>
                                 <MultiBinding Converter="{StaticResource BorderGapMaskConverter}" ConverterParameter="7">
