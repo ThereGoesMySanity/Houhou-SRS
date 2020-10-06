@@ -28,10 +28,10 @@
         <controls:KanjiFilterControl x:Name="KanjiFilterControl" DataContext="{Binding KanjiFilterVm}">
           <!-- Collapse when the details panel is visible -->
           <i:Interaction.Behaviors>
-            <ia:DataTriggerBehaviordontchange Binding="{Binding ElementName=KanjiDetailsControl, Path=IsVisible}"
+            <ia:DataTriggerBehavior Binding="{Binding ElementName=KanjiDetailsControl, Path=IsVisible}"
               Value="true">
-              <ia:ChangePropertyAction TargetObject="{Binding #KanjiFilterControl}" PropertyName="IsVisible" Value="false" />
-            </ia:DataTriggerBehaviordontchange>
+              <ia:ChangePropertyAction PropertyName="IsVisible" Value="false" />
+            </ia:DataTriggerBehavior>
           </i:Interaction.Behaviors>
         </controls:KanjiFilterControl>
 

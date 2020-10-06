@@ -30,11 +30,11 @@
     
     <controls:SrsEntryFilterControlBase.Styles>
         <Style Selector="{x:Type controls:SrsEntryFilterControlBase}">
-            <i:Interaction.Behaviors>
-                <ia:DataTriggerBehavior Binding="{Binding IsInline}" Value="True">
-                    <ia:ChangePropertyAction Value="{StaticResource InlineTemplate}" PropertyName="Template"/>
-                </ia:DataTriggerBehavior>
-            </i:Interaction.Behaviors>
+            <Style.Triggers>
+                <Trigger Property="IsInline" Value="True">
+                    <Setter Property="Template" Value="{StaticResource InlineTemplate}" />
+                </Trigger>
+            </Style.Triggers>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="UserControl">

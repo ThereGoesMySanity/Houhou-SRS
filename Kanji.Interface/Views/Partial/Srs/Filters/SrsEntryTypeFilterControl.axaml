@@ -8,26 +8,33 @@
 
     <controls:SrsEntryFilterControlBase.Styles>
         <Style Selector="{x:Type controls:SrsEntryFilterControlBase}">
-            <i:Interaction.Behaviors>
-                <ia:DataTriggerBehavior Binding="{Binding IsInline}" Value="True">
-                    <ia:ChangePropertyAction PropertyName="Template">
+            <Style.Triggers>
+                <Trigger Property="IsInline" Value="True">
+                    <Setter Property="Template">
                         <Setter.Value>
                             <!-- Inline template -->
                             <ControlTemplate TargetType="UserControl">
                                 <Grid VerticalAlignment="Center">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
 
-                                    <CheckBox Content="Kanji items" HorizontalAlignment="Center" IsChecked="{Binding IsKanjiItemEnabled}" Command="{Binding FilterChangedCommand}" ToolTip="Include kanji items (CTRL+Alt+K)"/>
-                                    <CheckBox Grid.Column="1" Content="Vocab items" HorizontalAlignment="Center" IsChecked="{Binding IsVocabItemEnabled}" Command="{Binding FilterChangedCommand}" ToolTip="Include vocab items (CTRL+Alt+V)"/>
+                                    <CheckBox Content="Kanji items" HorizontalAlignment="Center"
+                                        IsChecked="{Binding IsKanjiItemEnabled}"
+                                        Command="{Binding FilterChangedCommand}"
+                                        ToolTip="Include kanji items (CTRL+Alt+K)" />
+                                    <CheckBox Grid.Column="1" Content="Vocab items"
+                                        HorizontalAlignment="Center"
+                                        IsChecked="{Binding IsVocabItemEnabled}"
+                                        Command="{Binding FilterChangedCommand}"
+                                        ToolTip="Include vocab items (CTRL+Alt+V)" />
                                 </Grid>
                             </ControlTemplate>
                         </Setter.Value>
-                    </ia:ChangePropertyAction>
-                </ia:DataTriggerBehavior>
-            </i:Interaction.Behaviors>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
             <Setter Property="Template">
                 <Setter.Value>
                     <!-- NON-Inline template -->

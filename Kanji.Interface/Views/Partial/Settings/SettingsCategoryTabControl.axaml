@@ -8,11 +8,11 @@
     <UserControl.Styles>
         <Style Selector="UserControl">
             <i:Interaction.Behaviors>
-                <ia:DataTriggerBehavior Binding="{Binding IsMouseOver}" Value="True">
-                    <ia:ChangePropertyAction Value="0.8" PropertyName="Opacity"/>
-                </ia:DataTriggerBehavior>
-                <ia:DataTriggerBehaviordontchange Value="True">
-                    <ia:DataTriggerBehaviordontchange.Binding>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="0.8" />
+                </Trigger>
+                <ia:DataTriggerBehavior Value="True">
+                    <ia:DataTriggerBehavior.Binding>
                         <MultiBinding Converter="{StaticResource ComparablesToBooleanConverter}">
                             <Binding Path="Tag" RelativeSource="{RelativeSource Self}"/>
                             <Binding Path="CurrentCategory"/>

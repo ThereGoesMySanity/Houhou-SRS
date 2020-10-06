@@ -111,9 +111,9 @@
           <ia:ChangePropertyAction TargetObject="{Binding #Bd}" PropertyName="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
         </ia:DataTriggerBehavior>
       </i:Interaction.Behaviors>-->
-      <!--<ia:DataTriggerBehavior Binding="{Binding IsGrouping}" Value="True">
+      <!--<Trigger Property="IsGrouping" Value="True">
                 <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
-            </ia:DataTriggerBehavior>-->
+            </Trigger>-->
     </ControlTemplate>
 
     <!-- STYLES -->
@@ -216,19 +216,19 @@
                 <ScaleTransform ScaleX="1.2"/>
             </Setter.Value>
         </Setter>
-      <i:Interaction.Behaviors>
-        <ia:DataTriggerBehavior Binding="{Binding IsMouseOver}" Value="True">
-          <ia:ChangePropertyAction PropertyName="FontSize" Value="28"/>
-        </ia:DataTriggerBehavior>
-      </i:Interaction.Behaviors>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="FontSize" Value="28" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <Style Selector="TextBox.VocabCategoriesLabel" InheritanceParent="{StaticResource LabelBox}" >
-      <i:Interaction.Behaviors>
-        <ia:DataTriggerBehavior Binding="{Binding Text}" Value="">
-          <ia:ChangePropertyAction PropertyName="IsVisible" Value="False"/>
-        </ia:DataTriggerBehavior>
-      </i:Interaction.Behaviors>
+        <Style.Triggers>
+            <Trigger Property="Text" Value="">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
     
     <Style Selector="ListBox.KanjiReadingListbox" >
@@ -266,19 +266,19 @@
             <TextBox Classes="ReadingLabel" Text="{Binding ModifiedReading}"/>
           </Border>
 
-          <!-- Triggers -->
-          <!--<i:Interaction.Behaviors>
-                                <ia:DataTriggerBehavior Binding="{Binding IsMouseOver}" Value="True">
-                                  <ia:ChangePropertyAction PropertyName="Background" Value="#FFE0E0E0"/>
-                                </ia:DataTriggerBehavior>
-                              </i:Interaction.Behaviors>-->
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
-  <Style Selector="ListBox.KanjiReadingListbox ListBoxItem:focus">
-    <Setter Property="Background" Value="#FFE0E0E0" />
-  </Style>
+                                <!-- Triggers -->
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#FFE0E0E0" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
   <Style Selector="ListBox.KanjiKunYomiReadingListbox" InheritanceParent="{StaticResource KanjiReadingListbox}" >
         <Setter Property="BorderThickness" Value="0 0 0 1"/>
@@ -325,39 +325,40 @@
             </Grid>
           </Border>
 
-          <i:Interaction.Behaviors>
-            <ia:DataTriggerBehavior Binding="{Binding IsMouseOver}" Value="True">
-              <ia:ChangePropertyAction PropertyName="Background">
-                <ia:ChangePropertyAction.Value>
-                  <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
-                    <GradientStop Color="#FF3B7CEF" Offset="0.1"/>
-                    <GradientStop Color="#FF346FDA" Offset="0.49"/>
-                    <GradientStop Color="#FF2D60C9" Offset="0.5"/>
-                    <GradientStop Color="#FF264DB6" Offset="0.9"/>
-                  </LinearGradientBrush>
-                </ia:ChangePropertyAction.Value>
-              </ia:ChangePropertyAction>
-            </ia:DataTriggerBehavior>
-            <ia:DataTriggerBehavior Binding="{Binding IsPressed}" Value="True">
-              <ia:ChangePropertyAction PropertyName="BorderThickness" Value="3,2,1,1"/>
-            </ia:DataTriggerBehavior>
-            <ia:DataTriggerBehavior Binding="{Binding IsEnabled}" Value="False">
-              <ia:ChangePropertyAction PropertyName="Background">
-                <ia:ChangePropertyAction.Value>
-                  <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
-                    <GradientStop Color="#DD7BBCFF" Offset="0.1"/>
-                    <GradientStop Color="#DD74AFEA" Offset="0.49"/>
-                    <GradientStop Color="#DD6DA0D9" Offset="0.5"/>
-                    <GradientStop Color="#DD668DC6" Offset="0.9"/>
-                  </LinearGradientBrush>
-                </ia:ChangePropertyAction.Value>
-              </ia:ChangePropertyAction>
-            </ia:DataTriggerBehavior>
-          </i:Interaction.Behaviors>
-          <Setter Property="Foreground" Value="LightGray"/>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
+                                        <GradientStop Color="#FF3B7CEF" Offset="0.1"/>
+                                        <GradientStop Color="#FF346FDA" Offset="0.49"/>
+                                        <GradientStop Color="#FF2D60C9" Offset="0.5"/>
+                                        <GradientStop Color="#FF264DB6" Offset="0.9"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Foreground" Value="White" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="BorderThickness" Value="3,2,1,1" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
+                                        <GradientStop Color="#DD7BBCFF" Offset="0.1"/>
+                                        <GradientStop Color="#DD74AFEA" Offset="0.49"/>
+                                        <GradientStop Color="#DD6DA0D9" Offset="0.5"/>
+                                        <GradientStop Color="#DD668DC6" Offset="0.9"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Foreground" Value="LightGray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
 
     <Setter Property="FontSize" Value="8"/>
     <Setter Property="Foreground" Value="#33FFFFFF"/>
@@ -412,7 +413,7 @@
                     </Border>
 
                     <ControlTemplate.Triggers>
-                        <ia:DataTriggerBehavior Binding="{Binding IsMouseOver}" Value="True">
+                        <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background">
                                 <Setter.Value>
                                     <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
@@ -424,11 +425,11 @@
                                 </Setter.Value>
                             </Setter>
                             <Setter Property="Foreground" Value="White" />
-                        </ia:DataTriggerBehavior>
-                        <ia:DataTriggerBehavior Binding="{Binding IsPressed}" Value="True">
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
                             <Setter Property="BorderThickness" Value="3,2,1,1" />
-                        </ia:DataTriggerBehavior>
-                        <ia:DataTriggerBehavior Binding="{Binding IsEnabled}" Value="False">
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Background">
                                 <Setter.Value>
                                     <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
@@ -440,7 +441,7 @@
                                 </Setter.Value>
                             </Setter>
                             <Setter Property="Foreground" Value="LightGray" />
-                        </ia:DataTriggerBehavior>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -473,11 +474,11 @@
 
     <Style Selector="Button.MiniActionButton" InheritanceParent="{StaticResource ActionButton}" >
         
-      <i:Interaction.Behaviors>
-        <ia:DataTriggerBehavior Binding="{Binding IsEnabled}" Value="False">
-          <ia:ChangePropertyAction PropertyName="Background" Value="#22000000"/>
-        </ia:DataTriggerBehavior>
-      </i:Interaction.Behaviors>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="#22000000" />
+            </Trigger>
+        </Style.Triggers>
         
         <Setter Property="Height" Value="20"/>
         <Setter Property="Background">
@@ -515,48 +516,48 @@
                         <Image Source="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
                     </Border>
 
-                  <i:Interaction.Behaviors>
-                    <ia:DataTriggerBehavior Binding="{Binding IsMouseOver}" Value="True">
-                      <ia:ChangePropertyAction PropertyName="Background">
-                        <ia:ChangePropertyAction.Value>
-                          <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
-                            <GradientStop Color="#FF3B7CEF" Offset="0.1"/>
-                            <GradientStop Color="#FF346FDA" Offset="0.49"/>
-                            <GradientStop Color="#FF2D60C9" Offset="0.5"/>
-                            <GradientStop Color="#FF264DB6" Offset="0.9"/>
-                          </LinearGradientBrush>
-                        </ia:ChangePropertyAction.Value>
-                      </ia:ChangePropertyAction>
-                    </ia:DataTriggerBehavior>
-                    <ia:DataTriggerBehavior Binding="{Binding IsPressed}" Value="True">
-                      <ia:ChangePropertyAction PropertyName="BorderThickness" Value="3,2,1,1"/>
-                    </ia:DataTriggerBehavior>
-                    <ia:DataTriggerBehavior Binding="{Binding Tag}" Value="True">
-                      <ia:ChangePropertyAction PropertyName="BorderThickness" Value="3,2,1,1"/>
-                      <ia:ChangePropertyAction PropertyName="Background">
-                        <ia:ChangePropertyAction.Value>
-                          <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
-                            <GradientStop Color="#FF3B7CEF" Offset="0.1"/>
-                            <GradientStop Color="#FF346FDA" Offset="0.49"/>
-                            <GradientStop Color="#FF2D60C9" Offset="0.5"/>
-                            <GradientStop Color="#FF264DB6" Offset="0.9"/>
-                          </LinearGradientBrush>
-                        </ia:ChangePropertyAction.Value>
-                      </ia:ChangePropertyAction>
-                    </ia:DataTriggerBehavior>
-                    <ia:DataTriggerBehavior Binding="{Binding IsEnabled}" Value="False">
-                      <ia:ChangePropertyAction PropertyName="Background">
-                        <ia:ChangePropertyAction.Value>
-                          <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
-                            <GradientStop Color="#DD7BBCFF" Offset="0.1"/>
-                            <GradientStop Color="#DD74AFEA" Offset="0.49"/>
-                            <GradientStop Color="#DD6DA0D9" Offset="0.5"/>
-                            <GradientStop Color="#DD668DC6" Offset="0.9"/>
-                          </LinearGradientBrush>
-                        </ia:ChangePropertyAction.Value>
-                      </ia:ChangePropertyAction>
-                    </ia:DataTriggerBehavior>
-                  </i:Interaction.Behaviors>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
+                                        <GradientStop Color="#FF3B7CEF" Offset="0.1"/>
+                                        <GradientStop Color="#FF346FDA" Offset="0.49"/>
+                                        <GradientStop Color="#FF2D60C9" Offset="0.5"/>
+                                        <GradientStop Color="#FF264DB6" Offset="0.9"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="BorderThickness" Value="3,2,1,1" />
+                        </Trigger>
+                        <Trigger Property="Tag" Value="True">
+                            <Setter Property="BorderThickness" Value="3,2,1,1" />
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
+                                        <GradientStop Color="#FF3B7CEF" Offset="0.1"/>
+                                        <GradientStop Color="#FF346FDA" Offset="0.49"/>
+                                        <GradientStop Color="#FF2D60C9" Offset="0.5"/>
+                                        <GradientStop Color="#FF264DB6" Offset="0.9"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
+                                        <GradientStop Color="#DD7BBCFF" Offset="0.1"/>
+                                        <GradientStop Color="#DD74AFEA" Offset="0.49"/>
+                                        <GradientStop Color="#DD6DA0D9" Offset="0.5"/>
+                                        <GradientStop Color="#DD668DC6" Offset="0.9"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -600,10 +601,10 @@
           </utility:MultiDataTriggerBehavior.Conditions>
           <ia:ChangePropertyAction PropertyName="IsEnabled" Value="True"/>
         </utility:MultiDataTriggerBehavior>
-        <ia:DataTriggerBehavior Binding="{Binding IsMouseOver}" Value="True">
-          <ia:ChangePropertyAction PropertyName="Opacity" Value="1"/>
-          <ia:ChangePropertyAction PropertyName="BorderBrush" Value="#99042880"/>
-        </ia:DataTriggerBehavior>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Opacity" Value="1" />
+                <Setter Property="BorderBrush" Value="#99042880" />
+            </Trigger>
       </i:Interaction.Behaviors>
       <Setter Property="Content" Value="Listen"/>
         <Setter Property="IsEnabled" Value="False"/>
@@ -798,6 +799,18 @@
                             </TextBlock>
                         </Grid>
                     </Border>
+                    <i:Interaction.Behaviors>
+                        <ia:DataTriggerBehavior Binding="{Binding DbKanji.MostUsedRank}" Value="{x:Null}">
+                            <ia:ChangePropertyAction Value="LightGray" PropertyName="Background"/>
+                        </ia:DataTriggerBehavior>
+                        <Trigger Property="IsSelected" Value="True">
+                            <ia:ChangePropertyAction Value="10,0,0,0" PropertyName="Margin"/>
+                            <ia:ChangePropertyAction Value="#220000FF" PropertyName="Background"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <ia:ChangePropertyAction Value="#220000FF" PropertyName="Background"/>
+                        </Trigger>
+                    </i:Interaction.Behaviors>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -983,19 +996,19 @@
     </Style>
 
     <!-- VOCAB -->
-
-    <Style Selector="TextBlock.VocabVariantText" >
-      <i:Interaction.Behaviors>
-        <ia:DataTriggerBehavior Binding="{Binding IsMouseOver}" Value="True">
-          <ia:ChangePropertyAction Value="Black" PropertyName="Foreground"/>
-        </ia:DataTriggerBehavior>
+    
+    <Style Selector="TextBlock" x:Key="VocabVariantText">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="Black" />
+            </Trigger>
         <ia:DataTriggerBehavior Binding="{Binding Variant.IsMain}" Value="True">
           <ia:ChangePropertyAction Value="SemiBold" PropertyName="FontWeight"/>
           <ia:ChangePropertyAction Value="#AAAA0000" PropertyName="Foreground"/>
         </ia:DataTriggerBehavior>
-      </i:Interaction.Behaviors>
-      <Setter Property="Foreground" Value="#777777"/>
-      <Setter Property="FontSize" Value="12"/>
+        </Style.Triggers>
+        <Setter Property="Foreground" Value="#777777" />
+        <Setter Property="FontSize" Value="12" />
     </Style>
 
     <Style Selector="ListBox.VocabVariantList" >
@@ -1069,51 +1082,61 @@
         </Setter.Value>
       </Setter>
     </Style>
-
+    
     <Style Selector="ListBox.VocabList" >
-      <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
-      <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
-      <Setter Property="ItemsPanel">
-        <Setter.Value>
-          <ItemsPanelTemplate>
-            <StackPanel/>
-          </ItemsPanelTemplate>
-        </Setter.Value>
-      </Setter>
-      <Setter Property="ItemContainerStyle">
-        <Setter.Value>
-          <Style Selector="ListBoxItem">
-            <Setter Property="Template">
-              <Setter.Value>
-                <ControlTemplate TargetType="ListBoxItem">
-                  <Border>
-                    <Border.Styles>
-                      <Style Selector="Border:pointerover">
-                        <Setter Value="#22000000" Property="Background"/>
-                      </Style>
-                    </Border.Styles>
-                    <Border BorderThickness="0,0,0,1" VerticalAlignment="Center" BorderBrush="#FF878787">
-                      <Border.Styles>
-                        <Style Selector="Border[DbVocab.IsCommon=True]">
-                          <Setter Value="#3F91EF5E" Property="Background"/>
-                        </Style>
-                        <Style Selector="Border[DbVocab.IsObsolete=True]">
-                          <Setter Value="#22000000" Property="Background"/>
-                          <Setter Value="0.8" Property="Opacity"/>
-                        </Style>
-                        <Style Selector="Border:pointerover">
-                          <Setter Value="1" Property="Opacity"/>
-                        </Style>
-                      </Border.Styles>
-                      <Grid>
-                        <Grid.ColumnDefinitions>
-                          <ColumnDefinition Width="350"/>
-                          <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                          <RowDefinition Height="Auto"/>
-                          <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <StackPanel/>
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style Selector="ListBoxItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+                                <Border>
+                                    <Border.Style>
+                                        <Style Selector="Border">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" Value="True">
+                                                    <Setter Property="Background" Value="#22000000" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                    <Border BorderThickness="0,0,0,1" VerticalAlignment="Center" BorderBrush="#FF878787">
+                                        <Border.Style>
+                                            <Style Selector="Border">
+                                                <i:Interaction.Behaviors>
+                                                    <!-- When IsCommon -->
+                                                    <ia:DataTriggerBehavior Binding="{Binding DbVocab.IsCommon}" Value="True">
+                                                        <ia:ChangePropertyAction Value="#3F91EF5E" PropertyName="Background"/>
+                                                    </ia:DataTriggerBehavior>
+                                                    <!-- When IsObsolete -->
+                                                    <ia:DataTriggerBehavior Binding="{Binding IsObsolete}" Value="True">
+                                                        <ia:ChangePropertyAction Value="#22000000" PropertyName="Background"/>
+                                                        <ia:ChangePropertyAction Value="0.8" PropertyName="Opacity"/>
+                                                    </ia:DataTriggerBehavior>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Opacity" Value="1" />
+                                                    </Trigger>
+                                                </i:Interaction.Behaviors>
+                                            </Style>
+                                        </Border.Style>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="350"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
 
                         <Grid Grid.Column="1">
                           <Grid.RowDefinitions>
@@ -1376,50 +1399,50 @@
                               </Grid.RowDefinitions>
                               <Button Grid.Row="1" Content="Kanji" HorizontalAlignment="Right" FontSize="6" ToolTip="Copy the kanji writing to the clipboard." Command="{Binding DataContext.KanjiCopyCommand,
                                                       RelativeSource={RelativeSource AncestorType=controls:VocabList}}" CommandParameter="{Binding .}">
-                                <Button.Styles>
-                                  <Style Selector="Button" InheritanceParent="{StaticResource MiniActionButton}">
-                                    <i:Interaction.Behaviors>
-                                      <ia:DataTriggerBehavior Binding="{Binding DbVocab.KanjiWriting}" Value="{x:Null}">
-                                        <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
-                                      </ia:DataTriggerBehavior>
-                                      <ia:DataTriggerBehavior Binding="{Binding DbVocab.KanjiWriting}" Value="">
-                                        <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
-                                      </ia:DataTriggerBehavior>
-                                      <ia:DataTriggerBehavior Binding="{Binding IsMouseOver}" Value="True">
-                                        <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
-                                        <ia:ChangePropertyAction Value="#99042880" PropertyName="BorderBrush"/>
-                                      </ia:DataTriggerBehavior>
-                                    </i:Interaction.Behaviors>
-                                    <Setter Property="Opacity" Value="0.15"/>
-                                    <Setter Property="BorderBrush" Value="Transparent"/>
-                                  </Style>
-                                </Button.Styles>
-                                <Button.LayoutTransform>
-                                  <RotateTransform Angle="-90"/>
-                                </Button.LayoutTransform>
-                              </Button>
-                              <Button Content="Kana" HorizontalAlignment="Right" FontSize="6" ToolTip="Copy the kana writing to the clipboard." Command="{Binding DataContext.KanaCopyCommand,
+                                                            <Button.Style>
+                                                                <Style Selector="Button" BasedOn="{StaticResource MiniActionButton}">
+                                                                    <i:Interaction.Behaviors>
+                                                                        <ia:DataTriggerBehavior Binding="{Binding DbVocab.KanjiWriting}" Value="{x:Null}">
+                                                                            <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
+                                                                        </ia:DataTriggerBehavior>
+                                                                        <ia:DataTriggerBehavior Binding="{Binding DbVocab.KanjiWriting}" Value="">
+                                                                            <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
+                                                                        </ia:DataTriggerBehavior>
+                                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                                            <Setter Property="Opacity" Value="1" />
+                                                                            <Setter Property="BorderBrush" Value="#99042880" />
+                                                                        </Trigger>
+                                                                    </i:Interaction.Behaviors>
+                                                                    <Setter Property="Opacity" Value="0.15"/>
+                                                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                                                </Style>
+                                                            </Button.Style>
+                                                            <Button.LayoutTransform>
+                                                                <RotateTransform Angle="-90"/>
+                                                            </Button.LayoutTransform>
+                                                        </Button>
+                                                        <Button Content="Kana" HorizontalAlignment="Right" FontSize="6" ToolTip="Copy the kana writing to the clipboard." Command="{Binding DataContext.KanaCopyCommand,
                                                       RelativeSource={RelativeSource AncestorType=controls:VocabList}}" CommandParameter="{Binding .}">
-                                <Button.Styles>
-                                  <Style Selector="Button" InheritanceParent="{StaticResource MiniActionButton}">
-                                    <i:Interaction.Behaviors>
-                                      <ia:DataTriggerBehavior Binding="{Binding IsMouseOver}" Value="True">
-                                        <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
-                                        <ia:ChangePropertyAction Value="#99042880" PropertyName="BorderBrush"/>
-                                      </ia:DataTriggerBehavior>
-                                    </i:Interaction.Behaviors>
-                                    <Setter Property="Opacity" Value="0.15"/>
-                                    <Setter Property="BorderBrush" Value="Transparent"/>
-                                  </Style>
-                                </Button.Styles>
-                                <Button.LayoutTransform>
-                                  <RotateTransform Angle="-90"/>
-                                </Button.LayoutTransform>
-                              </Button>
-                            </Grid>
-
-                          </Grid>
-                        </Border>
+                                                            <Button.Style>
+                                                                <Style Selector="Button" BasedOn="{StaticResource MiniActionButton}">
+                                                                    <Style.Triggers>
+                                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                                            <Setter Property="Opacity" Value="1" />
+                                                                            <Setter Property="BorderBrush" Value="#99042880" />
+                                                                        </Trigger>
+                                                                    </Style.Triggers>
+                                                                    <Setter Property="Opacity" Value="0.15" />
+                                                                    <Setter Property="BorderBrush" Value="Transparent" />
+                                                                </Style>
+                                                            </Button.Style>
+                                                            <Button.LayoutTransform>
+                                                                <RotateTransform Angle="-90"/>
+                                                            </Button.LayoutTransform>
+                                                        </Button>
+                                                    </Grid>
+                                                
+                                                </Grid>
+                                            </Border>
 
                         <Border Grid.Row="1" Grid.ColumnSpan="2" Visibility="{Binding HasVariants, Converter={StaticResource ValueToVisibilityConverter}}" BorderThickness="0 1 0 0" BorderBrush="#22000000" Padding="0 2 0 2">
                           <ListBox Classes="VocabVariantList" ItemsSource="{Binding ., Mode=OneWay,
@@ -1455,42 +1478,42 @@
       <Setter Property="Background" Value="#444444"/>
     </Style>
 
-    <Style Selector="ListBox.KanjiReadingsListbox" >
-      <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
-      <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
-      <Setter Property="Background" Value="Transparent"/>
-      <Setter Property="BorderThickness" Value="0"/>
-      <Setter Property="ItemsPanel">
-        <Setter.Value>
-          <ItemsPanelTemplate>
-            <WrapPanel/>
-          </ItemsPanelTemplate>
-        </Setter.Value>
-      </Setter>
-      <Setter Property="ItemContainerStyle">
-        <Setter.Value>
-          <Style Selector="ListBoxItem">
-            <Setter Property="Template">
-              <Setter.Value>
-                <ControlTemplate TargetType="ListBoxItem">
-                  <ContentControl Content="{Binding .}">
-                    <ContentControl.Resources>
-                      <DataTemplate DataType="{x:Type models:KanjiReading}">
-                        <Border BorderBrush="#CC000000" BorderThickness="1" Padding="2">
-                          <Border.Styles>
-                            <Style Selector="Border">
-                              <i:Interaction.Behaviors>
-                                <ia:DataTriggerBehavior Binding="{Binding IsMouseOver}" Value="True">
-                                  <ia:ChangePropertyAction Value="#FFE0E0E0" PropertyName="Background"/>
-                                </ia:DataTriggerBehavior>
-                              </i:Interaction.Behaviors>
-                              <Setter Property="Margin" Value="0 0 5 1"/>
-                              <Setter Property="Background" Value="White"/>
-                            </Style>
-                          </Border.Styles>
-                          <i:Interaction.Behaviors>
-                            <ia:EventTriggerBehavior EventName="PreviewMouseLeftButtonUp">
-                              <ia:InvokeCommandAction Command="{Binding DataContext.FilterReadingCommand,
+    <Style Selector="ListBox" x:Key="KanjiReadingsListbox">
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <WrapPanel/>
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style Selector="ListBoxItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+                                <ContentControl Content="{Binding .}">
+                                    <ContentControl.Resources>
+                                        <DataTemplate DataType="{x:Type models:KanjiReading}">
+                                            <Border BorderBrush="#CC000000" BorderThickness="1" Padding="2">
+                                                <Border.Style>
+                                                    <Style Selector="Border">
+                                                        <Style.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Background" Value="#FFE0E0E0" />
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                        <Setter Property="Margin" Value="0 0 5 1" />
+                                                        <Setter Property="Background" Value="White" />
+                                                    </Style>
+                                                </Border.Style>
+                                                <i:Interaction.Behaviors>
+                                                    <ia:EventTriggerBehavior EventName="PreviewMouseLeftButtonUp">
+                                                        <ia:InvokeCommandAction Command="{Binding DataContext.FilterReadingCommand,
                                                                   RelativeSource={RelativeSource AncestorType={x:Type controls:KanjiDetails}}}" CommandParameter="{Binding HiraganaReading}"/>
                             </ia:EventTriggerBehavior>
                           </i:Interaction.Behaviors>
@@ -2069,75 +2092,85 @@
       <GradientStop Color="{StaticResource KanjiTabGradientEnd}"/>
     </LinearGradientBrush>
 
-  <Style Selector="Grid.NavigationPanelKanjiTab" InheritanceParent="{StaticResource NavigationPanelTab}" >
-    <Setter Property="Background" Value="{StaticResource KanjiTabGradient}"/>
-  </Style>
-  <Style Selector="Grid.NavigationPanelKanjiTab[{x:Static actors:NavigationActor.Instance.CurrentPage}={x:Static models:NavigationPageEnum.Kanji}">
-    <Setter Property="Opacity" Value="1" />
-  </Style>
-  <Style Selector="Grid.NavigationPanelKanjiTab:not(:pointerover)">
-    <Setter Property="Opacity" Value="1" />
-  </Style>
+    <Style Selector="Grid" BasedOn="{StaticResource NavigationPanelTab}" x:Key="NavigationPanelKanjiTab">
+        <i:Interaction.Behaviors>
+            <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}" Value="{x:Static models:NavigationPageEnum.Kanji}">
+                <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
+            </ia:DataTriggerBehavior>
+            <Trigger Property="IsMouseOver" Value="False">
+                <Setter Property="Opacity" Value="1" />
+            </Trigger>
+        </i:Interaction.Behaviors>
+        <Setter Property="Background" Value="{StaticResource KanjiTabGradient}"/>
+    </Style>
 
   <LinearGradientBrush x:Key="SrsTabGradient" StartPoint="1,1" EndPoint="1,0">
       <GradientStop Color="{StaticResource SrsTabGradientStart}" Offset="1"/>
       <GradientStop Color="{StaticResource SrsTabGradientEnd}"/>
     </LinearGradientBrush>
 
-  <Style Selector="Grid.NavigationPanelSrsTab" InheritanceParent="{StaticResource NavigationPanelTab}" >
-    <Setter Property="Background" Value="{StaticResource SrsTabGradient}"/>
-  </Style>
-  <Style Selector="Grid.NavigationPanelSrsTab[{x:Static actors:NavigationActor.Instance.CurrentPage}={x:Static models:NavigationPageEnum.Srs}">
-    <Setter Property="Opacity" Value="1" />
-  </Style>
-  <Style Selector="Grid.NavigationPanelSrsTab:not(:pointerover)">
-    <Setter Property="Opacity" Value="1" />
-  </Style>
+    <Style Selector="Grid" BasedOn="{StaticResource NavigationPanelTab}" x:Key="NavigationPanelSrsTab">
+        <i:Interaction.Behaviors>
+            <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}" Value="{x:Static models:NavigationPageEnum.Srs}">
+                <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
+            </ia:DataTriggerBehavior>
+            <Trigger Property="IsMouseOver" Value="False">
+                <Setter Property="Opacity" Value="1" />
+            </Trigger>
+        </i:Interaction.Behaviors>
+        <Setter Property="Background" Value="{StaticResource SrsTabGradient}"/>
+    </Style>
 
     <LinearGradientBrush x:Key="VocabTabGradient" StartPoint="1,1" EndPoint="1,0">
       <GradientStop Color="{StaticResource VocabTabGradientStart}" Offset="1"/>
       <GradientStop Color="{StaticResource VocabTabGradientEnd}"/>
     </LinearGradientBrush>
 
-  <Style Selector="Grid.NavigationPanelVocabTab" InheritanceParent="{StaticResource NavigationPanelTab}" >
-    <Setter Property="Background" Value="{StaticResource VocabTabGradient}"/>
-  </Style>
-  <Style Selector="Grid.NavigationPanelVocabTab[{x:Static actors:NavigationActor.Instance.CurrentPage}={x:Static models:NavigationPageEnum.Vocab}">
-    <Setter Property="Opacity" Value="1" />
-  </Style>
-  <Style Selector="Grid.NavigationPanelVocabTab:not(:pointerover)">
-    <Setter Property="Opacity" Value="1" />
-  </Style>
+    <Style Selector="Grid" BasedOn="{StaticResource NavigationPanelTab}" x:Key="NavigationPanelVocabTab">
+        <i:Interaction.Behaviors>
+            <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}" Value="{x:Static models:NavigationPageEnum.Vocab}">
+                <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
+            </ia:DataTriggerBehavior>
+            <Trigger Property="IsMouseOver" Value="False">
+                <Setter Property="Opacity" Value="1" />
+            </Trigger>
+        </i:Interaction.Behaviors>
+        <Setter Property="Background" Value="{StaticResource VocabTabGradient}"/>
+    </Style>
 
     <LinearGradientBrush x:Key="SettingsTabGradient" StartPoint="1,1" EndPoint="1,0">
       <GradientStop Color="{StaticResource SettingsTabGradientStart}" Offset="1"/>
       <GradientStop Color="{StaticResource SettingsTabGradientEnd}"/>
     </LinearGradientBrush>
 
-  <Style Selector="Grid.NavigationPanelSettingsTab" InheritanceParent="{StaticResource NavigationPanelTab}" >
-    <Setter Property="Background" Value="{StaticResource SettingsTabGradient}"/>
-  </Style>
-  <Style Selector="Grid.NavigationPanelSettingsTab[{x:Static actors:NavigationActor.Instance.CurrentPage}={x:Static models:NavigationPageEnum.Settings}">
-    <Setter Property="Opacity" Value="1" />
-  </Style>
-  <Style Selector="Grid.NavigationPanelSettingsTab:not(:pointerover)">
-    <Setter Property="Opacity" Value="1" />
-  </Style>
+    <Style Selector="Grid" BasedOn="{StaticResource NavigationPanelTab}" x:Key="NavigationPanelSettingsTab">
+        <i:Interaction.Behaviors>
+            <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}" Value="{x:Static models:NavigationPageEnum.Settings}">
+                <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
+            </ia:DataTriggerBehavior>
+            <Trigger Property="IsMouseOver" Value="False">
+                <Setter Property="Opacity" Value="1" />
+            </Trigger>
+        </i:Interaction.Behaviors>
+        <Setter Property="Background" Value="{StaticResource SettingsTabGradient}"/>
+    </Style>
 
     <LinearGradientBrush x:Key="HomeTabGradient" StartPoint="1,1" EndPoint="1,0">
       <GradientStop Color="{StaticResource HomeTabGradientStart}" Offset="1"/>
       <GradientStop Color="{StaticResource HomeTabGradientEnd}"/>
     </LinearGradientBrush>
 
-  <Style Selector="Grid.NavigationPanelHomeTab" InheritanceParent="{StaticResource NavigationPanelTab}" >
-    <Setter Property="Background" Value="{StaticResource HomeTabGradient}"/>
-  </Style>
-  <Style Selector="Grid.NavigationPanelHomeTab[{x:Static actors:NavigationActor.Instance.CurrentPage}={x:Static models:NavigationPageEnum.Home}">
-    <Setter Property="Opacity" Value="1" />
-  </Style>
-  <Style Selector="Grid.NavigationPanelHomeTab:not(:pointerover)">
-    <Setter Property="Opacity" Value="1" />
-  </Style>
+    <Style Selector="Grid" BasedOn="{StaticResource NavigationPanelTab}" x:Key="NavigationPanelHomeTab">
+        <i:Interaction.Behaviors>
+            <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}" Value="{x:Static models:NavigationPageEnum.Home}">
+                <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
+            </ia:DataTriggerBehavior>
+            <Trigger Property="IsMouseOver" Value="False">
+                <Setter Property="Opacity" Value="1" />
+            </Trigger>
+        </i:Interaction.Behaviors>
+        <Setter Property="Background" Value="{StaticResource HomeTabGradient}"/>
+    </Style>
 
     <Style Selector="TextBlock.NavigationPanelTabTitleSubCommon" >
       <Setter Property="Foreground" Value="#FFFFFFFF"/>
