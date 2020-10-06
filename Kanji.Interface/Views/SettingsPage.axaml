@@ -1,4 +1,11 @@
-<?xml version="1.0" ?><UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:models="clr-namespace:Kanji.Interface.Models" xmlns:controls="clr-namespace:Kanji.Interface.Controls" x:Class="Kanji.Interface.Views.SettingsPage" mc:Ignorable="d" Focusable="true" d:DesignHeight="300" d:DesignWidth="600" KeyDown="OnKeyDown" IsVisibleChanged="OnIsVisibleChanged">
+<?xml version="1.0" ?><UserControl xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:models="clr-namespace:Kanji.Interface.Models"
+                    xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+                    xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
+                    xmlns:controls="clr-namespace:Kanji.Interface.Controls" x:Class="Kanji.Interface.Views.SettingsPage" mc:Ignorable="d" Focusable="true" d:DesignHeight="300" d:DesignWidth="600" KeyDown="OnKeyDown" IsVisibleChanged="OnIsVisibleChanged">
 
     <DockPanel>
         <controls:NavigationBar DockPanel.Dock="Top"/>
