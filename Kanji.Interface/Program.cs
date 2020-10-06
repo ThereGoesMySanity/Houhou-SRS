@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Threading;
+
 using Kanji.Common.Helpers;
 using Kanji.Common.Models;
 using Kanji.Interface.Actors;

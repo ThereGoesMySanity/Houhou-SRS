@@ -1,16 +1,18 @@
 ﻿// Credits to John Myczek
 // http://stackoverflow.com/questions/833943/watermark-hint-text-textbox-in-wpf
 
+using Avalonia;
+using Avalonia.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Documents;
+
+
+
+
 
 namespace Kanji.Interface.Controls
 {
@@ -22,11 +24,11 @@ namespace Kanji.Interface.Controls
         /// <summary>
         /// Watermark Attached Dependency Property
         /// </summary>
-        public static readonly DependencyProperty WatermarkProperty = DependencyProperty.RegisterAttached(
-           "Watermark",
-           typeof(object),
-           typeof(WatermarkService),
-           new FrameworkPropertyMetadata((object)null, new PropertyChangedCallback(OnWatermarkChanged)));
+        public static readonly AvaloniaProperty WatermarkProperty = AvaloniaProperty.RegisterAttached<AvaloniaObject, AvaloniaObject, object>("Watermark"); 
+        static WatermarkService()
+        {
+            WatermarkProperty.Changed.Subscribe(OnWatermarkChanged);
+        }
 
         #region Private Fields
 
@@ -40,19 +42,19 @@ namespace Kanji.Interface.Controls
         /// <summary>
         /// Gets the Watermark property.  This dependency property indicates the watermark for the control.
         /// </summary>
-        /// <param name="d"><see cref="DependencyObject"/> to get the property from</param>
+        /// <param name="d"><see cref="AvaloniaObject"/> to get the property from</param>
         /// <returns>The value of the Watermark property</returns>
-        public static object GetWatermark(DependencyObject d)
+        public static object GetWatermark(AvaloniaObject d)
         {
-            return (object)d.GetValue(WatermarkProperty);
+            return d.GetValue(WatermarkProperty);
         }
 
         /// <summary>
         /// Sets the Watermark property.  This dependency property indicates the watermark for the control.
         /// </summary>
-        /// <param name="d"><see cref="DependencyObject"/> to set the property on</param>
+        /// <param name="d"><see cref="AvaloniaObject"/> to set the property on</param>
         /// <param name="value">value of the property</param>
-        public static void SetWatermark(DependencyObject d, object value)
+        public static void SetWatermark(AvaloniaObject d, object value)
         {
             d.SetValue(WatermarkProperty, value);
         }
@@ -60,11 +62,11 @@ namespace Kanji.Interface.Controls
         /// <summary>
         /// Handles changes to the Watermark property.
         /// </summary>
-        /// <param name="d"><see cref="DependencyObject"/> that fired the event</param>
-        /// <param name="e">A <see cref="DependencyPropertyChangedEventArgs"/> that contains the event data.</param>
-        private static void OnWatermarkChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        /// <param name="d"><see cref="AvaloniaObject"/> that fired the event</param>
+        /// <param name="e">A <see cref="AvaloniaPropertyChangedEventArgs"/> that contains the event data.</param>
+        private static void OnWatermarkChanged(AvaloniaPropertyChangedEventArgs e)
         {
-            Control control = (Control)d;
+            Control control = (Control)e.Sender;
             control.Loaded += Control_Loaded;
 
             if (d is ComboBox || d is TextBox)
@@ -87,7 +89,7 @@ namespace Kanji.Interface.Controls
                 itemsControls.Add(i.ItemContainerGenerator, i);
 
                 // for ItemsSource property  
-                DependencyPropertyDescriptor prop = DependencyPropertyDescriptor.FromProperty(ItemsControl.ItemsSourceProperty, i.GetType());
+                AvaloniaPropertyDescriptor prop = AvaloniaPropertyDescriptor.FromProperty(ItemsControl.ItemsSourceProperty, i.GetType());
                 prop.AddValueChanged(i, ItemsSourceChanged);
             }
         }

@@ -8,7 +8,7 @@ using System.Xml.Linq;
 using Kanji.Interface.Models;
 using Kanji.Common.Extensions;
 using Kanji.Common.Helpers;
-using System.Windows.Media;
+
 using Kanji.Interface.Helpers;
 
 namespace Kanji.Interface.Business

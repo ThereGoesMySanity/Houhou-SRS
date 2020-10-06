@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using Avalonia.Threading;
+using GalaSoft.MvvmLight.Command;
 using Kanji.Common.Helpers;
 using Kanji.Database.Entities;
 using Kanji.Interface.Actors;
@@ -11,8 +12,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Media;
-using System.Windows.Threading;
+
+
 
 namespace Kanji.Interface.Business
 {
@@ -46,7 +47,7 @@ namespace Kanji.Interface.Business
 
         #region Fields
 
-        private MediaPlayer _player;
+        //private MediaPlayer _player;
         private VocabAudio _playingVocab;
         private bool _isBusy;
         private DispatcherTimer _timeoutTimer;
@@ -86,10 +87,11 @@ namespace Kanji.Interface.Business
 
         public AudioBusiness()
         {
-            _player = new MediaPlayer();
-            _player.MediaEnded += OnMediaEnded;
-            _player.MediaOpened += OnMediaOpened;
-            _player.MediaFailed += OnMediaFailed;
+            //_player = new MediaPlayer();
+            //_player.MediaEnded += OnMediaEnded;
+            //_player.MediaOpened += OnMediaOpened;
+            //_player.MediaFailed += OnMediaFailed;
+            //TODO
 
             PlayVocabAudioCommand = new RelayCommand<VocabAudio>(PlayVocabAudio);
 
@@ -113,7 +115,7 @@ namespace Kanji.Interface.Business
                     _playingVocab = null;
                 }
 
-                _player.Stop();
+                //_player.Stop();
                 IsBusy = false;
             }
         }
@@ -155,7 +157,7 @@ namespace Kanji.Interface.Business
                 {
                     // Switch it to playable state and stop.
                     _playingVocab.State = VocabAudioState.Playable;
-                    _player.Stop();
+                    //_player.Stop();
 
                     // Note: this should not happen, but it's there just in case.
                 }
@@ -165,13 +167,13 @@ namespace Kanji.Interface.Business
 
                 // If we are already playing the same URI, close it before reloading (I swear it won't play the same clip again for pete's sake)
                 Uri sourceUri = GetUri(vocab);
-                if (_player.Source == sourceUri)
-                {
-                    _player.Close();
-                }
+                //if (_player.Source == sourceUri)
+                //{
+                //    _player.Close();
+                //}
 
                 _timeoutTimer.Start();
-                _player.Open(sourceUri);
+                //_player.Open(sourceUri);
             }
             catch (Exception ex)
             {
@@ -191,17 +193,18 @@ namespace Kanji.Interface.Business
             string uri = Kanji.Interface.Properties.Settings.Default.AudioUri;
             if (string.IsNullOrWhiteSpace(uri))
             {
-                if (System.Windows.MessageBox.Show(
-                    NavigationActor.Instance.ActiveWindow,
-                    string.Format("You have not configured the audio URL yet.{0}Do you want to go to the settings page and configure it?", Environment.NewLine),
-                    "Configure the audio URL",
-                    System.Windows.MessageBoxButton.YesNo,
-                    System.Windows.MessageBoxImage.Question,
-                    System.Windows.MessageBoxResult.Cancel)
-                    == System.Windows.MessageBoxResult.Yes)
-                {
-                    NavigationActor.Instance.NavigateToSettings(SettingsCategoryEnum.Vocab);
-                }
+                //if (System.Windows.MessageBox.Show(
+                //    NavigationActor.Instance.ActiveWindow,
+                //    string.Format("You have not configured the audio URL yet.{0}Do you want to go to the settings page and configure it?", Environment.NewLine),
+                //    "Configure the audio URL",
+                //    System.Windows.MessageBoxButton.YesNo,
+                //    System.Windows.MessageBoxImage.Question,
+                //    System.Windows.MessageBoxResult.Cancel)
+                //    == System.Windows.MessageBoxResult.Yes)
+                //{
+                //    NavigationActor.Instance.NavigateToSettings(SettingsCategoryEnum.Vocab);
+                //}
+                //TODO
 
                 return false;
             }
@@ -227,32 +230,33 @@ namespace Kanji.Interface.Business
         private void OnMediaOpened(object sender, EventArgs e)
         {
             // After Windows 10's october 2018 big update, the behavior of the media player changed.
-            
+
             // We need the duration of the media that just loaded, to test it against the unwanted "missing audio" clip duration.
             TimeSpan duration;
-            if (_player.NaturalDuration.HasTimeSpan)
-            {
-                // Windows 10 before october 2018 update, or older versions
-                // We can get the duration through normal, reasonable ways
-                duration = _player.NaturalDuration.TimeSpan;
-            }
-            else
-            {
-                // Windows 10 post october 2018 update
-                // We cannot get the duration through the normal way, and have no access whatsoever on what is
-                // currently loaded in the player. Fortunately, there's a tricky way to get the duration we want.
+            //if (_player.NaturalDuration.HasTimeSpan)
+            //{
+            //    // Windows 10 before october 2018 update, or older versions
+            //    // We can get the duration through normal, reasonable ways
+            //    duration = _player.NaturalDuration.TimeSpan;
+            //}
+            //else
+            //{
+            //    // Windows 10 post october 2018 update
+            //    // We cannot get the duration through the normal way, and have no access whatsoever on what is
+            //    // currently loaded in the player. Fortunately, there's a tricky way to get the duration we want.
 
-                // We can set the current playing Position to an absurdly high value, and then get the Position again,
-                // and, because the Position is limited to the duration of the clip, the value we get will be the last
-                // possible Position, i.e. the duration of the clip.
+            //    // We can set the current playing Position to an absurdly high value, and then get the Position again,
+            //    // and, because the Position is limited to the duration of the clip, the value we get will be the last
+            //    // possible Position, i.e. the duration of the clip.
 
-                // BUT!.. Apparently it takes a bit of time before it does restrict the Position.
-                // So we need to be sleeping while the magic happens.
-                _player.Position = TimeSpan.MaxValue;
-                Thread.Sleep(1); // yes yes absolutely
-                duration = _player.Position;
-            }
-            
+            //    // BUT!.. Apparently it takes a bit of time before it does restrict the Position.
+            //    // So we need to be sleeping while the magic happens.
+            //    _player.Position = TimeSpan.MaxValue;
+            //    Thread.Sleep(1); // yes yes absolutely
+            //    duration = _player.Position;
+            //}
+            //TODO
+
             if (duration.Ticks == UnavailableDurationTicks)
             {
                 // Probably unavailable (or we're having terrible, terrible luck)
@@ -263,34 +267,36 @@ namespace Kanji.Interface.Business
                 }
                 IsBusy = false;
             }
-            else
-            {
-                _player.Position = TimeSpan.Zero;
+            //else
+            //{
+            //    _player.Position = TimeSpan.Zero;
 
-                // Audio is available. Play it!
-                if (_playingVocab != null)
-                {
-                    _playingVocab.State = VocabAudioState.Playing;
-                }
+            //    // Audio is available. Play it!
+            //    if (_playingVocab != null)
+            //    {
+            //        _playingVocab.State = VocabAudioState.Playing;
+            //    }
 
-                _player.Volume = Math.Min(1, Math.Max(0, Properties.Settings.Default.AudioVolume / 100f));
-                _player.Play();
-                _timeoutTimer.Stop();
-            }
+            //    _player.Volume = Math.Min(1, Math.Max(0, Properties.Settings.Default.AudioVolume / 100f));
+            //    _player.Play();
+            //    _timeoutTimer.Stop();
+            //}
+            //TODO
         }
 
         /// <summary>
         /// Triggers when the media failed to load or play.
         /// </summary>
-        private void OnMediaFailed(object sender, ExceptionEventArgs e)
-        {
-            if (_playingVocab != null)
-            {
-                _playingVocab.State = VocabAudioState.Failed;
-                _playingVocab = null;
-            }
-            IsBusy = false;
-        }
+        //private void OnMediaFailed(object sender, ExceptionEventArgs e)
+        //{
+        //    if (_playingVocab != null)
+        //    {
+        //        _playingVocab.State = VocabAudioState.Failed;
+        //        _playingVocab = null;
+        //    }
+        //    IsBusy = false;
+        //}
+        //TODO
 
         /// <summary>
         /// Triggers when the media played successfully and ended.

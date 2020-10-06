@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
+
 using GalaSoft.MvvmLight.Command;
 using Kanji.Database.Entities;
 using Kanji.Interface.Models;
@@ -16,9 +16,9 @@ using Kanji.Database.Dao;
 using SharpVectors.Converters;
 using System.IO;
 using Kanji.Common.Helpers;
-using System.Windows.Media;
+
 using System.Text.RegularExpressions;
-using System.Windows.Threading;
+
 using System.Diagnostics;
 
 namespace Kanji.Interface.ViewModels

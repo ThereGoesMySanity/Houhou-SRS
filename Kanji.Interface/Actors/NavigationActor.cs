@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Navigation;
+
 using Kanji.Interface.Helpers;
 using Kanji.Interface.Models;
 using Kanji.Interface.Utilities;
 using Kanji.Interface.ViewModels;
 using Kanji.Interface.Views;
 using Kanji.Interface.Extensions;
+using Avalonia.Controls;
 
 namespace Kanji.Interface.Actors
 {

@@ -4,13 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows;
-using System.Windows.Media;
+
+
+
+
 using System.Diagnostics;
 using System.ComponentModel;
-using System.Windows.Input;
+
 using System.Collections.ObjectModel;
 
 namespace Kanji.Interface.Controls
