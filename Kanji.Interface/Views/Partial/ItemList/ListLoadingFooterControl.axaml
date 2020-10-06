@@ -1,4 +1,12 @@
-<?xml version="1.0" ?><UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:controls="clr-namespace:Kanji.Interface.Controls" x:Class="Kanji.Interface.Controls.ListLoadingFooterControl" mc:Ignorable="d" d:DesignHeight="60" d:DesignWidth="500">
+<?xml version="1.0" ?><UserControl xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:s="clr-namespace:System;assembly=mscorlib"
+                    xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+                    xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
+                    xmlns:utility="clr-namespace:Kanji.Interface.Utilities"
+                    xmlns:controls="clr-namespace:Kanji.Interface.Controls" x:Class="Kanji.Interface.Controls.ListLoadingFooterControl" mc:Ignorable="d" d:DesignHeight="60" d:DesignWidth="500">
 
     <Grid>
         <!-- "Load more" button grid -->
@@ -7,7 +15,7 @@
                 <Style TargetType="Grid">
                     <i:Interaction.Behaviors>
                         <utility:MultiDataTriggerBehavior>
-                            <utility:MultiDataTriggerBinding.Conditions>
+                            <utility:MultiDataTriggerBehavior.Conditions>
                                 <utility:Condition Binding="{Binding ElementName=LoadingPanel, Path=Visibility}" Value="Collapsed"/>
                                 <utility:Condition Value="False">
                                     <utility:Condition.Binding>
@@ -17,10 +25,10 @@
                                         </MultiBinding>
                                     </utility:Condition.Binding>
                                 </utility:Condition>
-                            </utility:MultiDataTriggerBinding.Conditions>
-                            <utility:MultiDataTriggerBinding.Actions>
+                            </utility:MultiDataTriggerBehavior.Conditions>
+                            <utility:MultiDataTriggerBehavior.Actions>
                                 <ia:ChangePropertyAction Value="Visible" PropertyName="Visibility"/>
-                            </utility:MultiDataTriggerBinding.Actions>
+                            </utility:MultiDataTriggerBehavior.Actions>
                         </utility:MultiDataTriggerBehavior>
                     </i:Interaction.Behaviors>
                     <Setter Property="Visibility" Value="Collapsed"/>

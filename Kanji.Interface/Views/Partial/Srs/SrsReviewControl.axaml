@@ -1,4 +1,12 @@
-<?xml version="1.0" ?><UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:converters="clr-namespace:Kanji.Interface.Converters" xmlns:behaviors="clr-namespace:Kanji.Interface.Behaviors" x:Class="Kanji.Interface.Controls.SrsReviewControl" mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="600" behaviors:InputBindingsBehavior.TakesInputBindingPrecedence="True">
+<?xml version="1.0" ?><UserControl xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:converters="clr-namespace:Kanji.Interface.Converters"
+                    xmlns:utility="clr-namespace:Kanji.Interface.Utilities"
+                    xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+                    xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
+                    xmlns:behaviors="clr-namespace:Kanji.Interface.Behaviors" x:Class="Kanji.Interface.Controls.SrsReviewControl" mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="600" behaviors:InputBindingsBehavior.TakesInputBindingPrecedence="True">
     <UserControl.Style>
         <Style TargetType="UserControl">
             <i:Interaction.Behaviors>
@@ -178,31 +186,31 @@
                     <Style TargetType="TextBlock">
                         <i:Interaction.Behaviors>
                             <utility:MultiDataTriggerBehavior>
-                                <utility:MultiDataTriggerBinding.Conditions>
+                                <utility:MultiDataTriggerBehavior.Conditions>
                                     <utility:Condition Binding="{Binding CurrentQuestion.ParentGroup.IsKanji}" Value="True"/>
                                     <utility:Condition Binding="{Binding CurrentQuestion.Question}" Value="Meaning"/>
-                                </utility:MultiDataTriggerBinding.Conditions>
+                                </utility:MultiDataTriggerBehavior.Conditions>
                                 <ia:ChangePropertyAction Value="Enter the kanji meaning." PropertyName="Text"/>
                             </utility:MultiDataTriggerBehavior>
                             <utility:MultiDataTriggerBehavior>
-                                <utility:MultiDataTriggerBinding.Conditions>
+                                <utility:MultiDataTriggerBehavior.Conditions>
                                     <utility:Condition Binding="{Binding CurrentQuestion.ParentGroup.IsKanji}" Value="True"/>
                                     <utility:Condition Binding="{Binding CurrentQuestion.Question}" Value="Reading"/>
-                                </utility:MultiDataTriggerBinding.Conditions>
+                                </utility:MultiDataTriggerBehavior.Conditions>
                                 <ia:ChangePropertyAction Value="Enter the kanji reading." PropertyName="Text"/>
                             </utility:MultiDataTriggerBehavior>
                             <utility:MultiDataTriggerBehavior>
-                                <utility:MultiDataTriggerBinding.Conditions>
+                                <utility:MultiDataTriggerBehavior.Conditions>
                                     <utility:Condition Binding="{Binding CurrentQuestion.ParentGroup.IsKanji}" Value="False"/>
                                     <utility:Condition Binding="{Binding CurrentQuestion.Question}" Value="Meaning"/>
-                                </utility:MultiDataTriggerBinding.Conditions>
+                                </utility:MultiDataTriggerBehavior.Conditions>
                                 <ia:ChangePropertyAction Value="Enter the vocab meaning." PropertyName="Text"/>
                             </utility:MultiDataTriggerBehavior>
                             <utility:MultiDataTriggerBehavior>
-                                <utility:MultiDataTriggerBinding.Conditions>
+                                <utility:MultiDataTriggerBehavior.Conditions>
                                     <utility:Condition Binding="{Binding CurrentQuestion.ParentGroup.IsKanji}" Value="False"/>
                                     <utility:Condition Binding="{Binding CurrentQuestion.Question}" Value="Reading"/>
-                                </utility:MultiDataTriggerBinding.Conditions>
+                                </utility:MultiDataTriggerBehavior.Conditions>
                                 <ia:ChangePropertyAction Value="Enter the vocab reading." PropertyName="Text"/>
                             </utility:MultiDataTriggerBehavior>
                             <ia:DataTriggerBehavior Binding="{Binding CurrentQuestion.Question}" Value="Meaning">
