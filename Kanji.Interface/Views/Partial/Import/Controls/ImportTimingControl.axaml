@@ -6,10 +6,10 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <GroupBox BorderBrush="#666666" Padding="5" Margin="0 0 0 0" DataContext="{Binding ParentMode.Timing}">
-        <GroupBox.Header>
+    <HeaderedContentControl BorderBrush="#666666" Padding="5" Margin="0 0 0 0" DataContext="{Binding ParentMode.Timing}">
+        <HeaderedContentControl.Header>
             <TextBlock Text="Timing" Style="{StaticResource SettingCategoryTitle}" />
-        </GroupBox.Header>
+        </HeaderedContentControl.Header>
         <StackPanel>
             <TextBlock Style="{StaticResource LegendText}" TextWrapping="Wrap" Margin="0 0 0 8">
                 To avoid a situation where all of your items come up in reviews at the same time, you may want to spread them over time.<LineBreak />
@@ -33,5 +33,5 @@
                 </StackPanel>
             </Border>
         </StackPanel>
-    </GroupBox>
+    </HeaderedContentControl>
 </UserControl>

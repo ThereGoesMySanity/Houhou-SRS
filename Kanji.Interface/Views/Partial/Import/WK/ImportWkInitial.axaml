@@ -13,10 +13,10 @@
         </Grid.RowDefinitions>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" x:Name="MainScrollView">
             <StackPanel>
-                <GroupBox BorderBrush="#666666" Padding="5" Margin="0 5 0 0">
-                    <GroupBox.Header>
+                <HeaderedContentControl BorderBrush="#666666" Padding="5" Margin="0 5 0 0">
+                    <HeaderedContentControl.Header>
                         <TextBlock Text="WaniKani API key" Style="{StaticResource SettingCategoryTitle}" />
-                    </GroupBox.Header>
+                    </HeaderedContentControl.Header>
                     <StackPanel>
                         <TextBlock Style="{StaticResource LegendText}" TextWrapping="Wrap">
                             Please enter your WaniKani API key in the box below.<LineBreak />
@@ -34,12 +34,12 @@
                             </TextBox>
                         </AdornerDecorator>
                     </StackPanel>
-                </GroupBox>
+                </HeaderedContentControl>
 
-                <GroupBox BorderBrush="#666666" Padding="5" Margin="0 10 0 0">
-                    <GroupBox.Header>
+                <HeaderedContentControl BorderBrush="#666666" Padding="5" Margin="0 10 0 0">
+                    <HeaderedContentControl.Header>
                         <TextBlock Text="WaniKani import settings" Style="{StaticResource SettingCategoryTitle}" />
-                    </GroupBox.Header>
+                    </HeaderedContentControl.Header>
                     <StackPanel>
                         <TextBlock Style="{StaticResource LegendText}">
                             Import...
@@ -69,7 +69,7 @@
                         <TextBox Height="40" MaxLength="300" TextWrapping="Wrap" Text="{Binding ParentMode.Tags, Mode=TwoWay}"
                             ToolTip="Defines how the Tags field is filled. The special text '%level%' will be replaced by the WaniKani level of the item." />
                     </StackPanel>
-                </GroupBox>
+                </HeaderedContentControl>
 
                 <controls:ImportDuplicateBehaviorControl Margin="0 10 0 0" />
                 <controls:ImportTimingControl Margin="0 10 0 0" />

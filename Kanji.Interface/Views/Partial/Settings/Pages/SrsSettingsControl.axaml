@@ -8,31 +8,31 @@
              d:DesignHeight="600" d:DesignWidth="600">
 
     <StackPanel>
-        <GroupBox BorderBrush="#666666">
-            <GroupBox.Header>
+        <HeaderedContentControl BorderBrush="#666666">
+            <HeaderedContentControl.Header>
                 <TextBlock Text="SRS level configuration" Style="{StaticResource SettingCategoryTitle}" />
-            </GroupBox.Header>
+            </HeaderedContentControl.Header>
             <StackPanel Margin="6 10">
                 <controls:SettingSrsLevelSetControl DataContext="{Binding SrsLevelSetVm}" />
             </StackPanel>
-        </GroupBox>
-        <GroupBox BorderBrush="#666666" Margin="0 20 0 0">
-            <GroupBox.Header>
+        </HeaderedContentControl>
+        <HeaderedContentControl BorderBrush="#666666" Margin="0 20 0 0">
+            <HeaderedContentControl.Header>
                 <TextBlock Text="Reviews" Style="{StaticResource SettingCategoryTitle}" />
-            </GroupBox.Header>
+            </HeaderedContentControl.Header>
             <StackPanel Margin="6 10">
                 <controls:SettingAutoSkipControl DataContext="{Binding AutoSkipVm}" />
                 <controls:SettingIgnoreAnswerShortcut DataContext="{Binding IgnoreAnswerShortcutVm}" Margin="0 10 0 0" />
             </StackPanel>
-        </GroupBox>
+        </HeaderedContentControl>
 
-        <GroupBox BorderBrush="#666666" Margin="0 20 0 0">
-            <GroupBox.Header>
+        <HeaderedContentControl BorderBrush="#666666" Margin="0 20 0 0">
+            <HeaderedContentControl.Header>
                 <TextBlock Text="SRS items browsing" Style="{StaticResource SettingCategoryTitle}" />
-            </GroupBox.Header>
+            </HeaderedContentControl.Header>
             <StackPanel Margin="6 10">
                 <controls:SettingSrsEntriesPerPageControl DataContext="{Binding EntriesPerPageVm}" />
             </StackPanel>
-        </GroupBox>
+        </HeaderedContentControl>
     </StackPanel>
 </UserControl>
