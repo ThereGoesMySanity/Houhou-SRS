@@ -1299,13 +1299,22 @@
                                                     </WrapPanel>
 
 
-                                                    <controls:BindableRichTextBox x:Name="MeaningRtb" Margin="0 0 0 5" Padding="0 0 0 0">
+                                                   <!--TODO: when richtextbox exists-->
+                                                    <!--<controls:BindableRichTextBox x:Name="MeaningRtb" Margin="0 0 0 5" Padding="0 0 0 0">
                                                         <controls:BindableRichTextBox.Style>
                                                             <Style TargetType="controls:BindableRichTextBox" BasedOn="{StaticResource VocabMeaningRichTextBox}">
                                                                 <Setter Property="Document" Value="{Binding DbVocab, Mode=OneTime, IsAsync=False, Converter={StaticResource VocabMeaningsToStringConverter}}"/>
                                                             </Style>
                                                         </controls:BindableRichTextBox.Style>
-                                                    </controls:BindableRichTextBox>
+                                                    </controls:BindableRichTextBox>-->
+
+                                                  <TextBox x:Name="MeaningRtb" Margin="0 0 0 5" Padding="0 0 0 0">
+                                                    <TextBox.Style>
+                                                      <Style TargetType="TextBox" BasedOn="{StaticResource VocabMeaningRichTextBox}">
+                                                        <Setter Property="Text" Value="{Binding DbVocab, Mode=OneTime, IsAsync=False, Converter={StaticResource VocabMeaningsToStringConverter}}"/>
+                                                      </Style>
+                                                    </TextBox.Style>
+                                                  </TextBox>
 
                                                     <Button x:Name="ExpandButton" Content="Show more meanings" Width="140" HorizontalAlignment="Left" Style="{StaticResource MiniActionButton}" Margin="5 0 0 3" Visibility="{Binding NeedsExpanding, Converter={StaticResource ValueToVisibilityConverter}}">
                                                         <i:Interaction.Behaviors>
