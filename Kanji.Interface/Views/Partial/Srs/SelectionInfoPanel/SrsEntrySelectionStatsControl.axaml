@@ -7,7 +7,7 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <Style TargetType="Border" x:Key="StatBox">
+            <Style Selector="Border" x:Key="StatBox">
                 <Setter Property="BorderBrush" Value="{StaticResource FadedBorderBrush}"/>
                 <Setter Property="BorderThickness" Value="1"/>
                 <Setter Property="Padding" Value="5"/>
@@ -17,7 +17,7 @@
     </UserControl.Resources>
 
     <UserControl.Style>
-        <Style TargetType="UserControl">
+        <Style Selector="UserControl">
             <i:Interaction.Behaviors>
                 <ia:DataTriggerBehavior Binding="{Binding SelectedItems.Count}" Value="0">
                     <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
@@ -48,7 +48,7 @@
                 <Viewbox Grid.Row="1">
                     <TextBlock Foreground="#99FFFFFF">
                         <TextBlock.Style>
-                            <Style TargetType="TextBlock" BasedOn="{StaticResource LegendText}">
+                            <Style Selector="TextBlock" BasedOn="{StaticResource LegendText}">
                                 <i:Interaction.Behaviors>
                                     <ia:DataTriggerBehavior Binding="{Binding SelectionTotalReviews}" Value="1">
                                         <ia:ChangePropertyAction Value="totalled review" PropertyName="Text"/>
@@ -83,7 +83,7 @@
                 <Viewbox Grid.Row="1">
                     <TextBlock Foreground="#99FFFFFF">
                         <TextBlock.Style>
-                            <Style TargetType="TextBlock" BasedOn="{StaticResource LegendText}">
+                            <Style Selector="TextBlock" BasedOn="{StaticResource LegendText}">
                                 <i:Interaction.Behaviors>
                                     <ia:DataTriggerBehavior Binding="{Binding SelectionTotalSuccesses}" Value="1">
                                         <ia:ChangePropertyAction Value="totalled success" PropertyName="Text"/>
@@ -118,7 +118,7 @@
                 <Viewbox Grid.Row="1">
                     <TextBlock Foreground="#99FFFFFF">
                         <TextBlock.Style>
-                            <Style TargetType="TextBlock" BasedOn="{StaticResource LegendText}">
+                            <Style Selector="TextBlock" BasedOn="{StaticResource LegendText}">
                                 <i:Interaction.Behaviors>
                                     <ia:DataTriggerBehavior Binding="{Binding SelectionTotalFailures}" Value="1">
                                         <ia:ChangePropertyAction Value="totalled failure" PropertyName="Text"/>

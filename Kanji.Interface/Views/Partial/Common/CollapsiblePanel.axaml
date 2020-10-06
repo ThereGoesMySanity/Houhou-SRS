@@ -7,7 +7,7 @@
                     xmlns:controls="clr-namespace:Kanji.Interface.Controls" x:Class="Kanji.Interface.Controls.CollapsiblePanel" mc:Ignorable="d" d:DesignHeight="100" d:DesignWidth="300">
 
     <controls:CollapsiblePanelBase.Style>
-        <Style TargetType="controls:CollapsiblePanelBase">
+        <Style Selector="controls:CollapsiblePanelBase">
             <Setter Property="Background" Value="#99000000"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -24,7 +24,7 @@
                                     <ContentPresenter Content="{TemplateBinding HeaderContent}"/>
                                     <TextBlock Foreground="#1CFFFFFF" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="10" Tag="{TemplateBinding IsContentShown}">
                                         <TextBlock.Style>
-                                            <Style TargetType="TextBlock">
+                                            <Style Selector="TextBlock">
                                                 <i:Interaction.Behaviors>
                                                     <ia:DataTriggerBehavior Binding="{Binding Tag, RelativeSource={RelativeSource Self}}" Value="True">
                                                         <ia:ChangePropertyAction Value="▲ ▲ ▲ ▲ ▲" PropertyName="Text"/>

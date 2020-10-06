@@ -17,7 +17,7 @@
             <Grid>
                 <Grid>
                     <Grid.Style>
-                        <Style TargetType="Grid">
+                        <Style Selector="Grid">
                             <i:Interaction.Behaviors>
                                 <!-- Hide the grid when there is an SRS Reviews session running. -->
                                 <ia:DataTriggerBehavior Binding="{Binding Visibility, ElementName=ReviewControl}" Value="Visible">

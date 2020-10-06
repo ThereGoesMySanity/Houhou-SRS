@@ -11,7 +11,7 @@
                 <TextBlock Text="Update check status:" FontSize="10" HorizontalAlignment="Center" Foreground="#AAFFFFFF"/>
                 <TextBlock HorizontalAlignment="Center" Foreground="#AAFFFFFF" FontWeight="SemiBold" FontSize="16">
                     <TextBlock.Style>
-                        <Style TargetType="TextBlock">
+                        <Style Selector="TextBlock">
                             <Setter Property="Text" Value="Not checked yet"/>
                             <Setter Property="ToolTip" Value="If automatic update check is disabled, Houhou will not check for updates until you click the 'Check for updates' button. If automatic update check is enabled, be aware that there is a delay before updates are checked."/>
                             <i:Interaction.Behaviors>
@@ -71,7 +71,7 @@
         </Border>
         <Button Margin="10 0 0 0" Width="150" Height="44" Content="Check for updates" Command="{Binding CheckCommand}" ToolTip="Check for available Houhou updates. Requires an internet connection.">
             <Button.Style>
-                <Style TargetType="Button" BasedOn="{StaticResource ActionButton}">
+                <Style Selector="Button" BasedOn="{StaticResource ActionButton}">
                     <i:Interaction.Behaviors>
                         <ia:DataTriggerBehavior Binding="{Binding CheckStatus}" Value="UpdateAvailable">
                             <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
@@ -100,7 +100,7 @@
                 </TextBlock>
             </Button.ToolTip>
             <Button.Style>
-                <Style TargetType="Button" BasedOn="{StaticResource ActionButton}">
+                <Style Selector="Button" BasedOn="{StaticResource ActionButton}">
                     <i:Interaction.Behaviors>
                         <ia:DataTriggerBehavior Binding="{Binding CheckStatus}" Value="UpdateAvailable">
                             <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>

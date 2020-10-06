@@ -50,7 +50,7 @@
                                 <ComboBox ItemsSource="{Binding Encodings, Mode=OneWay}" SelectedIndex="{Binding SelectedEncodingIndex, Mode=TwoWay}" behaviors:SelectionChangedBehavior.Command="{Binding EncodingChangedCommand}"/>
                                 <TextBox Margin="10 0 0 0" Text="{Binding SelectedEncoding, Mode=TwoWay}" Width="100">
                                     <TextBox.Style>
-                                        <Style TargetType="TextBox">
+                                        <Style Selector="TextBox">
                                             <i:Interaction.Behaviors>
                                                 <ia:DataTriggerBehavior Binding="{Binding SelectedEncodingIndex}" Value="0">
                                                     <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>

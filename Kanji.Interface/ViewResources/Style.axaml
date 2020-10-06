@@ -119,50 +119,50 @@
     <!-- STYLES -->
 
     <!-- PAGE ROOTS -->
-    <Style TargetType="Border" x:Key="PageBorder">
+    <Style Selector="Border" x:Key="PageBorder">
         <Setter Property="Padding" Value="10"/>
     </Style>
-    <Style TargetType="Border" x:Key="PageSeparator">
+    <Style Selector="Border" x:Key="PageSeparator">
         <Setter Property="Height" Value="8"/>
     </Style>
 
-    <Style TargetType="Border" BasedOn="{StaticResource PageBorder}" x:Key="HomePageBorder">
+    <Style Selector="Border" BasedOn="{StaticResource PageBorder}" x:Key="HomePageBorder">
         <Setter Property="Background" Value="{StaticResource HomeTabFadeBrush}"/>
     </Style>
-    <Style TargetType="Border" BasedOn="{StaticResource PageSeparator}" x:Key="HomePageSeparator">
+    <Style Selector="Border" BasedOn="{StaticResource PageSeparator}" x:Key="HomePageSeparator">
         <Setter Property="Background" Value="{StaticResource HomeTabGradientEndBrush}"/>
     </Style>
 
-    <Style TargetType="Border" BasedOn="{StaticResource PageBorder}" x:Key="SrsPageBorder">
+    <Style Selector="Border" BasedOn="{StaticResource PageBorder}" x:Key="SrsPageBorder">
         <Setter Property="Background" Value="{StaticResource SrsTabFadeBrush}"/>
     </Style>
-    <Style TargetType="Border" BasedOn="{StaticResource PageSeparator}" x:Key="SrsPageSeparator">
+    <Style Selector="Border" BasedOn="{StaticResource PageSeparator}" x:Key="SrsPageSeparator">
         <Setter Property="Background" Value="{StaticResource SrsTabGradientEndBrush}"/>
     </Style>
 
-    <Style TargetType="Border" BasedOn="{StaticResource PageBorder}" x:Key="KanjiPageBorder">
+    <Style Selector="Border" BasedOn="{StaticResource PageBorder}" x:Key="KanjiPageBorder">
         <Setter Property="Background" Value="{StaticResource KanjiTabFadeBrush}"/>
     </Style>
-    <Style TargetType="Border" BasedOn="{StaticResource PageSeparator}" x:Key="KanjiPageSeparator">
+    <Style Selector="Border" BasedOn="{StaticResource PageSeparator}" x:Key="KanjiPageSeparator">
         <Setter Property="Background" Value="{StaticResource KanjiTabGradientEndBrush}"/>
     </Style>
 
-    <Style TargetType="Border" BasedOn="{StaticResource PageBorder}" x:Key="VocabPageBorder">
+    <Style Selector="Border" BasedOn="{StaticResource PageBorder}" x:Key="VocabPageBorder">
         <Setter Property="Background" Value="{StaticResource VocabTabFadeBrush}"/>
     </Style>
-    <Style TargetType="Border" BasedOn="{StaticResource PageSeparator}" x:Key="VocabPageSeparator">
+    <Style Selector="Border" BasedOn="{StaticResource PageSeparator}" x:Key="VocabPageSeparator">
         <Setter Property="Background" Value="{StaticResource VocabTabGradientEndBrush}"/>
     </Style>
 
-    <Style TargetType="Border" BasedOn="{StaticResource PageBorder}" x:Key="SettingsPageBorder">
+    <Style Selector="Border" BasedOn="{StaticResource PageBorder}" x:Key="SettingsPageBorder">
         <Setter Property="Background" Value="{StaticResource SettingsTabFadeBrush}"/>
     </Style>
-    <Style TargetType="Border" BasedOn="{StaticResource PageSeparator}" x:Key="SettingsPageSeparator">
+    <Style Selector="Border" BasedOn="{StaticResource PageSeparator}" x:Key="SettingsPageSeparator">
         <Setter Property="Background" Value="{StaticResource SettingsTabGradientEndBrush}"/>
     </Style>
 
     <!-- Misc labels & textboxes -->
-    <Style TargetType="{x:Type TextBox}" x:Key="LabelBox">
+    <Style Selector="{x:Type TextBox}" x:Key="LabelBox">
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Background" Value="{x:Null}"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
@@ -172,12 +172,12 @@
         <Setter Property="Padding" Value="0"/>
     </Style>
 
-    <Style TargetType="TextBlock" x:Key="LegendText">
+    <Style Selector="TextBlock" x:Key="LegendText">
         <Setter Property="Foreground" Value="{StaticResource LegendTextBrush}"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
 
-    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource LabelBox}" x:Key="ErrorLabel">
+    <Style Selector="{x:Type TextBox}" BasedOn="{StaticResource LabelBox}" x:Key="ErrorLabel">
         <Setter Property="Foreground" Value="DarkRed"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontWeight" Value="Bold"/>
@@ -189,7 +189,7 @@
     </Style>
 
     <!-- KANJI READING COMPONENTS -->
-    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource LabelBox}" x:Key="ReadingLabelTitle">
+    <Style Selector="{x:Type TextBox}" BasedOn="{StaticResource LabelBox}" x:Key="ReadingLabelTitle">
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="BorderBrush" Value="#22000000"/>
         <Setter Property="BorderThickness" Value="1,1,1,0"/>
@@ -199,7 +199,7 @@
         <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
 
-    <Style TargetType="{x:Type TextBox}" x:Key="ReadingLabel" BasedOn="{StaticResource LabelBox}">
+    <Style Selector="{x:Type TextBox}" x:Key="ReadingLabel" BasedOn="{StaticResource LabelBox}">
         <Setter Property="FontSize" Value="14"/>
         <!--<Setter Property="LayoutTransform">
             <Setter.Value>
@@ -210,7 +210,7 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
 
-    <Style TargetType="TextBox" BasedOn="{StaticResource LabelBox}" x:Key="VocabReadingLabel">
+    <Style Selector="TextBox" BasedOn="{StaticResource LabelBox}" x:Key="VocabReadingLabel">
         <Setter Property="FontSize" Value="16"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="LayoutTransform">
@@ -225,7 +225,7 @@
       </i:Interaction.Behaviors>
     </Style>
 
-    <Style TargetType="TextBox" BasedOn="{StaticResource LabelBox}" x:Key="VocabCategoriesLabel">
+    <Style Selector="TextBox" BasedOn="{StaticResource LabelBox}" x:Key="VocabCategoriesLabel">
       <i:Interaction.Behaviors>
         <ia:DataTriggerBehavior Binding="{Binding Text}" Value="">
           <ia:ChangePropertyAction PropertyName="IsVisible" Value="False"/>
@@ -233,7 +233,7 @@
       </i:Interaction.Behaviors>
     </Style>
     
-    <Style TargetType="ListBox" x:Key="KanjiReadingListbox">
+    <Style Selector="ListBox" x:Key="KanjiReadingListbox">
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
         <Setter Property="Background" Value="Transparent"/>
@@ -247,7 +247,7 @@
         </Setter>
         <Setter Property="ItemContainerStyle">
             <Setter.Value>
-                <Style TargetType="ListBoxItem">
+                <Style Selector="ListBoxItem">
                     <!-- Style of the list box items in the reading listbox -->
                     <Setter Property="Background" Value="#FFFFFFFF"/>
                     <Setter Property="Template">
@@ -255,7 +255,7 @@
                             <ControlTemplate TargetType="ListBoxItem">
                                 <Border BorderBrush="#CC000000" BorderThickness="1" Background="{TemplateBinding Background}" Padding="2">
                                     <Border.Style>
-                                        <Style TargetType="Border">
+                                        <Style Selector="Border">
                                           <i:Interaction.Behaviors>
                                             <ia:DataTriggerBehavior Binding="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Converter={StaticResource IsFirstItemInContainerConverter}}" Value="True">
                                                     <!-- First item in the list. Add a margin -->
@@ -288,12 +288,12 @@
         </Setter>
     </Style>
 
-    <Style TargetType="ListBox" BasedOn="{StaticResource KanjiReadingListbox}" x:Key="KanjiKunYomiReadingListbox">
+    <Style Selector="ListBox" BasedOn="{StaticResource KanjiReadingListbox}" x:Key="KanjiKunYomiReadingListbox">
         <Setter Property="BorderThickness" Value="0 0 0 1"/>
     </Style>
 
     <!-- ACTION BUTTONS -->
-    <Style TargetType="{x:Type Button}" x:Key="ActionButton">
+    <Style Selector="{x:Type Button}" x:Key="ActionButton">
         <Setter Property="Background">
             <Setter.Value>
                 <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
@@ -374,7 +374,7 @@
         <Setter Property="Height" Value="25"/>
     </Style>
 
-    <!--<Style TargetType="{x:Type Button}" x:Key="KanjiSrsEditActionButton">
+    <!--<Style Selector="{x:Type Button}" x:Key="KanjiSrsEditActionButton">
         <Setter Property="Background">
             <Setter.Value>
                 <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
@@ -461,11 +461,11 @@
         <Setter Property="Height" Value="25" />
     </Style>-->
 
-    <Style TargetType="Button" BasedOn="{StaticResource ActionButton}" x:Key="BigActionButton">
+    <Style Selector="Button" BasedOn="{StaticResource ActionButton}" x:Key="BigActionButton">
         <Setter Property="Height" Value="Auto"/>
     </Style>
 
-    <Style TargetType="Button" BasedOn="{StaticResource ActionButton}" x:Key="BrightActionButton">
+    <Style Selector="Button" BasedOn="{StaticResource ActionButton}" x:Key="BrightActionButton">
         <Setter Property="Background">
             <Setter.Value>
                 <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
@@ -479,7 +479,7 @@
         <Setter Property="Foreground" Value="#BBFFFFFF"/>
     </Style>
 
-    <Style TargetType="Button" BasedOn="{StaticResource ActionButton}" x:Key="MiniActionButton">
+    <Style Selector="Button" BasedOn="{StaticResource ActionButton}" x:Key="MiniActionButton">
         
       <i:Interaction.Behaviors>
         <ia:DataTriggerBehavior Binding="{Binding IsEnabled}" Value="False">
@@ -503,7 +503,7 @@
         <Setter Property="BorderBrush" Value="#55042880"/>
     </Style>
 
-    <Style TargetType="{x:Type Button}" x:Key="ImageActionButton">
+    <Style Selector="{x:Type Button}" x:Key="ImageActionButton">
         <Setter Property="Background">
             <Setter.Value>
                 <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
@@ -571,7 +571,7 @@
         <Setter Property="Padding" Value="5,4"/>
     </Style>
 
-    <Style TargetType="Button" BasedOn="{StaticResource MiniActionButton}" x:Key="VocabAudioButton">
+    <Style Selector="Button" BasedOn="{StaticResource MiniActionButton}" x:Key="VocabAudioButton">
       <i:Interaction.Behaviors>
         <ia:DataTriggerBehavior Binding="{Binding Audio.State}" Value="Loading">
           <ia:ChangePropertyAction PropertyName="Content" Value="(Loading)"/>
@@ -623,7 +623,7 @@
         <Setter Property="CommandParameter" Value="{Binding Audio}"/>
     </Style>
 
-    <Style TargetType="{x:Type TextBox}" x:Key="KanjiMeaningLabel" BasedOn="{StaticResource LabelBox}">
+    <Style Selector="{x:Type TextBox}" x:Key="KanjiMeaningLabel" BasedOn="{StaticResource LabelBox}">
         <Setter Property="BorderThickness" Value="0 0 0 1"/>
         <Setter Property="BorderBrush" Value="Black"/>
         <Setter Property="Margin" Value="0 0 0 5"/>
@@ -632,7 +632,7 @@
         <Setter Property="TextWrapping" Value="Wrap"/>
     </Style>
 
-    <Style TargetType="{x:Type TextBox}" x:Key="KanjiTitle" BasedOn="{StaticResource LabelBox}">
+    <Style Selector="{x:Type TextBox}" x:Key="KanjiTitle" BasedOn="{StaticResource LabelBox}">
         <Setter Property="BorderThickness" Value="2"/>
         <Setter Property="BorderBrush" Value="Black"/>
         <Setter Property="Background" Value="White"/>
@@ -659,7 +659,7 @@
         </Border>
     </ControlTemplate>
 
-    <Style TargetType="{x:Type ListBoxItem}" x:Key="MiniRadicalInList">
+    <Style Selector="{x:Type ListBoxItem}" x:Key="MiniRadicalInList">
       <i:Interaction.Behaviors>
         <ia:DataTriggerBehavior Binding="{Binding HasImage}" Value="True">
           <ia:ChangePropertyAction PropertyName="Template" Value="{StaticResource MiniRadicalInListImageTemplate}"/>
@@ -671,7 +671,7 @@
         <Setter Property="ToolTip" Value="{Binding Path=Name}"/>
     </Style>
 
-    <Style TargetType="Border" x:Key="RadicalInListBorder">
+    <Style Selector="Border" x:Key="RadicalInListBorder">
         <Setter Property="Height" Value="70"/>
         <Setter Property="Width" Value="80"/>
         <Setter Property="CornerRadius" Value="3"/>
@@ -721,7 +721,7 @@
         </Border>
     </ControlTemplate>
 
-    <Style TargetType="{x:Type ListBoxItem}" x:Key="RadicalInList">
+    <Style Selector="{x:Type ListBoxItem}" x:Key="RadicalInList">
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="Background" Value="#86469B"/>
       <i:Interaction.Behaviors>
@@ -753,7 +753,7 @@
       </i:Interaction.Behaviors>
     </Style>
 
-    <Style TargetType="{x:Type ListBoxItem}" x:Key="KanjiInList">
+    <Style Selector="{x:Type ListBoxItem}" x:Key="KanjiInList">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
@@ -771,7 +771,7 @@
                             <!-- Kanji character -->
                             <TextBlock Grid.RowSpan="2" Text="{Binding DbKanji.Character, Mode=OneWay}">
                                 <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
+                                    <Style Selector="TextBlock">
                                         <Setter Property="FontSize" Value="26"/>
                                         <Setter Property="HorizontalAlignment" Value="Center"/>
                                         <Setter Property="VerticalAlignment" Value="Center"/>
@@ -786,7 +786,7 @@
                                   ConverterParameter={x:Static converters:KanjiToStringConversionType.Short},
                                   IsAsync=False}">
                                 <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
+                                    <Style Selector="TextBlock">
                                         <Setter Property="FontSize" Value="16"/>
                                     </Style>
                                 </TextBlock.Style>
@@ -795,7 +795,7 @@
                             <!-- Kanji most used rank label -->
                             <TextBlock Grid.Column="1" Grid.Row="1">
                                 <TextBlock.Style>
-                                    <Style TargetType="{x:Type TextBlock}">
+                                    <Style Selector="{x:Type TextBlock}">
                                         <i:Interaction.Behaviors>
                                             <ia:DataTriggerBehavior Binding="{Binding DbKanji.MostUsedRank}" Value="{x:Null}">
                                                 <ia:ChangePropertyAction Value="Rare kanji" PropertyName="Text"/>
@@ -828,7 +828,7 @@
         <Setter Property="Background" Value="#000000FF"/>
     </Style>
 
-    <Style TargetType="{x:Type ListBox}" x:Key="RadicalList">
+    <Style Selector="{x:Type ListBox}" x:Key="RadicalList">
         <Setter Property="SelectionMode" Value="Multiple"/>
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
         <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
@@ -844,7 +844,7 @@
         <Setter Property="ItemContainerStyle" Value="{StaticResource RadicalInList}"/>
     </Style>
 
-    <Style TargetType="{x:Type ListBox}" x:Key="KanjiList">
+    <Style Selector="{x:Type ListBox}" x:Key="KanjiList">
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
         <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
         <Setter Property="Background" Value="Transparent"/>
@@ -861,7 +861,7 @@
 
     <!-- Vocab -->
 
-    <Style TargetType="RichTextBox" x:Key="VocabMeaningRichTextBox">
+    <Style Selector="RichTextBox" x:Key="VocabMeaningRichTextBox">
         <Setter Property="VerticalAlignment" Value="Stretch"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="IsReadOnly" Value="True"/>
@@ -871,12 +871,12 @@
         <Setter Property="Margin" Value="0"/>
     </Style>
 
-    <Style TargetType="Paragraph">
+    <Style Selector="Paragraph">
         <Setter Property="Margin" Value="0"/>
     </Style>
 
     <!-- Kanji writing listbox -->
-    <Style TargetType="ListBox" x:Key="VocabKanjiWritingListbox">
+    <Style Selector="ListBox" x:Key="VocabKanjiWritingListbox">
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -899,7 +899,7 @@
         </Setter>
         <Setter Property="ItemContainerStyle">
             <Setter.Value>
-                <Style TargetType="ListBoxItem">
+                <Style Selector="ListBoxItem">
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListBoxItem">
@@ -912,7 +912,7 @@
                                         </ia:EventTriggerBehavior>
                                     </i:Interaction.Behaviors>
                                     <TextBox.Style>
-                                        <Style TargetType="TextBox" BasedOn="{StaticResource LabelBox}">
+                                        <Style Selector="TextBox" BasedOn="{StaticResource LabelBox}">
                                             <i:Interaction.Behaviors>
                                                 <ia:DataTriggerBehavior Binding="{Binding IsMarginalReading}" Value="True">
                                                     <ia:ChangePropertyAction Value="0.33" PropertyName="Opacity"/>
@@ -949,7 +949,7 @@
     </Style>
 
     <!-- Vocab writing part listbox -->
-    <Style TargetType="ListBox" x:Key="VocabWritingPartListbox">
+    <Style Selector="ListBox" x:Key="VocabWritingPartListbox">
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -971,7 +971,7 @@
         </Setter>
         <Setter Property="ItemContainerStyle">
             <Setter.Value>
-                <Style TargetType="ListBoxItem">
+                <Style Selector="ListBoxItem">
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListBoxItem">
@@ -984,7 +984,7 @@
                                     <ListBox Grid.Row="1" Style="{StaticResource VocabKanjiWritingListbox}" ItemsSource="{Binding Characters, Mode=OneWay}" x:Name="KWListbox"/>
                                     <Border>
                                         <Border.Style>
-                                            <Style TargetType="Border">
+                                            <Style Selector="Border">
                                                 <i:Interaction.Behaviors>
                                                     <ia:DataTriggerBehavior Binding="{Binding DataContext.HasUndeterminedFurigana, RelativeSource={RelativeSource AncestorType=ListBox}}" Value="True">
                                                         <ia:ChangePropertyAction Value="0 0 0 1" PropertyName="BorderThickness"/>
@@ -996,7 +996,7 @@
                                         <Viewbox MaxWidth="{Binding ElementName=KWListbox, Path=ActualWidth}">
                                             <TextBox Text="{Binding Furigana, Mode=OneWay}" HorizontalContentAlignment="Center" Padding="0" Margin="0">
                                                 <TextBox.Style>
-                                                    <Style TargetType="TextBox" BasedOn="{StaticResource LabelBox}"/>
+                                                    <Style Selector="TextBox" BasedOn="{StaticResource LabelBox}"/>
                                                 </TextBox.Style>
                                                 <TextBox.ToolTip>
                                                     <TextBlock Text="{Binding Furigana}" FontSize="16"/>
@@ -1017,7 +1017,7 @@
 
     <!-- VOCAB -->
     
-    <Style TargetType="TextBlock" x:Key="VocabVariantText">
+    <Style Selector="TextBlock" x:Key="VocabVariantText">
         <i:Interaction.Behaviors>
             <ia:DataTriggerBehavior Binding="{Binding IsMouseOver}" Value="True">
                 <ia:ChangePropertyAction Value="Black" PropertyName="Foreground"/>
@@ -1031,7 +1031,7 @@
         <Setter Property="FontSize" Value="12"/>
     </Style>
     
-    <Style TargetType="ListBox" x:Key="VocabVariantList">
+    <Style Selector="ListBox" x:Key="VocabVariantList">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>
@@ -1051,7 +1051,7 @@
         </Setter>
         <Setter Property="ItemContainerStyle">
             <Setter.Value>
-                <Style TargetType="ListBoxItem">
+                <Style Selector="ListBoxItem">
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListBoxItem">
@@ -1066,7 +1066,7 @@
                                                     </ia:EventTriggerBehavior>
                                                 </i:Interaction.Behaviors>
                                                 <Border.Style>
-                                                    <Style TargetType="Border">
+                                                    <Style Selector="Border">
                                                         <i:Interaction.Behaviors>
                                                             <ia:DataTriggerBehavior Binding="{Binding Variant.IsMain}" Value="True">
                                                                 <!--<Setter Property="Background" Value="#6444FF55" />-->
@@ -1105,7 +1105,7 @@
         </Setter>
     </Style>
     
-    <Style TargetType="ListBox" x:Key="VocabList">
+    <Style Selector="ListBox" x:Key="VocabList">
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
         <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
         <Setter Property="ItemsPanel">
@@ -1117,13 +1117,13 @@
         </Setter>
         <Setter Property="ItemContainerStyle">
             <Setter.Value>
-                <Style TargetType="ListBoxItem">
+                <Style Selector="ListBoxItem">
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListBoxItem">
                                 <Border>
                                     <Border.Style>
-                                        <Style TargetType="Border">
+                                        <Style Selector="Border">
                                             <i:Interaction.Behaviors>
                                                 <ia:DataTriggerBehavior Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" Value="True">
                                                     <ia:ChangePropertyAction Value="#22000000" PropertyName="Background"/>
@@ -1133,7 +1133,7 @@
                                     </Border.Style>
                                     <Border BorderThickness="0,0,0,1" VerticalAlignment="Center" BorderBrush="#FF878787">
                                         <Border.Style>
-                                            <Style TargetType="Border">
+                                            <Style Selector="Border">
                                                 <i:Interaction.Behaviors>
                                                     <!-- When IsCommon -->
                                                     <ia:DataTriggerBehavior Binding="{Binding DbVocab.IsCommon}" Value="True">
@@ -1180,7 +1180,7 @@
                                                     <WrapPanel Orientation="Horizontal" Margin="0 2 0 2">
                                                         <Border Margin="5 0 0 0" BorderThickness="1" BorderBrush="#55000000" CornerRadius="2" HorizontalAlignment="Left" Padding="5 0 5 0" Width="93" Visibility="{Binding ShowBookRanking, Converter={StaticResource ValueToVisibilityConverter}}" Background="{Binding DbVocab.FrequencyRank, Converter={StaticResource VocabFrequencyToBrushConverter}}">
                                                             <Border.Style>
-                                                                <Style TargetType="Border">
+                                                                <Style Selector="Border">
                                                                     <i:Interaction.Behaviors>
                                                                         <ia:DataTriggerBehavior Binding="{Binding DbVocab.FrequencyRank}" Value="1">
                                                                             <ia:ChangePropertyAction Value="Found 1 time in 7905 books." PropertyName="ToolTip"/>
@@ -1199,7 +1199,7 @@
                                                                 </TextBlock>
                                                                 <TextBlock HorizontalAlignment="Center">
                                                                     <TextBlock.Style>
-                                                                        <Style TargetType="TextBlock">
+                                                                        <Style Selector="TextBlock">
                                                                             <Setter Property="Text">
                                                                                 <Setter.Value>
                                                                                     <Binding Path="DbVocab.FrequencyRank" Converter="{StaticResource VocabFrequencyToStringConverter}"/>
@@ -1223,7 +1223,7 @@
                                                                 </TextBlock>
                                                                 <TextBlock HorizontalAlignment="Center">
                                                                     <TextBlock.Style>
-                                                                        <Style TargetType="TextBlock">
+                                                                        <Style Selector="TextBlock">
                                                                             <Setter Property="Text">
                                                                                 <Setter.Value>
                                                                                     <Binding Path="DbVocab.WikipediaRank" Converter="{StaticResource IntegerToOrdinalStringConverter}" StringFormat="{}{0} most used"/>
@@ -1247,7 +1247,7 @@
                                                                 </TextBlock>
                                                                 <TextBlock HorizontalAlignment="Right" Margin="5 0 0 0">
                                                                     <TextBlock.Style>
-                                                                        <Style TargetType="TextBlock">
+                                                                        <Style Selector="TextBlock">
                                                                             <Setter Property="Text">
                                                                                 <Setter.Value>
                                                                                     <Binding Path="DbVocab.JlptLevel" StringFormat="{}N{0}"/>
@@ -1271,7 +1271,7 @@
                                                                 </TextBlock>
                                                                 <TextBlock HorizontalAlignment="Right" Margin="5 0 0 0">
                                                                     <TextBlock.Style>
-                                                                        <Style TargetType="TextBlock">
+                                                                        <Style Selector="TextBlock">
                                                                             <Setter Property="Text">
                                                                                 <Setter.Value>
                                                                                     <Binding Path="DbVocab.WaniKaniLevel" StringFormat="{}Level {0}"/>
@@ -1287,7 +1287,7 @@
 
                                                         <Border Margin="5 0 0 0" BorderThickness="1" BorderBrush="#55000000" CornerRadius="2" HorizontalAlignment="Left" Padding="5 0 5 0">
                                                             <Border.Style>
-                                                                <Style TargetType="Border">
+                                                                <Style Selector="Border">
                                                                     <i:Interaction.Behaviors>
                                                                         <ia:DataTriggerBehavior Binding="{Binding DbVocab.Categories.Count}" Value="0">
                                                                             <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
@@ -1303,7 +1303,7 @@
                                                    <!--TODO: when richtextbox exists-->
                                                     <!--<controls:BindableRichTextBox x:Name="MeaningRtb" Margin="0 0 0 5" Padding="0 0 0 0">
                                                         <controls:BindableRichTextBox.Style>
-                                                            <Style TargetType="controls:BindableRichTextBox" BasedOn="{StaticResource VocabMeaningRichTextBox}">
+                                                            <Style Selector="controls:BindableRichTextBox" BasedOn="{StaticResource VocabMeaningRichTextBox}">
                                                                 <Setter Property="Document" Value="{Binding DbVocab, Mode=OneTime, IsAsync=False, Converter={StaticResource VocabMeaningsToStringConverter}}"/>
                                                             </Style>
                                                         </controls:BindableRichTextBox.Style>
@@ -1311,7 +1311,7 @@
 
                                                   <TextBox x:Name="MeaningRtb" Margin="0 0 0 5" Padding="0 0 0 0">
                                                     <TextBox.Style>
-                                                      <Style TargetType="TextBox" BasedOn="{StaticResource VocabMeaningRichTextBox}">
+                                                      <Style Selector="TextBox" BasedOn="{StaticResource VocabMeaningRichTextBox}">
                                                         <Setter Property="Text" Value="{Binding DbVocab, Mode=OneTime, IsAsync=False, Converter={StaticResource VocabMeaningsToStringConverter}}"/>
                                                       </Style>
                                                     </TextBox.Style>
@@ -1330,7 +1330,7 @@
 
                                                 <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="5 0 0 5">
                                                     <StackPanel.Style>
-                                                        <Style TargetType="StackPanel">
+                                                        <Style Selector="StackPanel">
                                                             <i:Interaction.Behaviors>
                                                                 <ia:DataTriggerBehavior Binding="{Binding SrsEntry}" Value="{x:Null}">
                                                                     <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
@@ -1347,7 +1347,7 @@
 
                                                 <controls:SrsVocabEntryProgress Grid.Row="1" DataContext="{Binding SrsEntry, IsAsync=True}">
                                                     <controls:SrsVocabEntryProgress.Style>
-                                                        <Style TargetType="controls:SrsVocabEntryProgress">
+                                                        <Style Selector="controls:SrsVocabEntryProgress">
                                                             <i:Interaction.Behaviors>
                                                                 <ia:DataTriggerBehavior Binding="{Binding .}" Value="{x:Null}">
                                                                     <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
@@ -1361,7 +1361,7 @@
 						                                RelativeSource={RelativeSource AncestorType=controls:VocabList}}"
 				                                    CommandParameter="{Binding .}">
                                                     <Button.Style>
-                                                        <Style TargetType="Button" BasedOn="{StaticResource MiniActionButton}">
+                                                        <Style Selector="Button" BasedOn="{StaticResource MiniActionButton}">
                                                             <Style.Triggers>
                                                                 <DataTrigger Binding="{Binding SrsEntry}" Value="{x:Null}">
                                                                     <Setter Property="Visibility" Value="Visible" />
@@ -1374,7 +1374,7 @@
 
                                                 <controls:SrsVocabEntryProgress Grid.Column="1" DataContext="{Binding SrsEntry, IsAsync=True}">
                                                     <controls:SrsVocabEntryProgress.Style>
-                                                        <Style TargetType="controls:SrsVocabEntryProgress">
+                                                        <Style Selector="controls:SrsVocabEntryProgress">
                                                             <Style.Triggers>
                                                                 <DataTrigger Binding="{Binding .}" Value="{x:Null}">
                                                                     <Setter Property="Visibility" Value="Collapsed" />
@@ -1422,7 +1422,7 @@
                                                         <Button Grid.Row="1" Content="Kanji" HorizontalAlignment="Right" FontSize="6" ToolTip="Copy the kanji writing to the clipboard." Command="{Binding DataContext.KanjiCopyCommand,
                                                       RelativeSource={RelativeSource AncestorType=controls:VocabList}}" CommandParameter="{Binding .}">
                                                             <Button.Style>
-                                                                <Style TargetType="Button" BasedOn="{StaticResource MiniActionButton}">
+                                                                <Style Selector="Button" BasedOn="{StaticResource MiniActionButton}">
                                                                     <i:Interaction.Behaviors>
                                                                         <ia:DataTriggerBehavior Binding="{Binding DbVocab.KanjiWriting}" Value="{x:Null}">
                                                                             <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
@@ -1446,7 +1446,7 @@
                                                         <Button Content="Kana" HorizontalAlignment="Right" FontSize="6" ToolTip="Copy the kana writing to the clipboard." Command="{Binding DataContext.KanaCopyCommand,
                                                       RelativeSource={RelativeSource AncestorType=controls:VocabList}}" CommandParameter="{Binding .}">
                                                             <Button.Style>
-                                                                <Style TargetType="Button" BasedOn="{StaticResource MiniActionButton}">
+                                                                <Style Selector="Button" BasedOn="{StaticResource MiniActionButton}">
                                                                     <i:Interaction.Behaviors>
                                                                         <ia:DataTriggerBehavior Binding="{Binding IsMouseOver}" Value="True">
                                                                             <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
@@ -1484,12 +1484,12 @@
 
     <!-- SRS ENTRY WINDOW -->
 
-    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource LegendText}" x:Key="KanjiReadingLabel">
+    <Style Selector="{x:Type TextBlock}" BasedOn="{StaticResource LegendText}" x:Key="KanjiReadingLabel">
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="Foreground" Value="White"/>
     </Style>
 
-    <Style TargetType="Border" x:Key="KanjiReadingLabelBorder">
+    <Style Selector="Border" x:Key="KanjiReadingLabelBorder">
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="Width" Value="58"/>
         <Setter Property="Height" Value="Auto"/>
@@ -1500,7 +1500,7 @@
         <Setter Property="Background" Value="#444444"/>
     </Style>
 
-    <Style TargetType="ListBox" x:Key="KanjiReadingsListbox">
+    <Style Selector="ListBox" x:Key="KanjiReadingsListbox">
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
         <Setter Property="Background" Value="Transparent"/>
@@ -1514,7 +1514,7 @@
         </Setter>
         <Setter Property="ItemContainerStyle">
             <Setter.Value>
-                <Style TargetType="ListBoxItem">
+                <Style Selector="ListBoxItem">
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListBoxItem">
@@ -1523,7 +1523,7 @@
                                         <DataTemplate DataType="{x:Type models:KanjiReading}">
                                             <Border BorderBrush="#CC000000" BorderThickness="1" Padding="2">
                                                 <Border.Style>
-                                                    <Style TargetType="Border">
+                                                    <Style Selector="Border">
                                                         <i:Interaction.Behaviors>
                                                             <ia:DataTriggerBehavior Binding="{Binding IsMouseOver}" Value="True">
                                                                 <ia:ChangePropertyAction Value="#FFE0E0E0" PropertyName="Background"/>
@@ -1557,34 +1557,34 @@
         </Setter>
     </Style>
 
-    <Style TargetType="TextBlock" x:Key="SettingText">
+    <Style Selector="TextBlock" x:Key="SettingText">
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
 
-    <Style TargetType="TextBlock" x:Key="SettingCategoryTitle">
+    <Style Selector="TextBlock" x:Key="SettingCategoryTitle">
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Padding" Value="5 0"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="Foreground" Value="#464646"/>
     </Style>
 
-    <Style TargetType="TextBox" BasedOn="{StaticResource LabelBox}" x:Key="NextReviewDateLabel">
+    <Style Selector="TextBox" BasedOn="{StaticResource LabelBox}" x:Key="NextReviewDateLabel">
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
     </Style>
 
-    <Style TargetType="TextBox" x:Key="SrsKanjiInput">
+    <Style Selector="TextBox" x:Key="SrsKanjiInput">
         <Setter Property="FontSize" Value="18"/>
         <Setter Property="MaxLength" Value="1"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
     </Style>
 
-    <Style TargetType="TextBox" x:Key="SrsVocabInput">
+    <Style Selector="TextBox" x:Key="SrsVocabInput">
         <Setter Property="FontSize" Value="18"/>
         <Setter Property="MaxLength" Value="999"/>
     </Style>
 
-    <!--<Style TargetType="ProgressBar" x:Key="SrsItemProgressBar">
+    <!--<Style Selector="ProgressBar" x:Key="SrsItemProgressBar">
         <Setter Property="Value" Value="{Binding SuccessPercentage, Mode=OneWay}" />
         <Setter Property="Minimum" Value="0" />
         <Setter Property="Maximum" Value="1" />
@@ -1608,7 +1608,7 @@
     <!--
                             <Grid>
                                 <Grid.Style>
-                                    <Style TargetType="Grid">
+                                    <Style Selector="Grid">
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding ReviewCount}" Value="0">
                                                 <Setter Property="Visibility" Value="Collapsed" />
@@ -1621,7 +1621,7 @@
                                         <StackPanel>
                                             <TextBlock>
                                                 <TextBlock.Style>
-                                                    <Style TargetType="TextBlock">
+                                                    <Style Selector="TextBlock">
                                                         <Style.Triggers>
                                                             <DataTrigger Binding="{Binding ReviewCount}" Value="0">
                                                                 <Setter Property="Text" Value="Never reviewed." />
@@ -1641,7 +1641,7 @@
                                             </TextBlock>
                                             <TextBlock>
                                                 <TextBlock.Style>
-                                                    <Style TargetType="TextBlock">
+                                                    <Style Selector="TextBlock">
                                                         <Style.Triggers>
                                                             <DataTrigger Binding="{Binding SuccessCount}" Value="0">
                                                                 <Setter Property="Text" Value="Never succeeded." />
@@ -1661,7 +1661,7 @@
                                             </TextBlock>
                                             <TextBlock>
                                                 <TextBlock.Style>
-                                                    <Style TargetType="TextBlock">
+                                                    <Style Selector="TextBlock">
                                                         <Style.Triggers>
                                                             <DataTrigger Binding="{Binding FailureCount}" Value="0">
                                                                 <Setter Property="Text" Value="Never failed." />
@@ -1716,7 +1716,7 @@
     <!--
                             <Grid>
                                 <Grid.Style>
-                                    <Style TargetType="Grid">
+                                    <Style Selector="Grid">
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding ReviewCount}" Value="0">
                                                 <Setter Property="Visibility" Value="Visible" />
@@ -1735,7 +1735,7 @@
         </Setter>
     </Style>-->
 
-    <Style TargetType="ProgressBar" x:Key="SrsItemProgressBar">
+    <Style Selector="ProgressBar" x:Key="SrsItemProgressBar">
         <Setter Property="Value" Value="{Binding CompletionPercentage, Mode=OneWay}"/>
         <Setter Property="Minimum" Value="0"/>
         <Setter Property="Maximum" Value="1"/>
@@ -1758,7 +1758,7 @@
                                         <StackPanel>
                                             <TextBlock>
                                                 <TextBlock.Style>
-                                                    <Style TargetType="TextBlock">
+                                                    <Style Selector="TextBlock">
                                                         <i:Interaction.Behaviors>
                                                             <ia:DataTriggerBehavior Binding="{Binding ReviewCount}" Value="0">
                                                                 <ia:ChangePropertyAction Value="Never reviewed." PropertyName="Text"/>
@@ -1777,7 +1777,7 @@
                                             </TextBlock>
                                             <TextBlock>
                                                 <TextBlock.Style>
-                                                    <Style TargetType="TextBlock">
+                                                    <Style Selector="TextBlock">
                                                         <i:Interaction.Behaviors>
                                                             <ia:DataTriggerBehavior Binding="{Binding SuccessCount}" Value="0">
                                                                 <ia:ChangePropertyAction Value="Never succeeded." PropertyName="Text"/>
@@ -1796,7 +1796,7 @@
                                             </TextBlock>
                                             <TextBlock>
                                                 <TextBlock.Style>
-                                                    <Style TargetType="TextBlock">
+                                                    <Style Selector="TextBlock">
                                                         <i:Interaction.Behaviors>
                                                             <ia:DataTriggerBehavior Binding="{Binding FailureCount}" Value="0">
                                                                 <ia:ChangePropertyAction Value="Never failed." PropertyName="Text"/>
@@ -1846,13 +1846,13 @@
     </Style>
 
     <!-- SRS Page -->
-    <Style TargetType="TextBlock" x:Key="SrsStatText">
+    <Style Selector="TextBlock" x:Key="SrsStatText">
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Foreground" Value="#CCFFFFFF"/>
         <Setter Property="Margin" Value="5 0 5 0"/>
     </Style>
 
-    <Style TargetType="ListBoxItem" x:Key="ItemsPerLevelListboxItem">
+    <Style Selector="ListBoxItem" x:Key="ItemsPerLevelListboxItem">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
@@ -1878,7 +1878,7 @@
         </Setter>
     </Style>
 
-    <Style TargetType="ListBox" x:Key="ItemsPerLevelListbox">
+    <Style Selector="ListBox" x:Key="ItemsPerLevelListbox">
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0 1 0 0"/>
@@ -1895,7 +1895,7 @@
         </Setter>
     </Style>
 
-    <Style TargetType="ListBoxItem" x:Key="ItemsPerLevelGroupListboxItem">
+    <Style Selector="ListBoxItem" x:Key="ItemsPerLevelGroupListboxItem">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
@@ -1933,7 +1933,7 @@
         </Setter>
     </Style>
 
-    <Style TargetType="ListBox" x:Key="ItemsPerLevelGroupListbox">
+    <Style Selector="ListBox" x:Key="ItemsPerLevelGroupListbox">
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="ItemsSource">
             <Setter.Value>
@@ -1955,7 +1955,7 @@
 
     <!-- SRS REVIEW -->
 
-    <Style TargetType="ProgressBar" x:Key="SrsReviewProgressBar">
+    <Style Selector="ProgressBar" x:Key="SrsReviewProgressBar">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ProgressBar">
@@ -1990,7 +1990,7 @@
         </Setter>
     </Style>
 
-    <Style TargetType="TextBlock" x:Key="SrsReviewsCountIndicator">
+    <Style Selector="TextBlock" x:Key="SrsReviewsCountIndicator">
         <Setter Property="FontSize" Value="11"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="HorizontalAlignment" Value="Right"/>
@@ -2000,7 +2000,7 @@
 
     <!-- SETTINGS -->
 
-    <Style TargetType="ListBox" x:Key="SettingUserResourceListBox">
+    <Style Selector="ListBox" x:Key="SettingUserResourceListBox">
         <Setter Property="Height" Value="150"/>
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
@@ -2014,13 +2014,13 @@
         </Setter>
         <Setter Property="ItemContainerStyle">
             <Setter.Value>
-                <Style TargetType="ListBoxItem">
+                <Style Selector="ListBoxItem">
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListBoxItem">
                                 <Border BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="1" Margin="0 0 5 0" Padding="5 3" Width="200">
                                     <Border.Style>
-                                        <Style TargetType="Border">
+                                        <Style Selector="Border">
                                             <i:Interaction.Behaviors>
                                                 <ia:DataTriggerBehavior Value="True">
                                                     <ia:DataTriggerBehavior.Binding>
@@ -2048,7 +2048,7 @@
 
                                         <TextBlock Grid.Row="1" FontSize="12" Margin="0 0 0 2" HorizontalAlignment="Center">
                                             <TextBlock.Style>
-                                                <Style TargetType="TextBlock">
+                                                <Style Selector="TextBlock">
                                                     <i:Interaction.Behaviors>
                                                         <ia:DataTriggerBehavior Binding="{Binding Author}" Value="{x:Null}">
                                                             <ia:ChangePropertyAction Value="Unknown author" PropertyName="Text"/>
@@ -2089,23 +2089,23 @@
 
     <!-- NAVIGATION PANEL -->
 
-    <Style TargetType="Grid" x:Key="NavigationPanel">
+    <Style Selector="Grid" x:Key="NavigationPanel">
         <Setter Property="Height" Value="60"/>
     </Style>
 
-    <Style TargetType="Grid" x:Key="NavigationPanelToolbar">
+    <Style Selector="Grid" x:Key="NavigationPanelToolbar">
 
     </Style>
 
-    <Style TargetType="Button" x:Key="NavigationPanelPreviousButton">
+    <Style Selector="Button" x:Key="NavigationPanelPreviousButton">
 
     </Style>
 
-    <Style TargetType="Button" x:Key="NavigationPanelNextButton">
+    <Style Selector="Button" x:Key="NavigationPanelNextButton">
 
     </Style>
 
-    <Style TargetType="Grid" x:Key="NavigationPanelTab">
+    <Style Selector="Grid" x:Key="NavigationPanelTab">
         <Setter Property="Opacity" Value="0.8"/>
     </Style>
 
@@ -2114,7 +2114,7 @@
         <GradientStop Color="{StaticResource KanjiTabGradientEnd}"/>
     </LinearGradientBrush>
 
-    <Style TargetType="Grid" BasedOn="{StaticResource NavigationPanelTab}" x:Key="NavigationPanelKanjiTab">
+    <Style Selector="Grid" BasedOn="{StaticResource NavigationPanelTab}" x:Key="NavigationPanelKanjiTab">
         <i:Interaction.Behaviors>
             <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}" Value="{x:Static models:NavigationPageEnum.Kanji}">
                 <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
@@ -2131,7 +2131,7 @@
         <GradientStop Color="{StaticResource SrsTabGradientEnd}"/>
     </LinearGradientBrush>
 
-    <Style TargetType="Grid" BasedOn="{StaticResource NavigationPanelTab}" x:Key="NavigationPanelSrsTab">
+    <Style Selector="Grid" BasedOn="{StaticResource NavigationPanelTab}" x:Key="NavigationPanelSrsTab">
         <i:Interaction.Behaviors>
             <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}" Value="{x:Static models:NavigationPageEnum.Srs}">
                 <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
@@ -2148,7 +2148,7 @@
         <GradientStop Color="{StaticResource VocabTabGradientEnd}"/>
     </LinearGradientBrush>
 
-    <Style TargetType="Grid" BasedOn="{StaticResource NavigationPanelTab}" x:Key="NavigationPanelVocabTab">
+    <Style Selector="Grid" BasedOn="{StaticResource NavigationPanelTab}" x:Key="NavigationPanelVocabTab">
         <i:Interaction.Behaviors>
             <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}" Value="{x:Static models:NavigationPageEnum.Vocab}">
                 <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
@@ -2165,7 +2165,7 @@
         <GradientStop Color="{StaticResource SettingsTabGradientEnd}"/>
     </LinearGradientBrush>
 
-    <Style TargetType="Grid" BasedOn="{StaticResource NavigationPanelTab}" x:Key="NavigationPanelSettingsTab">
+    <Style Selector="Grid" BasedOn="{StaticResource NavigationPanelTab}" x:Key="NavigationPanelSettingsTab">
         <i:Interaction.Behaviors>
             <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}" Value="{x:Static models:NavigationPageEnum.Settings}">
                 <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
@@ -2182,7 +2182,7 @@
         <GradientStop Color="{StaticResource HomeTabGradientEnd}"/>
     </LinearGradientBrush>
 
-    <Style TargetType="Grid" BasedOn="{StaticResource NavigationPanelTab}" x:Key="NavigationPanelHomeTab">
+    <Style Selector="Grid" BasedOn="{StaticResource NavigationPanelTab}" x:Key="NavigationPanelHomeTab">
         <i:Interaction.Behaviors>
             <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}" Value="{x:Static models:NavigationPageEnum.Home}">
                 <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
@@ -2194,10 +2194,10 @@
         <Setter Property="Background" Value="{StaticResource HomeTabGradient}"/>
     </Style>
 
-    <Style TargetType="TextBlock" x:Key="NavigationPanelTabTitleSubCommon">
+    <Style Selector="TextBlock" x:Key="NavigationPanelTabTitleSubCommon">
         <Setter Property="Foreground" Value="#FFFFFFFF"/>
     </Style>
-    <Style TargetType="TextBlock" x:Key="NavigationPanelTabTitleSubShadow" BasedOn="{StaticResource NavigationPanelTabTitleSubCommon}">
+    <Style Selector="TextBlock" x:Key="NavigationPanelTabTitleSubShadow" BasedOn="{StaticResource NavigationPanelTabTitleSubCommon}">
         <Setter Property="Foreground" Value="#99000000"/>
         <Setter Property="RenderTransform">
             <Setter.Value>
@@ -2208,7 +2208,7 @@
 
     <ScaleTransform x:Key="NavigationPanelTabTitleScaleTransform" ScaleX="0.7" ScaleY="1.2"/>
 
-    <Style TargetType="Label" x:Key="NavigationPanelTabTitle">
+    <Style Selector="Label" x:Key="NavigationPanelTabTitle">
         <Setter Property="Margin" Value="0 0 0 7"/>
         <Setter Property="FontSize" Value="24"/>
         <Setter Property="FontWeight" Value="Bold"/>
@@ -2224,7 +2224,7 @@
         </Setter>
     </Style>
 
-    <Style TargetType="Label" x:Key="NavigationPanelTabTitleKanji" BasedOn="{StaticResource NavigationPanelTabTitle}">
+    <Style Selector="Label" x:Key="NavigationPanelTabTitleKanji" BasedOn="{StaticResource NavigationPanelTabTitle}">
         <Setter Property="LayoutTransform" Value="{x:Null}"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -2238,11 +2238,11 @@
         </Setter>
     </Style>
 
-    <Style TargetType="Button" x:Key="NavigationPanelButton">
+    <Style Selector="Button" x:Key="NavigationPanelButton">
         <Setter Property="Opacity" Value="0"/>
     </Style>
 
-    <!--<Style TargetType="controls:OutlinedTextBlock" x:Key="NavigationPanelTabTitle">
+    <!--<Style Selector="controls:OutlinedTextBlock" x:Key="NavigationPanelTabTitle">
         <Setter Property="Fill" Value="White" />
         <Setter Property="Stroke" Value="Black" />
         <Setter Property="StrokeThickness" Value="0" />
@@ -2258,7 +2258,7 @@
         <Setter Property="HorizontalAlignment" Value="Center" />
     </Style>-->
 
-    <Style TargetType="TextBox" BasedOn="{StaticResource LabelBox}" x:Key="NavigationPanelTabSubtitle">
+    <Style Selector="TextBox" BasedOn="{StaticResource LabelBox}" x:Key="NavigationPanelTabSubtitle">
 
     </Style>
 

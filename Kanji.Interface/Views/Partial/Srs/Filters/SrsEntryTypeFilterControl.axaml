@@ -7,7 +7,7 @@
                     xmlns:controls="clr-namespace:Kanji.Interface.Controls" x:Class="Kanji.Interface.Controls.SrsEntryTypeFilterControl" mc:Ignorable="d" d:DesignHeight="30" d:DesignWidth="500">
 
     <controls:SrsEntryFilterControlBase.Style>
-        <Style TargetType="{x:Type controls:SrsEntryFilterControlBase}">
+        <Style Selector="{x:Type controls:SrsEntryFilterControlBase}">
             <i:Interaction.Behaviors>
                 <ia:DataTriggerBehavior Binding="{Binding IsInline}" Value="True">
                     <ia:ChangePropertyAction PropertyName="Template">

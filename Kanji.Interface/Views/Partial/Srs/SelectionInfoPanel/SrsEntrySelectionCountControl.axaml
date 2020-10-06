@@ -9,7 +9,7 @@
         <Viewbox>
             <TextBlock Foreground="{StaticResource LegendTextBrush}">
                 <TextBlock.Style>
-                    <Style TargetType="TextBlock">
+                    <Style Selector="TextBlock">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding SelectedItems.Count}" Value="0">
                                 <ia:ChangePropertyAction Value="No items selected" PropertyName="Text"/>

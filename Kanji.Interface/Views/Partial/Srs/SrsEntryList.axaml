@@ -23,7 +23,7 @@
             <!-- No results panel -->
             <Grid>
                 <Grid.Style>
-                    <Style TargetType="Grid">
+                    <Style Selector="Grid">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding Visibility, ElementName=ListGrid}" Value="Visible">
                                 <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
@@ -42,7 +42,7 @@
                         <Viewbox Grid.Column="1">
                             <TextBlock Foreground="{StaticResource LegendTextBrush}" TextWrapping="Wrap">
                                 <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
+                                    <Style Selector="TextBlock">
                                         <i:Interaction.Behaviors>
                                             <ia:DataTriggerBehavior Binding="{Binding IsFilterEmpty}" Value="True">
                                                 <ia:ChangePropertyAction PropertyName="Text">
@@ -80,7 +80,7 @@
             <!-- List + info panel -->
             <Grid x:Name="ListGrid">
                 <Grid.Style>
-                    <Style TargetType="Grid">
+                    <Style Selector="Grid">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding LoadedItemCount}" Value="0">
                                 <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
@@ -125,7 +125,7 @@
                                 <DataTemplate>
                                     <Border Padding="3 1" BorderBrush="#99000000" BorderThickness="1" Background="#33000000" Margin="2 0" ToolTip="Inactive item">
                                         <Border.Style>
-                                            <Style TargetType="Border">
+                                            <Style Selector="Border">
                                                 <i:Interaction.Behaviors>
                                                     <ia:DataTriggerBehavior Binding="{Binding IsActive, IsAsync=False}" Value="False">
                                                         <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
@@ -148,7 +148,7 @@
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                     <DataGrid.RowStyle>
-                        <Style TargetType="DataGridRow">
+                        <Style Selector="DataGridRow">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding IsKanji}" Value="True">
                                     <ia:ChangePropertyAction Value="#881784F8" PropertyName="Background"/>
