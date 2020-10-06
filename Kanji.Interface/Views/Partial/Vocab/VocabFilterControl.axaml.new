@@ -1,0 +1,112 @@
+<?xml version="1.0" ?><UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:controls="clr-namespace:Kanji.Interface.Controls" x:Class="Kanji.Interface.Controls.VocabFilterControl" mc:Ignorable="d" d:DesignHeight="50" d:DesignWidth="500">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Reading filter -->
+        <AdornerDecorator>
+            <controls:CommandTextBox x:Name="ReadingFilter" Text="{Binding ReadingFilter, Mode=TwoWay}" IsKanaInput="True" Margin="0 0 5 0" ToolTip="Enter the kana reading to filter by here (CTRL+R)." VerticalContentAlignment="Center">
+                <controls:WatermarkService.Watermark>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+                        Kana reading filter
+                    </TextBlock>
+                </controls:WatermarkService.Watermark>
+            </controls:CommandTextBox>
+        </AdornerDecorator>
+
+        <!-- Meaning filter -->
+        <AdornerDecorator Grid.Row="0" Grid.Column="1">
+            <controls:CommandTextBox x:Name="MeaningFilter" Text="{Binding MeaningFilter, Mode=TwoWay}" Margin="5 0 0 0" ToolTip="Enter the English meaning to filter by here (CTRL+M)." VerticalContentAlignment="Center">
+                <controls:WatermarkService.Watermark>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+                        Meaning filter
+                    </TextBlock>
+                </controls:WatermarkService.Watermark>
+            </controls:CommandTextBox>
+        </AdornerDecorator>
+        
+        <!-- Category filter -->
+        <AdornerDecorator Grid.Row="0" Grid.Column="2" Margin="5,0,5,0">
+            <Grid>
+                <TextBlock Text="Category Filter" Style="{StaticResource LegendText}"/>
+                <controls:CategoryFilterControl x:Name="CategoryFilter" Margin="80,0,0,0" DataContext="{Binding}"/>
+            </Grid>
+        </AdornerDecorator>
+        
+        <!-- Filter buttons -->
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="3" Margin="5 0 0 0">
+            <Button Content="pack://application:,,,/Data/UI/SortFrequencyIcon.png" Command="{Binding SwitchCommonOrderCommand}">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource ImageActionButton}">
+                        <i:Interaction.Behaviors>
+                            <ia:DataTriggerBehavior Binding="{Binding IsCommonFirst}" Value="True">
+                                <ia:ChangePropertyAction Value="True" PropertyName="Tag"/>
+                                <ia:ChangePropertyAction PropertyName="ToolTip">
+                                    <ia:ChangePropertyAction.Value>
+                                        <TextBlock>
+                                            Common vocab is displayed first.<LineBreak/>
+                                            Click this button if you want to change this behavior.
+                                        </TextBlock>
+                                    </ia:ChangePropertyAction.Value>
+                                </ia:ChangePropertyAction>
+                            </ia:DataTriggerBehavior>
+                        </i:Interaction.Behaviors>
+                        <Setter Property="Tag" Value="False"/>
+                        <Setter Property="ToolTip">
+                            <Setter.Value>
+                                <TextBlock>
+                                    Common vocab is not displayed first.<LineBreak/>
+                                    Click this button if you want common vocab to be displayed first.
+                                </TextBlock>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Content="pack://application:,,,/Data/UI/SortLengthIcon.png" Command="{Binding SwitchWritingLengthOrderCommand}" Margin="5 0 0 0">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource ImageActionButton}">
+                        <i:Interaction.Behaviors>
+                            <ia:DataTriggerBehavior Binding="{Binding IsShortReadingFirst}" Value="True">
+                                <ia:ChangePropertyAction Value="True" PropertyName="Tag"/>
+                                <ia:ChangePropertyAction PropertyName="ToolTip">
+                                    <ia:ChangePropertyAction.Value>
+                                        <TextBlock>
+                                            Vocab is sorted by ascending writing length.<LineBreak/>
+                                            Click this button if you want to change this behavior.
+                                        </TextBlock>
+                                    </ia:ChangePropertyAction.Value>
+                                </ia:ChangePropertyAction>
+                            </ia:DataTriggerBehavior>
+                        </i:Interaction.Behaviors>
+                        <Setter Property="Tag" Value="False"/>
+                        <Setter Property="ToolTip">
+                            <Setter.Value>
+                                <TextBlock>
+                                    Vocab is sorted by descending writing length.<LineBreak/>
+                                    Click this button if you want to change this behavior.
+                                </TextBlock>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </StackPanel>
+
+        <!-- JLPT/WK levels -->
+        <controls:WkLevelFilterControl x:Name="WkLevelFilter" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" DataContext="{Binding}"/>
+        <controls:JlptLevelFilterControl x:Name="JlptLevelFilter" Grid.Row="2" Grid.Column="2" Margin="5,0,0,0" DataContext="{Binding}"/>
+
+        <Button x:Name="ApplyFilterButton" Style="{StaticResource MiniActionButton}" Command="{Binding ApplyFilterCommand}" Content="Apply Filter" ToolTip="(Enter)" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+    </Grid>
+</UserControl>

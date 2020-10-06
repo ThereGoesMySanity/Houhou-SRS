@@ -24,7 +24,7 @@
 
                     <AdornerDecorator Grid.Column="1">
                         <controls:CommandTextBox x:Name="FilterTextBox" MaxLength="100" ToolTip="Enter the tag filter. (CTRL+T)"
-                            Text="{Binding TagFilter, UpdateSourceTrigger=PropertyChanged}"
+                            Text="{Binding TagFilter}"
                             ValidationCommand="{Binding ValidateCommand}">
                             <controls:WatermarkService.Watermark>
                                 <TextBlock HorizontalAlignment="Center">Tag filter</TextBlock>
@@ -66,7 +66,7 @@
                             <StackPanel Grid.Row="1">
                                 <AdornerDecorator>
                                     <controls:CommandTextBox x:Name="FilterTextBox" MaxLength="100" ToolTip="Enter the tag filter."
-                                    Text="{Binding TagFilter, UpdateSourceTrigger=PropertyChanged}"
+                                    Text="{Binding TagFilter}"
                                     ValidationCommand="{Binding ValidateCommand}">
                                         <controls:WatermarkService.Watermark>
                                             <TextBlock HorizontalAlignment="Center">Tag filter</TextBlock>

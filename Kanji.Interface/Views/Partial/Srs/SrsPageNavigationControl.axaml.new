@@ -1,0 +1,30 @@
+<?xml version="1.0" ?><UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" x:Class="Kanji.Interface.Controls.SrsPageNavigationControl" mc:Ignorable="d" d:DesignHeight="50" d:DesignWidth="500">
+
+    <UniformGrid Rows="1">
+        <Button Content="Add a kanji item" ToolTip="Add a new kanji SRS item to your list (CTRL+K)" Margin="0 0 5 0" Command="{Binding AddKanjiItemCommand}" Style="{StaticResource ActionButton}"/>
+        <Button Content="Add a vocab item" ToolTip="Add a new vocab SRS item to your list (CTRL+V)" Margin="0 0 5 0" Command="{Binding AddVocabItemCommand}" Style="{StaticResource ActionButton}"/>
+        <Button Content="Import SRS items" ToolTip="Import SRS items from external sources (Anki, WaniKani, etc) (CTRL+I)" Margin="0 0 5 0" Command="{Binding ImportCommand}" Style="{StaticResource ActionButton}"/>
+        <Button Content="Dashboard" ToolTip="Return to the dashboard (CTRL+Alt+Home)" Margin="0 0 5 0" Command="{Binding SwitchToDashboardCommand}">
+            <Button.Style>
+                <Style TargetType="Button" BasedOn="{StaticResource ActionButton}">
+                    <i:Interaction.Behaviors>
+                        <ia:DataTriggerBehavior Binding="{Binding ControlMode}" Value="Dashboard">
+                            <ia:ChangePropertyAction Value="Collapsed" PropertyName="Visibility"/>
+                        </ia:DataTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Button Content="Browse SRS items" ToolTip="Display the SRS item filter panel (CTRL+B)" Grid.Column="1" Command="{Binding SwitchToSimpleFilterCommand}">
+            <Button.Style>
+                <Style TargetType="Button" BasedOn="{StaticResource ActionButton}">
+                    <i:Interaction.Behaviors>
+                        <ia:DataTriggerBehavior Binding="{Binding ControlMode}" Value="SimpleFilter">
+                            <ia:ChangePropertyAction Value="Collapsed" PropertyName="Visibility"/>
+                        </ia:DataTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                </Style>
+            </Button.Style>
+        </Button>
+    </UniformGrid>
+</UserControl>

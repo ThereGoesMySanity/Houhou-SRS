@@ -1,0 +1,33 @@
+<?xml version="1.0" ?><UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" x:Class="Kanji.Interface.Controls.SettingsCategoryTabControl" mc:Ignorable="d" d:DesignHeight="80" d:DesignWidth="300">
+
+    <UserControl.Style>
+        <Style TargetType="UserControl">
+            <i:Interaction.Behaviors>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <ia:ChangePropertyAction Value="0.8" PropertyName="Opacity"/>
+                </Trigger>
+                <ia:DataTriggerBehavior Value="True">
+                    <ia:DataTriggerBehavior.Binding>
+                        <MultiBinding Converter="{StaticResource ComparablesToBooleanConverter}">
+                            <Binding Path="Tag" RelativeSource="{RelativeSource Self}"/>
+                            <Binding Path="CurrentCategory"/>
+                        </MultiBinding>
+                    </ia:DataTriggerBehavior.Binding>
+                    <ia:ChangePropertyAction Value="0.8" PropertyName="Opacity"/>
+                </ia:DataTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </Style>
+    </UserControl.Style>
+    
+    <Border BorderThickness="1" BorderBrush="#FF999999">
+        <Grid>
+            <TextBlock FontSize="18" FontWeight="SemiBold" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Tag, RelativeSource={RelativeSource AncestorType=UserControl},                 Converter={StaticResource EnumDescriptionConverter}}">
+                <TextBlock.LayoutTransform>
+                    <ScaleTransform ScaleY="1.2" ScaleX="0.7"/>
+                </TextBlock.LayoutTransform>
+            </TextBlock>
+
+            <Button Opacity="0" Command="{Binding CategorySelectionCommand}" CommandParameter="{Binding Tag, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+        </Grid>
+    </Border>
+</UserControl>

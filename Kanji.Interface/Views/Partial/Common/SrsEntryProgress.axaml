@@ -26,13 +26,13 @@
             <Border Grid.Column="1" Background="{Binding LevelGroup.Color, Converter={StaticResource ColorToBrushConverter}}"
                     Padding="5 0" BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="5 0 0 0">
                 <Grid>
-                    <TextBlock Foreground="Black" Text="{Binding Level.Name, UpdateSourceTrigger=PropertyChanged}"
+                    <TextBlock Foreground="Black" Text="{Binding Level.Name}"
                                HorizontalAlignment="Center" VerticalAlignment="Center">
                         <TextBlock.RenderTransform>
                             <TranslateTransform X="-1" Y="-1" />
                         </TextBlock.RenderTransform>
                     </TextBlock>
-                    <TextBlock Foreground="White" Text="{Binding Level.Name, UpdateSourceTrigger=PropertyChanged}"
+                    <TextBlock Foreground="White" Text="{Binding Level.Name}"
                                HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Grid>
             </Border>

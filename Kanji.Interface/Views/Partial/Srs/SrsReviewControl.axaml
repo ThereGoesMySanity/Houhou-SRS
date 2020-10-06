@@ -244,7 +244,7 @@
         </Border>
 
         <!-- Input textbox -->
-        <TextBox Grid.Row="4" Text="{Binding CurrentAnswer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20">
+        <TextBox Grid.Row="4" Text="{Binding CurrentAnswer, Mode=TwoWay}" FontSize="20">
             <TextBox.InputBindings>
                 <KeyBinding Key="Enter" Command="{Binding SubmitCommand}" />
             </TextBox.InputBindings>

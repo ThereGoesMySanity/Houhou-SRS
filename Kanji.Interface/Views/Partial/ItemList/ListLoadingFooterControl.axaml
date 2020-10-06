@@ -16,13 +16,12 @@
                     <Style.Triggers>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding ElementName=LoadingPanel, Path=Visibility,
-                                    UpdateSourceTrigger=PropertyChanged}" Value="Collapsed" />
+                                <Condition Binding="{Binding ElementName=LoadingPanel, Path=Visibility}" Value="Collapsed" />
                                 <Condition Value="False">
                                     <Condition.Binding>
                                         <MultiBinding Converter="{StaticResource DataTriggerValueBindingConverter}" ConverterParameter="{x:Type s:Int32}">
-                                            <Binding Path="LoadedItemCount" Mode="OneWay" UpdateSourceTrigger="PropertyChanged" />
-                                            <Binding Path="TotalItemCount" Mode="OneWay" UpdateSourceTrigger="PropertyChanged" />
+                                            <Binding Path="LoadedItemCount" Mode="OneWay" />
+                                            <Binding Path="TotalItemCount" Mode="OneWay" />
                                         </MultiBinding>
                                     </Condition.Binding>
                                 </Condition>
@@ -59,8 +58,7 @@
                                 <MultiBinding Converter="{StaticResource DataTriggerValueBindingConverter}"
                                     ConverterParameter="{x:Type s:Int32}">
                                     <Binding Mode="OneWay" ElementName="KanjiListBox" Path="Items.Count" />
-                                    <Binding Mode="OneWay" Path="LoadedItems.Count"
-                                        UpdateSourceTrigger="PropertyChanged" />
+                                    <Binding Mode="OneWay" Path="LoadedItems.Count" />
                                 </MultiBinding>
                             </DataTrigger.Binding>
                             <DataTrigger.Setters>

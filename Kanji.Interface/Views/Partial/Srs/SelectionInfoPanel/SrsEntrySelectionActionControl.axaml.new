@@ -1,0 +1,315 @@
+<?xml version="1.0" ?><UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:controls="clr-namespace:Kanji.Interface.Controls" x:Class="Kanji.Interface.Controls.SrsEntrySelectionActionControl" mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
+
+    <Grid>
+        <!-- Nothing selected -->
+        <Grid x:Name="ZeroItemPanel" Visibility="{Binding SelectedItems.Count,                 Converter={StaticResource ValueToVisibilityConverter},                 ConverterParameter=0}">
+            <TextBlock Text="Select items in the list to view stats or perform bulk edition." TextWrapping="Wrap" TextAlignment="Center" Style="{StaticResource LegendText}"/>
+        </Grid>
+
+        <!-- 1 item selected -->
+        <Grid x:Name="OneItemPanel" Visibility="{Binding SelectedItems.Count,                 Converter={StaticResource ValueToVisibilityConverter},                 ConverterParameter=1}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Button Style="{StaticResource ActionButton}" Content="Edit the item" Command="{Binding EditSingleSelectionCommand}"/>
+
+            <TextBlock Grid.Row="1" Text="Select other items in the list to view stats or perform bulk edition." TextWrapping="Wrap" TextAlignment="Center" Style="{StaticResource LegendText}"/>
+        </Grid>
+
+        <!-- Multiple items selected -->
+        <Grid>
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <i:Interaction.Behaviors>
+                        <ia:DataTriggerBehavior Binding="{Binding Visibility, ElementName=OneItemPanel}" Value="Visible">
+                            <ia:ChangePropertyAction Value="Collapsed" PropertyName="Visibility"/>
+                        </ia:DataTriggerBehavior>
+                        <ia:DataTriggerBehavior Binding="{Binding Visibility, ElementName=ZeroItemPanel}" Value="Visible">
+                            <ia:ChangePropertyAction Value="Collapsed" PropertyName="Visibility"/>
+                        </ia:DataTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                </Style>
+            </Grid.Style>
+
+            <!-- BulkEditMode = None -->
+            <ScrollViewer Margin="0 0 0 5" VerticalScrollBarVisibility="Auto">
+                <UniformGrid Columns="1" ScrollViewer.VerticalScrollBarVisibility="Auto" Visibility="{Binding BulkEditMode,                     Converter={StaticResource ValueToVisibilityConverter},                     ConverterParameter=None}">
+                    <Button Style="{StaticResource ActionButton}" Content="Bulk edit the meaning note" Margin="0 0 0 5" Command="{Binding BulkEditMeaningNoteCommand}" Height="Auto" MinHeight="20"/>
+                    <Button Style="{StaticResource ActionButton}" Content="Bulk edit the reading note" Margin="0 0 0 5" Command="{Binding BulkEditReadingNoteCommand}" Height="Auto" MinHeight="20"/>
+                    <Button Style="{StaticResource ActionButton}" Content="Bulk edit the tags" Margin="0 0 0 5" Command="{Binding BulkEditTagsCommand}" Height="Auto" MinHeight="20"/>
+                    <Button Style="{StaticResource ActionButton}" Content="Bulk edit the SRS level" Margin="0 0 0 5" Command="{Binding BulkEditLevelCommand}" Height="Auto" MinHeight="20"/>
+                    <Button Style="{StaticResource ActionButton}" Content="Bulk reschedule review dates" Margin="0 0 0 5" Command="{Binding BulkRescheduleCommand}" Height="Auto" MinHeight="20"/>
+                    <Button Style="{StaticResource ActionButton}" Content="Bulk delay review dates" Margin="0 0 0 5" Command="{Binding BulkDelayCommand}" Height="Auto" MinHeight="20"/>
+                    <Button Style="{StaticResource ActionButton}" Content="Suspend all selected items" Margin="0 0 0 5" Command="{Binding BulkSuspendCommand}" Height="Auto" MinHeight="20"/>
+                    <Button Style="{StaticResource ActionButton}" Content="Resume all selected items" Margin="0 0 0 5" Command="{Binding BulkResumeCommand}" Height="Auto" MinHeight="20"/>
+                    <Button Style="{StaticResource ActionButton}" Content="Delete all selected items" Margin="0 0 0 5" Command="{Binding BulkDeleteCommand}" Height="Auto" MinHeight="20"/>
+                    <Button Style="{StaticResource ActionButton}" Content="Export all selected items" Margin="0 0 0 5" Command="{Binding ExportCommand}" Height="Auto" MinHeight="20"/>
+                </UniformGrid>
+            </ScrollViewer>
+
+
+            <!-- BulkEditMode in (ReadingNote, MeaningNote, Tags) -->
+            <Grid>
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <i:Interaction.Behaviors>
+                            <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="ReadingNote">
+                                <ia:ChangePropertyAction Value="Visible" PropertyName="Visibility"/>
+                            </ia:DataTriggerBehavior>
+                            <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="MeaningNote">
+                                <ia:ChangePropertyAction Value="Visible" PropertyName="Visibility"/>
+                            </ia:DataTriggerBehavior>
+                            <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="Tags">
+                                <ia:ChangePropertyAction Value="Visible" PropertyName="Visibility"/>
+                            </ia:DataTriggerBehavior>
+                        </i:Interaction.Behaviors>
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                    </Style>
+                </Grid.Style>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <DockPanel LastChildFill="False">
+                    <TextBlock DockPanel.Dock="Left">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource LegendText}">
+                                <i:Interaction.Behaviors>
+                                    <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="MeaningNote">
+                                        <ia:ChangePropertyAction Value="Meaning notes:" PropertyName="Text"/>
+                                    </ia:DataTriggerBehavior>
+                                    <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="ReadingNote">
+                                        <ia:ChangePropertyAction Value="Reading notes:" PropertyName="Text"/>
+                                    </ia:DataTriggerBehavior>
+                                    <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="Tags">
+                                        <ia:ChangePropertyAction Value="Tags:" PropertyName="Text"/>
+                                    </ia:DataTriggerBehavior>
+                                </i:Interaction.Behaviors>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                    <Button DockPanel.Dock="Right" Style="{StaticResource MiniActionButton}" Content="Cancel" Padding="8 0" Command="{Binding CancelBulkEditCommand}"/>
+                </DockPanel>
+
+                <TextBox Grid.Row="1" Margin="0 5 0 2" Text="{Binding BulkEditValue, Mode=TwoWay}">
+                    <TextBox.Style>
+                        <Style TargetType="TextBox">
+                            <i:Interaction.Behaviors>
+                                <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="MeaningNote">
+                                    <ia:ChangePropertyAction Value="1000" PropertyName="MaxLength"/>
+                                </ia:DataTriggerBehavior>
+                                <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="ReadingNote">
+                                    <ia:ChangePropertyAction Value="1000" PropertyName="MaxLength"/>
+                                </ia:DataTriggerBehavior>
+                                <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="Tags">
+                                    <ia:ChangePropertyAction Value="300" PropertyName="MaxLength"/>
+                                </ia:DataTriggerBehavior>
+                            </i:Interaction.Behaviors>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+
+                <Button Grid.Row="2" Style="{StaticResource ActionButton}" Content="Apply changes" FontSize="13" Command="{Binding BulkEditTextApplyCommand}" Margin="0 0 0 5"/>
+            </Grid>
+
+            <!-- BulkEditMode = Level -->
+            <Grid Visibility="{Binding BulkEditMode,                     Converter={StaticResource ValueToVisibilityConverter},                     ConverterParameter=Level}">
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <i:Interaction.Behaviors>
+                            <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="Tags">
+                                <ia:ChangePropertyAction Value="Visible" PropertyName="Visibility"/>
+                            </ia:DataTriggerBehavior>
+                        </i:Interaction.Behaviors>
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                    </Style>
+                </Grid.Style>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <DockPanel LastChildFill="False">
+                    <TextBlock DockPanel.Dock="Left" Style="{StaticResource LegendText}" Text="Select a level:"/>
+
+                    <Button DockPanel.Dock="Right" Style="{StaticResource MiniActionButton}" Content="Cancel" Padding="8 0" Command="{Binding CancelBulkEditCommand}"/>
+                </DockPanel>
+                
+                <controls:SrsLevelPicker Grid.Row="1" DataContext="{Binding LevelPickerVm}" HorizontalAlignment="Left" Margin="0 0 0 5"/>
+
+                <Button Grid.Row="2" Style="{StaticResource ActionButton}" Content="Apply changes" FontSize="13" Command="{Binding BulkEditLevelApplyCommand}" Margin="0 0 0 5"/>
+            </Grid>
+            
+            <!-- BulkEditMode = Timing -->
+            <Grid Visibility="{Binding BulkEditMode,                     Converter={StaticResource ValueToVisibilityConverter},                     ConverterParameter=Timing}">
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <i:Interaction.Behaviors>
+                            <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="Tags">
+                                <ia:ChangePropertyAction Value="Visible" PropertyName="Visibility"/>
+                            </ia:DataTriggerBehavior>
+                        </i:Interaction.Behaviors>
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                    </Style>
+                </Grid.Style>
+
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <Button DockPanel.Dock="Right" Style="{StaticResource MiniActionButton}" Content="Cancel" Padding="8 0" Command="{Binding CancelBulkEditCommand}"/>
+                        <TextBlock Style="{StaticResource LegendText}" TextWrapping="Wrap" Margin="0 5 0 8">
+                            These settings allow you to reschedule the review dates of your selected SRS items.
+                        </TextBlock>
+
+                        <StackPanel DataContext="{Binding TimingVm}">
+                            <RadioButton GroupName="Timing" Content="Reset to SRS level timing" IsChecked="{Binding TimingMode, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=UseSrsLevel}"/>
+                            <RadioButton GroupName="Timing" Content="Start all now" IsChecked="{Binding TimingMode, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Immediate}"/>
+                            <RadioButton GroupName="Timing" Content="Never review" IsChecked="{Binding TimingMode, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Never}"/>
+                            <RadioButton x:Name="FixedDateRadio" GroupName="Timing" Content="Set all dates to this value:" IsChecked="{Binding TimingMode, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Fixed}"/>
+
+                            <Border Margin="15 5 0 0" BorderThickness="2 0 0 0" BorderBrush="#666666" Padding="5 0 0 0">
+                                <xctk:DateTimePicker Grid.Column="1" Value="{Binding FixedDate}" Format="FullDateTime" TextAlignment="Left" IsEnabled="{Binding ElementName=FixedDateRadio, Mode=OneWay, Path=IsChecked}"/>
+                            </Border>
+
+                            <RadioButton x:Name="SpreadTimingRadio" GroupName="Timing" Content="Spread reviews over time" IsChecked="{Binding TimingMode, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Spread}"/>
+
+                            <Border Margin="15 5 0 0" BorderThickness="2 0 0 0" BorderBrush="#666666" Padding="5 0 0 0">
+                                <StackPanel IsEnabled="{Binding ElementName=SpreadTimingRadio, Mode=OneWay, Path=IsChecked}">
+                                    <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
+                                        <xctk:IntegerUpDown Value="{Binding SpreadAmountPerDay}" Width="60" Minimum="1" Maximum="99999"/>
+                                        <TextBlock Style="{StaticResource LegendText}" Margin="5 0 0 0">
+                                            new items per day
+                                        </TextBlock>
+                                    </StackPanel>
+                                    <RadioButton GroupName="SpreadMode" Content="In random order" IsChecked="{Binding SpreadMode, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Random}"/>
+                                    <RadioButton GroupName="SpreadMode" Content="In import source order" IsChecked="{Binding SpreadMode, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=ListOrder}"/>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                        <Button Style="{StaticResource ActionButton}" Content="Apply changes" FontSize="13" Command="{Binding BulkRescheduleApplyCommand}" Margin="0 10 0 5"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+
+            <!-- BulkEditMode = Delay -->
+            <Grid Visibility="{Binding BulkEditMode,                     Converter={StaticResource ValueToVisibilityConverter},                     ConverterParameter=Delay}">
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <i:Interaction.Behaviors>
+                            <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="Tags">
+                                <ia:ChangePropertyAction Value="Visible" PropertyName="Visibility"/>
+                            </ia:DataTriggerBehavior>
+                        </i:Interaction.Behaviors>
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                    </Style>
+                </Grid.Style>
+
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <Button DockPanel.Dock="Right" Style="{StaticResource MiniActionButton}" Content="Cancel" Padding="8 0" Command="{Binding CancelBulkEditCommand}"/>
+                        <TextBlock Style="{StaticResource LegendText}" TextWrapping="Wrap" Margin="0 5 0 8">
+                            Delay the next review dates of all selected items by:
+                        </TextBlock>
+                        <StackPanel Orientation="Horizontal" Margin="0 2 0 3">
+                            <xctk:DoubleUpDown Value="{Binding TimingDelay}" Width="60"/>
+                            <TextBlock Margin="6 0 0 0" Foreground="Black">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock" BasedOn="{StaticResource LegendText}">
+                                        <i:Interaction.Behaviors>
+                                            <ia:DataTriggerBehavior Binding="{Binding TimingDelay}" Value="1">
+                                                <ia:ChangePropertyAction Value="hour" PropertyName="Text"/>
+                                            </ia:DataTriggerBehavior>
+                                        </i:Interaction.Behaviors>
+                                        <Setter Property="Text" Value="hours"/>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </StackPanel>
+                        <Button Style="{StaticResource ActionButton}" Content="Apply changes" FontSize="13" Command="{Binding BulkDelayApplyCommand}" Margin="0 10 0 5"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+
+            <!-- BulkEditMode = Applying -->
+            <Grid Visibility="{Binding BulkEditMode,                 Converter={StaticResource ValueToVisibilityConverter},                 ConverterParameter=Applying}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="15*"/>
+                    <ColumnDefinition Width="70*"/>
+                    <ColumnDefinition Width="15*"/>
+                </Grid.ColumnDefinitions>
+
+                <Viewbox Grid.Column="1" VerticalAlignment="Bottom" Margin="5 0">
+                    <TextBlock Style="{StaticResource LegendText}" Text="Applying changes"/>
+                </Viewbox>
+
+                <Viewbox Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" Margin="5 0">
+                    <TextBlock Style="{StaticResource LegendText}" Text="Please wait"/>
+                </Viewbox>
+            </Grid>
+
+            <!-- BulkEditMode = Applied -->
+            <Grid Visibility="{Binding BulkEditMode,                 Converter={StaticResource ValueToVisibilityConverter},                 ConverterParameter=Applied}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="15*"/>
+                    <ColumnDefinition Width="70*"/>
+                    <ColumnDefinition Width="15*"/>
+                </Grid.ColumnDefinitions>
+
+                <Viewbox Grid.Column="1" VerticalAlignment="Bottom" Margin="5 0">
+                    <TextBlock Style="{StaticResource LegendText}" Text="Changes were applied"/>
+                </Viewbox>
+
+                <Viewbox Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" Margin="5 0">
+                    <TextBlock>
+                        <TextBlock.ToolTip>
+                            <TextBlock>
+                                Please note that the number of items effectively modified may vary
+                                depending on the nature of the operation.
+                                <LineBreak/>
+                                For example, bulk suspending will only affect items that were not
+                                already suspended.
+                            </TextBlock>
+                        </TextBlock.ToolTip>
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource LegendText}">
+                                <i:Interaction.Behaviors>
+                                    <ia:DataTriggerBehavior Binding="{Binding BulkEditResultCount}" Value="-1">
+                                        <ia:ChangePropertyAction Value="... but an error occured" PropertyName="Text"/>
+                                    </ia:DataTriggerBehavior>
+                                    <ia:DataTriggerBehavior Binding="{Binding BulkEditResultCount}" Value="0">
+                                        <ia:ChangePropertyAction Value="... but no items were modified" PropertyName="Text"/>
+                                    </ia:DataTriggerBehavior>
+                                    <ia:DataTriggerBehavior Binding="{Binding BulkEditResultCount}" Value="1">
+                                        <ia:ChangePropertyAction Value="1 item was modified" PropertyName="Text"/>
+                                    </ia:DataTriggerBehavior>
+                                </i:Interaction.Behaviors>
+                                <Setter Property="Text">
+                                    <Setter.Value>
+                                        <Binding Path="BulkEditResultCount" StringFormat="{}{0} items were modified"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Viewbox>
+
+                <Button Grid.Row="2" Grid.ColumnSpan="3" Style="{StaticResource ActionButton}" Content="Refresh the list" Command="{Binding ReapplyFilterCommand}" Margin="0 0 0 5"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>
