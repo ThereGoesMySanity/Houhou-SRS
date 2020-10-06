@@ -3,15 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Markup.Xaml;
+using Avalonia.VisualTree;
 using Kanji.Interface.Controls;
 using Kanji.Interface.ViewModels;
 
@@ -26,6 +22,16 @@ namespace Kanji.Interface.Views
             InitializeComponent();
             DataContext = new SrsViewModel();
         }
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
+            FilterControl = this.FindControl<SrsEntryFilterControl>("FilterControl");
+            Navigation = this.FindControl<SrsPageNavigationControl>("Navigation");
+            ReviewControl = this.FindControl<SrsReviewControl>("ReviewControl");
+        }
+        public SrsEntryFilterControl FilterControl { get; private set; }
+        public SrsPageNavigationControl Navigation { get; private set; }
+        public SrsReviewControl ReviewControl { get; private set; }
 
         #endregion
 
@@ -54,10 +60,8 @@ namespace Kanji.Interface.Views
 
         private void HandleDashboardInput(KeyEventArgs e)
         {
-            KeyboardDevice keyboardDevice = e.KeyboardDevice;
-
             SrsViewModel viewModel = ((SrsViewModel)DataContext);
-            bool isCtrlDown = keyboardDevice.IsKeyDown(Key.LeftCtrl) || keyboardDevice.IsKeyDown(Key.RightCtrl);
+            bool isCtrlDown = e.KeyModifiers.HasFlag(KeyModifiers.Control);
 
             switch (e.Key)
             {
@@ -77,11 +81,10 @@ namespace Kanji.Interface.Views
 
         private void HandleSimpleFilterInput(KeyEventArgs e)
         {
-            KeyboardDevice keyboardDevice = e.KeyboardDevice;
 
             SrsViewModel viewModel = ((SrsViewModel)DataContext);
-            bool isCtrlDown = keyboardDevice.IsKeyDown(Key.LeftCtrl) || keyboardDevice.IsKeyDown(Key.RightCtrl);
-            bool isAltDown = keyboardDevice.IsKeyDown(Key.LeftAlt) || keyboardDevice.IsKeyDown(Key.LeftAlt);
+            bool isCtrlDown = e.KeyModifiers.HasFlag(KeyModifiers.Control);
+            bool isAltDown = e.KeyModifiers.HasFlag(KeyModifiers.Alt);
 
             switch (e.Key)
             {
@@ -109,8 +112,10 @@ namespace Kanji.Interface.Views
                 {
                     if (isCtrlDown)
                     {
-					    var filterTextBox =
-                            (CommandTextBox)FilterControl.MeaningFilter.Template.FindName("FilterTextBox", FilterControl.MeaningFilter);
+                        //from https://github.com/AvaloniaUI/Avalonia/issues/2505
+                        var filterTextBox =
+                            ((IControl)FilterControl.MeaningFilter.GetVisualChildren().FirstOrDefault())?.FindControl<CommandTextBox>("FilterTextBox");
+
                         filterTextBox.Focus();
                         e.Handled = true;
 					}
@@ -121,7 +126,7 @@ namespace Kanji.Interface.Views
                     if (isCtrlDown)
                     {
                         var filterTextBox =
-                            (CommandTextBox)FilterControl.ReadingFilter.Template.FindName("FilterTextBox", FilterControl.ReadingFilter);
+                            ((IControl)FilterControl.ReadingFilter.GetVisualChildren().FirstOrDefault())?.FindControl<CommandTextBox>("FilterTextBox");
                         filterTextBox.Focus();
                         e.Handled = true;
 					}
@@ -131,7 +136,9 @@ namespace Kanji.Interface.Views
                 {
                     if (isCtrlDown)
                     {
-                        var filterTextBox = (CommandTextBox)FilterControl.TagFilter.Template.FindName("FilterTextBox", FilterControl.TagFilter);
+                        var filterTextBox =
+                            ((IControl)FilterControl.TagFilter.GetVisualChildren().FirstOrDefault())?.FindControl<CommandTextBox>("FilterTextBox");
+
                         filterTextBox.Focus();
                         e.Handled = true;
 					}
@@ -154,11 +161,10 @@ namespace Kanji.Interface.Views
 
         private void HandleSharedInput(KeyEventArgs e)
         {
-            KeyboardDevice keyboardDevice = e.KeyboardDevice;
 
             SrsViewModel viewModel = ((SrsViewModel)DataContext);
-            bool isCtrlDown = keyboardDevice.IsKeyDown(Key.LeftCtrl) || keyboardDevice.IsKeyDown(Key.RightCtrl);
-            bool isAltDown = keyboardDevice.IsKeyDown(Key.LeftAlt) || keyboardDevice.IsKeyDown(Key.LeftAlt);
+            bool isCtrlDown = e.KeyModifiers.HasFlag(KeyModifiers.Control);
+            bool isAltDown = e.KeyModifiers.HasFlag(KeyModifiers.Alt);
 
             switch (e.Key)
             {
@@ -177,7 +183,7 @@ namespace Kanji.Interface.Views
             }
         }
 
-        private void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void OnIsVisibleChanged(object sender, AvaloniaPropertyChangedEventArgs e)
         {
             // Focus the page once it becomes visible.
             // This is so that the navigation bar does not keep the focus, which would prevent shortcut keys from working.

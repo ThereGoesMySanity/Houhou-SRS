@@ -1,7 +1,8 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<Styles xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
-                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                    xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+                    xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
                     xmlns:converters="clr-namespace:Kanji.Interface.Converters"
                     xmlns:models="clr-namespace:Kanji.Interface.Models"
                     xmlns:controls="clr-namespace:Kanji.Interface.Controls"
@@ -13,7 +14,7 @@
     <converters:KanjiToColorConverter x:Key="KanjiToColorConverter" />
     <converters:KanjiReadingToListConverter x:Key="KanjiReadingToListConverter" />
     <converters:VocabMeaningsToStringConverter x:Key="VocabMeaningsToStringConverter" />
-    <converters:ValueToVisibilityConverter x:Key="ValueToVisibilityConverter" />
+    <!--<converters:ValueToVisibilityConverter x:Key="ValueToVisibilityConverter" />-->
     <converters:VocabToColorConverter x:Key="VocabToColorConverter" />
     <converters:IntegerToOrdinalStringConverter x:Key="IntegerToOrdinalStringConverter" />
     <converters:VocabCategoriesToStringConverter x:Key="VocabCategoriesToStringConverter" />
@@ -41,7 +42,7 @@
     <converters:ExtendedVocabToVariantListConverter x:Key="ExtendedVocabToVariantListConverter" />
     <converters:NullValueToVisibilityConverter x:Key="NullValueToVisibilityConverter" />
 
-    <!-- ObjectDataProviders -->
+    <!-- ObjectDataProviders --><!--
     <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="KanjiFilterModeEnum">
         <ObjectDataProvider.MethodParameters>
             <x:Type TypeName="models:KanjiFilterModeEnum" />
@@ -56,7 +57,7 @@
         <ObjectDataProvider.MethodParameters>
             <x:Type TypeName="models:CsvImportNoTypeBehavior" />
         </ObjectDataProvider.MethodParameters>
-    </ObjectDataProvider>
+    </ObjectDataProvider>-->
 
     <!-- Colors -->
     <Color x:Key="KanjiTabGradientStart">#1888FF</Color>
@@ -104,15 +105,15 @@
                 <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
             </ScrollViewer>
         </Border>
-        <ControlTemplate.Triggers>
-            <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Background" TargetName="Bd"
-                    Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
-            </Trigger>
-            <Trigger Property="IsGrouping" Value="True">
+        <!--TODO: Can't get controlbrushkey and IsGrouping doesn't exist in Avalonia-->
+      <!--<i:Interaction.Behaviors>
+        <ia:DataTriggerBehavior Binding="{Binding IsEnabled}" Value="False">
+          <ia:ChangePropertyAction TargetObject="{Binding #Bd}" PropertyName="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
+        </ia:DataTriggerBehavior>
+      </i:Interaction.Behaviors>-->
+      <!--<Trigger Property="IsGrouping" Value="True">
                 <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
-            </Trigger>
-        </ControlTemplate.Triggers>
+            </Trigger>-->
     </ControlTemplate>
 
     <!-- STYLES -->
@@ -180,11 +181,11 @@
         <Setter Property="Foreground" Value="DarkRed" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="FontWeight" Value="Bold" />
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Text}" Value="">
-                <Setter Property="Visibility" Value="Collapsed" />
-            </DataTrigger>
-        </Style.Triggers>
+      <i:Interaction.Behaviors>
+        <ia:DataTriggerBehavior Binding="{Binding RelativeSource={RelativeSource Self}, Path=Text}" Value="">
+          <ia:ChangePropertyAction PropertyName="IsVisible" Value="false" />
+        </ia:DataTriggerBehavior>
+      </i:Interaction.Behaviors>
     </Style>
 
     <!-- KANJI READING COMPONENTS -->
@@ -257,23 +258,23 @@
                                         Padding="2">
                                     <Border.Style>
                                         <Style TargetType="Border">
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Converter={StaticResource IsFirstItemInContainerConverter}}"
-                                                    Value="True">
+                                          <i:Interaction.Behaviors>
+                                            <ia:DataTriggerBehavior Binding="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Converter={StaticResource IsFirstItemInContainerConverter}}"
+                                                                    Value="True">
                                                     <!-- First item in the list. Add a margin -->
-                                                    <Setter Property="Margin" Value="60 0 5 1" />
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                            <Setter Property="Margin" Value="0 0 5 1" />
+                                              <ia:ChangePropertyAction PropertyName="Margin" Value="60 0 5 1" />
+                                            </ia:DataTriggerBehavior>
+                                          </i:Interaction.Behaviors>
+                                          <Setter Property="Margin" Value="0 0 5 1" />
                                         </Style>
                                     </Border.Style>
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
-                                            <i:InvokeCommandAction Command="{Binding DataContext.FilterReadingCommand,
+                                    <i:Interaction.Behaviors>
+                                        <ia:EventTriggerBehavior EventName="PreviewMouseLeftButtonUp">
+                                            <ia:InvokeCommandAction Command="{Binding DataContext.FilterReadingCommand,
                                                     RelativeSource={RelativeSource AncestorType={x:Type controls:KanjiDetails}}}"
                                                 CommandParameter="{Binding HiraganaReading}" />
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
+                                        </ia:EventTriggerBehavior>
+                                    </i:Interaction.Behaviors>
                                     <TextBox Style="{StaticResource ReadingLabel}"
                                         Text="{Binding ModifiedReading}" />
                                 </Border>
@@ -936,13 +937,13 @@
                                     FontFamily="../Data/Fonts/NotoSansCJKjp-Thin.otf#Noto Sans CJK JP Thin"
                                     ToolTip="{Binding Kanji, Converter={StaticResource KanjiToStringConverter},
                                         ConverterParameter={x:Static converters:KanjiToStringConversionType.Short}}">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
-                                            <i:InvokeCommandAction Command="{Binding DataContext.KanjiNavigationCommand,
+                                    <i:Interaction.Behaviors>
+                                        <ia:EventTriggerBehavior EventName="PreviewMouseLeftButtonUp">
+                                            <ia:InvokeCommandAction Command="{Binding DataContext.KanjiNavigationCommand,
                                                     RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                 CommandParameter="{Binding .}" />
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
+                                        </ia:EventTriggerBehavior>
+                                    </i:Interaction.Behaviors>
                                     <TextBox.Style>
                                         <Style TargetType="TextBox" BasedOn="{StaticResource LabelBox}">
                                             <Style.Triggers>
@@ -1097,13 +1098,13 @@
                                         <DataTemplate DataType="{x:Type models:VocabVariant}">
                                             <Border Cursor="Hand" BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="1" Margin="5 2 0 0"
                                                 Padding="4 0 4 0">
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
-                                                        <i:InvokeCommandAction Command="{Binding DataContext.SwitchVocabCommand,
+                                                <i:Interaction.Behaviors>
+                                                    <ia:EventTriggerBehavior EventName="PreviewMouseLeftButtonUp">
+                                                        <ia:InvokeCommandAction Command="{Binding DataContext.SwitchVocabCommand,
                                                                 RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                             CommandParameter="{Binding .}" />
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
+                                                    </ia:EventTriggerBehavior>
+                                                </i:Interaction.Behaviors>
                                                 <Border.Style>
                                                     <Style TargetType="Border">
                                                         <Style.Triggers>
@@ -1369,13 +1370,13 @@
                                                     <Button x:Name="ExpandButton" Content="Show more meanings" Width="140" HorizontalAlignment="Left"
                                                         Style="{StaticResource MiniActionButton}" Margin="5 0 0 3"
                                                         Visibility="{Binding NeedsExpanding, Converter={StaticResource ValueToVisibilityConverter}}">
-                                                        <i:Interaction.Triggers>
-                                                            <i:EventTrigger EventName="Click">
-                                                                <utility:SetPropertyAction TargetObject="{Binding ElementName=MeaningRtb}" PropertyName="Document"
-                                                                    PropertyValue="{Binding DbVocab, Mode=OneTime, IsAsync=False, Converter={StaticResource VocabMeaningsToStringConverter}, ConverterParameter=Full}" />
-                                                                <utility:SetPropertyAction PropertyName="Visibility" PropertyValue="{x:Static Visibility.Collapsed}" />
-                                                            </i:EventTrigger>
-                                                        </i:Interaction.Triggers>
+                                                        <i:Interaction.Behaviors>
+                                                            <ia:EventTriggerBehavior EventName="Click">
+                                                                <ia:ChangePropertyAction TargetObject="{Binding ElementName=MeaningRtb}" PropertyName="Document"
+                                                                    Value="{Binding DbVocab, Mode=OneTime, IsAsync=False, Converter={StaticResource VocabMeaningsToStringConverter}, ConverterParameter=Full}" />
+                                                                <ia:ChangePropertyAction PropertyName="Visibility" Value="{x:Static Visibility.Collapsed}" />
+                                                            </ia:EventTriggerBehavior>
+                                                        </i:Interaction.Behaviors>
                                                     </Button>
                                                 </StackPanel>
 
@@ -1600,13 +1601,13 @@
                                                         <Setter Property="Background" Value="White" />
                                                     </Style>
                                                 </Border.Style>
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
-                                                        <i:InvokeCommandAction Command="{Binding DataContext.FilterReadingCommand,
+                                                <i:Interaction.Behaviors>
+                                                    <ia:EventTriggerBehavior EventName="PreviewMouseLeftButtonUp">
+                                                        <ia:InvokeCommandAction Command="{Binding DataContext.FilterReadingCommand,
                                                                 RelativeSource={RelativeSource AncestorType={x:Type controls:KanjiDetails}}}"
                                                             CommandParameter="{Binding HiraganaReading}" />
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
+                                                    </ia:EventTriggerBehavior>
+                                                </i:Interaction.Behaviors>
                                                 <TextBox Style="{StaticResource ReadingLabel}" Text="{Binding ModifiedReading}" />
                                             </Border>
                                         </DataTemplate>
@@ -2462,4 +2463,4 @@
         </Setter>
     </Style>
 
-</ResourceDictionary>
+</Styles>

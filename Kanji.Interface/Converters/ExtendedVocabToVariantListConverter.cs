@@ -1,4 +1,5 @@
-﻿using Kanji.Interface.Models;
+﻿using Avalonia.Data.Converters;
+using Kanji.Interface.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

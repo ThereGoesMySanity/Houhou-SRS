@@ -3,15 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Markup.Xaml;
 using Kanji.Interface.ViewModels;
 
 namespace Kanji.Interface.Views
@@ -26,14 +21,19 @@ namespace Kanji.Interface.Views
             DataContext = new HomeViewModel();
         }
 
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
+        }
         #endregion
 
         #region Methods
         
-        private void OnRequestNavigate(object sender, RequestNavigateEventArgs e)
-        {
-            System.Diagnostics.Process.Start(e.Uri.ToString());
-        }
+        //TODO
+        //private void OnRequestNavigate(object sender, RequestNavigateEventArgs e)
+        //{
+        //    System.Diagnostics.Process.Start(e.Uri.ToString());
+        //}
 
         /// <summary>
         /// Since a <see cref="GalaSoft.MvvmLight.Command.RelayCommand"/> does not accept keyboard shortcuts,
@@ -41,9 +41,8 @@ namespace Kanji.Interface.Views
         /// </summary>
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
-            KeyboardDevice keyboardDevice = e.KeyboardDevice;
 
-            if (keyboardDevice.IsKeyDown(Key.LeftCtrl) || keyboardDevice.IsKeyDown(Key.RightCtrl))
+            if (e.KeyModifiers.HasFlag(KeyModifiers.Control))
             {
                 switch (e.Key)
                 {
@@ -52,7 +51,7 @@ namespace Kanji.Interface.Views
             }
         }
 
-        private void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void OnIsVisibleChanged(object sender, AvaloniaPropertyChangedEventArgs e)
         {
             // Focus the page once it becomes visible.
             // This is so that the navigation bar does not keep the focus, which would prevent shortcut keys from working.

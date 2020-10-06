@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Avalonia;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,16 +8,17 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Controls
 {
-    class NavigableFrame : Frame
+    class NavigableFrame //: Frame
     {
-        public override bool ShouldSerializeContent()
-        {
-            return false;
-        }
+        //TODO
+        //public override bool ShouldSerializeContent()
+        //{
+        //    return false;
+        //}
 
-        protected override bool ShouldSerializeProperty(System.Windows.DependencyProperty dp)
-        {
-            return false;
-        }
+        //protected override bool ShouldSerializeProperty(AvaloniaProperty dp)
+        //{
+        //    return false;
+        //}
     }
 }

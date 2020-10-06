@@ -3,15 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Markup.Xaml;
+using Avalonia.Threading;
 using Kanji.Interface.ViewModels;
 
 namespace Kanji.Interface.Controls
@@ -22,8 +17,14 @@ namespace Kanji.Interface.Controls
         {
             InitializeComponent();
         }
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
+            MainScrollView = this.FindControl<ScrollViewer>("MainScrollView");
+        }
+        public ScrollViewer MainScrollView { get; private set; }
 
-        protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+        protected override void OnPropertyChanged<T>(AvaloniaPropertyChangedEventArgs<T> e)
         {
             base.OnPropertyChanged(e);
 
@@ -31,7 +32,8 @@ namespace Kanji.Interface.Controls
             {
                 WkImportSettingsViewModel vm = (WkImportSettingsViewModel)DataContext;
                 vm.InvalidApiKeyChecked += OnInvalidApiKeyChecked;
-                Dispatcher.ShutdownStarted += OnDispatcherShutdownStarted;
+                //TODO
+                //Dispatcher.ShutdownStarted += OnDispatcherShutdownStarted;
             }
         }
 
@@ -54,7 +56,8 @@ namespace Kanji.Interface.Controls
         /// </summary>
         private void OnInvalidApiKeyChecked(EventArgs e, object sender)
         {
-            MainScrollView.ScrollToTop();
+            //TODO: might be impossible
+            //MainScrollView.ScrollToTop();
         }
     }
 }

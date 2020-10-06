@@ -3,20 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
+
+
+
+
+
+
+
 using Kanji.Database.Entities;
 using Kanji.Interface.Actors;
 using Kanji.Interface.Helpers;
 using Kanji.Interface.Models;
 using Kanji.Interface.ViewModels;
 using Kanji.Database.Helpers;
+using Avalonia.Controls;
+using Avalonia.Markup.Xaml;
+using Avalonia.Input;
 
 namespace Kanji.Interface.Views
 {
@@ -59,9 +62,15 @@ namespace Kanji.Interface.Views
             InitializeViewModel(entity);
             NavigationActor.Instance.ActiveWindow = this;
             Owner = NavigationActor.Instance.MainWindow;
-            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterOwner;
+            WindowStartupLocation = WindowStartupLocation.CenterOwner;
         }
 
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
+            ReviewDatePicker = this.FindControl<DatePicker>("ReviewDatePicker");
+        }
+        public DatePicker ReviewDatePicker { get; private set; }
         #endregion
 
         #region Methods
@@ -131,9 +140,8 @@ namespace Kanji.Interface.Views
              * - CTRL+E -> ToggleDateEditCommand
 			 */
 
-            KeyboardDevice keyboardDevice = e.KeyboardDevice;
 
-            if (keyboardDevice.IsKeyDown(Key.LeftCtrl) || keyboardDevice.IsKeyDown(Key.RightCtrl))
+            if (e.KeyModifiers.HasFlag(KeyModifiers.Control))
             {
                 SrsEntryViewModel viewModel = ((SrsEntryViewModel)DataContext);
                 switch (e.Key)

@@ -3,15 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Markup.Xaml;
+using Kanji.Interface.Controls;
 using Kanji.Interface.ViewModels;
 
 namespace Kanji.Interface.Views
@@ -25,6 +21,13 @@ namespace Kanji.Interface.Views
             InitializeComponent();
             DataContext = new VocabViewModel();
         }
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
+            FilterControl = this.FindControl<VocabFilterControl>("FilterControl");
+        }
+
+        public VocabFilterControl FilterControl { get; private set; }
 
         #endregion
 
@@ -36,9 +39,7 @@ namespace Kanji.Interface.Views
         /// </summary>
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
-            KeyboardDevice keyboardDevice = e.KeyboardDevice;
-
-            if (keyboardDevice.IsKeyDown(Key.LeftCtrl) || keyboardDevice.IsKeyDown(Key.RightCtrl))
+            if (e.KeyModifiers.HasFlag(KeyModifiers.Control))
             {
                 switch (e.Key)
                 {
@@ -60,7 +61,7 @@ namespace Kanji.Interface.Views
                         break;
                     case Key.C:
                         // We can't just use CTRL+C here, because that would not work if a text box had focus.
-                        if (keyboardDevice.IsKeyDown(Key.LeftAlt) || keyboardDevice.IsKeyDown(Key.RightAlt))
+                        if (e.KeyModifiers.HasFlag(KeyModifiers.Alt))
                         {
                             FilterControl.CategoryFilter.ComboBox.Focus();
                             e.Handled = true;
@@ -78,7 +79,7 @@ namespace Kanji.Interface.Views
             }
         }
 
-        private void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void OnIsVisibleChanged(object sender, AvaloniaPropertyChangedEventArgs e)
         {
             // Focus the page once it becomes visible.
             // This is so that the navigation bar does not keep the focus, which would prevent shortcut keys from working.

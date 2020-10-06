@@ -1,4 +1,6 @@
-﻿using Kanji.Interface.Helpers;
+﻿using Avalonia.Data.Converters;
+using Avalonia.Media;
+using Kanji.Interface.Helpers;
 using Kanji.Interface.Models;
 using System;
 using System.Collections.Generic;

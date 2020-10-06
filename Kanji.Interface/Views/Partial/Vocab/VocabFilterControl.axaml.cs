@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
+
+
+
+
+
+
+
+using Avalonia.Controls;
+using Avalonia.Markup.Xaml;
+
 
 namespace Kanji.Interface.Controls
 {
@@ -21,5 +23,23 @@ namespace Kanji.Interface.Controls
         {
             InitializeComponent();
         }
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
+            ReadingFilter = this.FindControl<CommandTextBox>("ReadingFilter");
+            MeaningFilter = this.FindControl<CommandTextBox>("MeaningFilter");
+            CategoryFilter = this.FindControl<CategoryFilterControl>("CategoryFilter");
+            WkLevelFilter = this.FindControl<WkLevelFilterControl>("WkLevelFilter");
+            JlptLevelFilter = this.FindControl<JlptLevelFilterControl>("JlptLevelFilter");
+            ApplyFilterButton = this.FindControl<Button>("ApplyFilterButton");
+        }
+
+        internal CommandTextBox ReadingFilter { get; private set; }
+        internal CommandTextBox MeaningFilter { get; private set; }
+        public CategoryFilterControl CategoryFilter { get; private set; }
+        public WkLevelFilterControl WkLevelFilter { get; private set; }
+        public JlptLevelFilterControl JlptLevelFilter { get; private set; }
+        public Button ApplyFilterButton { get; private set; }
+
     }
 }

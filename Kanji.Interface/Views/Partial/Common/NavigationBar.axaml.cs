@@ -1,17 +1,19 @@
-﻿using System;
+﻿using Avalonia.Controls;
+using Avalonia.Markup.Xaml;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
+
+
+
+
+
+
+
+
 
 namespace Kanji.Interface.Controls
 {
@@ -21,5 +23,19 @@ namespace Kanji.Interface.Controls
         {
             InitializeComponent();
         }
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
+            NavigationPanelToolbar = this.FindControl<Grid>("NavigationPanelToolbar");
+            SrsTab = this.FindControl<Grid>("SrsTab");
+            KanjiTab = this.FindControl<Grid>("KanjiTab");
+            VocabTab = this.FindControl<Grid>("VocabTab");
+            SettingsTab = this.FindControl<Grid>("SettingsTab");
+        }
+        public Grid NavigationPanelToolbar { get; private set; }
+        public Grid SrsTab { get; private set; }
+        public Grid KanjiTab { get; private set; }
+        public Grid VocabTab { get; private set; }
+        public Grid SettingsTab { get; private set; }
     }
 }

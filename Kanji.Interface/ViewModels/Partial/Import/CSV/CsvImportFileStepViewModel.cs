@@ -4,9 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Avalonia.Controls;
 using GalaSoft.MvvmLight.Command;
 using Kanji.Common.Helpers;
 using Kanji.Common.Utility;
+using Kanji.Interface.Actors;
 
 namespace Kanji.Interface.ViewModels
 {
@@ -351,17 +353,22 @@ namespace Kanji.Interface.ViewModels
         private void OnBrowse()
         {
             // Create OpenFileDialog 
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.AllowMultiple = false;
 
             // Set filter for file extension and default file extension 
-            dlg.DefaultExt = ".csv";
-            dlg.Filter = "CSV documents (.csv)|*.csv|Text documents (.txt)|*.txt|All Files|*";
+            dlg.Filters.AddRange(new[]
+            {
+                new FileDialogFilter { Name = "CSV documents (.csv)", Extensions = { "csv" } },
+                new FileDialogFilter { Name = "Text documents (.txt)", Extensions = { "txt" } },
+                new FileDialogFilter { Name = "All Files" },
+            });
 
             // Display OpenFileDialog by calling ShowDialog method 
-            Nullable<bool> result = dlg.ShowDialog();
-            if (result == true)
+            var result = dlg.ShowAsync(NavigationActor.Instance.ActiveWindow).Result;
+            if (result.Length == 1)
             {
-                FilePath = dlg.FileName;
+                FilePath = result[0];
             }
         }
 

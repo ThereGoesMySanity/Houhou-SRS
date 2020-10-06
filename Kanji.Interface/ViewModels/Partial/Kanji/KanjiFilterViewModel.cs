@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
@@ -22,16 +24,13 @@ namespace Kanji.Interface.ViewModels
     {
         #region Internal classes
 
-        private class RadicalComparer : IComparer
+        private class RadicalComparer : IComparer<FilteringRadical>
         {
             public bool SortByRelevance { get; set; }
             public RadicalSortModeEnum SortMode { get; set; }
 
-            public int Compare(object xO, object yO)
+            public int Compare(FilteringRadical x, FilteringRadical y)
             {
-                FilteringRadical x = (FilteringRadical)xO;
-                FilteringRadical y = (FilteringRadical)yO;
-
                 if (x.IsAvailable != y.IsAvailable)
                 {
                     return x.IsAvailable <= y.IsAvailable ? -1 : 1;
@@ -64,7 +63,9 @@ namespace Kanji.Interface.ViewModels
 
         private RadicalBusiness _radicalBusiness;
 
-        private MultiSelectCollectionView<FilteringRadical> _radicals;
+        private IList<FilteringRadical> _radicals;
+
+        private ObservableCollection<FilteringRadical> _selectedRadicals;
 
         private RadicalSortModeEnum _radicalSortMode;
 
@@ -93,7 +94,7 @@ namespace Kanji.Interface.ViewModels
         /// <summary>
         /// Gets or sets the collection of radicals used to filter kanji results.
         /// </summary>
-        public MultiSelectCollectionView<FilteringRadical> Radicals
+        public IList<FilteringRadical> Radicals
         {
             get { return _radicals; }
             set
@@ -101,6 +102,19 @@ namespace Kanji.Interface.ViewModels
                 if (value != _radicals)
                 {
                     _radicals = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        public ObservableCollection<FilteringRadical> SelectedRadicals
+        {
+            get => _selectedRadicals;
+            set
+            {
+                if (value != _selectedRadicals)
+                {
+                    _selectedRadicals = value;
                     RaisePropertyChanged();
                 }
             }
@@ -236,7 +250,7 @@ namespace Kanji.Interface.ViewModels
         public KanjiFilterViewModel()
             : this(new KanjiFilter())
         {
-            
+            SelectedRadicals.CollectionChanged += OnRadicalSelectionChanged;
         }
 
         public KanjiFilterViewModel(KanjiFilter filter)
@@ -271,7 +285,7 @@ namespace Kanji.Interface.ViewModels
             MainFilter = string.Empty;
             TextFilter = string.Empty;
             MainFilterMode = KanjiFilterModeEnum.Meaning;
-            Radicals.SelectedItems.Clear();
+            SelectedRadicals.Clear();
             _filter.Radicals = new FilteringRadical[0] { };
             JlptLevel = Levels.IgnoreJlptLevel;
             WkLevel = Levels.IgnoreWkLevel;
@@ -301,13 +315,13 @@ namespace Kanji.Interface.ViewModels
             _filter = value;
 
             // Update properties.
-            Radicals.SelectedItems.Clear();
+            SelectedRadicals.Clear();
             foreach (FilteringRadical radical in Radicals)
             {
                 if (_filter.Radicals.Contains(radical))
                 {
                     radical.IsSelected = true;
-                    Radicals.SelectedItems.Add(radical);
+                    SelectedRadicals.Add(radical);
                 }
                 else
                 {
@@ -374,7 +388,7 @@ namespace Kanji.Interface.ViewModels
                 {
                     DispatcherHelper.Invoke(() =>
                     {
-                        Radicals.Refresh();
+                        Radicals.OrderBy(x => x, _comparer);
                     });
                 }
             }
@@ -445,9 +459,9 @@ namespace Kanji.Interface.ViewModels
             {
                 // Remove(...) returns false if it was not in the list in the first place; this way,
                 // pressing Enter when the radical was already selected will remove it, otherwise it will be added.
-                if (!Radicals.SelectedItems.Remove(uniqueResult))
+                if (!SelectedRadicals.Remove(uniqueResult))
                 {
-                    Radicals.SelectedItems.Add(uniqueResult);
+                    SelectedRadicals.Add(uniqueResult);
                 }
 
                 OnRadicalSelectionChanged(this, null);
@@ -470,11 +484,6 @@ namespace Kanji.Interface.ViewModels
                 RadicalSortMode = value;
                 _comparer.SortMode = value;
                 Kanji.Interface.Properties.Settings.Default.RadicalSortMode = value;
-
-                DispatcherHelper.InvokeAsync(() =>
-                {
-                    Radicals.Refresh();
-                });
             }
         }
 
@@ -488,20 +497,13 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         private void OnRadicalsLoaded()
         {
-            Radicals = new MultiSelectCollectionView<FilteringRadical>(
-                RadicalStore.Instance.CurrentSet
-                .Select(r => new FilteringRadical()
-                {
-                    Reference = r,
-                    IsRelevant = true,
-                    IsAvailable = FilteringRadicalAvailabilityEnum.Available
-                }).ToArray());
-
-            DispatcherHelper.Invoke(() =>
-            {
-                _radicals.CustomSort = (IComparer)_comparer;
-                _radicals.SelectionChanged += OnRadicalSelectionChanged;
-            });
+            Radicals = RadicalStore.Instance.CurrentSet
+                    .Select(r => new FilteringRadical()
+                    {
+                        Reference = r,
+                        IsRelevant = true,
+                        IsAvailable = FilteringRadicalAvailabilityEnum.Available
+                    }).OrderBy(x => x, _comparer).ToList();
         }
 
         /// <summary>
@@ -564,7 +566,7 @@ namespace Kanji.Interface.ViewModels
         private void OnRadicalSelectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             // Set the radicals inside the filter.
-            _filter.Radicals = Radicals.SelectedItems.ToArray();
+            _filter.Radicals = SelectedRadicals.ToArray();
 
             // Empty the radical name filter (because the radical searched is obviously found).
             RadicalFilter = string.Empty;
@@ -573,7 +575,7 @@ namespace Kanji.Interface.ViewModels
             
             foreach (FilteringRadical radical in Radicals)
             {
-                radical.IsSelected = Radicals.SelectedItems.Contains(radical);
+                radical.IsSelected = SelectedRadicals.Contains(radical);
             }
             
             //DateTime before = DateTime.Now;

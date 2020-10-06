@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Avalonia.Data.Converters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,11 +16,11 @@ namespace Kanji.Interface.Converters
             bool? targetNull = parameter as bool?;
             if (targetNull != false)
             {
-                return value == null ? Visibility.Visible : Visibility.Collapsed;
+                return value == null ? true : false;
             }
 
             // Specifically given the parameter "false".
-            return value == null ? Visibility.Collapsed : Visibility.Visible;
+            return value == null ? false : true;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

@@ -21,6 +21,9 @@ using Kanji.Interface.Extensions;
 using Kanji.Interface.Views;
 using Kanji.Database.Dao;
 using Kanji.Interface.Actors;
+using MessageBox.Avalonia;
+using MessageBox.Avalonia.DTO;
+using MessageBox.Avalonia.Enums;
 
 namespace Kanji.Interface.ViewModels
 {
@@ -199,12 +202,13 @@ namespace Kanji.Interface.ViewModels
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show(
-                    NavigationActor.Instance.ActiveWindow,
-                    string.Format("An error occured: {0}", ex.Message),
-                    "Quick delay error",
-                    System.Windows.MessageBoxButton.OK,
-                    System.Windows.MessageBoxImage.Error);
+                MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
+                {
+                    ContentTitle = "Quick delay error",
+                    ContentMessage = $"An error occurred: {ex.Message}",
+                    Icon = Icon.Error,
+                    ButtonDefinitions = ButtonEnum.Ok,
+                }).ShowDialog(NavigationActor.Instance.ActiveWindow);
 
                 LogHelper.GetLogger("Quick SRS delay").Error("An error occured during quick SRS delay.", ex);
             }
@@ -272,7 +276,7 @@ namespace Kanji.Interface.ViewModels
 
             // Show the modal entry edition window.
             EditSrsEntryWindow wnd = new EditSrsEntryWindow(entry);
-            wnd.ShowDialog();
+            wnd.ShowDialog(NavigationActor.Instance.ActiveWindow);
 
             // When it is closed, get the result.
             ExtendedSrsEntry result = wnd.Result;
@@ -316,12 +320,13 @@ namespace Kanji.Interface.ViewModels
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show(
-                    NavigationActor.Instance.ActiveWindow,
-                    string.Format("An error occured: {0}", ex.Message),
-                    "Quick add error",
-                    System.Windows.MessageBoxButton.OK,
-                    System.Windows.MessageBoxImage.Error);
+                MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
+                {
+                    ContentTitle = "Quick add error",
+                    ContentMessage = $"An error occurred: {ex.Message}",
+                    Icon = Icon.Error,
+                    ButtonDefinitions = ButtonEnum.Ok,
+                }).ShowDialog(NavigationActor.Instance.ActiveWindow);
 
                 LogHelper.GetLogger("Quick add").Error("An error occured during quick add.", ex);
             }
@@ -362,7 +367,7 @@ namespace Kanji.Interface.ViewModels
                 // Show the modal entry edition window.
                 EditSrsEntryWindow wnd = new EditSrsEntryWindow(
                     vocab.SrsEntry.Reference.Clone());
-                wnd.ShowDialog();
+                wnd.ShowDialog(NavigationActor.Instance.ActiveWindow);
 
                 // When it is closed, get the result.
                 ExtendedSrsEntry result = wnd.Result;
