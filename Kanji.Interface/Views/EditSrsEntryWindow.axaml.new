@@ -153,7 +153,13 @@
                                 </Style>
                             </TextBlock.Style>
                         </TextBlock>
-                        <TextBox Grid.Column="1" Style="{StaticResource NextReviewDateLabel}" Text="{Binding Entry.NextAnswerDate,                             Converter={StaticResource DateTimeToStringConverter},                             ConverterParameter={x:Static converters:DateTimeToStringConversionEnum.Relative},                             Mode=OneWay}" ToolTip="{Binding Entry.NextAnswerDate,                             Converter={StaticResource DateTimeToStringConverter},                             ConverterParameter={x:Static converters:DateTimeToStringConversionEnum.Absolute},                             Mode=OneWay}" Visibility="{Binding IsEditingDate, Converter={StaticResource ValueToVisibilityConverter}, ConverterParameter=False}"/>
+                        <TextBox Grid.Column="1" Style="{StaticResource NextReviewDateLabel}" Text="{Binding Entry.NextAnswerDate,
+                             Converter={StaticResource DateTimeToStringConverter},
+                             ConverterParameter={x:Static converters:DateTimeToStringConversionEnum.Relative},
+                             Mode=OneWay}" ToolTip="{Binding Entry.NextAnswerDate,
+                             Converter={StaticResource DateTimeToStringConverter},
+                             ConverterParameter={x:Static converters:DateTimeToStringConversionEnum.Absolute},
+                             Mode=OneWay}" Visibility="{Binding IsEditingDate, Converter={StaticResource ValueToVisibilityConverter}, ConverterParameter=False}"/>
 
                       <DatePicker x:Name="ReviewDatePicker" Grid.Column="1" Value="{Binding Entry.NextAnswerDate}" TextAlignment="Left" Visibility="{Binding IsEditingDate, Converter={StaticResource ValueToVisibilityConverter}}" Focusable="True"/>
                         

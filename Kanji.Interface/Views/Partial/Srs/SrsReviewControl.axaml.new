@@ -143,7 +143,8 @@
                                 </Style>
                             </TextBlock.Style>
                         </TextBlock>
-                        <Border Grid.Column="1" Background="{Binding PreviewNextLevel.ParentGroup.Color,                                 Converter={StaticResource ColorToBrushConverter}}" Padding="5 2" BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="0 2 5 2">
+                        <Border Grid.Column="1" Background="{Binding PreviewNextLevel.ParentGroup.Color,
+                                 Converter={StaticResource ColorToBrushConverter}}" Padding="5 2" BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="0 2 5 2">
                             <Grid>
                                 <TextBlock Foreground="Black" Text="{Binding PreviewNextLevel.Name}" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <TextBlock.RenderTransform>

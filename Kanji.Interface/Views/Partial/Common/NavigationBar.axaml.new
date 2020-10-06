@@ -33,10 +33,12 @@
                 <TextBlock.Style>
                     <Style TargetType="TextBlock">
                         <i:Interaction.Behaviors>
-                            <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.AvailableReviewsCount,                                  Source={x:Static business:SrsBusiness.Instance}}" Value="0">
+                            <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.AvailableReviewsCount,
+                                  Source={x:Static business:SrsBusiness.Instance}}" Value="0">
                                 <ia:ChangePropertyAction Value="Collapsed" PropertyName="Visibility"/>
                             </ia:DataTriggerBehavior>
-                            <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.AvailableReviewsCount,                                  Source={x:Static business:SrsBusiness.Instance}}" Value="1">
+                            <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.AvailableReviewsCount,
+                                  Source={x:Static business:SrsBusiness.Instance}}" Value="1">
                                 <ia:ChangePropertyAction Value="1 review" PropertyName="Text"/>
                             </ia:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
@@ -85,7 +87,8 @@
                 <TextBlock.Style>
                     <Style TargetType="TextBlock">
                         <i:Interaction.Behaviors>
-                            <ia:DataTriggerBehavior Binding="{Binding CheckStatus,                                  Source={x:Static business:VersionBusiness.Instance}}" Value="UpdateAvailable">
+                            <ia:DataTriggerBehavior Binding="{Binding CheckStatus,
+                                  Source={x:Static business:VersionBusiness.Instance}}" Value="UpdateAvailable">
                                 <ia:ChangePropertyAction Value="Update available!" PropertyName="Text"/>
                             </ia:DataTriggerBehavior>
                         </i:Interaction.Behaviors>

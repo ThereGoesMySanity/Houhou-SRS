@@ -28,7 +28,9 @@
                     <!-- Top controls:
                     the review count display with the "Start review" button,
                     and the review stats display. -->
-                    <Grid Visibility="{Binding ControlMode,                         Converter={StaticResource ValueToVisibilityConverter},                         ConverterParameter=Dashboard}">
+                    <Grid Visibility="{Binding ControlMode,
+                         Converter={StaticResource ValueToVisibilityConverter},
+                         ConverterParameter=Dashboard}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
@@ -38,10 +40,14 @@
                     </Grid>
                     
                     <!-- Below that, the item count per level group listbox, visible only in Dashboard mode -->
-                    <ListBox Grid.Row="1" Style="{StaticResource ItemsPerLevelGroupListbox}" Margin="0 5 0 0" Visibility="{Binding ControlMode,                         Converter={StaticResource ValueToVisibilityConverter},                         ConverterParameter=Dashboard}"/>
+                    <ListBox Grid.Row="1" Style="{StaticResource ItemsPerLevelGroupListbox}" Margin="0 5 0 0" Visibility="{Binding ControlMode,
+                         Converter={StaticResource ValueToVisibilityConverter},
+                         ConverterParameter=Dashboard}"/>
                     
                     <!-- The filter panel, visible in SimpleFilter mode -->
-                    <Grid Grid.Row="0" Grid.RowSpan="3" Visibility="{Binding ControlMode,                         Converter={StaticResource ValueToVisibilityConverter},                         ConverterParameter=SimpleFilter}">
+                    <Grid Grid.Row="0" Grid.RowSpan="3" Visibility="{Binding ControlMode,
+                         Converter={StaticResource ValueToVisibilityConverter},
+                         ConverterParameter=SimpleFilter}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>

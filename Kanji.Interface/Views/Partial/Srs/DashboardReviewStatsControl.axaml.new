@@ -26,10 +26,12 @@
                     <Viewbox.RenderTransform>
                         <TranslateTransform X="-1" Y="-1"/>
                     </Viewbox.RenderTransform>
-                    <TextBlock Foreground="Black" Text="{Binding CurrentReviewInfo.TodayReviewsCount,                         Source={x:Static business:SrsBusiness.Instance}}" FontWeight="SemiBold"/>
+                    <TextBlock Foreground="Black" Text="{Binding CurrentReviewInfo.TodayReviewsCount,
+                         Source={x:Static business:SrsBusiness.Instance}}" FontWeight="SemiBold"/>
                 </Viewbox>
                 <Viewbox>
-                    <TextBlock Foreground="White" Text="{Binding CurrentReviewInfo.TodayReviewsCount,                         Source={x:Static business:SrsBusiness.Instance}}" FontWeight="SemiBold"/>
+                    <TextBlock Foreground="White" Text="{Binding CurrentReviewInfo.TodayReviewsCount,
+                         Source={x:Static business:SrsBusiness.Instance}}" FontWeight="SemiBold"/>
                 </Viewbox>
 
                 <Viewbox Grid.Row="1">
@@ -37,7 +39,8 @@
                         <TextBlock.Style>
                             <Style TargetType="TextBlock" BasedOn="{StaticResource LegendText}">
                                 <i:Interaction.Behaviors>
-                                    <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TodayReviewsCount,                                         Source={x:Static business:SrsBusiness.Instance}}" Value="1">
+                                    <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TodayReviewsCount,
+                                         Source={x:Static business:SrsBusiness.Instance}}" Value="1">
                                         <ia:ChangePropertyAction Value="review today" PropertyName="Text"/>
                                     </ia:DataTriggerBehavior>
                                 </i:Interaction.Behaviors>
@@ -57,7 +60,8 @@
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
                                 <i:Interaction.Behaviors>
-                                    <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.KanjiItemsCount,                                         Source={x:Static business:SrsBusiness.Instance}}" Value="1">
+                                    <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.KanjiItemsCount,
+                                         Source={x:Static business:SrsBusiness.Instance}}" Value="1">
                                         <ia:ChangePropertyAction Value="1 kanji item" PropertyName="Text"/>
                                     </ia:DataTriggerBehavior>
                                 </i:Interaction.Behaviors>
@@ -73,7 +77,8 @@
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
                                 <i:Interaction.Behaviors>
-                                    <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.VocabItemsCount,                                         Source={x:Static business:SrsBusiness.Instance}}" Value="1">
+                                    <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.VocabItemsCount,
+                                         Source={x:Static business:SrsBusiness.Instance}}" Value="1">
                                         <ia:ChangePropertyAction Value="1 vocab item" PropertyName="Text"/>
                                     </ia:DataTriggerBehavior>
                                 </i:Interaction.Behaviors>
@@ -97,10 +102,12 @@
                     <Viewbox.RenderTransform>
                         <TranslateTransform X="-1" Y="-1"/>
                     </Viewbox.RenderTransform>
-                    <TextBlock Foreground="Black" Text="{Binding CurrentReviewInfo.TotalItemsCount,                         Source={x:Static business:SrsBusiness.Instance}}" FontWeight="SemiBold"/>
+                    <TextBlock Foreground="Black" Text="{Binding CurrentReviewInfo.TotalItemsCount,
+                         Source={x:Static business:SrsBusiness.Instance}}" FontWeight="SemiBold"/>
                 </Viewbox>
                 <Viewbox>
-                    <TextBlock Foreground="White" Text="{Binding CurrentReviewInfo.TotalItemsCount,                         Source={x:Static business:SrsBusiness.Instance}}" FontWeight="SemiBold"/>
+                    <TextBlock Foreground="White" Text="{Binding CurrentReviewInfo.TotalItemsCount,
+                         Source={x:Static business:SrsBusiness.Instance}}" FontWeight="SemiBold"/>
                 </Viewbox>
 
                 <Viewbox Grid.Row="1">
@@ -108,7 +115,8 @@
                         <TextBlock.Style>
                             <Style TargetType="TextBlock" BasedOn="{StaticResource LegendText}">
                                 <i:Interaction.Behaviors>
-                                    <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TotalItemsCount,                                         Source={x:Static business:SrsBusiness.Instance}}" Value="1">
+                                    <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TotalItemsCount,
+                                         Source={x:Static business:SrsBusiness.Instance}}" Value="1">
                                         <ia:ChangePropertyAction Value="total item" PropertyName="Text"/>
                                     </ia:DataTriggerBehavior>
                                 </i:Interaction.Behaviors>
@@ -128,7 +136,8 @@
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
                                 <i:Interaction.Behaviors>
-                                    <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TotalSuccessCount,                                         Source={x:Static business:SrsBusiness.Instance}}" Value="1">
+                                    <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TotalSuccessCount,
+                                         Source={x:Static business:SrsBusiness.Instance}}" Value="1">
                                         <ia:ChangePropertyAction Value="1 review succeeded" PropertyName="Text"/>
                                     </ia:DataTriggerBehavior>
                                 </i:Interaction.Behaviors>
@@ -144,7 +153,8 @@
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
                                 <i:Interaction.Behaviors>
-                                    <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TotalFailureCount,                                         Source={x:Static business:SrsBusiness.Instance}}" Value="1">
+                                    <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TotalFailureCount,
+                                         Source={x:Static business:SrsBusiness.Instance}}" Value="1">
                                         <ia:ChangePropertyAction Value="1 review failed" PropertyName="Text"/>
                                     </ia:DataTriggerBehavior>
                                 </i:Interaction.Behaviors>
@@ -168,10 +178,12 @@
                     <Viewbox.RenderTransform>
                         <TranslateTransform X="-1" Y="-1"/>
                     </Viewbox.RenderTransform>
-                    <TextBlock Foreground="Black" Text="{Binding CurrentReviewInfo.TotalReviewsCount,                         Source={x:Static business:SrsBusiness.Instance}}" FontWeight="SemiBold"/>
+                    <TextBlock Foreground="Black" Text="{Binding CurrentReviewInfo.TotalReviewsCount,
+                         Source={x:Static business:SrsBusiness.Instance}}" FontWeight="SemiBold"/>
                 </Viewbox>
                 <Viewbox>
-                    <TextBlock Foreground="White" Text="{Binding CurrentReviewInfo.TotalReviewsCount,                         Source={x:Static business:SrsBusiness.Instance}}" FontWeight="SemiBold"/>
+                    <TextBlock Foreground="White" Text="{Binding CurrentReviewInfo.TotalReviewsCount,
+                         Source={x:Static business:SrsBusiness.Instance}}" FontWeight="SemiBold"/>
                 </Viewbox>
 
                 <Viewbox Grid.Row="1">
@@ -179,7 +191,8 @@
                         <TextBlock.Style>
                             <Style TargetType="TextBlock" BasedOn="{StaticResource LegendText}">
                                 <i:Interaction.Behaviors>
-                                    <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TotalReviewsCount,                                         Source={x:Static business:SrsBusiness.Instance}}" Value="1">
+                                    <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TotalReviewsCount,
+                                         Source={x:Static business:SrsBusiness.Instance}}" Value="1">
                                         <ia:ChangePropertyAction Value="totalled review" PropertyName="Text"/>
                                     </ia:DataTriggerBehavior>
                                 </i:Interaction.Behaviors>
@@ -203,10 +216,14 @@
                     <Viewbox.RenderTransform>
                         <TranslateTransform X="-1" Y="-1"/>
                     </Viewbox.RenderTransform>
-                    <TextBlock Foreground="Black" FontWeight="SemiBold" Text="{Binding CurrentReviewInfo.SuccessRate,                         Source={x:Static business:SrsBusiness.Instance},                         Converter={StaticResource PercentageToStringConverter}}"/>
+                    <TextBlock Foreground="Black" FontWeight="SemiBold" Text="{Binding CurrentReviewInfo.SuccessRate,
+                         Source={x:Static business:SrsBusiness.Instance},
+                         Converter={StaticResource PercentageToStringConverter}}"/>
                 </Viewbox>
                 <Viewbox>
-                    <TextBlock Foreground="White" FontWeight="SemiBold" Text="{Binding CurrentReviewInfo.SuccessRate,                         Source={x:Static business:SrsBusiness.Instance},                         Converter={StaticResource PercentageToStringConverter}}"/>
+                    <TextBlock Foreground="White" FontWeight="SemiBold" Text="{Binding CurrentReviewInfo.SuccessRate,
+                         Source={x:Static business:SrsBusiness.Instance},
+                         Converter={StaticResource PercentageToStringConverter}}"/>
                 </Viewbox>
 
                 <Viewbox Grid.Row="1">

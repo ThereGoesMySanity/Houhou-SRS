@@ -32,7 +32,9 @@
         <StackPanel Grid.Column="1" Margin="10 5 5 0">
             
             <!-- Meanings label -->
-            <TextBox x:Name="MeaningsLabel" Style="{StaticResource KanjiMeaningLabel}" Text="{Binding Path=KanjiEntity.DbKanji,                 Converter={StaticResource KanjiToStringConverter},                 ConverterParameter={x:Static converters:KanjiToStringConversionType.Full}}"/>
+            <TextBox x:Name="MeaningsLabel" Style="{StaticResource KanjiMeaningLabel}" Text="{Binding Path=KanjiEntity.DbKanji,
+                 Converter={StaticResource KanjiToStringConverter},
+                 ConverterParameter={x:Static converters:KanjiToStringConversionType.Full}}"/>
             
             <!-- Secondary information panel -->
             <WrapPanel Orientation="Horizontal">
@@ -224,7 +226,8 @@ Add" FontSize="12" Width="70" Height="60" Margin="0 0 0 0" Command="{Binding Add
                     </Button>
                     <Border DockPanel.Dock="Left" Background="{Binding LevelGroup.Color, Converter={StaticResource ColorToBrushConverter}}" Height="18" Margin="0 25 0 0" IsHitTestVisible="False" Padding="2 0" BorderBrush="#AA000000" BorderThickness="1" CornerRadius="3" Width="25">
                         <Border.ToolTip>
-                            <ToolTip Content="{Binding NextAnswerDate, Mode=OneWay, Converter={StaticResource DateTimeToStringConverter},                                                 ConverterParameter={x:Static converters:DateTimeToStringConversionEnum.Relative}}" ContentStringFormat="{}Next review: {0}."/>
+                            <ToolTip Content="{Binding NextAnswerDate, Mode=OneWay, Converter={StaticResource DateTimeToStringConverter},
+                                                 ConverterParameter={x:Static converters:DateTimeToStringConversionEnum.Relative}}" ContentStringFormat="{}Next review: {0}."/>
                         </Border.ToolTip>
                         <Grid>
                             <TextBlock Foreground="Black" Text="{Binding Level.Name}" HorizontalAlignment="Center" VerticalAlignment="Center">

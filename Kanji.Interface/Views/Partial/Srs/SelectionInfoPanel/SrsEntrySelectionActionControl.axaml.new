@@ -2,12 +2,16 @@
 
     <Grid>
         <!-- Nothing selected -->
-        <Grid x:Name="ZeroItemPanel" Visibility="{Binding SelectedItems.Count,                 Converter={StaticResource ValueToVisibilityConverter},                 ConverterParameter=0}">
+        <Grid x:Name="ZeroItemPanel" Visibility="{Binding SelectedItems.Count,
+                 Converter={StaticResource ValueToVisibilityConverter},
+                 ConverterParameter=0}">
             <TextBlock Text="Select items in the list to view stats or perform bulk edition." TextWrapping="Wrap" TextAlignment="Center" Style="{StaticResource LegendText}"/>
         </Grid>
 
         <!-- 1 item selected -->
-        <Grid x:Name="OneItemPanel" Visibility="{Binding SelectedItems.Count,                 Converter={StaticResource ValueToVisibilityConverter},                 ConverterParameter=1}">
+        <Grid x:Name="OneItemPanel" Visibility="{Binding SelectedItems.Count,
+                 Converter={StaticResource ValueToVisibilityConverter},
+                 ConverterParameter=1}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -35,7 +39,9 @@
 
             <!-- BulkEditMode = None -->
             <ScrollViewer Margin="0 0 0 5" VerticalScrollBarVisibility="Auto">
-                <UniformGrid Columns="1" ScrollViewer.VerticalScrollBarVisibility="Auto" Visibility="{Binding BulkEditMode,                     Converter={StaticResource ValueToVisibilityConverter},                     ConverterParameter=None}">
+                <UniformGrid Columns="1" ScrollViewer.VerticalScrollBarVisibility="Auto" Visibility="{Binding BulkEditMode,
+                     Converter={StaticResource ValueToVisibilityConverter},
+                     ConverterParameter=None}">
                     <Button Style="{StaticResource ActionButton}" Content="Bulk edit the meaning note" Margin="0 0 0 5" Command="{Binding BulkEditMeaningNoteCommand}" Height="Auto" MinHeight="20"/>
                     <Button Style="{StaticResource ActionButton}" Content="Bulk edit the reading note" Margin="0 0 0 5" Command="{Binding BulkEditReadingNoteCommand}" Height="Auto" MinHeight="20"/>
                     <Button Style="{StaticResource ActionButton}" Content="Bulk edit the tags" Margin="0 0 0 5" Command="{Binding BulkEditTagsCommand}" Height="Auto" MinHeight="20"/>
@@ -118,7 +124,9 @@
             </Grid>
 
             <!-- BulkEditMode = Level -->
-            <Grid Visibility="{Binding BulkEditMode,                     Converter={StaticResource ValueToVisibilityConverter},                     ConverterParameter=Level}">
+            <Grid Visibility="{Binding BulkEditMode,
+                     Converter={StaticResource ValueToVisibilityConverter},
+                     ConverterParameter=Level}">
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <i:Interaction.Behaviors>
@@ -148,7 +156,9 @@
             </Grid>
             
             <!-- BulkEditMode = Timing -->
-            <Grid Visibility="{Binding BulkEditMode,                     Converter={StaticResource ValueToVisibilityConverter},                     ConverterParameter=Timing}">
+            <Grid Visibility="{Binding BulkEditMode,
+                     Converter={StaticResource ValueToVisibilityConverter},
+                     ConverterParameter=Timing}">
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <i:Interaction.Behaviors>
@@ -198,7 +208,9 @@
             </Grid>
 
             <!-- BulkEditMode = Delay -->
-            <Grid Visibility="{Binding BulkEditMode,                     Converter={StaticResource ValueToVisibilityConverter},                     ConverterParameter=Delay}">
+            <Grid Visibility="{Binding BulkEditMode,
+                     Converter={StaticResource ValueToVisibilityConverter},
+                     ConverterParameter=Delay}">
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <i:Interaction.Behaviors>
@@ -237,7 +249,9 @@
             </Grid>
 
             <!-- BulkEditMode = Applying -->
-            <Grid Visibility="{Binding BulkEditMode,                 Converter={StaticResource ValueToVisibilityConverter},                 ConverterParameter=Applying}">
+            <Grid Visibility="{Binding BulkEditMode,
+                 Converter={StaticResource ValueToVisibilityConverter},
+                 ConverterParameter=Applying}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
@@ -258,7 +272,9 @@
             </Grid>
 
             <!-- BulkEditMode = Applied -->
-            <Grid Visibility="{Binding BulkEditMode,                 Converter={StaticResource ValueToVisibilityConverter},                 ConverterParameter=Applied}">
+            <Grid Visibility="{Binding BulkEditMode,
+                 Converter={StaticResource ValueToVisibilityConverter},
+                 ConverterParameter=Applied}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
