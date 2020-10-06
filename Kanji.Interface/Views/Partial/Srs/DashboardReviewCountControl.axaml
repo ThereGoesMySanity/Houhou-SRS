@@ -41,7 +41,7 @@
                         <Style TargetType="TextBlock">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.AvailableReviewsCount,
-                                                       Source={x:Static business:SrsBusiness.Instance}}" Value="1">
+                                                        Source={x:Static business:SrsBusiness.Instance}}" Value="1">
                                     <ia:ChangePropertyAction Value="review available!" PropertyName="Text"/>
                                 </ia:DataTriggerBehavior>
                             </i:Interaction.Behaviors>
@@ -56,8 +56,8 @@
                         <Style TargetType="Grid">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.AvailableReviewsCount,
-                                                        Source={x:Static business:SrsBusiness.Instance}}" Value="0">
-                                    <ia:ChangePropertyAction Value="Visible" PropertyName="Visibility"/>
+                                                         Source={x:Static business:SrsBusiness.Instance}}" Value="0">
+                                    <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
                                 </ia:DataTriggerBehavior>
                             </i:Interaction.Behaviors>
                             <Setter Property="Visibility" Value="Collapsed"/>
@@ -70,12 +70,12 @@
 
                     <TextBlock Text="Next review:" Style="{StaticResource LegendText}" FontSize="10" Foreground="#99FFFFFF" HorizontalAlignment="Center"/>
                     <TextBlock Grid.Row="1" Margin="0 -6 0 0" HorizontalAlignment="Center" Text="{Binding CurrentReviewInfo.FirstReviewDate,
-                                                      Source={x:Static business:SrsBusiness.Instance},
-                                                      Converter={StaticResource DateTimeToStringConverter},
-                                                      ConverterParameter={x:Static converters:DateTimeToStringConversionEnum.Relative}}" ToolTip="{Binding CurrentReviewInfo.FirstReviewDate,
-                                                         Source={x:Static business:SrsBusiness.Instance},
-                                                         Converter={StaticResource DateTimeToStringConverter},
-                                                         ConverterParameter={x:Static converters:DateTimeToStringConversionEnum.Absolute}}" FontSize="22" FontWeight="SemiBold" Foreground="White"/>
+                                                       Source={x:Static business:SrsBusiness.Instance},
+                                                       Converter={StaticResource DateTimeToStringConverter},
+                                                       ConverterParameter={x:Static converters:DateTimeToStringConversionEnum.Relative}}" ToolTip="{Binding CurrentReviewInfo.FirstReviewDate,
+                                                          Source={x:Static business:SrsBusiness.Instance},
+                                                          Converter={StaticResource DateTimeToStringConverter},
+                                                          ConverterParameter={x:Static converters:DateTimeToStringConversionEnum.Absolute}}" FontSize="22" FontWeight="SemiBold" Foreground="White"/>
                 </Grid>
 
                 <!-- Start review button -->
@@ -84,7 +84,7 @@
                         <Style TargetType="Button" BasedOn="{StaticResource BrightActionButton}">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding Visibility, ElementName=NoReviewsPanel}" Value="Visible">
-                                    <ia:ChangePropertyAction Value="Collapsed" PropertyName="Visibility"/>
+                                    <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
                                 </ia:DataTriggerBehavior>
                             </i:Interaction.Behaviors>
                         </Style>

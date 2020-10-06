@@ -41,8 +41,8 @@
             
             <!-- Meanings label -->
             <TextBox x:Name="MeaningsLabel" Style="{StaticResource KanjiMeaningLabel}" Text="{Binding Path=KanjiEntity.DbKanji,
-                 Converter={StaticResource KanjiToStringConverter},
-                 ConverterParameter={x:Static converters:KanjiToStringConversionType.Full}}"/>
+                  Converter={StaticResource KanjiToStringConverter},
+                  ConverterParameter={x:Static converters:KanjiToStringConversionType.Full}}"/>
             
             <!-- Secondary information panel -->
             <WrapPanel Orientation="Horizontal">
@@ -51,10 +51,10 @@
                         <Style TargetType="Border">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding StrokesDrawingGroup}" Value="{x:Null}">
-                                    <ia:ChangePropertyAction Value="Collapsed" PropertyName="Visibility"/>
+                                    <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
                                 </ia:DataTriggerBehavior>
                                 <ia:DataTriggerBehavior Binding="{Binding KanjiEntity.ShowStrokes}" Value="False">
-                                    <ia:ChangePropertyAction Value="Collapsed" PropertyName="Visibility"/>
+                                    <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
                                 </ia:DataTriggerBehavior>
                             </i:Interaction.Behaviors>
                         </Style>
@@ -201,13 +201,12 @@
                         <TextBlock Style="{StaticResource LegendText}" HorizontalAlignment="Center" Text="on WaniKani" FontSize="11"/>
                     </StackPanel>
                 </Border>
-                <Button Content="  ✙
-Add" FontSize="12" Width="70" Height="60" Margin="0 0 0 0" Command="{Binding AddToSrsCommand}" HorizontalContentAlignment="Center">
+                <Button Content="  ✙ Add" FontSize="12" Width="70" Height="60" Margin="0 0 0 0" Command="{Binding AddToSrsCommand}" HorizontalContentAlignment="Center">
                     <Button.Style>
                         <Style TargetType="Button" BasedOn="{StaticResource ActionButton}">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding SrsEntry}" Value="{x:Null}">
-                                    <ia:ChangePropertyAction Value="Visible" PropertyName="Visibility"/>
+                                    <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
                                 </ia:DataTriggerBehavior>
                             </i:Interaction.Behaviors>
                             <Setter Property="Visibility" Value="Collapsed"/>
@@ -215,8 +214,7 @@ Add" FontSize="12" Width="70" Height="60" Margin="0 0 0 0" Command="{Binding Add
                     </Button.Style>
                 </Button>
                 <Grid Width="70" Height="60" DataContext="{Binding SrsEntry}" Visibility="{Binding ., Converter={StaticResource ValueToVisibilityConverter}}">
-                    <Button Content="In SRS
-" Width="70" Height="60" FontSize="12" Margin="0 0 0 0" BorderBrush="{StaticResource FadedBorderBrush}" Command="{Binding DataContext.EditSrsEntryCommand, RelativeSource={RelativeSource AncestorType=controls:KanjiDetails}}" HorizontalContentAlignment="Center">
+                    <Button Content="In SRS " Width="70" Height="60" FontSize="12" Margin="0 0 0 0" BorderBrush="{StaticResource FadedBorderBrush}" Command="{Binding DataContext.EditSrsEntryCommand, RelativeSource={RelativeSource AncestorType=controls:KanjiDetails}}" HorizontalContentAlignment="Center">
                         <Button.Style>
                             <Style TargetType="Button" BasedOn="{StaticResource ActionButton}">
                                 <Setter Property="Background">
@@ -235,7 +233,7 @@ Add" FontSize="12" Width="70" Height="60" Margin="0 0 0 0" Command="{Binding Add
                     <Border DockPanel.Dock="Left" Background="{Binding LevelGroup.Color, Converter={StaticResource ColorToBrushConverter}}" Height="18" Margin="0 25 0 0" IsHitTestVisible="False" Padding="2 0" BorderBrush="#AA000000" BorderThickness="1" CornerRadius="3" Width="25">
                         <Border.ToolTip>
                             <ToolTip Content="{Binding NextAnswerDate, Mode=OneWay, Converter={StaticResource DateTimeToStringConverter},
-                                                 ConverterParameter={x:Static converters:DateTimeToStringConversionEnum.Relative}}" ContentStringFormat="{}Next review: {0}."/>
+                                                  ConverterParameter={x:Static converters:DateTimeToStringConversionEnum.Relative}}" ContentStringFormat="{}Next review: {0}."/>
                         </Border.ToolTip>
                         <Grid>
                             <TextBlock Foreground="Black" Text="{Binding Level.Name}" HorizontalAlignment="Center" VerticalAlignment="Center">
