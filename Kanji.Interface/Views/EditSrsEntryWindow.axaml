@@ -38,10 +38,10 @@
                     <Style TargetType="TextBox" BasedOn="{StaticResource ErrorLabel}">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding ErrorMessage}" Value="{x:Null}">
-                                <ia:ChangePropertyAction Value="Collapsed" PropertyName="Visibility"/>
+                                <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
                             </ia:DataTriggerBehavior>
                             <ia:DataTriggerBehavior Binding="{Binding ErrorMessage}" Value="">
-                                <ia:ChangePropertyAction Value="Collapsed" PropertyName="Visibility"/>
+                                <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
                             </ia:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
                     </Style>
@@ -66,7 +66,7 @@
                         <Style TargetType="Grid">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding Entry.AssociatedKanji}" Value="{x:Null}">
-                                    <ia:ChangePropertyAction Value="Collapsed" PropertyName="Visibility"/>
+                                    <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
                                 </ia:DataTriggerBehavior>
                             </i:Interaction.Behaviors>
                         </Style>
@@ -103,7 +103,7 @@
                         <Style TargetType="Grid">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding Entry.AssociatedVocab}" Value="{x:Null}">
-                                    <ia:ChangePropertyAction Value="Collapsed" PropertyName="Visibility"/>
+                                    <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
                                 </ia:DataTriggerBehavior>
                             </i:Interaction.Behaviors>
                         </Style>
@@ -160,12 +160,12 @@
                             </TextBlock.Style>
                         </TextBlock>
                         <TextBox Grid.Column="1" Style="{StaticResource NextReviewDateLabel}" Text="{Binding Entry.NextAnswerDate,
-                             Converter={StaticResource DateTimeToStringConverter},
-                             ConverterParameter={x:Static converters:DateTimeToStringConversionEnum.Relative},
-                             Mode=OneWay}" ToolTip="{Binding Entry.NextAnswerDate,
-                             Converter={StaticResource DateTimeToStringConverter},
-                             ConverterParameter={x:Static converters:DateTimeToStringConversionEnum.Absolute},
-                             Mode=OneWay}" Visibility="{Binding IsEditingDate, Converter={StaticResource ValueToVisibilityConverter}, ConverterParameter=False}"/>
+                              Converter={StaticResource DateTimeToStringConverter},
+                              ConverterParameter={x:Static converters:DateTimeToStringConversionEnum.Relative},
+                              Mode=OneWay}" ToolTip="{Binding Entry.NextAnswerDate,
+                              Converter={StaticResource DateTimeToStringConverter},
+                              ConverterParameter={x:Static converters:DateTimeToStringConversionEnum.Absolute},
+                              Mode=OneWay}" Visibility="{Binding IsEditingDate, Converter={StaticResource ValueToVisibilityConverter}, ConverterParameter=False}"/>
 
                       <DatePicker x:Name="ReviewDatePicker" Grid.Column="1" Value="{Binding Entry.NextAnswerDate}" TextAlignment="Left" Visibility="{Binding IsEditingDate, Converter={StaticResource ValueToVisibilityConverter}}" Focusable="True"/>
                         
@@ -279,7 +279,7 @@
                         <Style TargetType="Button" BasedOn="{StaticResource MiniActionButton}">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding IsNew}" Value="True">
-                                    <ia:ChangePropertyAction Value="Collapsed" PropertyName="Visibility"/>
+                                    <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
                                 </ia:DataTriggerBehavior>
                             </i:Interaction.Behaviors>
                         </Style>

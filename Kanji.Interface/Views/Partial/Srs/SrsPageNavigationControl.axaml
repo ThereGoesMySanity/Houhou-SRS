@@ -14,7 +14,7 @@
                 <Style TargetType="Button" BasedOn="{StaticResource ActionButton}">
                     <i:Interaction.Behaviors>
                         <ia:DataTriggerBehavior Binding="{Binding ControlMode}" Value="Dashboard">
-                            <ia:ChangePropertyAction Value="Collapsed" PropertyName="Visibility"/>
+                            <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
                         </ia:DataTriggerBehavior>
                     </i:Interaction.Behaviors>
                 </Style>
@@ -25,7 +25,7 @@
                 <Style TargetType="Button" BasedOn="{StaticResource ActionButton}">
                     <i:Interaction.Behaviors>
                         <ia:DataTriggerBehavior Binding="{Binding ControlMode}" Value="SimpleFilter">
-                            <ia:ChangePropertyAction Value="Collapsed" PropertyName="Visibility"/>
+                            <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
                         </ia:DataTriggerBehavior>
                     </i:Interaction.Behaviors>
                 </Style>

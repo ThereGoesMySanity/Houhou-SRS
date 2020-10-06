@@ -10,15 +10,15 @@
     <Grid>
         <!-- Nothing selected -->
         <Grid x:Name="ZeroItemPanel" Visibility="{Binding SelectedItems.Count,
-                 Converter={StaticResource ValueToVisibilityConverter},
-                 ConverterParameter=0}">
+                  Converter={StaticResource ValueToVisibilityConverter},
+                  ConverterParameter=0}">
             <TextBlock Text="Select items in the list to view stats or perform bulk edition." TextWrapping="Wrap" TextAlignment="Center" Style="{StaticResource LegendText}"/>
         </Grid>
 
         <!-- 1 item selected -->
         <Grid x:Name="OneItemPanel" Visibility="{Binding SelectedItems.Count,
-                 Converter={StaticResource ValueToVisibilityConverter},
-                 ConverterParameter=1}">
+                  Converter={StaticResource ValueToVisibilityConverter},
+                  ConverterParameter=1}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -35,10 +35,10 @@
                 <Style TargetType="Grid">
                     <i:Interaction.Behaviors>
                         <ia:DataTriggerBehavior Binding="{Binding Visibility, ElementName=OneItemPanel}" Value="Visible">
-                            <ia:ChangePropertyAction Value="Collapsed" PropertyName="Visibility"/>
+                            <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
                         </ia:DataTriggerBehavior>
                         <ia:DataTriggerBehavior Binding="{Binding Visibility, ElementName=ZeroItemPanel}" Value="Visible">
-                            <ia:ChangePropertyAction Value="Collapsed" PropertyName="Visibility"/>
+                            <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
                         </ia:DataTriggerBehavior>
                     </i:Interaction.Behaviors>
                 </Style>
@@ -47,8 +47,8 @@
             <!-- BulkEditMode = None -->
             <ScrollViewer Margin="0 0 0 5" VerticalScrollBarVisibility="Auto">
                 <UniformGrid Columns="1" ScrollViewer.VerticalScrollBarVisibility="Auto" Visibility="{Binding BulkEditMode,
-                     Converter={StaticResource ValueToVisibilityConverter},
-                     ConverterParameter=None}">
+                      Converter={StaticResource ValueToVisibilityConverter},
+                      ConverterParameter=None}">
                     <Button Style="{StaticResource ActionButton}" Content="Bulk edit the meaning note" Margin="0 0 0 5" Command="{Binding BulkEditMeaningNoteCommand}" Height="Auto" MinHeight="20"/>
                     <Button Style="{StaticResource ActionButton}" Content="Bulk edit the reading note" Margin="0 0 0 5" Command="{Binding BulkEditReadingNoteCommand}" Height="Auto" MinHeight="20"/>
                     <Button Style="{StaticResource ActionButton}" Content="Bulk edit the tags" Margin="0 0 0 5" Command="{Binding BulkEditTagsCommand}" Height="Auto" MinHeight="20"/>
@@ -69,13 +69,13 @@
                     <Style TargetType="Grid">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="ReadingNote">
-                                <ia:ChangePropertyAction Value="Visible" PropertyName="Visibility"/>
+                                <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
                             </ia:DataTriggerBehavior>
                             <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="MeaningNote">
-                                <ia:ChangePropertyAction Value="Visible" PropertyName="Visibility"/>
+                                <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
                             </ia:DataTriggerBehavior>
                             <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="Tags">
-                                <ia:ChangePropertyAction Value="Visible" PropertyName="Visibility"/>
+                                <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
                             </ia:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
                         <Setter Property="Visibility" Value="Collapsed"/>
@@ -132,13 +132,13 @@
 
             <!-- BulkEditMode = Level -->
             <Grid Visibility="{Binding BulkEditMode,
-                     Converter={StaticResource ValueToVisibilityConverter},
-                     ConverterParameter=Level}">
+                      Converter={StaticResource ValueToVisibilityConverter},
+                      ConverterParameter=Level}">
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="Tags">
-                                <ia:ChangePropertyAction Value="Visible" PropertyName="Visibility"/>
+                                <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
                             </ia:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
                         <Setter Property="Visibility" Value="Collapsed"/>
@@ -164,13 +164,13 @@
             
             <!-- BulkEditMode = Timing -->
             <Grid Visibility="{Binding BulkEditMode,
-                     Converter={StaticResource ValueToVisibilityConverter},
-                     ConverterParameter=Timing}">
+                      Converter={StaticResource ValueToVisibilityConverter},
+                      ConverterParameter=Timing}">
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="Tags">
-                                <ia:ChangePropertyAction Value="Visible" PropertyName="Visibility"/>
+                                <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
                             </ia:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
                         <Setter Property="Visibility" Value="Collapsed"/>
@@ -216,13 +216,13 @@
 
             <!-- BulkEditMode = Delay -->
             <Grid Visibility="{Binding BulkEditMode,
-                     Converter={StaticResource ValueToVisibilityConverter},
-                     ConverterParameter=Delay}">
+                      Converter={StaticResource ValueToVisibilityConverter},
+                      ConverterParameter=Delay}">
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="Tags">
-                                <ia:ChangePropertyAction Value="Visible" PropertyName="Visibility"/>
+                                <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
                             </ia:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
                         <Setter Property="Visibility" Value="Collapsed"/>
@@ -257,8 +257,8 @@
 
             <!-- BulkEditMode = Applying -->
             <Grid Visibility="{Binding BulkEditMode,
-                 Converter={StaticResource ValueToVisibilityConverter},
-                 ConverterParameter=Applying}">
+                  Converter={StaticResource ValueToVisibilityConverter},
+                  ConverterParameter=Applying}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
@@ -280,8 +280,8 @@
 
             <!-- BulkEditMode = Applied -->
             <Grid Visibility="{Binding BulkEditMode,
-                 Converter={StaticResource ValueToVisibilityConverter},
-                 ConverterParameter=Applied}">
+                  Converter={StaticResource ValueToVisibilityConverter},
+                  ConverterParameter=Applied}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>

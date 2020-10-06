@@ -26,7 +26,7 @@
                     <Style TargetType="Grid">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding Visibility, ElementName=ListGrid}" Value="Visible">
-                                <ia:ChangePropertyAction Value="Collapsed" PropertyName="Visibility"/>
+                                <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
                             </ia:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
                     </Style>
@@ -83,7 +83,7 @@
                     <Style TargetType="Grid">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding LoadedItemCount}" Value="0">
-                                <ia:ChangePropertyAction Value="Collapsed" PropertyName="Visibility"/>
+                                <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
                             </ia:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
                     </Style>
@@ -128,7 +128,7 @@
                                             <Style TargetType="Border">
                                                 <i:Interaction.Behaviors>
                                                     <ia:DataTriggerBehavior Binding="{Binding IsActive, IsAsync=False}" Value="False">
-                                                        <ia:ChangePropertyAction Value="Visible" PropertyName="Visibility"/>
+                                                        <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
                                                     </ia:DataTriggerBehavior>
                                                 </i:Interaction.Behaviors>
                                                 <Setter Property="Visibility" Value="Collapsed"/>

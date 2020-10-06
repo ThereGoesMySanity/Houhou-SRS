@@ -267,7 +267,7 @@
                                     <i:Interaction.Behaviors>
                                         <ia:EventTriggerBehavior EventName="PreviewMouseLeftButtonUp">
                                             <ia:InvokeCommandAction Command="{Binding DataContext.FilterReadingCommand,
-                                                     RelativeSource={RelativeSource AncestorType={x:Type controls:KanjiDetails}}}" CommandParameter="{Binding HiraganaReading}"/>
+                                                      RelativeSource={RelativeSource AncestorType={x:Type controls:KanjiDetails}}}" CommandParameter="{Binding HiraganaReading}"/>
                                         </ia:EventTriggerBehavior>
                                     </i:Interaction.Behaviors>
                                     <TextBox Style="{StaticResource ReadingLabel}" Text="{Binding ModifiedReading}"/>
@@ -782,9 +782,9 @@
 
                             <!-- Kanji meaning label -->
                             <TextBlock Grid.Column="1" Text="{Binding DbKanji,
-                                 Mode=OneWay, Converter={StaticResource KanjiToStringConverter},
-                                 ConverterParameter={x:Static converters:KanjiToStringConversionType.Short},
-                                 IsAsync=False}">
+                                  Mode=OneWay, Converter={StaticResource KanjiToStringConverter},
+                                  ConverterParameter={x:Static converters:KanjiToStringConversionType.Short},
+                                  IsAsync=False}">
                                 <TextBlock.Style>
                                     <Style TargetType="TextBlock">
                                         <Setter Property="FontSize" Value="16"/>
@@ -802,9 +802,9 @@
                                             </ia:DataTriggerBehavior>
                                         </i:Interaction.Behaviors>
                                         <Setter Property="Text" Value="{Binding Path=DbKanji.MostUsedRank,
-                                             Converter={StaticResource IntegerToOrdinalStringConverter},
-                                             IsAsync=False,
-                                             StringFormat=\{0\} most used kanji.}"/>
+                                              Converter={StaticResource IntegerToOrdinalStringConverter},
+                                              IsAsync=False,
+                                              StringFormat=\{0\} most used kanji.}"/>
                                     </Style>
                                 </TextBlock.Style>
                             </TextBlock>
@@ -904,11 +904,11 @@
                         <Setter.Value>
                             <ControlTemplate TargetType="ListBoxItem">
                                 <TextBox Text="{Binding Character}" FontFamily="../Data/Fonts/NotoSansCJKjp-Thin.otf#Noto Sans CJK JP Thin" ToolTip="{Binding Kanji, Converter={StaticResource KanjiToStringConverter},
-                                         ConverterParameter={x:Static converters:KanjiToStringConversionType.Short}}">
+                                          ConverterParameter={x:Static converters:KanjiToStringConversionType.Short}}">
                                     <i:Interaction.Behaviors>
                                         <ia:EventTriggerBehavior EventName="PreviewMouseLeftButtonUp">
                                             <ia:InvokeCommandAction Command="{Binding DataContext.KanjiNavigationCommand,
-                                                     RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding .}"/>
+                                                      RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding .}"/>
                                         </ia:EventTriggerBehavior>
                                     </i:Interaction.Behaviors>
                                     <TextBox.Style>
@@ -932,7 +932,7 @@
                                         <utility:MultiDataTriggerBehavior.Conditions>
                                             <utility:Condition Binding="{Binding HasKanji}" Value="True"/>
                                             <utility:Condition Binding="{Binding RelativeSource={RelativeSource Self},
-                                                 Path=IsMouseOver}" Value="True"/>
+                                                  Path=IsMouseOver}" Value="True"/>
                                         </utility:MultiDataTriggerBehavior.Conditions>
                                         <utility:MultiDataTriggerBehavior.Actions>
                                             <ia:ChangePropertyAction Value="True" PropertyName="Tag"/>
@@ -1062,7 +1062,7 @@
                                                 <i:Interaction.Behaviors>
                                                     <ia:EventTriggerBehavior EventName="PreviewMouseLeftButtonUp">
                                                         <ia:InvokeCommandAction Command="{Binding DataContext.SwitchVocabCommand,
-                                                                 RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding .}"/>
+                                                                  RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding .}"/>
                                                     </ia:EventTriggerBehavior>
                                                 </i:Interaction.Behaviors>
                                                 <Border.Style>
@@ -1290,7 +1290,7 @@
                                                                 <Style TargetType="Border">
                                                                     <i:Interaction.Behaviors>
                                                                         <ia:DataTriggerBehavior Binding="{Binding DbVocab.Categories.Count}" Value="0">
-                                                                            <ia:ChangePropertyAction Value="Collapsed" PropertyName="Visibility"/>
+                                                                            <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
                                                                         </ia:DataTriggerBehavior>
                                                                     </i:Interaction.Behaviors>
                                                                 </Style>
@@ -1312,7 +1312,7 @@
                                                         <i:Interaction.Behaviors>
                                                             <ia:EventTriggerBehavior EventName="Click">
                                                                 <ia:ChangePropertyAction TargetObject="{Binding ElementName=MeaningRtb}" PropertyName="Document" Value="{Binding DbVocab, Mode=OneTime, IsAsync=False, Converter={StaticResource VocabMeaningsToStringConverter}, ConverterParameter=Full}"/>
-                                                                <ia:ChangePropertyAction PropertyName="Visibility" Value="{x:Static Visibility.Collapsed}"/>
+                                                                <ia:ChangePropertyAction PropertyName="IsVisible" Value="False"/>
                                                             </ia:EventTriggerBehavior>
                                                         </i:Interaction.Behaviors>
                                                     </Button>
@@ -1324,16 +1324,16 @@
                                                         <Style TargetType="StackPanel">
                                                             <i:Interaction.Behaviors>
                                                                 <ia:DataTriggerBehavior Binding="{Binding SrsEntry}" Value="{x:Null}">
-                                                                    <ia:ChangePropertyAction Value="Visible" PropertyName="Visibility"/>
+                                                                    <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
                                                                 </ia:DataTriggerBehavior>
                                                             </i:Interaction.Behaviors>
                                                             <Setter Property="Visibility" Value="Collapsed"/>
                                                         </Style>
                                                     </StackPanel.Style>
                                                     <Button Content="✙ Add" Width="70" HorizontalAlignment="Left" BorderBrush="#22000000" Command="{Binding DataContext.AddToSrsCommand,
-                                           RelativeSource={RelativeSource AncestorType=controls:VocabList}}" CommandParameter="{Binding .}" Style="{StaticResource MiniActionButton}"/>
+                                            RelativeSource={RelativeSource AncestorType=controls:VocabList}}" CommandParameter="{Binding .}" Style="{StaticResource MiniActionButton}"/>
                                                     <Button Content="✙ Quick add" Width="70" HorizontalAlignment="Left" BorderBrush="#22000000" Margin="8 0 0 0" Command="{Binding DataContext.QuickAddToSrsCommand,
-                                           RelativeSource={RelativeSource AncestorType=controls:VocabList}}" CommandParameter="{Binding .}" Style="{StaticResource MiniActionButton}" ToolTip="Add this vocab entry to your SRS list in one click."/>
+                                            RelativeSource={RelativeSource AncestorType=controls:VocabList}}" CommandParameter="{Binding .}" Style="{StaticResource MiniActionButton}" ToolTip="Add this vocab entry to your SRS list in one click."/>
                                                 </StackPanel>
 
                                                 <controls:SrsVocabEntryProgress Grid.Row="1" DataContext="{Binding SrsEntry, IsAsync=True}">
@@ -1341,7 +1341,7 @@
                                                         <Style TargetType="controls:SrsVocabEntryProgress">
                                                             <i:Interaction.Behaviors>
                                                                 <ia:DataTriggerBehavior Binding="{Binding .}" Value="{x:Null}">
-                                                                    <ia:ChangePropertyAction Value="Collapsed" PropertyName="Visibility"/>
+                                                                    <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
                                                                 </ia:DataTriggerBehavior>
                                                             </i:Interaction.Behaviors>
                                                         </Style>
@@ -1401,8 +1401,8 @@
                                                         </Grid.RowDefinitions>
                                                         <StackPanel Grid.Row="1">
                                                             <ListBox Style="{StaticResource VocabWritingPartListbox}" ItemsSource="{Binding DbVocab, Mode=OneWay,
-                                                      Converter={StaticResource KanjiWritingToCharactersConverter},
-                                                      IsAsync=True}"/>
+                                                       Converter={StaticResource KanjiWritingToCharactersConverter},
+                                                       IsAsync=True}"/>
                                                         </StackPanel>
                                                     </Grid>
                                                     <Grid Grid.Column="2">
@@ -1411,15 +1411,15 @@
                                                             <RowDefinition Height="*"/>
                                                         </Grid.RowDefinitions>
                                                         <Button Grid.Row="1" Content="Kanji" HorizontalAlignment="Right" FontSize="6" ToolTip="Copy the kanji writing to the clipboard." Command="{Binding DataContext.KanjiCopyCommand,
-                                                     RelativeSource={RelativeSource AncestorType=controls:VocabList}}" CommandParameter="{Binding .}">
+                                                      RelativeSource={RelativeSource AncestorType=controls:VocabList}}" CommandParameter="{Binding .}">
                                                             <Button.Style>
                                                                 <Style TargetType="Button" BasedOn="{StaticResource MiniActionButton}">
                                                                     <i:Interaction.Behaviors>
                                                                         <ia:DataTriggerBehavior Binding="{Binding DbVocab.KanjiWriting}" Value="{x:Null}">
-                                                                            <ia:ChangePropertyAction Value="Collapsed" PropertyName="Visibility"/>
+                                                                            <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
                                                                         </ia:DataTriggerBehavior>
                                                                         <ia:DataTriggerBehavior Binding="{Binding DbVocab.KanjiWriting}" Value="">
-                                                                            <ia:ChangePropertyAction Value="Collapsed" PropertyName="Visibility"/>
+                                                                            <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
                                                                         </ia:DataTriggerBehavior>
                                                                         <Trigger Property="IsMouseOver" Value="True">
                                                                             <Setter Property="Opacity" Value="1" />
@@ -1435,7 +1435,7 @@
                                                             </Button.LayoutTransform>
                                                         </Button>
                                                         <Button Content="Kana" HorizontalAlignment="Right" FontSize="6" ToolTip="Copy the kana writing to the clipboard." Command="{Binding DataContext.KanaCopyCommand,
-                                                     RelativeSource={RelativeSource AncestorType=controls:VocabList}}" CommandParameter="{Binding .}">
+                                                      RelativeSource={RelativeSource AncestorType=controls:VocabList}}" CommandParameter="{Binding .}">
                                                             <Button.Style>
                                                                 <Style TargetType="Button" BasedOn="{StaticResource MiniActionButton}">
                                                                     <Style.Triggers>
@@ -1459,8 +1459,8 @@
 
                                             <Border Grid.Row="1" Grid.ColumnSpan="2" Visibility="{Binding HasVariants, Converter={StaticResource ValueToVisibilityConverter}}" BorderThickness="0 1 0 0" BorderBrush="#22000000" Padding="0 2 0 2">
                                                 <ListBox Style="{StaticResource VocabVariantList}" ItemsSource="{Binding ., Mode=OneWay,
-                                                                         Converter={StaticResource ExtendedVocabToVariantListConverter},
-                                                                         IsAsync=True}"/>
+                                                                          Converter={StaticResource ExtendedVocabToVariantListConverter},
+                                                                          IsAsync=True}"/>
                                             </Border>
                                         </Grid>
                                     </Border>
@@ -1527,7 +1527,7 @@
                                                 <i:Interaction.Behaviors>
                                                     <ia:EventTriggerBehavior EventName="PreviewMouseLeftButtonUp">
                                                         <ia:InvokeCommandAction Command="{Binding DataContext.FilterReadingCommand,
-                                                                 RelativeSource={RelativeSource AncestorType={x:Type controls:KanjiDetails}}}" CommandParameter="{Binding HiraganaReading}"/>
+                                                                  RelativeSource={RelativeSource AncestorType={x:Type controls:KanjiDetails}}}" CommandParameter="{Binding HiraganaReading}"/>
                                                     </ia:EventTriggerBehavior>
                                                 </i:Interaction.Behaviors>
                                                 <TextBox Style="{StaticResource ReadingLabel}" Text="{Binding ModifiedReading}"/>
@@ -1821,13 +1821,13 @@
                                     </Rectangle>
                                 </Border>
                                 <TextBlock Text="{Binding CompletionPercentage,
-                                     Converter={StaticResource PercentageToStringConverter}}" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold" Foreground="Black">
+                                      Converter={StaticResource PercentageToStringConverter}}" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold" Foreground="Black">
                                     <TextBlock.RenderTransform>
                                         <TranslateTransform X="-1" Y="-1"/>
                                     </TextBlock.RenderTransform>
                                 </TextBlock>
                                 <TextBlock Text="{Binding CompletionPercentage,
-                                     Converter={StaticResource PercentageToStringConverter}}" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold" Foreground="White"/>
+                                      Converter={StaticResource PercentageToStringConverter}}" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold" Foreground="White"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1848,7 +1848,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
                     <Border Margin="0 0 1 0" Height="50" Background="{Binding Level.ParentGroup.Color,
-                         Converter={StaticResource ColorToBrushConverter}}" Padding="4" CornerRadius="0" BorderBrush="{StaticResource FadedBorderBrush}">
+                          Converter={StaticResource ColorToBrushConverter}}" Padding="4" CornerRadius="0" BorderBrush="{StaticResource FadedBorderBrush}">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="40*"/>
@@ -2061,12 +2061,12 @@
 
                                         <UniformGrid Grid.Row="3" Rows="1">
                                             <Button Style="{StaticResource MiniActionButton}" Command="{Binding DataContext.BrowseSetCommand,
-                                                     RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding .}" Content="Browse" ToolTip="Open the set directory in the explorer." Margin="0 0 5 0"/>
+                                                      RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding .}" Content="Browse" ToolTip="Open the set directory in the explorer." Margin="0 0 5 0"/>
                                             <Button Style="{StaticResource MiniActionButton}" Command="{Binding DataContext.SelectSetCommand,
-                                                     RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding .}" Content="Use this set" ToolTip="Sets this set to be used from now on." Visibility="{Binding Tag, RelativeSource={RelativeSource AncestorType=Border},
-                                                     Converter={StaticResource NullValueToVisibilityConverter}}"/>
+                                                      RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding .}" Content="Use this set" ToolTip="Sets this set to be used from now on." Visibility="{Binding Tag, RelativeSource={RelativeSource AncestorType=Border},
+                                                      Converter={StaticResource NullValueToVisibilityConverter}}"/>
                                             <TextBlock Text="In use" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="{Binding Tag, RelativeSource={RelativeSource AncestorType=Border},
-                                                     Converter={StaticResource ValueToVisibilityConverter}, ConverterParameter=True}"/>
+                                                      Converter={StaticResource ValueToVisibilityConverter}, ConverterParameter=True}"/>
                                         </UniformGrid>
                                     </Grid>
                                 </Border>
