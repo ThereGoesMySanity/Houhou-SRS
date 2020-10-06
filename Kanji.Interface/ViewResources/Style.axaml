@@ -267,18 +267,15 @@
           </Border>
 
                                 <!-- Triggers -->
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#FFE0E0E0" />
-                                    </Trigger>
-                                </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </Setter.Value>
-        </Setter>
-    </Style>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter Property="Background" Value="#FFE0E0E0" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
 
   <Style Selector="ListBox.KanjiKunYomiReadingListbox" InheritanceParent="{StaticResource KanjiReadingListbox}" >
         <Setter Property="BorderThickness" Value="0 0 0 1"/>
@@ -2299,5 +2296,4 @@
         </Setter.Value>
       </Setter>
     </Style>
-
   </Styles>
