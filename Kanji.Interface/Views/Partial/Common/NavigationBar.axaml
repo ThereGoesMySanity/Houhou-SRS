@@ -39,7 +39,7 @@
             <Label Grid.Column="1" Style="{StaticResource NavigationPanelTabTitle}" Content="SRS"/>
             <TextBlock Grid.ColumnSpan="3" VerticalAlignment="Bottom" Margin="0 0 0 3" HorizontalAlignment="Center" Foreground="White" FontWeight="SemiBold">
                 <TextBlock.Style>
-                    <Style TargetType="TextBlock">
+                    <Style Selector="TextBlock">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.AvailableReviewsCount,
                                    Source={x:Static business:SrsBusiness.Instance}}" Value="0">
@@ -93,7 +93,7 @@
             <Label Grid.Column="1" Style="{StaticResource NavigationPanelTabTitle}" Content="SETTINGS"/>
             <TextBlock Grid.ColumnSpan="3" VerticalAlignment="Bottom" Margin="0 0 0 3" HorizontalAlignment="Center" Foreground="White" FontWeight="SemiBold">
                 <TextBlock.Style>
-                    <Style TargetType="TextBlock">
+                    <Style Selector="TextBlock">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding CheckStatus,
                                    Source={x:Static business:VersionBusiness.Instance}}" Value="UpdateAvailable">

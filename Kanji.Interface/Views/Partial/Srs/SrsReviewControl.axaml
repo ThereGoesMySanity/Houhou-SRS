@@ -8,7 +8,7 @@
                     xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
                     xmlns:behaviors="clr-namespace:Kanji.Interface.Behaviors" x:Class="Kanji.Interface.Controls.SrsReviewControl" mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="600" behaviors:InputBindingsBehavior.TakesInputBindingPrecedence="True">
     <UserControl.Style>
-        <Style TargetType="UserControl">
+        <Style Selector="UserControl">
             <i:Interaction.Behaviors>
                 <ia:DataTriggerBehavior Binding="{Binding .}" Value="{x:Null}">
                     <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
@@ -43,7 +43,7 @@
             <!-- Wrap Up button -->
             <Button Command="{Binding WrapUpCommand}">
                 <Button.Style>
-                    <Style TargetType="Button" BasedOn="{StaticResource MiniActionButton}">
+                    <Style Selector="Button" BasedOn="{StaticResource MiniActionButton}">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding IsWrappingUp}" Value="True">
                                 <ia:ChangePropertyAction Value="False" PropertyName="IsEnabled"/>
@@ -69,7 +69,7 @@
         <!-- Item display -->
         <Border Grid.Row="2">
             <Border.Style>
-                <Style TargetType="Border">
+                <Style Selector="Border">
                     <i:Interaction.Behaviors>
                         <ia:DataTriggerBehavior Binding="{Binding CurrentQuestion.ParentGroup.IsKanji}" Value="True">
                             <ia:ChangePropertyAction Value="#FF2070A9" PropertyName="Background"/>
@@ -108,7 +108,7 @@
                 <!-- Level up indicator -->
                 <Border Grid.ColumnSpan="3" Grid.RowSpan="3" Background="#DD333333" BorderThickness="1" BorderBrush="#FF000000" CornerRadius="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="60" Height="30" Margin="0 0 5 5">
                     <Border.Style>
-                        <Style TargetType="Border">
+                        <Style Selector="Border">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding PreviewNextLevel}" Value="{x:Null}">
                                     <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
@@ -123,7 +123,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontWeight="Bold" Padding="0 0 0 5">
                             <TextBlock.Style>
-                                <Style TargetType="TextBlock">
+                                <Style Selector="TextBlock">
                                     <i:Interaction.Behaviors>
                                         <ia:DataTriggerBehavior Value="True">
                                             <ia:DataTriggerBehavior.Binding>
@@ -170,7 +170,7 @@
         <!-- Question textblock -->
         <Border Grid.Row="3">
             <Border.Style>
-                <Style TargetType="Border">
+                <Style Selector="Border">
                     <i:Interaction.Behaviors>
                         <ia:DataTriggerBehavior Binding="{Binding CurrentQuestion.Question}" Value="Meaning">
                             <ia:ChangePropertyAction Value="#FFCCCCCC" PropertyName="Background"/>
@@ -183,7 +183,7 @@
             </Border.Style>
             <TextBlock Grid.Row="2" FontSize="16" Margin="0 10 0 10" HorizontalAlignment="Center">
                 <TextBlock.Style>
-                    <Style TargetType="TextBlock">
+                    <Style Selector="TextBlock">
                         <i:Interaction.Behaviors>
                             <utility:MultiDataTriggerBehavior>
                                 <utility:MultiDataTriggerBehavior.Conditions>
@@ -231,7 +231,7 @@
                 <KeyBinding Key="Enter" Command="{Binding SubmitCommand}"/>
             </TextBox.InputBindings>
             <TextBox.Style>
-                <Style TargetType="TextBox">
+                <Style Selector="TextBox">
                     <i:Interaction.Behaviors>
                         <ia:DataTriggerBehavior Binding="{Binding ReviewState}" Value="Success">
                             <ia:ChangePropertyAction Value="#FF38BF38" PropertyName="Background"/>
@@ -250,7 +250,7 @@
         <!-- SRS item info (displayed only when the answer is submitted) -->
         <Grid Grid.Row="5">
             <Grid.Style>
-                <Style TargetType="Grid">
+                <Style Selector="Grid">
                     <i:Interaction.Behaviors>
                         <ia:DataTriggerBehavior Binding="{Binding ReviewState}" Value="Input">
                             <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
@@ -278,7 +278,7 @@
             <!-- Meaning/reading notes -->
             <Border Grid.Row="1" Margin="0 5 0 5">
                 <Border.Style>
-                    <Style TargetType="Border">
+                    <Style Selector="Border">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding CurrentQuestion.Question}" Value="Meaning">
                                 <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
@@ -294,7 +294,7 @@
             </Border>
             <Border Grid.Row="1" Margin="0 5 0 5">
                 <Border.Style>
-                    <Style TargetType="Border">
+                    <Style Selector="Border">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding CurrentQuestion.Question}" Value="Reading">
                                 <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
@@ -320,7 +320,7 @@
 
                 <Button Grid.Column="0" Content="Ignore answer" ToolTip="Use this button to ignore the answer you gave. The question will come back later. Shortcut if enabled: (Backspace)" Command="{Binding IgnoreAnswerCommand}" Margin="5 0">
                     <Button.Style>
-                        <Style TargetType="Button" BasedOn="{StaticResource ActionButton}">
+                        <Style Selector="Button" BasedOn="{StaticResource ActionButton}">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding ReviewState}" Value="Ignore">
                                     <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
@@ -332,7 +332,7 @@
 
                 <Button Grid.Column="1" Command="{Binding AddAnswerCommand}" Margin="5 0">
                     <Button.Style>
-                        <Style TargetType="Button" BasedOn="{StaticResource ActionButton}">
+                        <Style Selector="Button" BasedOn="{StaticResource ActionButton}">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding ReviewState}" Value="Failure">
                                     <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
@@ -351,7 +351,7 @@
 
                 <Button Grid.Column="2" Content="Edit this item" ToolTip="Open the item edition window. Does not change your answer or its effects." Command="{Binding EditSrsEntryCommand}" Margin="5 0">
                     <Button.Style>
-                        <Style TargetType="Button" BasedOn="{StaticResource ActionButton}">
+                        <Style Selector="Button" BasedOn="{StaticResource ActionButton}">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding ReviewState}" Value="Ignore">
                                     <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>

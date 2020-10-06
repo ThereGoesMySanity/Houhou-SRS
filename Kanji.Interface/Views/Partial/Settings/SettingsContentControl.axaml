@@ -7,7 +7,7 @@
                     xmlns:controls="clr-namespace:Kanji.Interface.Controls" x:Class="Kanji.Interface.Controls.SettingsContentControl" mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
     
     <UserControl.Style>
-        <Style TargetType="UserControl">
+        <Style Selector="UserControl">
             <i:Interaction.Behaviors>
                 <ia:DataTriggerBehavior Binding="{Binding CurrentCategory}" Value="Application">
                     <ia:ChangePropertyAction PropertyName="Template">

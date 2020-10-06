@@ -13,7 +13,7 @@
             <sys:Int32 x:Key="IntegerTwo">2</sys:Int32>
         </TextBlock.Resources>
         <TextBlock.Style>
-            <Style TargetType="TextBlock">
+            <Style Selector="TextBlock">
                 <i:Interaction.Behaviors>
                     <!-- Loaded, all items are being displayed and there are
                     at least 2 results: show appropriate message -->

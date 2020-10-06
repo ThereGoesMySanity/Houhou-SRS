@@ -11,7 +11,7 @@
         <Button Content="Import SRS items" ToolTip="Import SRS items from external sources (Anki, WaniKani, etc) (CTRL+I)" Margin="0 0 5 0" Command="{Binding ImportCommand}" Style="{StaticResource ActionButton}"/>
         <Button Content="Dashboard" ToolTip="Return to the dashboard (CTRL+Alt+Home)" Margin="0 0 5 0" Command="{Binding SwitchToDashboardCommand}">
             <Button.Style>
-                <Style TargetType="Button" BasedOn="{StaticResource ActionButton}">
+                <Style Selector="Button" BasedOn="{StaticResource ActionButton}">
                     <i:Interaction.Behaviors>
                         <ia:DataTriggerBehavior Binding="{Binding ControlMode}" Value="Dashboard">
                             <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
@@ -22,7 +22,7 @@
         </Button>
         <Button Content="Browse SRS items" ToolTip="Display the SRS item filter panel (CTRL+B)" Grid.Column="1" Command="{Binding SwitchToSimpleFilterCommand}">
             <Button.Style>
-                <Style TargetType="Button" BasedOn="{StaticResource ActionButton}">
+                <Style Selector="Button" BasedOn="{StaticResource ActionButton}">
                     <i:Interaction.Behaviors>
                         <ia:DataTriggerBehavior Binding="{Binding ControlMode}" Value="SimpleFilter">
                             <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
