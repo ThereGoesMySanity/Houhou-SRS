@@ -1,27 +1,20 @@
-﻿<UserControl x:Class="Kanji.Interface.Controls.SrsEntrySelectionButtonsControl"
-             xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+<?xml version="1.0" ?><UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" x:Class="Kanji.Interface.Controls.SrsEntrySelectionButtonsControl" mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
 
-    <Border Grid.Row="2" BorderBrush="{StaticResource FadedBorderBrush}"
-        BorderThickness="0 1 0 0" Padding="0 5">
+    <Border Grid.Row="2" BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="0 1 0 0" Padding="0 5">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <Button Margin="0 0 3 0" Content="Unselect" Command="{Binding UnselectCommand}">
                 <Button.Style>
                     <Style TargetType="Button" BasedOn="{StaticResource MiniActionButton}">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding SelectedItems.Count}" Value="0">
-                                <Setter Property="Visibility" Value="Collapsed" />
-                            </DataTrigger>
-                        </Style.Triggers>
+                        <i:Interaction.Behaviors>
+                            <ia:DataTriggerBehavior Binding="{Binding SelectedItems.Count}" Value="0">
+                                <ia:ChangePropertyAction Value="Collapsed" PropertyName="Visibility"/>
+                            </ia:DataTriggerBehavior>
+                        </i:Interaction.Behaviors>
                     </Style>
                 </Button.Style>
             </Button>
