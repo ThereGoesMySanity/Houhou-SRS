@@ -50,7 +50,7 @@
                     </TextBlock>
                     <TextBlock TextWrapping="Wrap" Foreground="#666666">
                         <TextBlock.Resources>
-                            <Style TargetType="Hyperlink">
+                            <Style Selector="Hyperlink">
                                 <Setter Property="Foreground" Value="#444444" />
                             </Style>
                         </TextBlock.Resources>

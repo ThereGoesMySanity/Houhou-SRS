@@ -6,7 +6,7 @@
         Title="SRS Item Import"
         Width="700" Height="440">
     <Window.Style>
-        <Style TargetType="Window">
+        <Style Selector="Window">
             <Setter Property="Background" Value="#E4FBD0" />
         </Style>
     </Window.Style>

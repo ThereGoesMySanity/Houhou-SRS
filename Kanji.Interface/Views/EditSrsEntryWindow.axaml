@@ -6,7 +6,7 @@
                     xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
                     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="Kanji.Interface.Views.EditSrsEntryWindow" Height="500" Width="500" KeyDown="OnKeyDown">
     <Window.Style>
-        <Style TargetType="Window">
+        <Style Selector="Window">
             <i:Interaction.Behaviors>
                 <ia:DataTriggerBehavior Binding="{Binding IsNew}" Value="True">
                     <ia:ChangePropertyAction Value="SRS item creation" PropertyName="Title"/>
@@ -35,7 +35,7 @@
             <!-- Error message -->
             <TextBox Grid.ColumnSpan="2" Margin="0 0 0 5" Text="{Binding ErrorMessage}">
                 <TextBox.Style>
-                    <Style TargetType="TextBox" BasedOn="{StaticResource ErrorLabel}">
+                    <Style Selector="TextBox" BasedOn="{StaticResource ErrorLabel}">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding ErrorMessage}" Value="{x:Null}">
                                 <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
@@ -63,7 +63,7 @@
                 <!-- Associated kanji panel -->
                 <Grid Grid.RowSpan="2" Margin="0 0 10 0" HorizontalAlignment="Center">
                     <Grid.Style>
-                        <Style TargetType="Grid">
+                        <Style Selector="Grid">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding Entry.AssociatedKanji}" Value="{x:Null}">
                                     <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
@@ -86,7 +86,7 @@
                     <TextBox Grid.Row="1" Style="{StaticResource SrsKanjiInput}" Text="{Binding AssociatedKanjiString, Mode=TwoWay}"/>
                     <Button Grid.Column="1" Grid.Row="1" Margin="0 0 0 0" Content="pack://application:,,,/Data/UI/DownIcon.png" Command="{Binding ApplyAssociatedKanjiCommand}" ToolTip="Update fields">
                         <Button.Style>
-                            <Style TargetType="Button" BasedOn="{StaticResource ImageActionButton}">
+                            <Style Selector="Button" BasedOn="{StaticResource ImageActionButton}">
                                 <i:Interaction.Behaviors>
                                     <ia:DataTriggerBehavior Binding="{Binding AssociatedKanji}" Value="{x:Null}">
                                         <ia:ChangePropertyAction Value="False" PropertyName="IsEnabled"/>
@@ -100,7 +100,7 @@
                 <!-- Associated vocab panel -->
                 <Grid Grid.RowSpan="2" Margin="0 0 10 0">
                     <Grid.Style>
-                        <Style TargetType="Grid">
+                        <Style Selector="Grid">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding Entry.AssociatedVocab}" Value="{x:Null}">
                                     <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
@@ -123,7 +123,7 @@
                     <TextBox Grid.Row="1" Style="{StaticResource SrsVocabInput}" Text="{Binding AssociatedVocabString, Mode=TwoWay}"/>
                     <Button Grid.Column="1" Grid.Row="1" Margin="0 0 0 0" Content="pack://application:,,,/Data/UI/DownIcon.png" Command="{Binding ApplyAssociatedVocabCommand}" ToolTip="Update fields">
                         <Button.Style>
-                            <Style TargetType="Button" BasedOn="{StaticResource ImageActionButton}">
+                            <Style Selector="Button" BasedOn="{StaticResource ImageActionButton}">
                                 <i:Interaction.Behaviors>
                                     <ia:DataTriggerBehavior Binding="{Binding AssociatedVocab}" Value="{x:Null}">
                                         <ia:ChangePropertyAction Value="False" PropertyName="IsEnabled"/>
@@ -149,7 +149,7 @@
                         
                         <TextBlock Margin="0 0 5 0">
                             <TextBlock.Style>
-                                <Style TargetType="TextBlock" BasedOn="{StaticResource LegendText}">
+                                <Style Selector="TextBlock" BasedOn="{StaticResource LegendText}">
                                     <i:Interaction.Behaviors>
                                         <ia:DataTriggerBehavior Binding="{Binding Entry.SuspensionDate}" Value="{x:Null}">
                                             <ia:ChangePropertyAction Value="Next review:" PropertyName="Text"/>
@@ -171,7 +171,7 @@
                         
                         <Button Grid.Column="2" Command="{Binding ToggleDateEditCommand}" Margin="10 0 0 0" Width="70" HorizontalAlignment="Right" ToolTip="Edit the next review date manually (CTRL+E).">
                             <Button.Style>
-                                <Style TargetType="Button" BasedOn="{StaticResource MiniActionButton}">
+                                <Style Selector="Button" BasedOn="{StaticResource MiniActionButton}">
                                     <i:Interaction.Behaviors>
                                         <ia:DataTriggerBehavior Binding="{Binding IsEditingDate}" Value="True">
                                             <ia:ChangePropertyAction Value="Confirm" PropertyName="Content"/>
@@ -189,7 +189,7 @@
                             <Button Style="{StaticResource MiniActionButton}" Command="{Binding DateToNeverCommand}" Content="Never review" ToolTip="Set the next review date to never (CTRL+N)." Margin="5 0"/>
                             <Button Command="{Binding ToggleSuspendCommand}">
                                 <Button.Style>
-                                    <Style TargetType="Button" BasedOn="{StaticResource MiniActionButton}">
+                                    <Style Selector="Button" BasedOn="{StaticResource MiniActionButton}">
                                         <i:Interaction.Behaviors>
                                             <ia:DataTriggerBehavior Binding="{Binding Entry.SuspensionDate}" Value="{x:Null}">
                                                 <ia:ChangePropertyAction Value="Suspend" PropertyName="Content"/>
@@ -276,7 +276,7 @@
                 <Button Style="{StaticResource MiniActionButton}" Content="Cancel changes" Margin="3 5 3 0" Command="{Binding CancelCommand}" IsCancel="True" ToolTip="Cancel any changes you have made (Escape)."/>
                 <Button Content="Delete this item" Margin="0 5 3 0" Command="{Binding DeleteCommand}" ToolTip="Delete this SRS item (CTRL+Delete).">
                     <Button.Style>
-                        <Style TargetType="Button" BasedOn="{StaticResource MiniActionButton}">
+                        <Style Selector="Button" BasedOn="{StaticResource MiniActionButton}">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding IsNew}" Value="True">
                                     <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
@@ -287,7 +287,7 @@
                 </Button>
                 <Button Margin="3 5 0 0" Command="{Binding SubmitCommand}" ToolTip="Save the changes you have made (CTRL+Enter).">
                     <Button.Style>
-                        <Style TargetType="Button" BasedOn="{StaticResource ActionButton}">
+                        <Style Selector="Button" BasedOn="{StaticResource ActionButton}">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding IsNew}" Value="True">
                                     <ia:ChangePropertyAction Value="Add this item" PropertyName="Content"/>

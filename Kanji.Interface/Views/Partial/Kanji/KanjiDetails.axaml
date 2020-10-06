@@ -48,7 +48,7 @@
             <WrapPanel Orientation="Horizontal">
                 <Border Width="70" Height="60" BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="1" CornerRadius="4" Background="White" Margin="0 0 10 0">
                     <Border.Style>
-                        <Style TargetType="Border">
+                        <Style Selector="Border">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding StrokesDrawingGroup}" Value="{x:Null}">
                                     <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
@@ -104,7 +104,7 @@
                 </Border>
                 <Border CornerRadius="4" Width="70" Height="60" BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="1" Margin="0 0 10 0" Background="#3377FF77" Visibility="{Binding KanjiEntity.ShowGrade, Converter={StaticResource ValueToVisibilityConverter}}">
                     <Border.Style>
-                        <Style TargetType="Border">
+                        <Style Selector="Border">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding KanjiEntity.DbKanji.Grade}" Value="8">
                                     <ia:ChangePropertyAction Value="Jouyou kanji taught in secondary school." PropertyName="ToolTip"/>
@@ -123,7 +123,7 @@
                     <StackPanel VerticalAlignment="Center">
                         <TextBlock HorizontalAlignment="Center" FontSize="16">
                             <TextBlock.Style>
-                                <Style TargetType="TextBlock">
+                                <Style Selector="TextBlock">
                                     <i:Interaction.Behaviors>
                                         <ia:DataTriggerBehavior Binding="{Binding KanjiEntity.DbKanji.Grade}" Value="9">
                                             <ia:ChangePropertyAction Value="人名用" PropertyName="Text"/>
@@ -138,7 +138,7 @@
                         </TextBlock>
                         <TextBlock HorizontalAlignment="Center">
                             <TextBlock.Style>
-                                <Style TargetType="TextBlock" BasedOn="{StaticResource LegendText}">
+                                <Style Selector="TextBlock" BasedOn="{StaticResource LegendText}">
                                     <i:Interaction.Behaviors>
                                         <ia:DataTriggerBehavior Binding="{Binding KanjiEntity.DbKanji.Grade}" Value="8">
                                             <ia:ChangePropertyAction Value="Secondary" PropertyName="Text"/>
@@ -183,7 +183,7 @@
                         <ToolTip Content="{Binding KanjiEntity.DbKanji.WaniKaniLevel}" ContentStringFormat="{}Kanji learned at level {0} on the kanji learning website WaniKani."/>
                     </Border.ToolTip>
                     <Border.Style>
-                        <Style TargetType="Border">
+                        <Style Selector="Border">
                             <i:Interaction.Behaviors>
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <ia:ChangePropertyAction Value="#3359B859" PropertyName="Background"/>
@@ -203,7 +203,7 @@
                 </Border>
                 <Button Content="  ✙ Add" FontSize="12" Width="70" Height="60" Margin="0 0 0 0" Command="{Binding AddToSrsCommand}" HorizontalContentAlignment="Center">
                     <Button.Style>
-                        <Style TargetType="Button" BasedOn="{StaticResource ActionButton}">
+                        <Style Selector="Button" BasedOn="{StaticResource ActionButton}">
                             <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding SrsEntry}" Value="{x:Null}">
                                     <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
@@ -216,7 +216,7 @@
                 <Grid Width="70" Height="60" DataContext="{Binding SrsEntry}" Visibility="{Binding ., Converter={StaticResource ValueToVisibilityConverter}}">
                     <Button Content="In SRS " Width="70" Height="60" FontSize="12" Margin="0 0 0 0" BorderBrush="{StaticResource FadedBorderBrush}" Command="{Binding DataContext.EditSrsEntryCommand, RelativeSource={RelativeSource AncestorType=controls:KanjiDetails}}" HorizontalContentAlignment="Center">
                         <Button.Style>
-                            <Style TargetType="Button" BasedOn="{StaticResource ActionButton}">
+                            <Style Selector="Button" BasedOn="{StaticResource ActionButton}">
                                 <Setter Property="Background">
                                     <Setter.Value>
                                         <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
@@ -261,7 +261,7 @@
 
             <Button Command="{Binding ToggleDetailsCommand}" Margin="0 2 0 0">
                 <Button.Style>
-                    <Style TargetType="Button" BasedOn="{StaticResource MiniActionButton}">
+                    <Style Selector="Button" BasedOn="{StaticResource MiniActionButton}">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding ShowDetails}" Value="False">
                                 <ia:ChangePropertyAction Value="▼ ▼ ▼ ▼ ▼" PropertyName="Content"/>

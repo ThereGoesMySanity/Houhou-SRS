@@ -29,7 +29,7 @@
     </controls:SrsEntryFilterControlBase.Resources>
 
     <controls:SrsEntryFilterControlBase.Style>
-        <Style TargetType="{x:Type controls:SrsEntryFilterControlBase}">
+        <Style Selector="{x:Type controls:SrsEntryFilterControlBase}">
             <Style.Triggers>
                 <Trigger Property="IsInline" Value="True">
                     <Setter Property="Template" Value="{StaticResource InlineTemplate}" />

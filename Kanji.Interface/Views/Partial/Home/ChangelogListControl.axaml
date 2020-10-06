@@ -15,7 +15,7 @@
             </ItemsPanelTemplate>
         </ListBox.ItemsPanel>
         <ListBox.ItemContainerStyle>
-            <Style TargetType="ListBoxItem">
+            <Style Selector="ListBoxItem">
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="ListBoxItem">

@@ -12,7 +12,7 @@
         <!-- "Load more" button grid -->
         <Grid x:Name="LoadedPanel">
             <Grid.Style>
-                <Style TargetType="Grid">
+                <Style Selector="Grid">
                     <i:Interaction.Behaviors>
                         <utility:MultiDataTriggerBehavior>
                             <utility:MultiDataTriggerBehavior.Conditions>
@@ -50,7 +50,7 @@
         <!-- "Loading items" label panel -->
         <StackPanel x:Name="LoadingPanel" Orientation="Horizontal">
             <StackPanel.Style>
-                <Style TargetType="StackPanel">
+                <Style Selector="StackPanel">
                     <i:Interaction.Behaviors>
                         <!--<DataTrigger Value="False">
                             <DataTrigger.Binding>

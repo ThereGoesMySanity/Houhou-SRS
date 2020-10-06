@@ -53,7 +53,7 @@
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="3" Margin="5 0 0 0">
             <Button Content="pack://application:,,,/Data/UI/SortFrequencyIcon.png" Command="{Binding SwitchCommonOrderCommand}">
                 <Button.Style>
-                    <Style TargetType="Button" BasedOn="{StaticResource ImageActionButton}">
+                    <Style Selector="Button" BasedOn="{StaticResource ImageActionButton}">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding IsCommonFirst}" Value="True">
                                 <ia:ChangePropertyAction Value="True" PropertyName="Tag"/>
@@ -81,7 +81,7 @@
             </Button>
             <Button Content="pack://application:,,,/Data/UI/SortLengthIcon.png" Command="{Binding SwitchWritingLengthOrderCommand}" Margin="5 0 0 0">
                 <Button.Style>
-                    <Style TargetType="Button" BasedOn="{StaticResource ImageActionButton}">
+                    <Style Selector="Button" BasedOn="{StaticResource ImageActionButton}">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding IsShortReadingFirst}" Value="True">
                                 <ia:ChangePropertyAction Value="True" PropertyName="Tag"/>

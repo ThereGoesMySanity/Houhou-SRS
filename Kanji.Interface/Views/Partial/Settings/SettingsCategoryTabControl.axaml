@@ -6,7 +6,7 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" x:Class="Kanji.Interface.Controls.SettingsCategoryTabControl" mc:Ignorable="d" d:DesignHeight="80" d:DesignWidth="300">
 
     <UserControl.Style>
-        <Style TargetType="UserControl">
+        <Style Selector="UserControl">
             <i:Interaction.Behaviors>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Opacity" Value="0.8" />
