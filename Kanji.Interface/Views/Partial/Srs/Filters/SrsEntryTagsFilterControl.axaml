@@ -20,13 +20,13 @@
                     </Grid.RowDefinitions>
                     <TextBlock Text="Containing the tag:" Classes="LegendText" VerticalAlignment="Center" Margin="0 0 5 0"/>
 
-                    <AdornerDecorator Grid.Column="1">
+                    <Decorator Grid.Column="1">
                         <controls:CommandTextBox Name="FilterTextBox" MaxLength="100" ToolTip.Tip="Enter the tag filter. (CTRL+T)" Text="{Binding TagFilter}" ValidationCommand="{Binding ValidateCommand}">
                             <controls:WatermarkService.Watermark>
                                 <TextBlock HorizontalAlignment="Center">Tag filter</TextBlock>
                             </controls:WatermarkService.Watermark>
                         </controls:CommandTextBox>
-                    </AdornerDecorator>
+                    </Decorator>
                     
                     <Grid Grid.Row="1" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
@@ -54,13 +54,13 @@
                             <TextBlock Text="Containing the tag:" Classes="LegendText"/>
 
                             <StackPanel Grid.Row="1">
-                                <AdornerDecorator>
+                                <Decorator>
                                     <controls:CommandTextBox Name="FilterTextBox" MaxLength="100" ToolTip.Tip="Enter the tag filter." Text="{Binding TagFilter}" ValidationCommand="{Binding ValidateCommand}">
                                         <controls:WatermarkService.Watermark>
                                             <TextBlock HorizontalAlignment="Center">Tag filter</TextBlock>
                                         </controls:WatermarkService.Watermark>
                                     </controls:CommandTextBox>
-                                </AdornerDecorator>
+                                </Decorator>
                                 <CheckBox Content="Exact match" ToolTip.Tip="When checked, matches only items with this exact tag expression.
 When unchecked, matches any value containing this tag expression." IsChecked="{Binding IsExactMatch}" Command="{Binding ValidateCommand}" HorizontalAlignment="Center"/>
                             </StackPanel>

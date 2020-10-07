@@ -11,7 +11,7 @@
                     xmlns:business="clr-namespace:Kanji.Interface.Business"
                     xmlns:utility="clr-namespace:Kanji.Interface.Utilities"
                     xmlns:cmodels="clr-namespace:Kanji.Common.Models;assembly=Kanji.Common">
-  <Resources>
+  <Styles.Resources>
     <ResourceDictionary>
       <converters:KanjiToStringConverter x:Key="KanjiToStringConverter"/>
       <converters:KanjiToColorConverter x:Key="KanjiToColorConverter"/>
@@ -153,7 +153,7 @@
       </ControlTemplate>
 
       <ControlTemplate TargetType="ListBoxItem" x:Key="RadicalInListTextTemplate">
-        <Border Classes="RadicalInListBorder" Background="{TemplateBinding Background}">
+        <Border Classes="RadicalInListBorder" Background="{Binding $parent[ListBoxItem].Background}">
           <Grid>
             <Grid.RowDefinitions>
               <RowDefinition Height="*"/>
@@ -176,7 +176,7 @@
       </ControlTemplate>
 
       <ControlTemplate TargetType="ListBoxItem" x:Key="RadicalInListImageTemplate">
-        <Border Classes="RadicalInListBorder" Background="{TemplateBinding Background}">
+        <Border Classes="RadicalInListBorder" Background="{Binding $parent[ListBoxItem].Background}">
           <Grid>
             <Grid.RowDefinitions>
               <RowDefinition Height="*"/>
@@ -246,7 +246,7 @@
       </ControlTemplate>
 
     </ResourceDictionary>
-  </Resources>
+  </Styles.Resources>
   <!-- STYLES -->
 
     <!-- PAGE ROOTS -->
@@ -810,9 +810,9 @@
   <Style Selector="ListBox.RadicalList ListBoxItem:pointerover[IsSelected=false]">
     <Setter Property="Background" Value="#8646DD" />
   </Style>
-  <Style Selector="ListBox.RadicalList :is(ILogicalScrollable)">
+  <!--<Style Selector="ListBox.RadicalList :is(ILogicalScrollable)">
     <Setter Property="IsLogicalScrollEnabled" Value="False" />
-  </Style>
+  </Style>-->
 
     <Style Selector="ListBox.KanjiList" >
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
@@ -826,9 +826,9 @@
             </Setter.Value>
         </Setter>
     </Style>
-  <Style Selector="ListBox.KanjiList :is(ILogicalScrollable)">
+  <!--<Style Selector="ListBox.KanjiList :is(ILogicalScrollable)">
     <Setter Property="IsLogicalScrollEnabled" Value="False" />
-  </Style>
+  </Style>-->
   <Style Selector="ListBox.KanjiList ListBoxItem">
         <Setter Property="Template">
             <Setter.Value>
@@ -1080,7 +1080,7 @@
         <Setter.Value>
           <ControlTemplate TargetType="ListBoxItem">
             <ContentControl Content="{Binding .}">
-              <ContentControl.Resources>
+              <ContentControl.DataTemplates>
                 <DataTemplate DataType="{x:Type models:VocabVariant}">
                   <Border Cursor="Hand" BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="1" Margin="5 2 0 0" Padding="4 0 4 0">
                     <i:Interaction.Behaviors>
@@ -1117,16 +1117,16 @@
                     <TextBlock Classes="LegendText" Text="{Binding .}" Foreground="White"/>
                   </Border>
                 </DataTemplate>
-              </ContentControl.Resources>
+              </ContentControl.DataTemplates>
             </ContentControl>
           </ControlTemplate>
         </Setter.Value>
       </Setter>
     </Style>
 
-  <Style Selector="ListBox.VocabList :is(ILogicalScrollable)">
+  <!--<Style Selector="ListBox.VocabList :is(ILogicalScrollable)">
     <Setter Property="IsLogicalScrollEnabled" Value="False" />
-  </Style>
+  </Style>-->
     <Style Selector="ListBox.VocabList" >
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
         <Setter Property="ItemsPanel">
@@ -1516,7 +1516,7 @@
       <Setter Property="Background" Value="#444444"/>
     </Style>
 
-  <Style Selector="ListBox" x:Key="KanjiReadingsListbox">
+  <Style Selector="ListBox.KanjiReadingsListbox">
     <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
     <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
     <Setter Property="Background" Value="Transparent"/>
@@ -1532,7 +1532,7 @@
       <Setter.Value>
         <ControlTemplate TargetType="ListBoxItem">
           <ContentControl Content="{Binding .}">
-            <ContentControl.Resources>
+            <ContentControl.DataTemplates>
               <DataTemplate DataType="{x:Type models:KanjiReading}">
                 <Border BorderBrush="#CC000000" BorderThickness="1" Padding="2">
                   <Border.Styles>
@@ -1558,12 +1558,12 @@
                   <TextBlock Classes="KanjiReadingLabel LegendText" Text="{Binding Label}"/>
                 </Border>
               </DataTemplate>
-            </ContentControl.Resources>
+            </ContentControl.DataTemplates>
           </ContentControl>
         </ControlTemplate>
       </Setter.Value>
     </Setter>
-    </Style>
+  </Style>
 
     <Style Selector="TextBlock.SettingText" >
       <Setter Property="VerticalAlignment" Value="Center"/>
@@ -2119,10 +2119,10 @@
           <ControlTemplate TargetType="TextBox">
             <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
               <LayoutTransformControl>
-                <TextBlock Classes="NavigationPanelTabTitleSubShadow NavigationPanelTabTitleSubCommon" Text="{TemplateBinding Content}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}"/>
+                <TextBlock Classes="NavigationPanelTabTitleSubShadow NavigationPanelTabTitleSubCommon" Text="{TemplateBinding Text}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}"/>
               </LayoutTransformControl>
               <LayoutTransformControl>
-                <TextBlock Classes="NavigationPanelTabTitleSubCommon" Text="{TemplateBinding Content}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}"/>
+                <TextBlock Classes="NavigationPanelTabTitleSubCommon" Text="{TemplateBinding Text}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}"/>
               </LayoutTransformControl>
             </Grid>
           </ControlTemplate>
@@ -2143,8 +2143,8 @@
       <Setter.Value>
         <ControlTemplate TargetType="TextBox">
           <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Classes="NavigationPanelTabTitleSubShadow NavigationPanelTabTitleSubCommon" Text="{TemplateBinding Content}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}"/>
-            <TextBlock Classes="NavigationPanelTabTitleSubCommon" Text="{TemplateBinding Content}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}"/>
+            <TextBlock Classes="NavigationPanelTabTitleSubShadow NavigationPanelTabTitleSubCommon" Text="{TemplateBinding Text}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}"/>
+            <TextBlock Classes="NavigationPanelTabTitleSubCommon" Text="{TemplateBinding Text}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}"/>
           </Grid>
         </ControlTemplate>
       </Setter.Value>

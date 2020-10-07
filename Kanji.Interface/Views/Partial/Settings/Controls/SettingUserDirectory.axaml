@@ -6,11 +6,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <StackPanel>
-        <StackPanel Visibility="{Binding IsEditMode, Converter={StaticResource ValueToVisibilityConverter}, ConverterParameter=False}">
-            <TextBlock Classes="LegendText" Text="User directory path" />
-            <TextBlock Text="{Binding UserDirectoryPath,Mode=OneWay}" />
-            <Button Classes="MiniActionButton ActionButton" Content="Modify" Width="100" Margin="0 5 0 0" HorizontalAlignment="Left" Command="{Binding EnterEditModeCommand}" />
-        </StackPanel>
+      <StackPanel IsVisible="{Binding !IsEditMode}">
+        <TextBlock Classes="LegendText" Text="User directory path" />
+        <TextBlock Text="{Binding UserDirectoryPath,Mode=OneWay}" />
+        <Button Classes="MiniActionButton ActionButton" Content="Modify" Width="100" Margin="0 5 0 0" HorizontalAlignment="Left" Command="{Binding EnterEditModeCommand}" />
+      </StackPanel>
         <StackPanel IsVisible="{Binding IsEditMode}">
             <TextBox FontSize="14" TextWrapping="Wrap" Classes="ErrorLabel LabelBox" Text="{Binding ErrorMessage, Mode=OneWay}" />
             <TextBlock Classes="LegendText" Text="User directory path" />

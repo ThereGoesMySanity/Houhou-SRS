@@ -8,13 +8,13 @@
              d:DesignHeight="300" d:DesignWidth="300">
 
     <ListBox Items="{Binding ., Mode=OneWay}" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-        ScrollViewer.CanContentScroll="False" Background="{x:Null}" BorderBrush="{StaticResource FadedBorderBrush}">
+        Background="{x:Null}" BorderBrush="{StaticResource FadedBorderBrush}">
         <ListBox.ItemsPanel>
             <ItemsPanelTemplate>
                 <StackPanel />
             </ItemsPanelTemplate>
         </ListBox.ItemsPanel>
-        <ListBox.ItemContainerStyle>
+        <ListBox.Styles>
             <Style Selector="ListBoxItem">
                 <Setter Property="Margin" Value="0 0 0 0" />
                 <Setter Property="Template">
@@ -29,14 +29,14 @@
                                 <!-- SUBLIST -->
                                 <ListBox Items="{Binding Content, Mode=OneWay}" Background="{x:Null}"
                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                    ScrollViewer.CanContentScroll="False" BorderBrush="{StaticResource FadedBorderBrush}"
+                                    BorderBrush="{StaticResource FadedBorderBrush}"
                                     PreviewMouseWheel="OnSubListBoxPreviewMouseWheel">
                                     <ListBox.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <StackPanel />
                                         </ItemsPanelTemplate>
                                     </ListBox.ItemsPanel>
-                                    <ListBox.ItemContainerStyle>
+                                    <ListBox.Styles>
                                         <Style Selector="ListBoxItem">
                                             <Setter Property="Margin" Value="0 0 0 0" />
                                             <Setter Property="Template">
@@ -52,13 +52,13 @@
                                                 </Setter.Value>
                                             </Setter>
                                         </Style>
-                                    </ListBox.ItemContainerStyle>
+                                    </ListBox.Styles>
                                 </ListBox>
                             </controls:CollapsiblePanel>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
-        </ListBox.ItemContainerStyle>
+        </ListBox.Styles>
     </ListBox>
 </UserControl>

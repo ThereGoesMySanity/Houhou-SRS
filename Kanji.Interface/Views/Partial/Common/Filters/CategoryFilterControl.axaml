@@ -1,32 +1,38 @@
 ﻿<UserControl x:Class="Kanji.Interface.Controls.CategoryFilterControl"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+                    xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
              xmlns:behaviors="clr-namespace:Kanji.Interface.Behaviors"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="30" d:DesignWidth="500">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*" />
+      <ColumnDefinition Width="Auto" />
+    </Grid.ColumnDefinitions>
 
-        <ComboBox Name="ComboBox" Margin="5,2" VerticalAlignment="Center" VerticalContentAlignment="Center"
-            ToolTip.Tip="Select the category to filter by (CTRL+ALT+C)."
-            FontSize="14"
-            behaviors:SelectionChangedBehavior.Command="{Binding FilterChangedCommand}"
-            DataContext="{Binding CategoryFilterVm}"
-            Items="{Binding Categories, Mode=OneTime}" SelectedIndex="{Binding SelectedCategoryIndex, Mode=TwoWay}">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Converter={StaticResource VocabCategoriesToStringConverter}}"
-                        VerticalAlignment="Center" HorizontalAlignment="Center" />
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
+    <ComboBox Name="ComboBox" Margin="5,2" VerticalAlignment="Center" VerticalContentAlignment="Center"
+        ToolTip.Tip="Select the category to filter by (CTRL+ALT+C)."
+        FontSize="14"
+        DataContext="{Binding CategoryFilterVm}"
+        Items="{Binding Categories, Mode=OneTime}" SelectedIndex="{Binding SelectedCategoryIndex, Mode=TwoWay}">
+      <i:Interaction.Behaviors>
+        <ia:EventTriggerBehavior EventName="SelectionChanged">
+          <ia:InvokeCommandAction Command="{Binding FilterChangedCommand}" />
+        </ia:EventTriggerBehavior>
+      </i:Interaction.Behaviors>
+      <ComboBox.ItemTemplate>
+        <DataTemplate>
+          <TextBlock Text="{Binding Converter={StaticResource VocabCategoriesToStringConverter}}"
+              VerticalAlignment="Center" HorizontalAlignment="Center" />
+        </DataTemplate>
+      </ComboBox.ItemTemplate>
+    </ComboBox>
 
-        <Button Classes="MiniActionButton ActionButton" Command="{Binding ClearCategoryFilterCommand}" Height="20" Width="50"
-                Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Stretch" Padding="2,0" Content="Clear" />
-    </Grid>
+    <Button Classes="MiniActionButton ActionButton" Command="{Binding ClearCategoryFilterCommand}" Height="20" Width="50"
+            Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Stretch" Padding="2,0" Content="Clear" />
+  </Grid>
 </UserControl>

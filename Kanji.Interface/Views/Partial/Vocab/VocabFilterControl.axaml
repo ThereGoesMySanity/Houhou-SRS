@@ -20,7 +20,7 @@
         </Grid.ColumnDefinitions>
 
         <!-- Reading filter -->
-        <AdornerDecorator>
+        <Decorator>
             <controls:CommandTextBox Name="ReadingFilter" Text="{Binding ReadingFilter, Mode=TwoWay}" IsKanaInput="True" Margin="0 0 5 0" ToolTip.Tip="Enter the kana reading to filter by here (CTRL+R)." VerticalContentAlignment="Center">
                 <controls:WatermarkService.Watermark>
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -28,10 +28,10 @@
                     </TextBlock>
                 </controls:WatermarkService.Watermark>
             </controls:CommandTextBox>
-        </AdornerDecorator>
+        </Decorator>
 
         <!-- Meaning filter -->
-        <AdornerDecorator Grid.Row="0" Grid.Column="1">
+        <Decorator Grid.Row="0" Grid.Column="1">
             <controls:CommandTextBox Name="MeaningFilter" Text="{Binding MeaningFilter, Mode=TwoWay}" Margin="5 0 0 0" ToolTip.Tip="Enter the English meaning to filter by here (CTRL+M)." VerticalContentAlignment="Center">
                 <controls:WatermarkService.Watermark>
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -39,15 +39,15 @@
                     </TextBlock>
                 </controls:WatermarkService.Watermark>
             </controls:CommandTextBox>
-        </AdornerDecorator>
+        </Decorator>
         
         <!-- Category filter -->
-        <AdornerDecorator Grid.Row="0" Grid.Column="2" Margin="5,0,5,0">
+        <Decorator Grid.Row="0" Grid.Column="2" Margin="5,0,5,0">
             <Grid>
                 <TextBlock Text="Category Filter" Classes="LegendText"/>
                 <controls:CategoryFilterControl Name="CategoryFilter" Margin="80,0,0,0" DataContext="{Binding}"/>
             </Grid>
-        </AdornerDecorator>
+        </Decorator>
         
         <!-- Filter buttons -->
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="3" Margin="5 0 0 0">
@@ -60,7 +60,7 @@
                         <ia:ChangePropertyAction PropertyName="ToolTip.Tip">
                           <ia:ChangePropertyAction.Value>
                             <TextBlock>
-                              Common vocab is displayed first.<LineBreak/>
+                              Common vocab is displayed first.&#x0a;
                               Click this button if you want to change this behavior.
                             </TextBlock>
                           </ia:ChangePropertyAction.Value>
@@ -71,7 +71,7 @@
                     <Setter Property="ToolTip.Tip">
                       <Setter.Value>
                         <TextBlock>
-                          Common vocab is not displayed first.<LineBreak/>
+                          Common vocab is not displayed first.&#x0a;
                           Click this button if you want common vocab to be displayed first.
                         </TextBlock>
                       </Setter.Value>
@@ -88,7 +88,7 @@
                         <ia:ChangePropertyAction PropertyName="ToolTip.Tip">
                           <ia:ChangePropertyAction.Value>
                             <TextBlock>
-                              Vocab is sorted by ascending writing length.<LineBreak/>
+                              Vocab is sorted by ascending writing length.&#x0a;
                               Click this button if you want to change this behavior.
                             </TextBlock>
                           </ia:ChangePropertyAction.Value>
@@ -99,7 +99,7 @@
                     <Setter Property="ToolTip.Tip">
                       <Setter.Value>
                         <TextBlock>
-                          Vocab is sorted by descending writing length.<LineBreak/>
+                          Vocab is sorted by descending writing length.&#x0a;
                           Click this button if you want to change this behavior.
                         </TextBlock>
                       </Setter.Value>

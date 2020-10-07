@@ -26,11 +26,11 @@
                    TextAlignment="Center"/>
         <Slider Name="LevelSlider" Grid.Column="2" VerticalAlignment="Center"
 			    Minimum="0" Maximum="61" Value="{Binding WkLevel, Mode=TwoWay}" SmallChange="1" LargeChange="10"
-                TickPlacement="None" IsSnapToTickEnabled="True" Foreground="Black" IsMoveToPointEnabled="True"
+                IsSnapToTickEnabled="True" Foreground="Black"
                 ToolTip.Tip="Select the WaniKani level to filter by (CTRL+W)">
-            <Slider.InputBindings>
-                <KeyBinding Command="{Binding FilterChangedCommand}" Key="Enter" />
-            </Slider.InputBindings>
+            <Slider.KeyBindings>
+                <KeyBinding Command="{Binding FilterChangedCommand}" Gesture="Enter" />
+            </Slider.KeyBindings>
         </Slider>
     </Grid>
 </UserControl>

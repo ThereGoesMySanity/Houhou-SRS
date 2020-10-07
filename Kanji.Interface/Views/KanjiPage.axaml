@@ -9,7 +9,7 @@
       xmlns:utilities="clr-namespace:Kanji.Interface.Utilities"
       xmlns:controls="clr-namespace:Kanji.Interface.Controls"
       mc:Ignorable="d" Focusable="true"
-      d:DesignHeight="300" d:DesignWidth="600" KeyDown="OnKeyDown" IsVisibleChanged="OnIsVisibleChanged">
+      d:DesignHeight="300" d:DesignWidth="600" KeyDown="OnKeyDown">
 
   <DockPanel>
     <controls:NavigationBar DockPanel.Dock="Top" />
