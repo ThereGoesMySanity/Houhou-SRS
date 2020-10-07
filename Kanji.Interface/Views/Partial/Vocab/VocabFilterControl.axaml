@@ -21,7 +21,7 @@
 
         <!-- Reading filter -->
         <AdornerDecorator>
-            <controls:CommandTextBox x:Name="ReadingFilter" Text="{Binding ReadingFilter, Mode=TwoWay}" IsKanaInput="True" Margin="0 0 5 0" ToolTip="Enter the kana reading to filter by here (CTRL+R)." VerticalContentAlignment="Center">
+            <controls:CommandTextBox x:Name="ReadingFilter" Text="{Binding ReadingFilter, Mode=TwoWay}" IsKanaInput="True" Margin="0 0 5 0" ToolTip.Tip="Enter the kana reading to filter by here (CTRL+R)." VerticalContentAlignment="Center">
                 <controls:WatermarkService.Watermark>
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
                         Kana reading filter
@@ -32,7 +32,7 @@
 
         <!-- Meaning filter -->
         <AdornerDecorator Grid.Row="0" Grid.Column="1">
-            <controls:CommandTextBox x:Name="MeaningFilter" Text="{Binding MeaningFilter, Mode=TwoWay}" Margin="5 0 0 0" ToolTip="Enter the English meaning to filter by here (CTRL+M)." VerticalContentAlignment="Center">
+            <controls:CommandTextBox x:Name="MeaningFilter" Text="{Binding MeaningFilter, Mode=TwoWay}" Margin="5 0 0 0" ToolTip.Tip="Enter the English meaning to filter by here (CTRL+M)." VerticalContentAlignment="Center">
                 <controls:WatermarkService.Watermark>
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
                         Meaning filter
@@ -57,7 +57,7 @@
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding IsCommonFirst}" Value="True">
                                 <ia:ChangePropertyAction Value="True" PropertyName="Tag"/>
-                                <ia:ChangePropertyAction PropertyName="ToolTip">
+                                <ia:ChangePropertyAction PropertyName="ToolTip.Tip">
                                     <ia:ChangePropertyAction.Value>
                                         <TextBlock>
                                             Common vocab is displayed first.<LineBreak/>
@@ -68,7 +68,7 @@
                             </ia:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
                         <Setter Property="Tag" Value="False"/>
-                        <Setter Property="ToolTip">
+                        <Setter Property="ToolTip.Tip">
                             <Setter.Value>
                                 <TextBlock>
                                     Common vocab is not displayed first.<LineBreak/>
@@ -85,7 +85,7 @@
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding IsShortReadingFirst}" Value="True">
                                 <ia:ChangePropertyAction Value="True" PropertyName="Tag"/>
-                                <ia:ChangePropertyAction PropertyName="ToolTip">
+                                <ia:ChangePropertyAction PropertyName="ToolTip.Tip">
                                     <ia:ChangePropertyAction.Value>
                                         <TextBlock>
                                             Vocab is sorted by ascending writing length.<LineBreak/>
@@ -96,7 +96,7 @@
                             </ia:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
                         <Setter Property="Tag" Value="False"/>
-                        <Setter Property="ToolTip">
+                        <Setter Property="ToolTip.Tip">
                             <Setter.Value>
                                 <TextBlock>
                                     Vocab is sorted by descending writing length.<LineBreak/>
@@ -113,6 +113,6 @@
         <controls:WkLevelFilterControl x:Name="WkLevelFilter" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" DataContext="{Binding}"/>
         <controls:JlptLevelFilterControl x:Name="JlptLevelFilter" Grid.Row="2" Grid.Column="2" Margin="5,0,0,0" DataContext="{Binding}"/>
 
-        <Button x:Name="ApplyFilterButton" Classes="MiniActionButton" Command="{Binding ApplyFilterCommand}" Content="Apply Filter" ToolTip="(Enter)" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <Button x:Name="ApplyFilterButton" Classes="MiniActionButton" Command="{Binding ApplyFilterCommand}" Content="Apply Filter" ToolTip.Tip="(Enter)" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
     </Grid>
 </UserControl>

@@ -48,10 +48,10 @@
                             </Style>
                         </TextBlock.Styles>
                       <i:Interaction.Behaviors>
-                        <ia:DataTriggerBehaviordontchange Binding="{Binding CurrentReviewInfo.TodayReviewsCount,
+                        <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TodayReviewsCount,
                                          Source={x:Static business:SrsBusiness.Instance}}" Value="1">
                           <ia:ChangePropertyAction Value="review today" PropertyName="Text"/>
-                        </ia:DataTriggerBehaviordontchange>
+                        </ia:DataTriggerBehavior>
                       </i:Interaction.Behaviors>
                     </TextBlock>
                 </Viewbox>
@@ -60,7 +60,7 @@
 
         <!-- Total item count -->
         <Border Classes="StatBox">
-            <Border.ToolTip>
+            <Border.ToolTip.Tip>
                 <StackPanel>
                     <TextBlock>
                         <TextBlock.Styles>
@@ -73,10 +73,10 @@
                             </Style>
                         </TextBlock.Styles>
                                 <i:Interaction.Behaviors>
-                                    <ia:DataTriggerBehaviordontchange Binding="{Binding CurrentReviewInfo.KanjiItemsCount,
+                                    <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.KanjiItemsCount,
                                          Source={x:Static business:SrsBusiness.Instance}}" Value="1">
                                         <ia:ChangePropertyAction Value="1 kanji item" PropertyName="Text"/>
-                                    </ia:DataTriggerBehaviordontchange>
+                                    </ia:DataTriggerBehavior>
                                 </i:Interaction.Behaviors>
                     </TextBlock>
                     <TextBlock>
@@ -90,14 +90,14 @@
                             </Style>
                         </TextBlock.Styles>
                                 <i:Interaction.Behaviors>
-                                    <ia:DataTriggerBehaviordontchange Binding="{Binding CurrentReviewInfo.VocabItemsCount,
+                                    <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.VocabItemsCount,
                                          Source={x:Static business:SrsBusiness.Instance}}" Value="1">
                                         <ia:ChangePropertyAction Value="1 vocab item" PropertyName="Text"/>
-                                    </ia:DataTriggerBehaviordontchange>
+                                    </ia:DataTriggerBehavior>
                                 </i:Interaction.Behaviors>
                     </TextBlock>
                 </StackPanel>
-            </Border.ToolTip>
+            </Border.ToolTip.Tip>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3*"/>
@@ -124,10 +124,10 @@
                             </Style>
                         </TextBlock.Styles>
                                 <i:Interaction.Behaviors>
-                                    <ia:DataTriggerBehaviordontchange Binding="{Binding CurrentReviewInfo.TotalItemsCount,
+                                    <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TotalItemsCount,
                                          Source={x:Static business:SrsBusiness.Instance}}" Value="1">
                                         <ia:ChangePropertyAction Value="total item" PropertyName="Text"/>
-                                    </ia:DataTriggerBehaviordontchange>
+                                    </ia:DataTriggerBehavior>
                                 </i:Interaction.Behaviors>
                     </TextBlock>
                 </Viewbox>
@@ -136,7 +136,7 @@
 
         <!-- Total review count -->
         <Border Classes="StatBox">
-            <Border.ToolTip>
+            <Border.ToolTip.Tip>
                 <StackPanel>
                     <TextBlock>
                         <TextBlock.Styles>
@@ -149,10 +149,10 @@
                             </Style>
                         </TextBlock.Styles>
                                 <i:Interaction.Behaviors>
-                                    <ia:DataTriggerBehaviordontchange Binding="{Binding CurrentReviewInfo.TotalSuccessCount,
+                                    <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TotalSuccessCount,
                                          Source={x:Static business:SrsBusiness.Instance}}" Value="1">
                                         <ia:ChangePropertyAction Value="1 review succeeded" PropertyName="Text"/>
-                                    </ia:DataTriggerBehaviordontchange>
+                                    </ia:DataTriggerBehavior>
                                 </i:Interaction.Behaviors>
                     </TextBlock>
                     <TextBlock>
@@ -166,14 +166,14 @@
                             </Style>
                         </TextBlock.Styles>
                                 <i:Interaction.Behaviors>
-                                    <ia:DataTriggerBehaviordontchange Binding="{Binding CurrentReviewInfo.TotalFailureCount,
+                                    <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TotalFailureCount,
                                          Source={x:Static business:SrsBusiness.Instance}}" Value="1">
                                         <ia:ChangePropertyAction Value="1 review failed" PropertyName="Text"/>
-                                    </ia:DataTriggerBehaviordontchange>
+                                    </ia:DataTriggerBehavior>
                                 </i:Interaction.Behaviors>
                     </TextBlock>
                 </StackPanel>
-            </Border.ToolTip>
+            </Border.ToolTip.Tip>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3*"/>
@@ -200,10 +200,10 @@
                             </Style>
                         </TextBlock.Styles>
                                 <i:Interaction.Behaviors>
-                                    <ia:DataTriggerBehaviordontchange Binding="{Binding CurrentReviewInfo.TotalReviewsCount,
+                                    <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TotalReviewsCount,
                                          Source={x:Static business:SrsBusiness.Instance}}" Value="1">
                                         <ia:ChangePropertyAction Value="totalled review" PropertyName="Text"/>
-                                    </ia:DataTriggerBehaviordontchange>
+                                    </ia:DataTriggerBehavior>
                                 </i:Interaction.Behaviors>
                     </TextBlock>
                 </Viewbox>

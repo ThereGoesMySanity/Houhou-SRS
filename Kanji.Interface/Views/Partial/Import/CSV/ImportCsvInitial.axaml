@@ -35,7 +35,7 @@
                         <TextBlock Text="CSV parsing configuration" Classes="SettingCategoryTitle"/>
                     </HeaderedContentControl.Header>
                     <StackPanel>
-                        <CheckBox Margin="0 10 0 0" Content="First line is a header" IsChecked="{Binding CsvHasHeader}" ToolTip="Check to specify that the first row of the CSV file is a Header row, i.e. specifies the name of the columns."/>
+                        <CheckBox Margin="0 10 0 0" Content="First line is a header" IsChecked="{Binding CsvHasHeader}" ToolTip.Tip="Check to specify that the first row of the CSV file is a Header row, i.e. specifies the name of the columns."/>
                         <StackPanel Margin="0 10 0 0">
                             <TextBlock Text="CSV column separator" Classes="LegendText" VerticalAlignment="Center"/>
                             <TextBox Width="30" MaxLength="1" Text="{Binding CsvSeparator}" HorizontalAlignment="Left"/>
@@ -45,9 +45,9 @@
                             <TextBox Width="30" MaxLength="1" Text="{Binding CsvQuote}" HorizontalAlignment="Left"/>
                         </StackPanel>
                         <StackPanel Margin="0 10 0 0">
-                            <TextBlock Text="File encoding [?]" Classes="LegendText" VerticalAlignment="Center" ToolTip="Please try to change this if you get strange characters at the overview step."/>
+                            <TextBlock Text="File encoding [?]" Classes="LegendText" VerticalAlignment="Center" ToolTip.Tip="Please try to change this if you get strange characters at the overview step."/>
                             <StackPanel Orientation="Horizontal">
-                                <ComboBox ItemsSource="{Binding Encodings, Mode=OneWay}" SelectedIndex="{Binding SelectedEncodingIndex, Mode=TwoWay}" behaviors:SelectionChangedBehavior.Command="{Binding EncodingChangedCommand}"/>
+                                <ComboBox Items="{Binding Encodings, Mode=OneWay}" SelectedIndex="{Binding SelectedEncodingIndex, Mode=TwoWay}" behaviors:SelectionChangedBehavior.Command="{Binding EncodingChangedCommand}"/>
                                 <TextBox Margin="10 0 0 0" Text="{Binding SelectedEncoding, Mode=TwoWay}" Width="100">
                                     <TextBox.Styles>
                                         <Style Selector="TextBox">

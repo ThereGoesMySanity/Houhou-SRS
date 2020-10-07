@@ -28,7 +28,7 @@
                 Minimum="0" Maximum="6" Value="{Binding JlptLevel, Mode=TwoWay}"
                 SmallChange="1" IsDirectionReversed="True" MinWidth="50"
                 TickPlacement="None" IsSnapToTickEnabled="True" Foreground="Black" IsMoveToPointEnabled="True"
-                ToolTip="Select the JLPT level to filter by (CTRL+J)">
+                ToolTip.Tip="Select the JLPT level to filter by (CTRL+J)">
             <Slider.InputBindings>
                 <KeyBinding Command="{Binding FilterChangedCommand}" Key="Enter" />
             </Slider.InputBindings>

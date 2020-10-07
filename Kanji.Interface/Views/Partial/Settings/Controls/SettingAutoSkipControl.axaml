@@ -7,6 +7,6 @@
              d:DesignHeight="50" d:DesignWidth="600">
     <Grid>
         <CheckBox IsChecked="{Binding AutoSkip}" Content="Automatically continue on correct answer"
-                  ToolTip="If checked, validating a correct answer during reviews will automatically continue to the next question." />
+                  ToolTip.Tip="If checked, validating a correct answer during reviews will automatically continue to the next question." />
     </Grid>
 </UserControl>

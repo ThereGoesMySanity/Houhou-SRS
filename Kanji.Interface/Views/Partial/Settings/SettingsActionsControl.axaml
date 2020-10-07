@@ -10,6 +10,6 @@
     <UniformGrid Rows="1">
         <Button Classes="ActionButton" Content="Save settings"
             Command="{Binding SaveSettingsCommand}"
-            ToolTip="Saves the current settings." />
+            ToolTip.Tip="Saves the current settings." />
     </UniformGrid>
 </UserControl>

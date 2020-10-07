@@ -8,33 +8,6 @@
 
     <controls:SrsEntryFilterControlBase.Styles>
         <Style Selector="{x:Type controls:SrsEntryFilterControlBase}">
-            <Style.Triggers>
-                <Trigger Property="IsInline" Value="True">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <!-- Inline template -->
-                            <ControlTemplate TargetType="UserControl">
-                                <Grid VerticalAlignment="Center">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-
-                                    <CheckBox Content="Kanji items" HorizontalAlignment="Center"
-                                        IsChecked="{Binding IsKanjiItemEnabled}"
-                                        Command="{Binding FilterChangedCommand}"
-                                        ToolTip="Include kanji items (CTRL+Alt+K)" />
-                                    <CheckBox Grid.Column="1" Content="Vocab items"
-                                        HorizontalAlignment="Center"
-                                        IsChecked="{Binding IsVocabItemEnabled}"
-                                        Command="{Binding FilterChangedCommand}"
-                                        ToolTip="Include vocab items (CTRL+Alt+V)" />
-                                </Grid>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
             <Setter Property="Template">
                 <Setter.Value>
                     <!-- NON-Inline template -->
@@ -52,12 +25,37 @@
                             <TextBlock Text="Kanji items" Classes="LegendText" HorizontalAlignment="Center" Margin="0 0 0 5"/>
                             <TextBlock Grid.Column="1" Text="Vocab items" Classes="LegendText" HorizontalAlignment="Center" Margin="0 0 0 5"/>
                             
-                            <CheckBox Grid.Row="1" HorizontalAlignment="Center" IsChecked="{Binding IsKanjiItemEnabled}" Command="{Binding FilterChangedCommand}" ToolTip="Include kanji items (CTRL+Alt+K)"/>
-                            <CheckBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" IsChecked="{Binding IsVocabItemEnabled}" Command="{Binding FilterChangedCommand}" ToolTip="Include vocab items (CTRL+Alt+V)"/>
+                            <CheckBox Grid.Row="1" HorizontalAlignment="Center" IsChecked="{Binding IsKanjiItemEnabled}" Command="{Binding FilterChangedCommand}" ToolTip.Tip="Include kanji items (CTRL+Alt+K)"/>
+                            <CheckBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" IsChecked="{Binding IsVocabItemEnabled}" Command="{Binding FilterChangedCommand}" ToolTip.Tip="Include vocab items (CTRL+Alt+V)"/>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
+      <Style Selector="{x:Type controls:SrsEntryFilterControlBase}[IsInline=True]">
+        <Setter Property="Template">
+          <Setter.Value>
+            <!-- Inline template -->
+            <ControlTemplate TargetType="UserControl">
+              <Grid VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <CheckBox Content="Kanji items" HorizontalAlignment="Center"
+                    IsChecked="{Binding IsKanjiItemEnabled}"
+                    Command="{Binding FilterChangedCommand}"
+                    ToolTip.Tip="Include kanji items (CTRL+Alt+K)" />
+                <CheckBox Grid.Column="1" Content="Vocab items"
+                    HorizontalAlignment="Center"
+                    IsChecked="{Binding IsVocabItemEnabled}"
+                    Command="{Binding FilterChangedCommand}"
+                    ToolTip.Tip="Include vocab items (CTRL+Alt+V)" />
+              </Grid>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
     </controls:SrsEntryFilterControlBase.Styles>
 </controls:SrsEntryFilterControlBase>

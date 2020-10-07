@@ -17,8 +17,8 @@
                 </Style>
             </Grid.Styles>
           <i:Interaction.Behaviors>
-            <utility:MultiDataTriggerBehaviordontchange>
-              <utility:MultiDataTriggerBehaviordontchange.Conditions>
+            <utility:MultiDataTriggerBehavior>
+              <utility:MultiDataTriggerBehavior.Conditions>
                 <utility:Condition Binding="{Binding ElementName=LoadingPanel, Path=Visibility}" Value="Collapsed"/>
                 <utility:Condition Value="False">
                   <utility:Condition.Binding>
@@ -28,11 +28,11 @@
                     </MultiBinding>
                   </utility:Condition.Binding>
                 </utility:Condition>
-              </utility:MultiDataTriggerBehaviordontchange.Conditions>
-              <utility:MultiDataTriggerBehaviordontchange.Actions>
+              </utility:MultiDataTriggerBehavior.Conditions>
+              <utility:MultiDataTriggerBehavior.Actions>
                 <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
-              </utility:MultiDataTriggerBehaviordontchange.Actions>
-            </utility:MultiDataTriggerBehaviordontchange>
+              </utility:MultiDataTriggerBehavior.Actions>
+            </utility:MultiDataTriggerBehavior>
           </i:Interaction.Behaviors>
           <Button Classes="BigActionButton" HorizontalAlignment="Stretch" Command="{Binding LoadMoreCommand}">
                 <Button.Resources>
@@ -62,11 +62,11 @@
                                 <Setter Property="Visibility" Value="Visible" />
                             </DataTrigger.Setters>
                         </DataTrigger>-->
-                        <ia:DataTriggerBehaviordontchange Binding="{Binding IsLoading, Mode=OneWay}" Value="True">
-                            <ia:DataTriggerBehaviordontchange.Actions>
+                        <ia:DataTriggerBehavior Binding="{Binding IsLoading, Mode=OneWay}" Value="True">
+                            <ia:DataTriggerBehavior.Actions>
                                 <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
-                            </ia:DataTriggerBehaviordontchange.Actions>
-                        </ia:DataTriggerBehaviordontchange>
+                            </ia:DataTriggerBehavior.Actions>
+                        </ia:DataTriggerBehavior>
                     </i:Interaction.Behaviors>
             <StackPanel.Styles>
                 <Style Selector="StackPanel">

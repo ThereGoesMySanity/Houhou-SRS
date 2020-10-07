@@ -21,11 +21,11 @@
 
         <RadioButton Grid.Row="1" Grid.Column="1" Content="Yes" Command="{Binding SettingChangeCommand}"
             IsChecked="{Binding DoUpdateCheck}"
-            ToolTip="If this button is checked, Houhou will check for updates soon after starting."
+            ToolTip.Tip="If this button is checked, Houhou will check for updates soon after starting."
             VerticalAlignment="Center" Margin="0 0 15 0" />
         <RadioButton Grid.Row="1" Grid.Column="2" Content="No" Command="{Binding SettingChangeCommand}"
             IsChecked="{Binding DoUpdateCheck, Converter={StaticResource BooleanInverterConverter}, Mode=OneWay}"
-            ToolTip="If this button is checked, Houhou will only check for updates when you click the 'Check for updates' button."
+            ToolTip.Tip="If this button is checked, Houhou will only check for updates when you click the 'Check for updates' button."
             VerticalAlignment="Center" />
 
     </Grid>

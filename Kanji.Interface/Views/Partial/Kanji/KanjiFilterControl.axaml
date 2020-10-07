@@ -27,7 +27,7 @@
         
         <!-- 0. Multiline text filter -->
         <AdornerDecorator Grid.ColumnSpan="4">
-            <controls:CommandTextBox x:Name="TextFilter" TextWrapping="Wrap" AcceptsReturn="False" Height="45" Margin="0 0 0 5" Text="{Binding TextFilter, Mode=TwoWay}" ToolTip="Shortcut: (CTRL+T).">
+            <controls:CommandTextBox x:Name="TextFilter" TextWrapping="Wrap" AcceptsReturn="False" Height="45" Margin="0 0 0 5" Text="{Binding TextFilter, Mode=TwoWay}" ToolTip.Tip="Shortcut: (CTRL+T).">
                 <controls:WatermarkService.Watermark>
                     <TextBlock TextAlignment="Center" VerticalAlignment="Center">
                         Enter the kanji or a text containing kanji you are looking for.<LineBreak/>
@@ -40,7 +40,7 @@
         <!-- 1. Reading/meaning filter -->
         <TextBlock Grid.Row="1" Text="with" Margin="0 0 5 0" VerticalAlignment="Center"/>
         <AdornerDecorator Grid.Row="1" Grid.Column="1">
-            <controls:CommandTextBox x:Name="Filter" Text="{Binding MainFilter, Mode=TwoWay}" ToolTip="Shortcut: (CTRL+F).">
+            <controls:CommandTextBox x:Name="Filter" Text="{Binding MainFilter, Mode=TwoWay}" ToolTip.Tip="Shortcut: (CTRL+F).">
                 <controls:WatermarkService.Watermark>
                     <TextBlock TextAlignment="Center" VerticalAlignment="Center">
                         <TextBlock.Text>
@@ -49,26 +49,26 @@
                     </TextBlock>
                 </controls:WatermarkService.Watermark>
               <i:Interaction.Behaviors>
-                <ia:DataTriggerBehaviordontchange Binding="{Binding MainFilterMode, Mode=OneWay}" Value="{x:Static models:KanjiFilterModeEnum.Meaning}">
+                <ia:DataTriggerBehavior Binding="{Binding MainFilterMode, Mode=OneWay}" Value="{x:Static models:KanjiFilterModeEnum.Meaning}">
                   <ia:ChangePropertyAction Value="False" PropertyName="IsKanaInput"/>
-                </ia:DataTriggerBehaviordontchange>
-                <ia:DataTriggerBehaviordontchange Binding="{Binding MainFilterMode, Mode=OneWay}" Value="{x:Static models:KanjiFilterModeEnum.AnyReading}">
+                </ia:DataTriggerBehavior>
+                <ia:DataTriggerBehavior Binding="{Binding MainFilterMode, Mode=OneWay}" Value="{x:Static models:KanjiFilterModeEnum.AnyReading}">
                   <ia:ChangePropertyAction Value="True" PropertyName="IsKanaInput"/>
-                </ia:DataTriggerBehaviordontchange>
-                <ia:DataTriggerBehaviordontchange Binding="{Binding MainFilterMode, Mode=OneWay}" Value="{x:Static models:KanjiFilterModeEnum.KunYomi}">
+                </ia:DataTriggerBehavior>
+                <ia:DataTriggerBehavior Binding="{Binding MainFilterMode, Mode=OneWay}" Value="{x:Static models:KanjiFilterModeEnum.KunYomi}">
                   <ia:ChangePropertyAction Value="True" PropertyName="IsKanaInput"/>
-                </ia:DataTriggerBehaviordontchange>
-                <ia:DataTriggerBehaviordontchange Binding="{Binding MainFilterMode, Mode=OneWay}" Value="{x:Static models:KanjiFilterModeEnum.OnYomi}">
+                </ia:DataTriggerBehavior>
+                <ia:DataTriggerBehavior Binding="{Binding MainFilterMode, Mode=OneWay}" Value="{x:Static models:KanjiFilterModeEnum.OnYomi}">
                   <ia:ChangePropertyAction Value="True" PropertyName="IsKanaInput"/>
-                </ia:DataTriggerBehaviordontchange>
-                <ia:DataTriggerBehaviordontchange Binding="{Binding MainFilterMode, Mode=OneWay}" Value="{x:Static models:KanjiFilterModeEnum.Nanori}">
+                </ia:DataTriggerBehavior>
+                <ia:DataTriggerBehavior Binding="{Binding MainFilterMode, Mode=OneWay}" Value="{x:Static models:KanjiFilterModeEnum.Nanori}">
                   <ia:ChangePropertyAction Value="True" PropertyName="IsKanaInput"/>
-                </ia:DataTriggerBehaviordontchange>
+                </ia:DataTriggerBehavior>
               </i:Interaction.Behaviors>
             </controls:CommandTextBox>
           </AdornerDecorator>
           <TextBlock Grid.Row="1" Grid.Column="2" Text="as" VerticalAlignment="Center" Margin="5,0"/>
-          <ComboBox x:Name="FilterModeCombobox" Grid.Row="1" Grid.Column="3" ItemsSource="{Binding Source={StaticResource KanjiFilterModeEnum}}" SelectedItem="{Binding MainFilterMode}" behaviors:SelectionChangedBehavior.Command="{Binding FilterModeChangedCommand}">
+          <ComboBox x:Name="FilterModeCombobox" Grid.Row="1" Grid.Column="3" Items="{Binding Source={StaticResource KanjiFilterModeEnum}}" SelectedItem="{Binding MainFilterMode}" behaviors:SelectionChangedBehavior.Command="{Binding FilterModeChangedCommand}">
             <ComboBox.ItemTemplate>
               <DataTemplate>
                 <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}"/>
@@ -90,7 +90,7 @@
           <TextBlock Grid.Row="3" Grid.ColumnSpan="4" Text="containing the selected radicals:"/>
 
           <!-- 3. Radical list -->
-          <ListBox Name="RadicalList" Grid.Row="4" Grid.ColumnSpan="4" Classes="RadicalList" Margin="0 2" ItemsSource="{Binding Radicals Mode=TwoWay}" SelectionMode="Multiple,Toggle"/>
+          <ListBox Name="RadicalList" Grid.Row="4" Grid.ColumnSpan="4" Classes="RadicalList" Margin="0 2" Items="{Binding Radicals Mode=TwoWay}" SelectionMode="Multiple,Toggle"/>
 
           <!-- 4. Radical filter -->
           <Grid Grid.Row="5" Grid.ColumnSpan="4" Margin="0 5">
@@ -101,7 +101,7 @@
               <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <AdornerDecorator>
-              <TextBox x:Name="RadicalNameFilter" Text="{Binding RadicalFilter, Mode=TwoWay}" ToolTip="Type the filter until one single result remains, then press Enter to select or deselect it (CTRL+R).">
+              <TextBox x:Name="RadicalNameFilter" Text="{Binding RadicalFilter, Mode=TwoWay}" ToolTip.Tip="Type the filter until one single result remains, then press Enter to select or deselect it (CTRL+R).">
                 <TextBox.InputBindings>
                   <KeyBinding Command="{Binding SendRadicalFilterCommand}" Key="Enter"/>
                 </TextBox.InputBindings>
@@ -112,11 +112,11 @@
                 </controls:WatermarkService.Watermark>
               </TextBox>
             </AdornerDecorator>
-            <Button Grid.Column="1" Margin="5 0" Content="pack://application:,,,/Data/UI/SortAlphabetIcon.png" ToolTip="Sort radicals by name" Command="{Binding SetRadicalSortModeCommand}" CommandParameter="{x:Static models:RadicalSortModeEnum.Alphabetic}">
+            <Button Grid.Column="1" Margin="5 0" Content="pack://application:,,,/Data/UI/SortAlphabetIcon.png" ToolTip.Tip="Sort radicals by name" Command="{Binding SetRadicalSortModeCommand}" CommandParameter="{x:Static models:RadicalSortModeEnum.Alphabetic}">
               <i:Interaction.Behaviors>
-                <ia:DataTriggerBehaviordontchange Binding="{Binding RadicalSortMode}" Value="{x:Static models:RadicalSortModeEnum.Alphabetic}">
+                <ia:DataTriggerBehavior Binding="{Binding RadicalSortMode}" Value="{x:Static models:RadicalSortModeEnum.Alphabetic}">
                   <ia:ChangePropertyAction Value="True" PropertyName="Tag"/>
-                </ia:DataTriggerBehaviordontchange>
+                </ia:DataTriggerBehavior>
               </i:Interaction.Behaviors>
               <Button.Styles>
                 <Style Selector="Button" InheritanceParent="{StaticResource ImageActionButton}">
@@ -124,11 +124,11 @@
                 </Style>
               </Button.Styles>
             </Button>
-            <Button Grid.Column="2" Content="pack://application:,,,/Data/UI/SortFrequencyIcon.png" ToolTip="Sort radicals by frequency" Command="{Binding SetRadicalSortModeCommand}" CommandParameter="{x:Static models:RadicalSortModeEnum.Frequency}">
+            <Button Grid.Column="2" Content="pack://application:,,,/Data/UI/SortFrequencyIcon.png" ToolTip.Tip="Sort radicals by frequency" Command="{Binding SetRadicalSortModeCommand}" CommandParameter="{x:Static models:RadicalSortModeEnum.Frequency}">
               <i:Interaction.Behaviors>
-                <ia:DataTriggerBehaviordontchange Binding="{Binding RadicalSortMode}" Value="{x:Static models:RadicalSortModeEnum.Frequency}">
+                <ia:DataTriggerBehavior Binding="{Binding RadicalSortMode}" Value="{x:Static models:RadicalSortModeEnum.Frequency}">
                   <ia:ChangePropertyAction Value="True" PropertyName="Tag"/>
-                </ia:DataTriggerBehaviordontchange>
+                </ia:DataTriggerBehavior>
               </i:Interaction.Behaviors>
               <Button.Styles>
                 <Style Selector="Button" InheritanceParent="{StaticResource ImageActionButton}">

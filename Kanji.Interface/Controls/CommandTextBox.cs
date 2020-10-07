@@ -31,13 +31,11 @@ namespace Kanji.Interface.Controls
 
         #region Dependency Properties
 
-        public static readonly AvaloniaProperty IsKanaInputProperty = AvaloniaProperty.Register<CommandTextBox, bool>("IsKanaInput", false);
+        public static readonly StyledProperty<bool> IsKanaInputProperty = AvaloniaProperty.Register<CommandTextBox, bool>(nameof(IsKanaInput), false);
 
-        public static readonly AvaloniaProperty ValidationCommandProperty =
-            AvaloniaProperty.Register<CommandTextBox, ICommand>("ValidationCommand");
+        public static readonly StyledProperty<ICommand> ValidationCommandProperty = AvaloniaProperty.Register<CommandTextBox, ICommand>(nameof(ValidationCommand));
 
-        public static readonly AvaloniaProperty ValidationCommandParameterProperty =
-            AvaloniaProperty.Register<CommandTextBox, object>("ValidationCommandParameter");
+        public static readonly StyledProperty<object> ValidationCommandParameterProperty = AvaloniaProperty.Register<CommandTextBox, object>(nameof(ValidationCommandParameter));
 
         #endregion
 

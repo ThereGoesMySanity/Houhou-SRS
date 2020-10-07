@@ -14,7 +14,7 @@ namespace Kanji.Interface.Controls
     {
         #region Dependency properties
 
-        public static readonly AvaloniaProperty IsInlineProperty = AvaloniaProperty.Register<SrsEntryFilterControlBase, bool>("IsInline", true);
+        public static readonly StyledProperty<bool> IsInlineProperty = AvaloniaProperty.Register<SrsEntryFilterControlBase, bool>(nameof(IsInline), true);
 
         #endregion
 

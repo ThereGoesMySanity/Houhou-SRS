@@ -9,12 +9,12 @@
         <Viewbox>
             <TextBlock Foreground="{StaticResource LegendTextBrush}">
                         <i:Interaction.Behaviors>
-                            <ia:DataTriggerBehaviordontchange Binding="{Binding SelectedItems.Count}" Value="0">
+                            <ia:DataTriggerBehavior Binding="{Binding SelectedItems.Count}" Value="0">
                                 <ia:ChangePropertyAction Value="No items selected" PropertyName="Text"/>
-                            </ia:DataTriggerBehaviordontchange>
-                            <ia:DataTriggerBehaviordontchange Binding="{Binding SelectedItems.Count}" Value="1">
+                            </ia:DataTriggerBehavior>
+                            <ia:DataTriggerBehavior Binding="{Binding SelectedItems.Count}" Value="1">
                                 <ia:ChangePropertyAction Value="1 item selected" PropertyName="Text"/>
-                            </ia:DataTriggerBehaviordontchange>
+                            </ia:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
                 <TextBlock.Styles>
                     <Style Selector="TextBlock">

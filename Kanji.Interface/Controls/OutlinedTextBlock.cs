@@ -20,11 +20,11 @@ namespace Kanji.Interface.Controls
 {
     public class OutlinedTextBlock : TextBlock
     {
-        public static readonly AvaloniaProperty FillProperty = AvaloniaProperty.Register<OutlinedTextBlock, ISolidColorBrush>("Fill", Brushes.Black);
+        public static readonly StyledProperty<ISolidColorBrush> FillProperty = AvaloniaProperty.Register<OutlinedTextBlock, ISolidColorBrush>(nameof(Fill), Brushes.Black);
 
-        public static readonly AvaloniaProperty StrokeProperty = AvaloniaProperty.Register<OutlinedTextBlock, ISolidColorBrush>("Stroke", Brushes.Black);
+        public static readonly StyledProperty<ISolidColorBrush> StrokeProperty = AvaloniaProperty.Register<OutlinedTextBlock, ISolidColorBrush>(nameof(Stroke), Brushes.Black);
 
-        public static readonly AvaloniaProperty StrokeThicknessProperty = AvaloniaProperty.Register<OutlinedTextBlock, double>("StrokeThickness", 1d);
+        public static readonly StyledProperty<double> StrokeThicknessProperty = AvaloniaProperty.Register<OutlinedTextBlock, double>(nameof(StrokeThickness), 1d);
 
         static OutlinedTextBlock()
         {

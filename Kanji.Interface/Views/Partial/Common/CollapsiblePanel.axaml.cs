@@ -15,15 +15,15 @@ namespace Kanji.Interface.Controls
     {
         #region Dependency properties
 
-        public static readonly AvaloniaProperty CommandProperty = AvaloniaProperty.Register<CollapsiblePanelBase, ICommand>("Command");
+        public static readonly StyledProperty<ICommand> CommandProperty = AvaloniaProperty.Register<CollapsiblePanelBase, ICommand>(nameof(Command));
 
-        public static readonly AvaloniaProperty CommandParameterProperty = AvaloniaProperty.Register<CollapsiblePanelBase, object>("CommandParameter");
+        public static readonly StyledProperty<object> CommandParameterProperty = AvaloniaProperty.Register<CollapsiblePanelBase, object>(nameof(CommandParameter));
 
-        public static readonly AvaloniaProperty IsContentShownProperty = AvaloniaProperty.Register<CollapsiblePanelBase, bool>("IsContentShown");
+        public static readonly StyledProperty<bool> IsContentShownProperty = AvaloniaProperty.Register<CollapsiblePanelBase, bool>(nameof(IsContentShown));
 
-        public static readonly AvaloniaProperty TextProperty = AvaloniaProperty.Register<CollapsiblePanelBase, string>("Text");
+        public static readonly StyledProperty<string> TextProperty = AvaloniaProperty.Register<CollapsiblePanelBase, string>(nameof(Text));
 
-        public static readonly AvaloniaProperty HeaderContentProperty = AvaloniaProperty.Register<CollapsiblePanelBase, object>("HeaderContent");
+        public static readonly StyledProperty<object> HeaderContentProperty = AvaloniaProperty.Register<CollapsiblePanelBase, object>(nameof(HeaderContent));
 
         #endregion
 

@@ -18,7 +18,7 @@
         <TextBlock Text="Level must be" Classes="LegendText" VerticalAlignment="Center" />
         <ComboBox Grid.Column="1" Margin="5 0" VerticalAlignment="Center" VerticalContentAlignment="Center"
             FontSize="15" FontWeight="SemiBold"
-            ItemsSource="{Binding Source={StaticResource ComparisonOperatorEnum}}"
+            Items="{Binding Source={StaticResource ComparisonOperatorEnum}}"
             SelectedItem="{Binding ComparisonOperator}"
             behaviors:SelectionChangedBehavior.Command="{Binding FilterChangedCommand}">
             <ComboBox.ItemTemplate>
@@ -29,7 +29,7 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <controls:SrsLevelPicker Grid.Column="2" ToolTip="Pick an SRS level to filter."
+        <controls:SrsLevelPicker Grid.Column="2" ToolTip.Tip="Pick an SRS level to filter."
             DataContext="{Binding SrsLevelPickerVm}" HorizontalAlignment="Left" />
     </Grid>
 </UserControl>
