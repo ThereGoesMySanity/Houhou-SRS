@@ -211,10 +211,11 @@
     <Style Selector="TextBox.VocabReadingLabel" InheritanceParent="{StaticResource LabelBox}" >
         <Setter Property="FontSize" Value="16"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
-        <Setter Property="LayoutTransform">
+        <!--TODO: unused?-->
+        <!--<Setter Property="LayoutTransform">
             <Setter.Value>
                 <ScaleTransform ScaleX="1.2"/>
-            </Setter.Value>
+            </Setter.Value>-->
         </Setter>
     </Style>
   <Style Selector="TextBox.VocabReadingLabel:pointerover">
@@ -1345,11 +1346,12 @@
                             </Grid.ColumnDefinitions>
 
                             <!-- Audio button -->
-                            <Button Grid.Column="0" HorizontalAlignment="Left" Classes="VocabAudioButton" DataContext="{Binding .}">
-                              <Button.LayoutTransform>
+                            <LayoutTransformContainer>
+                              <LayoutTransformContainer.LayoutTransform>
                                 <RotateTransform Angle="-90"/>
-                              </Button.LayoutTransform>
-                            </Button>
+                              </LayoutTransformContainer.LayoutTransform>
+                            <Button Grid.Column="0" HorizontalAlignment="Left" Classes="VocabAudioButton" DataContext="{Binding .}" />
+                            </LayoutTransformContainer>
 
 
 
@@ -1370,55 +1372,59 @@
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="*"/>
                               </Grid.RowDefinitions>
+                            <LayoutTransformContainer>
                               <Button Grid.Row="1" Content="Kanji" HorizontalAlignment="Right" FontSize="6" ToolTip.Tip="Copy the kanji writing to the clipboard." Command="{Binding DataContext.KanjiCopyCommand,
                                                       RelativeSource={RelativeSource AncestorType=controls:VocabList}}" CommandParameter="{Binding .}" Classes="MiniActionButton">
-                                                            <Button.Styles>
-                                                              <Style Selector="Button">
-                                                                <i:Interaction.Behaviors>
-                                                                  <ia:DataTriggerBehavior Binding="{Binding DbVocab.KanjiWriting}" Value="{x:Null}">
-                                                                    <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
-                                                                  </ia:DataTriggerBehavior>
-                                                                  <ia:DataTriggerBehavior Binding="{Binding DbVocab.KanjiWriting}" Value="">
-                                                                    <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
-                                                                  </ia:DataTriggerBehavior>
-                                                                </i:Interaction.Behaviors>
-                                                                <Setter Property="Opacity" Value="0.15"/>
-                                                                <Setter Property="BorderBrush" Value="Transparent"/>
-                                                              </Style>
-                                                              <Style Selector="Button:pointerover">
-                                                                <Setter Property="Opacity" Value="1" />
-                                                                <Setter Property="BorderBrush" Value="#99042880" />
-                                                              </Style>
-                                                            </Button.Styles>
-                                                            <Button.LayoutTransform>
-                                                                <RotateTransform Angle="-90"/>
-                                                            </Button.LayoutTransform>
-                                                        </Button>
-                                                        <Button Content="Kana" HorizontalAlignment="Right" FontSize="6" ToolTip.Tip="Copy the kana writing to the clipboard." Command="{Binding DataContext.KanaCopyCommand,
+                                <Button.Styles>
+                                  <Style Selector="Button">
+                                    <i:Interaction.Behaviors>
+                                      <ia:DataTriggerBehavior Binding="{Binding DbVocab.KanjiWriting}" Value="{x:Null}">
+                                        <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
+                                      </ia:DataTriggerBehavior>
+                                      <ia:DataTriggerBehavior Binding="{Binding DbVocab.KanjiWriting}" Value="">
+                                        <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
+                                      </ia:DataTriggerBehavior>
+                                    </i:Interaction.Behaviors>
+                                    <Setter Property="Opacity" Value="0.15"/>
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                  </Style>
+                                  <Style Selector="Button:pointerover">
+                                    <Setter Property="Opacity" Value="1" />
+                                    <Setter Property="BorderBrush" Value="#99042880" />
+                                  </Style>
+                                </Button.Styles>
+                              </Button>
+                              <LayoutTransformContainer.LayoutTransform>
+                                  <RotateTransform Angle="-90"/>
+                              </LayoutTransformContainer.LayoutTransform>
+                            </LayoutTransformContainer>
+                            <LayoutTransformContainer>
+                              <Button Content="Kana" HorizontalAlignment="Right" FontSize="6" ToolTip.Tip="Copy the kana writing to the clipboard." Command="{Binding DataContext.KanaCopyCommand,
                                                       RelativeSource={RelativeSource AncestorType=controls:VocabList}}" CommandParameter="{Binding .}" Classes="MiniActionButton">
-                                                            <Button.Styles>
-                                                              <Style Selector="Button">
-                                                                <Setter Property="Opacity" Value="0.15" />
-                                                                <Setter Property="BorderBrush" Value="Transparent" />
-                                                              </Style>
-                                                              <Style Selector="Button:pointerover">
-                                                                <Setter Property="Opacity" Value="1" />
-                                                                <Setter Property="BorderBrush" Value="#99042880" />
-                                                              </Style>
-                                                            </Button.Styles>
-                                                            <Button.LayoutTransform>
-                                                                <RotateTransform Angle="-90"/>
-                                                            </Button.LayoutTransform>
-                                                        </Button>
-                                                    </Grid>
-                                                
-                                                </Grid>
-                                            </Border>
+                                <Button.Styles>
+                                  <Style Selector="Button">
+                                    <Setter Property="Opacity" Value="0.15" />
+                                    <Setter Property="BorderBrush" Value="Transparent" />
+                                  </Style>
+                                  <Style Selector="Button:pointerover">
+                                    <Setter Property="Opacity" Value="1" />
+                                    <Setter Property="BorderBrush" Value="#99042880" />
+                                  </Style>
+                                </Button.Styles>
+                                <Button.LayoutTransform>
+                                </Button.LayoutTransform>
+                              </Button>
+                              <LayoutTransformContainer.LayoutTransform>
+                                  <RotateTransform Angle="-90"/>
+                              </LayoutTransformContainer.LayoutTransform>
+                            </LayoutTransformContainer>
+                            </Grid>
+
+                          </Grid>
+                        </Border>
 
                         <Border Grid.Row="1" Grid.ColumnSpan="2" IsVisible="{Binding HasVariants}" BorderThickness="0 1 0 0" BorderBrush="#22000000" Padding="0 2 0 2">
-                          <ListBox Classes="VocabVariantList" Items="{Binding ., Mode=OneWay,
-                                                                          Converter={StaticResource ExtendedVocabToVariantListConverter},
-                                                                          }"/>
+                          <ListBox Classes="VocabVariantList" Items="{Binding ., Mode=OneWay, Converter={StaticResource ExtendedVocabToVariantListConverter}}"/>
                         </Border>
                       </Grid>
                     </Border>
@@ -2141,7 +2147,6 @@
       </Setter>
     </Style>
 
-    <ScaleTransform x:Key="NavigationPanelTabTitleScaleTransform" ScaleX="0.7" ScaleY="1.2"/>
 
     <Style Selector="Label.NavigationPanelTabTitle" >
       <Setter Property="Margin" Value="0 0 0 7"/>
@@ -2151,16 +2156,27 @@
         <Setter.Value>
           <ControlTemplate TargetType="Label">
             <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-              <TextBlock Classes="NavigationPanelTabTitleSubShadow" Text="{TemplateBinding Content}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}" LayoutTransform="{StaticResource NavigationPanelTabTitleScaleTransform}"/>
-              <TextBlock Classes="NavigationPanelTabTitleSubCommon" Text="{TemplateBinding Content}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}" LayoutTransform="{StaticResource NavigationPanelTabTitleScaleTransform}"/>
+              <LayoutTransformContainer>
+                <TextBlock Classes="NavigationPanelTabTitleSubShadow" Text="{TemplateBinding Content}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}"/>
+              </LayoutTransformContainer>
+              <LayoutTransformContainer>
+                <TextBlock Classes="NavigationPanelTabTitleSubCommon" Text="{TemplateBinding Content}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}"/>
+              </LayoutTransformContainer>
             </Grid>
           </ControlTemplate>
         </Setter.Value>
       </Setter>
     </Style>
+  <Style Selector="Label.NavigationPanelTabTitle LayoutTransformContainer">
+    <Setter Property="LayoutTransform">
+      <Setter.Value>
+        <!--NavigationPanelTabTitleScaleTransform-->
+        <ScaleTransform ScaleX="0.7" ScaleY="1.2"/>
+      </Setter.Value>
+    </Setter>
+  </Style>
 
-    <Style Selector="Label.NavigationPanelTabTitleKanji"  InheritanceParent="{StaticResource NavigationPanelTabTitle}">
-      <Setter Property="LayoutTransform" Value="{x:Null}"/>
+  <Style Selector="Label.NavigationPanelTabTitleKanji"  InheritanceParent="{StaticResource NavigationPanelTabTitle}">
       <Setter Property="Template">
         <Setter.Value>
           <ControlTemplate TargetType="Label">
@@ -2172,6 +2188,9 @@
         </Setter.Value>
       </Setter>
     </Style>
+  <Style Selector="Label.NavigationPanelTabTitleKanji LayoutTransformContainer">
+    <Setter Property="LayoutTransform" Value="{x:Null}" />
+  </Style>
 
     <Style Selector="Button.NavigationPanelButton" >
       <Setter Property="Opacity" Value="0"/>

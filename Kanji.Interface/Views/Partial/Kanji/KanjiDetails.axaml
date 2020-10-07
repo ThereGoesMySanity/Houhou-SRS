@@ -93,11 +93,15 @@
                     <StackPanel VerticalAlignment="Center">
                         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                             <TextBlock HorizontalAlignment="Center" FontSize="16" Text="{Binding Path=KanjiEntity.DbKanji.MostUsedRank}"/>
-                            <TextBlock Classes="LegendText" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="2 0 0 0" Text="{Binding Path=KanjiEntity.DbKanji.MostUsedRank, Converter={StaticResource IntegerToOrdinalStringConverter}, ConverterParameter=SuffixOnly}">
-                                <TextBlock.LayoutTransform>
-                                    <TranslateTransform Y="-5"/>
-                                </TextBlock.LayoutTransform>
-                            </TextBlock>
+                          <LayoutTransformContainer>
+                            <TextBlock Classes="LegendText" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="2 0 0 0" 
+                                       Text="{Binding Path=KanjiEntity.DbKanji.MostUsedRank, 
+                                              Converter={StaticResource IntegerToOrdinalStringConverter}, 
+                                              ConverterParameter=SuffixOnly}"/>
+                              <LayoutTransformContainer.LayoutTransform>
+                                <TranslateTransform Y="-5"/>
+                              </LayoutTransformContainer.LayoutTransform>
+                            </LayoutTransformContainer>
                         </StackPanel>
                         <TextBlock Classes="LegendText" Text="most used" HorizontalAlignment="Center"/>
                     </StackPanel>
