@@ -53,13 +53,13 @@
                             </ia:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
                         <Setter Property="Content" Value="Wrap up"/>
-                        <Setter Property="ToolTip" Value="Wraps up this review session. Shortcut if enabled: (CTRL+W)."/>
+                        <Setter Property="ToolTip.Tip" Value="Wraps up this review session. Shortcut if enabled: (CTRL+W)."/>
                     </Style>
                 </Button.Styles>
             </Button>
 
             <!-- Exit without wrapping up button -->
-            <Button Grid.Column="1" Command="{Binding StopSessionCommand}" Content="X" ToolTip="Exits this review session immediately. Some data may be lost." Classes="MiniActionButton"/>
+            <Button Grid.Column="1" Command="{Binding StopSessionCommand}" Content="X" ToolTip.Tip="Exits this review session immediately. Some data may be lost." Classes="MiniActionButton"/>
         </Grid>
 
         <Border Grid.Row="1">
@@ -318,7 +318,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0" Content="Ignore answer" ToolTip="Use this button to ignore the answer you gave. The question will come back later. Shortcut if enabled: (Backspace)" Command="{Binding IgnoreAnswerCommand}" Margin="5 0">
+                <Button Grid.Column="0" Content="Ignore answer" ToolTip.Tip="Use this button to ignore the answer you gave. The question will come back later. Shortcut if enabled: (Backspace)" Command="{Binding IgnoreAnswerCommand}" Margin="5 0">
                     <Button.Styles>
                         <Style Selector="Button" InheritanceParent="{StaticResource ActionButton}">
                             <i:Interaction.Behaviors>
@@ -339,17 +339,17 @@
                                 </ia:DataTriggerBehavior>
                                 <ia:DataTriggerBehavior Binding="{Binding CurrentQuestion.Question}" Value="Meaning">
                                     <ia:ChangePropertyAction Value="Add to meanings" PropertyName="Content"/>
-                                    <ia:ChangePropertyAction Value="Mark your answer as correct and add the answer as a correct meaning." PropertyName="ToolTip"/>
+                                    <ia:ChangePropertyAction Value="Mark your answer as correct and add the answer as a correct meaning." PropertyName="ToolTip.Tip"/>
                                 </ia:DataTriggerBehavior>
                             </i:Interaction.Behaviors>
                             <Setter Property="Visibility" Value="Collapsed"/>
                             <Setter Property="Content" Value="Add to readings"/>
-                            <Setter Property="ToolTip" Value="Mark your answer as correct and add the answer as a correct reading. Shortcut if enabled: (+)"/>
+                            <Setter Property="ToolTip.Tip" Value="Mark your answer as correct and add the answer as a correct reading. Shortcut if enabled: (+)"/>
                         </Style>
                     </Button.Styles>
                 </Button>
 
-                <Button Grid.Column="2" Content="Edit this item" ToolTip="Open the item edition window. Does not change your answer or its effects." Command="{Binding EditSrsEntryCommand}" Margin="5 0">
+                <Button Grid.Column="2" Content="Edit this item" ToolTip.Tip="Open the item edition window. Does not change your answer or its effects." Command="{Binding EditSrsEntryCommand}" Margin="5 0">
                     <Button.Styles>
                         <Style Selector="Button" InheritanceParent="{StaticResource ActionButton}">
                             <i:Interaction.Behaviors>

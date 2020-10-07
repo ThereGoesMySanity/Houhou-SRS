@@ -22,11 +22,11 @@
 
         <RadioButton Grid.Row="1" Grid.Column="1" Content="Yes" Command="{Binding SettingChangeCommand}"
             IsChecked="{Binding IsAutoStart}"
-            ToolTip="If this button is checked, the SRS Tray application will be launched automatically at system startup."
+            ToolTip.Tip="If this button is checked, the SRS Tray application will be launched automatically at system startup."
             VerticalAlignment="Center" Margin="0 0 15 0" />
         <RadioButton Grid.Row="1" Grid.Column="2" Content="No" Command="{Binding SettingChangeCommand}"
             IsChecked="{Binding IsAutoStart, Converter={StaticResource BooleanInverterConverter}, Mode=OneWay}"
-            ToolTip="If this button is checked, the SRS Tray application will not be automatically launched."
+            ToolTip.Tip="If this button is checked, the SRS Tray application will not be automatically launched."
             VerticalAlignment="Center" />
         
     </Grid>

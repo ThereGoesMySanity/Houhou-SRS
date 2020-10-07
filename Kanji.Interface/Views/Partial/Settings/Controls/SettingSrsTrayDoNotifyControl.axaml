@@ -22,11 +22,11 @@
 
         <RadioButton Grid.Row="1" Grid.Column="1" Content="Yes" Command="{Binding SettingChangeCommand}"
             IsChecked="{Binding DoNotify}"
-            ToolTip="If this button is checked, the SRS Tray Application will notify you when reviews are available."
+            ToolTip.Tip="If this button is checked, the SRS Tray Application will notify you when reviews are available."
             VerticalAlignment="Center" Margin="0 0 15 0" />
         <RadioButton Grid.Row="1" Grid.Column="2" Content="No" Command="{Binding SettingChangeCommand}"
             IsChecked="{Binding DoNotify, Converter={StaticResource BooleanInverterConverter}, Mode=OneWay}"
-            ToolTip="If this button is checked, the SRS Tray Application will never issue notifications."
+            ToolTip.Tip="If this button is checked, the SRS Tray Application will never issue notifications."
             VerticalAlignment="Center" />
 
     </Grid>

@@ -15,46 +15,46 @@
                 <i:Interaction.Behaviors>
                     <!-- Loaded, all items are being displayed and there are
                     at least 2 results: show appropriate message -->
-                    <ia:DataTriggerBehaviordontchange Value="True">
-                        <ia:DataTriggerBehaviordontchange.Binding>
+                    <ia:DataTriggerBehavior Value="True">
+                        <ia:DataTriggerBehavior.Binding>
                             <MultiBinding Converter="{StaticResource ComparablesToBooleanConverter}">
                                 <Binding Path="LoadedItems.Count"/>
                                 <Binding Path="TotalItemCount"/>
                             </MultiBinding>
-                        </ia:DataTriggerBehaviordontchange.Binding>
+                        </ia:DataTriggerBehavior.Binding>
                         <ia:ChangePropertyAction PropertyName="Text">
                             <ia:ChangePropertyAction.Value>
                                 <Binding Path="TotalItemCount" Mode="OneWay" StringFormat="{}Displaying all {0} results."/>
                             </ia:ChangePropertyAction.Value>
                         </ia:ChangePropertyAction>
-                    </ia:DataTriggerBehaviordontchange>
+                    </ia:DataTriggerBehavior>
                     <!-- Loaded but no results: display an appropriate message -->
-                    <utility:MultiDataTriggerBehaviordontchange>
-                        <utility:MultiDataTriggerBehaviordontchange.Conditions>
+                    <utility:MultiDataTriggerBehavior>
+                        <utility:MultiDataTriggerBehavior.Conditions>
                             <utility:Condition Binding="{Binding LoadedItems.Count}" Value="0"/>
                             <utility:Condition Binding="{Binding TotalItemCount}" Value="0"/>
                             <utility:Condition Binding="{Binding IsFiltering}" Value="True"/>
-                        </utility:MultiDataTriggerBehaviordontchange.Conditions>
+                        </utility:MultiDataTriggerBehavior.Conditions>
                         <ia:ChangePropertyAction Value="There are no results for this request." PropertyName="Text"/>
-                    </utility:MultiDataTriggerBehaviordontchange>
+                    </utility:MultiDataTriggerBehavior>
                     <!-- Loaded with one single result: display an appropriate message -->
-                    <utility:MultiDataTriggerBehaviordontchange>
-                        <utility:MultiDataTriggerBehaviordontchange.Conditions>
+                    <utility:MultiDataTriggerBehavior>
+                        <utility:MultiDataTriggerBehavior.Conditions>
                             <utility:Condition Binding="{Binding LoadedItems.Count}" Value="1"/>
                             <utility:Condition Binding="{Binding TotalItemCount}" Value="1"/>
-                        </utility:MultiDataTriggerBehaviordontchange.Conditions>
+                        </utility:MultiDataTriggerBehavior.Conditions>
                         <ia:ChangePropertyAction Value="Displaying the only result." PropertyName="Text"/>
-                    </utility:MultiDataTriggerBehaviordontchange>
+                    </utility:MultiDataTriggerBehavior>
                     <!-- If loading: display loading indicator -->
-                    <ia:DataTriggerBehaviordontchange Binding="{Binding IsLoading}" Value="True">
+                    <ia:DataTriggerBehavior Binding="{Binding IsLoading}" Value="True">
                         <ia:ChangePropertyAction Value="Loading items. Please wait." PropertyName="Text"/>
-                    </ia:DataTriggerBehaviordontchange>
-                    <ia:DataTriggerBehaviordontchange Binding="{Binding IsFiltering}" Value="True">
+                    </ia:DataTriggerBehavior>
+                    <ia:DataTriggerBehavior Binding="{Binding IsFiltering}" Value="True">
                         <ia:ChangePropertyAction Value="Loading filters. Please wait." PropertyName="Text"/>
-                    </ia:DataTriggerBehaviordontchange>
+                    </ia:DataTriggerBehavior>
                     <!-- Max priority: display the number of items being loaded. -->
-                    <utility:MultiDataTriggerBehaviordontchange>
-                        <utility:MultiDataTriggerBehaviordontchange.Conditions>
+                    <utility:MultiDataTriggerBehavior>
+                        <utility:MultiDataTriggerBehavior.Conditions>
                             <utility:Condition Binding="{Binding LoadedItems.Count}" Value="0"/>
                             <utility:Condition Value="True">
                                 <utility:Condition.Binding>
@@ -64,23 +64,23 @@
                                     </MultiBinding>
                                 </utility:Condition.Binding>
                             </utility:Condition>
-                        </utility:MultiDataTriggerBehaviordontchange.Conditions>
+                        </utility:MultiDataTriggerBehavior.Conditions>
                         <ia:ChangePropertyAction PropertyName="Text">
                             <ia:ChangePropertyAction.Value>
                                 <Binding Path="TotalItemCount" Mode="OneWay" StringFormat="{}Loading {0} results. Please wait."/>
                             </ia:ChangePropertyAction.Value>
                         </ia:ChangePropertyAction>
-                    </utility:MultiDataTriggerBehaviordontchange>
+                    </utility:MultiDataTriggerBehavior>
                     <!-- (if loading one single result: display an appropriate message) -->
-                    <utility:MultiDataTriggerBehaviordontchange>
-                        <utility:MultiDataTriggerBehaviordontchange.Conditions>
+                    <utility:MultiDataTriggerBehavior>
+                        <utility:MultiDataTriggerBehavior.Conditions>
                             <utility:Condition Binding="{Binding LoadedItems.Count}" Value="0"/>
                             <utility:Condition Binding="{Binding TotalItemCount}" Value="1"/>
-                        </utility:MultiDataTriggerBehaviordontchange.Conditions>
-                        <utility:MultiDataTriggerBehaviordontchange.Actions>
+                        </utility:MultiDataTriggerBehavior.Conditions>
+                        <utility:MultiDataTriggerBehavior.Actions>
                             <ia:ChangePropertyAction Value="Loading 1 result. Please wait." PropertyName="Text"/>
-                        </utility:MultiDataTriggerBehaviordontchange.Actions>
-                    </utility:MultiDataTriggerBehaviordontchange>
+                        </utility:MultiDataTriggerBehavior.Actions>
+                    </utility:MultiDataTriggerBehavior>
                 </i:Interaction.Behaviors>
         <TextBlock.Styles>
             <Style Selector="TextBlock">

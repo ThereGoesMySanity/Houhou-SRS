@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
-    <ListBox ItemsSource="{Binding ., Mode=OneWay}" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+    <ListBox Items="{Binding ., Mode=OneWay}" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
         ScrollViewer.CanContentScroll="False" Background="{x:Null}" BorderBrush="{StaticResource FadedBorderBrush}">
         <ListBox.ItemsPanel>
             <ItemsPanelTemplate>
@@ -27,7 +27,7 @@
                                 </controls:CollapsiblePanel.HeaderContent>
                                 
                                 <!-- SUBLIST -->
-                                <ListBox ItemsSource="{Binding Content, Mode=OneWay}" Background="{x:Null}"
+                                <ListBox Items="{Binding Content, Mode=OneWay}" Background="{x:Null}"
                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                     ScrollViewer.CanContentScroll="False" BorderBrush="{StaticResource FadedBorderBrush}"
                                     PreviewMouseWheel="OnSubListBoxPreviewMouseWheel">

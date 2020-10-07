@@ -48,20 +48,20 @@
                          Text="{Binding NextAnswerDate, Mode=OneWay,
                                Converter={StaticResource DateTimeToStringConverter},
                                ConverterParameter={x:Static converters:DateTimeToStringConversionEnum.Relative}}"
-                         ToolTip="{Binding NextAnswerDate, Mode=OneWay,
+                         ToolTip.Tip="{Binding NextAnswerDate, Mode=OneWay,
                                   Converter={StaticResource DateTimeToStringConverter},
                                   ConverterParameter={x:Static converters:DateTimeToStringConversionEnum.Absolute}}" />
 
                 <Button Grid.Column="2" Classes="MiniActionButton"
                         Content="Edit" VerticalContentAlignment="Center"
                         Command="{Binding DataContext.EditSrsEntryCommand, RelativeSource={RelativeSource AncestorType=controls:KanjiDetails}}"
-                        ToolTip="Edit the SRS item"
+                        ToolTip.Tip="Edit the SRS item"
                         Margin="10 2 0 0"/>
                 
                 <!--<Button Grid.Column="2" Classes="ImageActionButton"
                         Content="pack://application:,,,/Data/UI/EditIcon.png"
                         Command="{Binding DataContext.EditSrsEntryCommand, RelativeSource={RelativeSource AncestorType=controls:KanjiDetails}}"
-                        ToolTip="Edit the SRS item"
+                        ToolTip.Tip="Edit the SRS item"
                         Margin="0 2 0 0"/>-->
             </Grid>
         

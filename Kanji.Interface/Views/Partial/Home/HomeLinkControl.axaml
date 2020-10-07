@@ -28,17 +28,17 @@
                 <Button Classes="MiniActionButton" Content="Visit the website" 
                     Margin="0 3 0 0" Height="22" Command="{Binding WebsiteCommand}"  />
                 <Button Grid.Column="1" Classes="MiniActionButton" Content="GitHub" 
-                    Margin="5 3 0 0" Height="22" Command="{Binding GitHubCommand}" ToolTip="For fellow programmers out there!" />
+                    Margin="5 3 0 0" Height="22" Command="{Binding GitHubCommand}" ToolTip.Tip="For fellow programmers out there!" />
             </Grid>
             
             <!-- Contact link button -->
             <Button Classes="MiniActionButton" Content="Contact the author" 
                 Margin="0 5 0 0" Height="22" Command="{Binding ContactCommand}" 
-                ToolTip="Contact me at hello@houhou-srs.com.&#x0a;You can use this to report issues, to submit ideas, to talk about the weather...&#x0a;Ask me anything!" />
+                ToolTip.Tip="Contact me at hello@houhou-srs.com.&#x0a;You can use this to report issues, to submit ideas, to talk about the weather...&#x0a;Ask me anything!" />
             
             <!-- Donate button -->
             <Button Classes="MiniActionButton" Content="Donate via PayPal" FontWeight="SemiBold"
-                Margin="0 5 0 0" Height="22" Command="{Binding DonateCommand}" ToolTip="Please buy me a coffee!" />
+                Margin="0 5 0 0" Height="22" Command="{Binding DonateCommand}" ToolTip.Tip="Please buy me a coffee!" />
         </StackPanel>
     </Border>
 </UserControl>

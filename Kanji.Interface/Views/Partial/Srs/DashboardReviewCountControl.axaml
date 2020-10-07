@@ -72,21 +72,21 @@
                     <TextBlock Grid.Row="1" Margin="0 -6 0 0" HorizontalAlignment="Center" Text="{Binding CurrentReviewInfo.FirstReviewDate,
                                                        Source={x:Static business:SrsBusiness.Instance},
                                                        Converter={StaticResource DateTimeToStringConverter},
-                                                       ConverterParameter={x:Static converters:DateTimeToStringConversionEnum.Relative}}" ToolTip="{Binding CurrentReviewInfo.FirstReviewDate,
+                                                       ConverterParameter={x:Static converters:DateTimeToStringConversionEnum.Relative}}" ToolTip.Tip="{Binding CurrentReviewInfo.FirstReviewDate,
                                                           Source={x:Static business:SrsBusiness.Instance},
                                                           Converter={StaticResource DateTimeToStringConverter},
                                                           ConverterParameter={x:Static converters:DateTimeToStringConversionEnum.Absolute}}" FontSize="22" FontWeight="SemiBold" Foreground="White"/>
                 </Grid>
 
                 <!-- Start review button -->
-                <Button Grid.Row="1" Grid.Column="1" Content="Start reviewing" ToolTip="(CTRL+Enter)" Height="34" Command="{Binding StartReviewsCommand}">
+                <Button Grid.Row="1" Grid.Column="1" Content="Start reviewing" ToolTip.Tip="(CTRL+Enter)" Height="34" Command="{Binding StartReviewsCommand}">
                     <Button.Styles>
                         <Style Selector="Button" InheritanceParent="{StaticResource BrightActionButton}" />
                     </Button.Styles>
                   <i:Interaction.Behaviors>
-                    <ia:DataTriggerBehaviordontchange Binding="{Binding Visibility, ElementName=NoReviewsPanel}" Value="Visible">
+                    <ia:DataTriggerBehavior Binding="{Binding Visibility, ElementName=NoReviewsPanel}" Value="Visible">
                       <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
-                    </ia:DataTriggerBehaviordontchange>
+                    </ia:DataTriggerBehavior>
                   </i:Interaction.Behaviors>
                 </Button>
             </Grid>

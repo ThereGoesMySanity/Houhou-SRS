@@ -23,11 +23,11 @@
         
         <Button Classes="ActionButton" Content="Browse all items" Margin="0 0 0 5"
                 Command="{Binding BrowseAllItemsCommand}"
-                ToolTip="(CTRL+Alt+A)" />
+                ToolTip.Tip="(CTRL+Alt+A)" />
 
         <Button Classes="ActionButton" Grid.Row="0" Grid.Column="3" Content="Refresh"
                 Margin="0 0 0 5" Command="{Binding RefreshCommand}"
-                ToolTip="Refreshes the current view with the latest data from the database (F5)" />
+                ToolTip.Tip="Refreshes the current view with the latest data from the database (F5)" />
 
         <controls:SrsEntryMeaningFilterControl x:Name="MeaningFilter" Grid.Row="1" Grid.Column="0" DataContext="{Binding MeaningFilterVm}"
             IsInline="False" Margin="0 0 5 0" />

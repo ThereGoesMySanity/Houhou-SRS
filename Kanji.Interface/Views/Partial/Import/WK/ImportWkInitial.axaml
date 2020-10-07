@@ -54,20 +54,20 @@
                         </StackPanel>
 
                         <CheckBox IsChecked="{Binding ParentMode.IsStartEnabled, Mode=TwoWay}" Margin="0 5 0 0" Content="Activate the imported items"
-                            ToolTip="Uncheck this box if you do not want your imported WaniKani items to come up in reviews in Houhou." />
+                            ToolTip.Tip="Uncheck this box if you do not want your imported WaniKani items to come up in reviews in Houhou." />
 
                         <CheckBox IsChecked="{Binding ParentMode.DoImportSrsLevel, Mode=TwoWay}" Margin="0 5 0 0" Content="Match the SRS level" 
-                            ToolTip="If this is checked, the import will attempt to match the SRS level of your items on WaniKani with your SRS levels on Houhou." />
+                            ToolTip.Tip="If this is checked, the import will attempt to match the SRS level of your items on WaniKani with your SRS levels on Houhou." />
 
                         <CheckBox IsChecked="{Binding ParentMode.DoImportReviewDate, Mode=TwoWay}" Margin="0 5 0 0" Content="Use WaniKani's review date" 
-                            ToolTip="If this is checked, the import will keep WaniKani's next review date when it is possible." />
+                            ToolTip.Tip="If this is checked, the import will keep WaniKani's next review date when it is possible." />
 
-                        <TextBlock Classes="LegendText" ToolTip="Defines how the Tags field is filled. The special text '%level%' will be replaced by the WaniKani level of the item."
+                        <TextBlock Classes="LegendText" ToolTip.Tip="Defines how the Tags field is filled. The special text '%level%' will be replaced by the WaniKani level of the item."
                             Margin="0 5 0 0">
                             Tags field [?]
                         </TextBlock>
                         <TextBox Height="40" MaxLength="300" TextWrapping="Wrap" Text="{Binding ParentMode.Tags, Mode=TwoWay}"
-                            ToolTip="Defines how the Tags field is filled. The special text '%level%' will be replaced by the WaniKani level of the item." />
+                            ToolTip.Tip="Defines how the Tags field is filled. The special text '%level%' will be replaced by the WaniKani level of the item." />
                     </StackPanel>
                 </HeaderedContentControl>
 

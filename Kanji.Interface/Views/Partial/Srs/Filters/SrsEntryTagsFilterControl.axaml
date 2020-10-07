@@ -21,7 +21,7 @@
                     <TextBlock Text="Containing the tag:" Classes="LegendText" VerticalAlignment="Center" Margin="0 0 5 0"/>
 
                     <AdornerDecorator Grid.Column="1">
-                        <controls:CommandTextBox x:Name="FilterTextBox" MaxLength="100" ToolTip="Enter the tag filter. (CTRL+T)" Text="{Binding TagFilter}" ValidationCommand="{Binding ValidateCommand}">
+                        <controls:CommandTextBox x:Name="FilterTextBox" MaxLength="100" ToolTip.Tip="Enter the tag filter. (CTRL+T)" Text="{Binding TagFilter}" ValidationCommand="{Binding ValidateCommand}">
                             <controls:WatermarkService.Watermark>
                                 <TextBlock HorizontalAlignment="Center">Tag filter</TextBlock>
                             </controls:WatermarkService.Watermark>
@@ -33,8 +33,8 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <RadioButton HorizontalAlignment="Center" GroupName="FilterType" Content="Match exact text" ToolTip="Match this exact expression." IsChecked="{Binding IsExactMatch}"/>
-                        <RadioButton Grid.Column="1" HorizontalAlignment="Center" GroupName="FilterType" Content="Match containing text" ToolTip="Match any value containing this expression." IsChecked="{Binding IsExactMatch, Converter={StaticResource BooleanInverterConverter}}"/>
+                        <RadioButton HorizontalAlignment="Center" GroupName="FilterType" Content="Match exact text" ToolTip.Tip="Match this exact expression." IsChecked="{Binding IsExactMatch}"/>
+                        <RadioButton Grid.Column="1" HorizontalAlignment="Center" GroupName="FilterType" Content="Match containing text" ToolTip.Tip="Match any value containing this expression." IsChecked="{Binding IsExactMatch, Converter={StaticResource BooleanInverterConverter}}"/>
                     </Grid>
                 </Grid>
             </ControlTemplate>
@@ -43,11 +43,6 @@
 
     <controls:SrsEntryFilterControlBase.Styles>
         <Style Selector="{x:Type controls:SrsEntryFilterControlBase}">
-            <Style.Triggers>
-                <Trigger Property="IsInline" Value="True">
-                    <Setter Property="Template" Value="{StaticResource InlineTemplate}" />
-                </Trigger>
-            </Style.Triggers>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="UserControl">
@@ -60,13 +55,13 @@
 
                             <StackPanel Grid.Row="1">
                                 <AdornerDecorator>
-                                    <controls:CommandTextBox x:Name="FilterTextBox" MaxLength="100" ToolTip="Enter the tag filter." Text="{Binding TagFilter}" ValidationCommand="{Binding ValidateCommand}">
+                                    <controls:CommandTextBox x:Name="FilterTextBox" MaxLength="100" ToolTip.Tip="Enter the tag filter." Text="{Binding TagFilter}" ValidationCommand="{Binding ValidateCommand}">
                                         <controls:WatermarkService.Watermark>
                                             <TextBlock HorizontalAlignment="Center">Tag filter</TextBlock>
                                         </controls:WatermarkService.Watermark>
                                     </controls:CommandTextBox>
                                 </AdornerDecorator>
-                                <CheckBox Content="Exact match" ToolTip="When checked, matches only items with this exact tag expression.
+                                <CheckBox Content="Exact match" ToolTip.Tip="When checked, matches only items with this exact tag expression.
 When unchecked, matches any value containing this tag expression." IsChecked="{Binding IsExactMatch}" Command="{Binding ValidateCommand}" HorizontalAlignment="Center"/>
                             </StackPanel>
                         </Grid>
@@ -74,5 +69,8 @@ When unchecked, matches any value containing this tag expression." IsChecked="{B
                 </Setter.Value>
             </Setter>
         </Style>
+      <Style Selector="{x:Type controls:SrsEntryFilterControlBase}[IsInline=True]">
+        <Setter Property="Template" Value="{StaticResource InlineTemplate}" />
+      </Style>
     </controls:SrsEntryFilterControlBase.Styles>
 </controls:SrsEntryFilterControlBase>

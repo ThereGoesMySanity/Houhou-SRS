@@ -48,9 +48,9 @@
                 <Viewbox Grid.Row="1">
                     <TextBlock Foreground="#99FFFFFF">
                                 <i:Interaction.Behaviors>
-                                    <ia:DataTriggerBehaviordontchange Binding="{Binding SelectionTotalReviews}" Value="1">
+                                    <ia:DataTriggerBehavior Binding="{Binding SelectionTotalReviews}" Value="1">
                                         <ia:ChangePropertyAction Value="totalled review" PropertyName="Text"/>
-                                    </ia:DataTriggerBehaviordontchange>
+                                    </ia:DataTriggerBehavior>
                                 </i:Interaction.Behaviors>
                         <TextBlock.Styles>
                             <Style Selector="TextBlock" InheritanceParent="{StaticResource LegendText}">
@@ -83,9 +83,9 @@
                 <Viewbox Grid.Row="1">
                     <TextBlock Foreground="#99FFFFFF">
                                 <i:Interaction.Behaviors>
-                                    <ia:DataTriggerBehaviordontchange Binding="{Binding SelectionTotalSuccesses}" Value="1">
+                                    <ia:DataTriggerBehavior Binding="{Binding SelectionTotalSuccesses}" Value="1">
                                         <ia:ChangePropertyAction Value="totalled success" PropertyName="Text"/>
-                                    </ia:DataTriggerBehaviordontchange>
+                                    </ia:DataTriggerBehavior>
                                 </i:Interaction.Behaviors>
                         <TextBlock.Styles>
                             <Style Selector="TextBlock" InheritanceParent="{StaticResource LegendText}">
@@ -118,9 +118,9 @@
                 <Viewbox Grid.Row="1">
                     <TextBlock Foreground="#99FFFFFF">
                                 <i:Interaction.Behaviors>
-                                    <ia:DataTriggerBehaviordontchange Binding="{Binding SelectionTotalFailures}" Value="1">
+                                    <ia:DataTriggerBehavior Binding="{Binding SelectionTotalFailures}" Value="1">
                                         <ia:ChangePropertyAction Value="totalled failure" PropertyName="Text"/>
-                                    </ia:DataTriggerBehaviordontchange>
+                                    </ia:DataTriggerBehavior>
                                 </i:Interaction.Behaviors>
                         <TextBlock.Styles>
                             <Style Selector="TextBlock" InheritanceParent="{StaticResource LegendText}">

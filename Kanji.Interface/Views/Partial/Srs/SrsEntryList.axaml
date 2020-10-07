@@ -23,9 +23,9 @@
             <!-- No results panel -->
             <Grid>
               <i:Interaction.Behaviors>
-                <ia:DataTriggerBehaviordontchange Binding="{Binding IsVisible, ElementName=ListGrid}" Value="True">
+                <ia:DataTriggerBehavior Binding="{Binding IsVisible, ElementName=ListGrid}" Value="True">
                   <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
-                </ia:DataTriggerBehaviordontchange>
+                </ia:DataTriggerBehavior>
               </i:Interaction.Behaviors>
 
               <Border BorderThickness="1" BorderBrush="{StaticResource LegendTextBrush}" Background="#33FFFFFF">
@@ -38,25 +38,25 @@
                         <Viewbox Grid.Column="1">
                             <TextBlock Foreground="{StaticResource LegendTextBrush}" TextWrapping="Wrap">
                                         <i:Interaction.Behaviors>
-                                            <ia:DataTriggerBehaviordontchange Binding="{Binding IsFilterEmpty}" Value="True">
+                                            <ia:DataTriggerBehavior Binding="{Binding IsFilterEmpty}" Value="True">
                                                 <ia:ChangePropertyAction PropertyName="Text">
                                                     <ia:ChangePropertyAction.Value>
                                                         Use the filter controls above to browse your SRS items.
                                                     </ia:ChangePropertyAction.Value>
                                                 </ia:ChangePropertyAction>
-                                            </ia:DataTriggerBehaviordontchange>
-                                            <utility:MultiDataTriggerBehaviordontchange>
-                                                <utility:MultiDataTriggerBehaviordontchange.Conditions>
+                                            </ia:DataTriggerBehavior>
+                                            <utility:MultiDataTriggerBehavior>
+                                                <utility:MultiDataTriggerBehavior.Conditions>
                                                     <utility:Condition Binding="{Binding IsFilterEmpty}" Value="False"/>
                                                     <utility:Condition Binding="{Binding IsFiltering}" Value="False"/>
                                                     <utility:Condition Binding="{Binding IsLoading}" Value="False"/>
-                                                </utility:MultiDataTriggerBehaviordontchange.Conditions>
+                                                </utility:MultiDataTriggerBehavior.Conditions>
                                                 <ia:ChangePropertyAction PropertyName="Text">
                                                     <ia:ChangePropertyAction.Value>
                                                         There are no SRS items matching these filters.
                                                     </ia:ChangePropertyAction.Value>
                                                 </ia:ChangePropertyAction>
-                                            </utility:MultiDataTriggerBehaviordontchange>
+                                            </utility:MultiDataTriggerBehavior>
                                         </i:Interaction.Behaviors>
                                 <TextBlock.Styles>
                                     <Style Selector="TextBlock">
@@ -76,9 +76,9 @@
             <!-- List + info panel -->
             <Grid x:Name="ListGrid">
                         <i:Interaction.Behaviors>
-                            <ia:DataTriggerBehaviordontchange Binding="{Binding LoadedItemCount}" Value="0">
+                            <ia:DataTriggerBehavior Binding="{Binding LoadedItemCount}" Value="0">
                                 <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
-                            </ia:DataTriggerBehaviordontchange>
+                            </ia:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="7*"/>
@@ -86,7 +86,7 @@
                 </Grid.ColumnDefinitions>
                 
                 <!-- List -->
-                <DataGrid x:Name="SrsList" ItemsSource="{Binding LoadedItems, IsAsync=False, Mode=OneWay}" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Extended" SelectionUnit="FullRow" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <DataGrid x:Name="SrsList" Items="{Binding LoadedItems,  Mode=OneWay}" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Extended" SelectionUnit="FullRow" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <i:Interaction.Behaviors>
                         <ia:EventTriggerBehavior EventName="SelectionChanged">
                             <ia:InvokeCommandAction Command="{Binding RefreshSelectionCommand, Mode=OneWay}"/>
@@ -96,14 +96,14 @@
                         <DataGridTemplateColumn Width="33" CanUserResize="False" CanUserSort="False" CanUserReorder="False">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Border Background="{Binding LevelGroup.Color, IsAsync=False, Converter={StaticResource ColorToBrushConverter}}" Padding="2 0" BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="2 0 2 0" Height="Auto">
+                                    <Border Background="{Binding LevelGroup.Color,  Converter={StaticResource ColorToBrushConverter}}" Padding="2 0" BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="2 0 2 0" Height="Auto">
                                         <Grid>
-                                            <TextBlock Foreground="Black" Text="{Binding Level.Name, IsAsync=False}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <TextBlock Foreground="Black" Text="{Binding Level.Name, }" HorizontalAlignment="Center" VerticalAlignment="Center">
                                                 <TextBlock.RenderTransform>
                                                     <TranslateTransform X="-1" Y="-1"/>
                                                 </TextBlock.RenderTransform>
                                             </TextBlock>
-                                            <TextBlock Foreground="White" Text="{Binding Level.Name, IsAsync=False}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            <TextBlock Foreground="White" Text="{Binding Level.Name, }" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                         </Grid>
                                     </Border>
                                 </DataTemplate>
@@ -115,12 +115,12 @@
                         <DataGridTemplateColumn Width="33" CanUserResize="False" CanUserSort="False" CanUserReorder="False">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Border Padding="3 1" BorderBrush="#99000000" BorderThickness="1" Background="#33000000" Margin="2 0" ToolTip="Inactive item">
+                                    <Border Padding="3 1" BorderBrush="#99000000" BorderThickness="1" Background="#33000000" Margin="2 0" ToolTip.Tip="Inactive item">
                                         <Border.Styles>
                                                 <i:Interaction.Behaviors>
-                                                    <ia:DataTriggerBehaviordontchange Binding="{Binding IsActive, IsAsync=False}" Value="False">
+                                                    <ia:DataTriggerBehavior Binding="{Binding IsActive, }" Value="False">
                                                         <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
-                                                    </ia:DataTriggerBehaviordontchange>
+                                                    </ia:DataTriggerBehavior>
                                                 </i:Interaction.Behaviors>
                                             <Style Selector="Border">
                                                 <Setter Property="IsVisible" Value="False"/>
@@ -134,7 +134,7 @@
                         <DataGridTemplateColumn Width="65" CanUserResize="False" CanUserSort="False" CanUserReorder="False">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Grid.Column="4" Classes="MiniActionButton" Content="Edit" HorizontalAlignment="Stretch" Margin="2 0 2 0" Command="{Binding DataContext.EditSingleItemCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, IsAsync=False}" CommandParameter="{Binding ., IsAsync=False}"/>
+                                    <Button Grid.Column="4" Classes="MiniActionButton" Content="Edit" HorizontalAlignment="Stretch" Margin="2 0 2 0" Command="{Binding DataContext.EditSingleItemCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, }" CommandParameter="{Binding ., }"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
@@ -145,9 +145,9 @@
                         </Style>
                     </DataGrid.Styles>
                   <i:Interaction.Behaviors>
-                    <ia:DataTriggerBehaviordontchange Binding="{Binding IsKanji}" Value="True">
+                    <ia:DataTriggerBehavior Binding="{Binding IsKanji}" Value="True">
                       <ia:ChangePropertyAction Value="#881784F8" PropertyName="RowBackground"/>
-                    </ia:DataTriggerBehaviordontchange>
+                    </ia:DataTriggerBehavior>
                   </i:Interaction.Behaviors>
                 </DataGrid>
             
