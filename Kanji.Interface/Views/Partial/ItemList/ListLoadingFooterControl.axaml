@@ -74,7 +74,8 @@
                     <Setter Property="IsVisible" Value="False"/>
                 </Style>
             </StackPanel.Styles>
-            <Image gif:GifImage.SourceUriRaw="/Data/UI/loading.gif" Width="24" Height="24" gif:GifImage.AutoStart="True" Stretch="Fill"/>
+            <!--TODO-->
+            <!--<Image gif:GifImage.SourceUriRaw="/Data/UI/loading.gif" Width="24" Height="24" gif:GifImage.AutoStart="True" Stretch="Fill"/>-->
             <TextBox Classes="LabelBox" VerticalAlignment="Center" FontSize="18" Margin="5,0,0,0" Text="Loading items..."/>
         </StackPanel>
     </Grid>

@@ -192,7 +192,7 @@ namespace Kanji.Interface.Utilities
             }
             if (changedArgs.OldValue != changedArgs.NewValue)
             {
-                condition.EqualityChanged(condition, changedArgs);
+                condition.EqualityChanged?.Invoke(condition, changedArgs);
             }
         }
     }

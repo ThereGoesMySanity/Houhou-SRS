@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Kanji.Interface.Actors;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -15,15 +16,6 @@ namespace Kanji.Interface
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
-        }
-        public override void OnFrameworkInitializationCompleted()
-        {
-            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-            {
-                desktop.MainWindow = new MainWindow();
-            }
-
-            base.OnFrameworkInitializationCompleted();
         }
     }
 }

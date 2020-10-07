@@ -88,6 +88,12 @@ namespace Kanji.Interface
             // Load the navigation actor.
             NavigationActor.Instance = new NavigationActor();
 
+            var lifetime = new ClassicDesktopStyleApplicationLifetime
+            {
+                ShutdownMode = ShutdownMode.OnMainWindowClose
+            };
+            var app = BuildAvaloniaApp().SetupWithLifetime(lifetime);
+
             // Start loading user resources.
             RadicalStore.Instance.InitializeAsync();
             SrsLevelStore.Instance.InitializeAsync();
@@ -101,6 +107,7 @@ namespace Kanji.Interface
             // Start the SRS business.
             SrsBusiness.Initialize();
 
+
             using (NamedPipeHandler pipeHandler = new NamedPipeHandler(InstanceHelper.InterfaceApplicationGuid))
             {
                 // Listen for incoming pipe messages, to allow other processes to
@@ -111,7 +118,12 @@ namespace Kanji.Interface
                 AppDomain.CurrentDomain.UnhandledException += OnAppDomainUnhandledException;
                 //app.DispatcherUnhandledException += OnUnhandledException;
                 TaskScheduler.UnobservedTaskException += OnUnobservedTaskException;
-                BuildAvaloniaApp().StartWithClassicDesktopLifetime(new string[] { });
+
+                lifetime.MainWindow = new MainWindow();
+                NavigationActor.Instance.SetMainWindow((MainWindow)lifetime.MainWindow);
+                lifetime.MainWindow.Show();
+
+                app.Instance.Run(new CancellationTokenSource().Token);
 
                 // The execution blocks here until the application exits.
             }

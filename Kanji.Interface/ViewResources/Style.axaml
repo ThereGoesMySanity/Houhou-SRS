@@ -17,7 +17,7 @@
       <converters:KanjiToColorConverter x:Key="KanjiToColorConverter"/>
       <converters:KanjiReadingToListConverter x:Key="KanjiReadingToListConverter"/>
       <converters:VocabMeaningsToStringConverter x:Key="VocabMeaningsToStringConverter"/>
-      <!--<converters:ValueToVisibilityConverter x:Key="ValueToVisibilityConverter" />-->
+      <converters:ValueToVisibilityConverter x:Key="ValueToVisibilityConverter" />
       <converters:VocabToColorConverter x:Key="VocabToColorConverter"/>
       <converters:IntegerToOrdinalStringConverter x:Key="IntegerToOrdinalStringConverter"/>
       <converters:VocabCategoriesToStringConverter x:Key="VocabCategoriesToStringConverter"/>
@@ -383,7 +383,7 @@
                 --><!--First item in the list. Add a margin--><!--
                 <ia:ChangePropertyAction PropertyName="Margin" Value="60 0 5 1"/>
               </ia:DataTriggerBehavior>
-              <ia:EventTriggerBehavior EventName="PreviewMouseLeftButtonUp">
+              <ia:EventTriggerBehavior EventName="PointerLeftButtonUp">
                 <ia:InvokeCommandAction Command="{Binding DataContext.FilterReadingCommand,
                                                       RelativeSource={RelativeSource AncestorType={x:Type controls:KanjiDetails}}}" CommandParameter="{Binding HiraganaReading}"/>
               </ia:EventTriggerBehavior>
@@ -398,9 +398,10 @@
     <Setter Property="Background" Value="#FFE0E0E0" />
   </Style>
 
-  <Style Selector="ListBox.KanjiKunYomiReadingListbox" InheritanceParent="{StaticResource KanjiReadingListbox}" >
-        <Setter Property="BorderThickness" Value="0 0 0 1"/>
-    </Style>
+  <Style Selector="ListBox.KanjiKunYomiReadingListbox">
+    <!--InheritanceParent="{StaticResource KanjiReadingListbox}" >-->
+    <Setter Property="BorderThickness" Value="0 0 0 1"/>
+  </Style>
 
     <!-- ACTION BUTTONS -->
   <Style Selector="Button.ActionButton">
@@ -957,10 +958,10 @@
             <TextBox Text="{Binding Character}" FontFamily="../Data/Fonts/NotoSansCJKjp-Thin.otf#Noto Sans CJK JP Thin" ToolTip.Tip="{Binding Kanji, Converter={StaticResource KanjiToStringConverter},
                                             ConverterParameter={x:Static converters:KanjiToStringConversionType.Short}}" Classes="LabelBox">
               <i:Interaction.Behaviors>
-                <ia:EventTriggerBehavior EventName="PreviewMouseLeftButtonUp">
+                <utility:ClickTriggerBehavior MouseButtons="Left" EventName="PointerReleased">
                   <ia:InvokeCommandAction Command="{Binding DataContext.KanjiNavigationCommand,
                                                         RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding .}"/>
-                </ia:EventTriggerBehavior>
+                </utility:ClickTriggerBehavior>
                 <ia:DataTriggerBehavior Binding="{Binding IsMarginalReading}" Value="True">
                   <ia:ChangePropertyAction PropertyName="Opacity" Value="0.33" />
                 </ia:DataTriggerBehavior>
@@ -1086,10 +1087,10 @@
               <DataTemplate DataType="{x:Type models:VocabVariant}">
                 <Border Cursor="Hand" BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="1" Margin="5 2 0 0" Padding="4 0 4 0">
                   <i:Interaction.Behaviors>
-                    <ia:EventTriggerBehavior EventName="PreviewMouseLeftButtonUp">
+                    <utility:ClickTriggerBehavior MouseButtons="Left" EventName="PointerReleased">
                       <ia:InvokeCommandAction Command="{Binding DataContext.SwitchVocabCommand,
                                                                   RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding .}"/>
-                    </ia:EventTriggerBehavior>
+                    </utility:ClickTriggerBehavior>
                     <ia:DataTriggerBehavior Binding="{Binding Variant.IsMain}" Value="True">
                       <!--<Setter Property="Background" Value="#6444FF55" />-->
                     </ia:DataTriggerBehavior>
@@ -1551,10 +1552,10 @@
                     </Style>
                   </Border.Styles>
                   <i:Interaction.Behaviors>
-                    <ia:EventTriggerBehavior EventName="PreviewMouseLeftButtonUp">
+                    <utility:ClickTriggerBehavior MouseButtons="Left" EventName="PointerReleased">
                       <ia:InvokeCommandAction Command="{Binding DataContext.FilterReadingCommand,
                                                                   RelativeSource={RelativeSource AncestorType={x:Type controls:KanjiDetails}}}" CommandParameter="{Binding HiraganaReading}"/>
-                    </ia:EventTriggerBehavior>
+                    </utility:ClickTriggerBehavior>
                   </i:Interaction.Behaviors>
                   <TextBox Classes="ReadingLabel LabelBox" Text="{Binding ModifiedReading}"/>
                 </Border>
