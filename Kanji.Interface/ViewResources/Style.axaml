@@ -1007,40 +1007,40 @@
           </ItemsPanelTemplate>
         </Setter.Value>
       </Setter>
-      <Setter Property="ItemTemplate">
-        <Setter Property="Template">
-          <Setter.Value>
-            <ControlTemplate TargetType="ListBoxItem">
-              <Grid>
-                <Grid.RowDefinitions>
-                  <RowDefinition Height="18"/>
-                  <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <ListBox Grid.Row="1" Classes="VocabKanjiWritingListbox" Items="{Binding Characters, Mode=OneWay}" Name="KWListbox"/>
-                <Border>
-                  <i:Interaction.Behaviors>
-                    <ia:DataTriggerBehavior Binding="{Binding $parent[ListBox].DataContext.HasUndeterminedFurigana}" Value="True">
-                      <ia:ChangePropertyAction PropertyName="BorderThickness" Value="0 0 0 1" />
-                      <ia:ChangePropertyAction PropertyName="BorderBrush" Value="#22000000" />
-                    </ia:DataTriggerBehavior>
-                  </i:Interaction.Behaviors>
-                  <Viewbox MaxWidth="{Binding ElementName=KWListbox, Path=ActualWidth}">
-                    <TextBox Text="{Binding Furigana, Mode=OneWay}" HorizontalContentAlignment="Center" Padding="0" Margin="0" Classes="LabelBox">
-                      <ToolTip.Tip>
-                        <TextBlock Text="{Binding Furigana}" FontSize="16"/>
-                      </ToolTip.Tip>
-                    </TextBox>
-                  </Viewbox>
-                </Border>
-
-              </Grid>
-            </ControlTemplate>
-          </Setter.Value>
-        </Setter>
-      </Setter>
       <Setter Property="FontSize" Value="14"/>
     </Style>
+  <Style Selector="ListBox.VocabWritingPartListbox ListBoxItem">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="ListBoxItem">
+          <Grid>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="18"/>
+              <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <ListBox Grid.Row="1" Classes="VocabKanjiWritingListbox" Items="{Binding Characters, Mode=OneWay}" Name="KWListbox"/>
+            <Border>
+              <i:Interaction.Behaviors>
+                <ia:DataTriggerBehavior Binding="{Binding $parent[ListBox].DataContext.HasUndeterminedFurigana}" Value="True">
+                  <ia:ChangePropertyAction PropertyName="BorderThickness" Value="0 0 0 1" />
+                  <ia:ChangePropertyAction PropertyName="BorderBrush" Value="#22000000" />
+                </ia:DataTriggerBehavior>
+              </i:Interaction.Behaviors>
+              <Viewbox MaxWidth="{Binding ElementName=KWListbox, Path=ActualWidth}">
+                <TextBox Text="{Binding Furigana, Mode=OneWay}" HorizontalContentAlignment="Center" Padding="0" Margin="0" Classes="LabelBox">
+                  <ToolTip.Tip>
+                    <TextBlock Text="{Binding Furigana}" FontSize="16"/>
+                  </ToolTip.Tip>
+                </TextBox>
+              </Viewbox>
+            </Border>
+
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
 
     <!-- VOCAB -->
 
@@ -1076,53 +1076,55 @@
           </ItemsPanelTemplate>
         </Setter.Value>
       </Setter>
-      <Setter Property="ItemTemplate">
-        <Setter.Value>
-          <ControlTemplate TargetType="ListBoxItem">
-            <ContentControl Content="{Binding .}">
-              <ContentControl.DataTemplates>
-                <DataTemplate DataType="{x:Type models:VocabVariant}">
-                  <Border Cursor="Hand" BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="1" Margin="5 2 0 0" Padding="4 0 4 0">
-                    <i:Interaction.Behaviors>
-                      <ia:EventTriggerBehavior EventName="PreviewMouseLeftButtonUp">
-                        <ia:InvokeCommandAction Command="{Binding DataContext.SwitchVocabCommand,
-                                                                  RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding .}"/>
-                      </ia:EventTriggerBehavior>
-                      <ia:DataTriggerBehavior Binding="{Binding Variant.IsMain}" Value="True">
-                        <!--<Setter Property="Background" Value="#6444FF55" />-->
-                      </ia:DataTriggerBehavior>
-                    </i:Interaction.Behaviors>
-                    <Border.Styles>
-                      <Style Selector="Border">
-                        <Setter Property="Background" Value="#44FFFFFF"/>
-                      </Style>
-                    </Border.Styles>
-
-                    <StackPanel Orientation="Horizontal">
-                      <TextBlock Classes="VocabVariantText">
-                        <TextBlock.Text>
-                          <MultiBinding StringFormat="{}{0} 【{1}】">
-                            <MultiBinding.Bindings>
-                              <Binding Path="Variant.KanjiWriting"/>
-                              <Binding Path="Variant.KanaWriting"/>
-                            </MultiBinding.Bindings>
-                          </MultiBinding>
-                        </TextBlock.Text>
-                      </TextBlock>
-                    </StackPanel>
-                  </Border>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type sys:String}">
-                  <Border BorderBrush="#CC000000" BorderThickness="1" Margin="5 2 0 0" Background="#AA777777" Padding="4 0 4 0">
-                    <TextBlock Classes="LegendText" Text="{Binding .}" Foreground="White"/>
-                  </Border>
-                </DataTemplate>
-              </ContentControl.DataTemplates>
-            </ContentControl>
-          </ControlTemplate>
-        </Setter.Value>
-      </Setter>
     </Style>
+  <Style Selector="ListBox.VocabVariantList ListBoxItem">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="ListBoxItem">
+          <ContentControl Content="{Binding .}">
+            <ContentControl.DataTemplates>
+              <DataTemplate DataType="{x:Type models:VocabVariant}">
+                <Border Cursor="Hand" BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="1" Margin="5 2 0 0" Padding="4 0 4 0">
+                  <i:Interaction.Behaviors>
+                    <ia:EventTriggerBehavior EventName="PreviewMouseLeftButtonUp">
+                      <ia:InvokeCommandAction Command="{Binding DataContext.SwitchVocabCommand,
+                                                                  RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding .}"/>
+                    </ia:EventTriggerBehavior>
+                    <ia:DataTriggerBehavior Binding="{Binding Variant.IsMain}" Value="True">
+                      <!--<Setter Property="Background" Value="#6444FF55" />-->
+                    </ia:DataTriggerBehavior>
+                  </i:Interaction.Behaviors>
+                  <Border.Styles>
+                    <Style Selector="Border">
+                      <Setter Property="Background" Value="#44FFFFFF"/>
+                    </Style>
+                  </Border.Styles>
+
+                  <StackPanel Orientation="Horizontal">
+                    <TextBlock Classes="VocabVariantText">
+                      <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0} 【{1}】">
+                          <MultiBinding.Bindings>
+                            <Binding Path="Variant.KanjiWriting"/>
+                            <Binding Path="Variant.KanaWriting"/>
+                          </MultiBinding.Bindings>
+                        </MultiBinding>
+                      </TextBlock.Text>
+                    </TextBlock>
+                  </StackPanel>
+                </Border>
+              </DataTemplate>
+              <DataTemplate DataType="{x:Type sys:String}">
+                <Border BorderBrush="#CC000000" BorderThickness="1" Margin="5 2 0 0" Background="#AA777777" Padding="4 0 4 0">
+                  <TextBlock Classes="LegendText" Text="{Binding .}" Foreground="White"/>
+                </Border>
+              </DataTemplate>
+            </ContentControl.DataTemplates>
+          </ContentControl>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
 
   <!--<Style Selector="ListBox.VocabList :is(ILogicalScrollable)">
     <Setter Property="IsLogicalScrollEnabled" Value="False" />
@@ -1136,7 +1138,9 @@
                 </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="ItemTemplate">
+    </Style>
+  <Style Selector="ListBox.VocabList ListBoxItem">
+        <Setter Property="Template">
           <Setter.Value>
             <ControlTemplate TargetType="ListBoxItem">
               <Border>
@@ -1496,7 +1500,7 @@
             </ControlTemplate>
           </Setter.Value>
       </Setter>
-    </Style>
+  </Style>
 
     <!-- SRS ENTRY WINDOW -->
 
@@ -1528,7 +1532,9 @@
         </ItemsPanelTemplate>
       </Setter.Value>
     </Setter>
-    <Setter Property="ItemTemplate">
+  </Style>
+  <Style Selector="ListBox.KanjiReadingsListbox ListBoxItem">
+    <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="ListBoxItem">
           <ContentControl Content="{Binding .}">
@@ -1867,7 +1873,6 @@
       <Setter Property="BorderBrush" Value="Transparent"/>
       <Setter Property="Padding" Value="0"/>
       <Setter Property="Template" Value="{StaticResource PaddinglessListbox}"/>
-      <Setter Property="ItemTemplate" Value="{StaticResource ItemsPerLevelListboxItem}" />
       <Setter Property="ItemsPanel">
         <Setter.Value>
           <ItemsPanelTemplate>
@@ -1876,6 +1881,9 @@
         </Setter.Value>
       </Setter>
     </Style>
+  <Style Selector="ListBox.ItemsPerLevelListbox ListBoxItem">
+      <Setter Property="Template" Value="{StaticResource ItemsPerLevelListboxItem}" />
+  </Style>
 
 
   <Style Selector="ListBox.ItemsPerLevelGroupListbox" >
@@ -1885,7 +1893,6 @@
           <Binding Path="ItemsPerLevelGroup" Source="{x:Static business:SrsBusiness.Instance}"/>
         </Setter.Value>
       </Setter>
-      <Setter Property="ItemTemplate" Value="{StaticResource ItemsPerLevelGroupListboxItem}"/>
       <Setter Property="ItemsPanel">
         <Setter.Value>
           <ItemsPanelTemplate>
@@ -1896,6 +1903,9 @@
       <Setter Property="Background" Value="Transparent"/>
       <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
     </Style>
+  <Style Selector="ListBox.ItemsPerLevelGroupListbox ListBoxItem">
+    <Setter Property="Template" Value="{StaticResource ItemsPerLevelGroupListboxItem}"/>
+  </Style>
 
     <!-- SRS REVIEW -->
 
@@ -1956,7 +1966,9 @@
           </ItemsPanelTemplate>
         </Setter.Value>
       </Setter>
-      <Setter Property="ItemTemplate">
+    </Style>
+  <Style Selector="ListBox.SettingUserResourceListBox ListBoxItem">
+    <Setter Property="Template">
         <Setter.Value>
           <ControlTemplate TargetType="ListBoxItem">
             <Border BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="1" Margin="0 0 5 0" Padding="5 3" Width="200">
@@ -2023,7 +2035,7 @@
           </ControlTemplate>
         </Setter.Value>
       </Setter>
-    </Style>
+  </Style>
 
     <!-- NAVIGATION PANEL -->
 
