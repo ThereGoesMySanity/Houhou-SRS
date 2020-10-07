@@ -32,7 +32,7 @@
                                           </Style>
                                         </TextBlock.Styles>
                                     </TextBlock>
-                                    <Button x:Name="CommandButton" Click="OnCommandButtonClick" Opacity="0" Command="{TemplateBinding Command}" CommandParameter="{TemplateBinding CommandParameter}"/>
+                                    <Button Name="CommandButton" Click="OnCommandButtonClick" Opacity="0" Command="{TemplateBinding Command}" CommandParameter="{TemplateBinding CommandParameter}"/>
                                 </Grid>
                             </Border>
                             <Border Grid.Row="1" Background="#11000000" BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="1 0 1 1" Padding="5" Visibility="{TemplateBinding IsContentShown, Converter={StaticResource ValueToVisibilityConverter}}">

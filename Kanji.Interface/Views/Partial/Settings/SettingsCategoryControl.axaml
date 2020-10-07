@@ -9,7 +9,7 @@
              d:DesignHeight="300" d:DesignWidth="150">
 
     <Border BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="1">
-      <LayoutTransformContainer>
+      <LayoutTransformControl>
         <UniformGrid Rows="1">
           <controls:SettingsCategoryTabControl Tag="{x:Static models:SettingsCategoryEnum.Srs}"
               Background="{StaticResource SrsTabGradient}" />
@@ -20,9 +20,9 @@
           <controls:SettingsCategoryTabControl Tag="{x:Static models:SettingsCategoryEnum.Application}"
               Background="{StaticResource HomeTabGradient}" />
         </UniformGrid>
-        <LayoutTransformContainer.LayoutTransform>
+        <LayoutTransformControl.LayoutTransform>
           <RotateTransform Angle="-90"/>
-        </LayoutTransformContainer.LayoutTransform>
-      </LayoutTransformContainer>
+        </LayoutTransformControl.LayoutTransform>
+      </LayoutTransformControl>
     </Border>
 </UserControl>

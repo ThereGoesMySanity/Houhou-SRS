@@ -11,7 +11,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" x:Name="MainScrollView">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Name="MainScrollView">
             <StackPanel>
                 <HeaderedContentControl BorderBrush="#666666" Padding="5" Margin="0 5 0 0">
                     <HeaderedContentControl.Header>
@@ -22,7 +22,7 @@
                             Please enter your WaniKani API key in the box below.<LineBreak />
                             This key can be found on your Account Settings page on WaniKani.com.
                         </TextBlock>
-                        <TextBox Classes="ErrorLabel" TextWrapping="Wrap" Text="{Binding ApiKeyError}" />
+                        <TextBox Classes="ErrorLabel LabelBox" TextWrapping="Wrap" Text="{Binding ApiKeyError}" />
                         <AdornerDecorator Margin="0 5 0 0">
                             <TextBox Text="{Binding ParentMode.ApiKey, Mode=TwoWay}" Height="22">
                                 <controls:WatermarkService.Watermark>

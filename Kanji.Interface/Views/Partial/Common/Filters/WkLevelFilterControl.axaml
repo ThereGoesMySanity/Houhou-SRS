@@ -24,7 +24,7 @@
                    Width="100"
                    Margin="5,0"
                    TextAlignment="Center"/>
-        <Slider x:Name="LevelSlider" Grid.Column="2" VerticalAlignment="Center"
+        <Slider Name="LevelSlider" Grid.Column="2" VerticalAlignment="Center"
 			    Minimum="0" Maximum="61" Value="{Binding WkLevel, Mode=TwoWay}" SmallChange="1" LargeChange="10"
                 TickPlacement="None" IsSnapToTickEnabled="True" Foreground="Black" IsMoveToPointEnabled="True"
                 ToolTip.Tip="Select the WaniKani level to filter by (CTRL+W)">

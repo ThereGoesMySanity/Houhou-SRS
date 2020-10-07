@@ -18,19 +18,19 @@
         </Grid.ColumnDefinitions>
         
         <!-- HOME tab -->
-        <Grid x:Name="NavigationPanelToolbar" Classes="NavigationPanelTab NavigationPanelHomeTab">
+        <Grid Name="NavigationPanelToolbar" Classes="NavigationPanelTab NavigationPanelHomeTab">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <DockPanel>
-                <Label DockPanel.Dock="Left" Classes="NavigationPanelTabTitleKanji" Content="方法" FontSize="36" FontWeight="Normal" Margin="5 0 3 7"/>
+                <Label DockPanel.Dock="Left" Classes="NavigationPanelTabTitleKanji NavigationPanelTabTitle" Content="方法" FontSize="36" FontWeight="Normal" Margin="5 0 3 7"/>
                 <Label Classes="NavigationPanelTabTitle" Content="HOME"/>
             </DockPanel>
             <Button Grid.ColumnSpan="2" Classes="NavigationPanelButton" Command="{Binding NavigateCommand}" CommandParameter="{x:Static models:NavigationPageEnum.Home}" ToolTip.Tip="(CTRL+1)"/>
         </Grid>
         
         <!-- SRS tab -->
-        <Grid x:Name="SrsTab" Grid.Column="1" Classes="NavigationPanelTab NavigationPanelSrsTab">
+        <Grid Name="SrsTab" Grid.Column="1" Classes="NavigationPanelTab NavigationPanelSrsTab">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10*"/>
                 <ColumnDefinition Width="80*"/>
@@ -62,7 +62,7 @@
         </Grid>
 
         <!-- Kanji tab -->
-        <Grid x:Name="KanjiTab" Grid.Column="2" Classes="NavigationPanelTab NavigationPanelKanjiTab">
+        <Grid Name="KanjiTab" Grid.Column="2" Classes="NavigationPanelTab NavigationPanelKanjiTab">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10*"/>
                 <ColumnDefinition Width="80*"/>
@@ -73,7 +73,7 @@
         </Grid>
 
         <!-- Vocab tab -->
-        <Grid x:Name="VocabTab" Grid.Column="3" Classes="NavigationPanelTab NavigationPanelVocabTab">
+        <Grid Name="VocabTab" Grid.Column="3" Classes="NavigationPanelTab NavigationPanelVocabTab">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10*"/>
                 <ColumnDefinition Width="80*"/>
@@ -84,7 +84,7 @@
         </Grid>
 
         <!-- Settings tab -->
-        <Grid x:Name="SettingsTab" Grid.Column="4" Classes="NavigationPanelTab NavigationPanelSettingsTab">
+        <Grid Name="SettingsTab" Grid.Column="4" Classes="NavigationPanelTab NavigationPanelSettingsTab">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10*"/>
                 <ColumnDefinition Width="80*"/>

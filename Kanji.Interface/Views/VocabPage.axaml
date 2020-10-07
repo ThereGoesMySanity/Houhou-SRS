@@ -9,8 +9,8 @@
     
     <DockPanel>
         <controls:NavigationBar DockPanel.Dock="Top" />
-        <Border Classes="VocabPageSeparator" DockPanel.Dock="Top" />
-        <Border Classes="VocabPageBorder">
+        <Border Classes="VocabPageSeparator PageSeparator" DockPanel.Dock="Top" />
+        <Border Classes="VocabPageBorder PageBorder">
             <Grid Margin="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -21,7 +21,7 @@
                 </Grid.RowDefinitions>
 
                 <!-- Filter panel -->
-                <controls:VocabFilterControl x:Name="FilterControl" DataContext="{Binding VocabFilterVm}" />
+                <controls:VocabFilterControl Name="FilterControl" DataContext="{Binding VocabFilterVm}" />
 
                 <!-- Results list -->
                 <controls:VocabList DataContext="{Binding VocabListVm}" Grid.Row="1" />

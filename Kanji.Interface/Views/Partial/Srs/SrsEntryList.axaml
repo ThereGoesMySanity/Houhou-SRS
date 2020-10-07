@@ -74,7 +74,7 @@
             </Grid>
             
             <!-- List + info panel -->
-            <Grid x:Name="ListGrid">
+            <Grid Name="ListGrid">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding LoadedItemCount}" Value="0">
                                 <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
@@ -86,7 +86,7 @@
                 </Grid.ColumnDefinitions>
                 
                 <!-- List -->
-                <DataGrid x:Name="SrsList" Items="{Binding LoadedItems,  Mode=OneWay}" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Extended" SelectionUnit="FullRow" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <DataGrid Name="SrsList" Items="{Binding LoadedItems,  Mode=OneWay}" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Extended" SelectionUnit="FullRow" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <i:Interaction.Behaviors>
                         <ia:EventTriggerBehavior EventName="SelectionChanged">
                             <ia:InvokeCommandAction Command="{Binding RefreshSelectionCommand, Mode=OneWay}"/>
@@ -134,7 +134,8 @@
                         <DataGridTemplateColumn Width="65" CanUserResize="False" CanUserSort="False" CanUserReorder="False">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Grid.Column="4" Classes="MiniActionButton" Content="Edit" HorizontalAlignment="Stretch" Margin="2 0 2 0" Command="{Binding DataContext.EditSingleItemCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, }" CommandParameter="{Binding ., }"/>
+                                    <Button Grid.Column="4" Classes="MiniActionButton ActionButton" Content="Edit" HorizontalAlignment="Stretch" 
+                                            Margin="2 0 2 0" Command="{Binding DataContext.EditSingleItemCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, }" CommandParameter="{Binding ., }"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

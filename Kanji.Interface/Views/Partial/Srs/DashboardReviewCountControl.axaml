@@ -51,7 +51,7 @@
                 </TextBlock>
 
                 <!-- No reviews available panel -->
-                <Grid x:Name="NoReviewsPanel" Grid.Row="1" Grid.Column="1" Margin="0 0 0 0">
+                <Grid Name="NoReviewsPanel" Grid.Row="1" Grid.Column="1" Margin="0 0 0 0">
                     <Grid.Styles>
                         <Style Selector="Grid">
                             <Setter Property="IsVisible" Value="False"/>
@@ -79,12 +79,10 @@
                 </Grid>
 
                 <!-- Start review button -->
-                <Button Grid.Row="1" Grid.Column="1" Content="Start reviewing" ToolTip.Tip="(CTRL+Enter)" Height="34" Command="{Binding StartReviewsCommand}">
-                    <Button.Styles>
-                        <Style Selector="Button" InheritanceParent="{StaticResource BrightActionButton}" />
-                    </Button.Styles>
+                <Button Grid.Row="1" Grid.Column="1" Content="Start reviewing" ToolTip.Tip="(CTRL+Enter)"
+                        Height="34" Command="{Binding StartReviewsCommand}" Classes="BrightActionButton">
                   <i:Interaction.Behaviors>
-                    <ia:DataTriggerBehavior Binding="{Binding Visibility, ElementName=NoReviewsPanel}" Value="Visible">
+                    <ia:DataTriggerBehavior Binding="{Binding IsVisible, ElementName=NoReviewsPanel}" Value="True">
                       <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
                     </ia:DataTriggerBehavior>
                   </i:Interaction.Behaviors>

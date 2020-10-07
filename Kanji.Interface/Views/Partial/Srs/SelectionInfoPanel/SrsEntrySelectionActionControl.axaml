@@ -9,14 +9,14 @@
 
     <Grid>
         <!-- Nothing selected -->
-        <Grid x:Name="ZeroItemPanel" Visibility="{Binding SelectedItems.Count,
+        <Grid Name="ZeroItemPanel" Visibility="{Binding SelectedItems.Count,
                   Converter={StaticResource ValueToVisibilityConverter},
                   ConverterParameter=0}">
             <TextBlock Text="Select items in the list to view stats or perform bulk edition." TextWrapping="Wrap" TextAlignment="Center" Classes="LegendText"/>
         </Grid>
 
         <!-- 1 item selected -->
-        <Grid x:Name="OneItemPanel" Visibility="{Binding SelectedItems.Count,
+        <Grid Name="OneItemPanel" Visibility="{Binding SelectedItems.Count,
                   Converter={StaticResource ValueToVisibilityConverter},
                   ConverterParameter=1}">
             <Grid.RowDefinitions>
@@ -84,25 +84,21 @@
                 </Grid.RowDefinitions>
 
                 <DockPanel LastChildFill="False">
-                    <TextBlock DockPanel.Dock="Left">
-                                <i:Interaction.Behaviors>
-                                    <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="MeaningNote">
-                                        <ia:ChangePropertyAction Value="Meaning notes:" PropertyName="Text"/>
-                                    </ia:DataTriggerBehavior>
-                                    <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="ReadingNote">
-                                        <ia:ChangePropertyAction Value="Reading notes:" PropertyName="Text"/>
-                                    </ia:DataTriggerBehavior>
-                                    <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="Tags">
-                                        <ia:ChangePropertyAction Value="Tags:" PropertyName="Text"/>
-                                    </ia:DataTriggerBehavior>
-                                </i:Interaction.Behaviors>
-                        <TextBlock.Styles>
-                            <Style Selector="TextBlock" InheritanceParent="{StaticResource LegendText}">
-                            </Style>
-                        </TextBlock.Styles>
+                    <TextBlock DockPanel.Dock="Left" Classes="LegendText">
+                      <i:Interaction.Behaviors>
+                        <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="MeaningNote">
+                          <ia:ChangePropertyAction Value="Meaning notes:" PropertyName="Text"/>
+                        </ia:DataTriggerBehavior>
+                        <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="ReadingNote">
+                          <ia:ChangePropertyAction Value="Reading notes:" PropertyName="Text"/>
+                        </ia:DataTriggerBehavior>
+                        <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="Tags">
+                          <ia:ChangePropertyAction Value="Tags:" PropertyName="Text"/>
+                        </ia:DataTriggerBehavior>
+                      </i:Interaction.Behaviors>
                     </TextBlock>
 
-                    <Button DockPanel.Dock="Right" Classes="MiniActionButton" Content="Cancel" Padding="8 0" Command="{Binding CancelBulkEditCommand}"/>
+                    <Button DockPanel.Dock="Right" Classes="MiniActionButton ActionButton" Content="Cancel" Padding="8 0" Command="{Binding CancelBulkEditCommand}"/>
                 </DockPanel>
 
                 <TextBox Grid.Row="1" Margin="0 5 0 2" Text="{Binding BulkEditValue, Mode=TwoWay}">
@@ -150,7 +146,7 @@
                 <DockPanel LastChildFill="False">
                     <TextBlock DockPanel.Dock="Left" Classes="LegendText" Text="Select a level:"/>
 
-                    <Button DockPanel.Dock="Right" Classes="MiniActionButton" Content="Cancel" Padding="8 0" Command="{Binding CancelBulkEditCommand}"/>
+                    <Button DockPanel.Dock="Right" Classes="MiniActionButton ActionButton" Content="Cancel" Padding="8 0" Command="{Binding CancelBulkEditCommand}"/>
                 </DockPanel>
                 
                 <controls:SrsLevelPicker Grid.Row="1" DataContext="{Binding LevelPickerVm}" HorizontalAlignment="Left" Margin="0 0 0 5"/>
@@ -175,7 +171,7 @@
 
                 <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                     <StackPanel>
-                        <Button DockPanel.Dock="Right" Classes="MiniActionButton" Content="Cancel" Padding="8 0" Command="{Binding CancelBulkEditCommand}"/>
+                        <Button DockPanel.Dock="Right" Classes="MiniActionButton ActionButton" Content="Cancel" Padding="8 0" Command="{Binding CancelBulkEditCommand}"/>
                         <TextBlock Classes="LegendText" TextWrapping="Wrap" Margin="0 5 0 8">
                             These settings allow you to reschedule the review dates of your selected SRS items.
                         </TextBlock>
@@ -184,13 +180,13 @@
                             <RadioButton GroupName="Timing" Content="Reset to SRS level timing" IsChecked="{Binding TimingMode, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=UseSrsLevel}"/>
                             <RadioButton GroupName="Timing" Content="Start all now" IsChecked="{Binding TimingMode, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Immediate}"/>
                             <RadioButton GroupName="Timing" Content="Never review" IsChecked="{Binding TimingMode, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Never}"/>
-                            <RadioButton x:Name="FixedDateRadio" GroupName="Timing" Content="Set all dates to this value:" IsChecked="{Binding TimingMode, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Fixed}"/>
+                            <RadioButton Name="FixedDateRadio" GroupName="Timing" Content="Set all dates to this value:" IsChecked="{Binding TimingMode, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Fixed}"/>
 
                             <Border Margin="15 5 0 0" BorderThickness="2 0 0 0" BorderBrush="#666666" Padding="5 0 0 0">
                                 <xctk:DateTimePicker Grid.Column="1" Value="{Binding FixedDate}" Format="FullDateTime" TextAlignment="Left" IsEnabled="{Binding ElementName=FixedDateRadio, Mode=OneWay, Path=IsChecked}"/>
                             </Border>
 
-                            <RadioButton x:Name="SpreadTimingRadio" GroupName="Timing" Content="Spread reviews over time" IsChecked="{Binding TimingMode, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Spread}"/>
+                            <RadioButton Name="SpreadTimingRadio" GroupName="Timing" Content="Spread reviews over time" IsChecked="{Binding TimingMode, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Spread}"/>
 
                             <Border Margin="15 5 0 0" BorderThickness="2 0 0 0" BorderBrush="#666666" Padding="5 0 0 0">
                                 <StackPanel IsEnabled="{Binding ElementName=SpreadTimingRadio, Mode=OneWay, Path=IsChecked}">
@@ -227,23 +223,23 @@
 
                 <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                     <StackPanel>
-                        <Button DockPanel.Dock="Right" Classes="MiniActionButton" Content="Cancel" Padding="8 0" Command="{Binding CancelBulkEditCommand}"/>
+                        <Button DockPanel.Dock="Right" Classes="MiniActionButton ActionButton" Content="Cancel" Padding="8 0" Command="{Binding CancelBulkEditCommand}"/>
                         <TextBlock Classes="LegendText" TextWrapping="Wrap" Margin="0 5 0 8">
                             Delay the next review dates of all selected items by:
                         </TextBlock>
                         <StackPanel Orientation="Horizontal" Margin="0 2 0 3">
                             <xctk:DoubleUpDown Value="{Binding TimingDelay}" Width="60"/>
-                            <TextBlock Margin="6 0 0 0" Foreground="Black">
+                            <TextBlock Margin="6 0 0 0" Foreground="Black" Classes="LegendText">
                                 <TextBlock.Styles>
-                                    <Style Selector="TextBlock" InheritanceParent="{StaticResource LegendText}">
-                                        <Setter Property="Text" Value="hours"/>
-                                    </Style>
+                                  <Style Selector="TextBlock">
+                                    <Setter Property="Text" Value="hours"/>
+                                  </Style>
                                 </TextBlock.Styles>
-                                        <i:Interaction.Behaviors>
-                                            <ia:DataTriggerBehavior Binding="{Binding TimingDelay}" Value="1">
-                                                <ia:ChangePropertyAction Value="hour" PropertyName="Text"/>
-                                            </ia:DataTriggerBehavior>
-                                        </i:Interaction.Behaviors>
+                              <i:Interaction.Behaviors>
+                                <ia:DataTriggerBehavior Binding="{Binding TimingDelay}" Value="1">
+                                  <ia:ChangePropertyAction Value="hour" PropertyName="Text"/>
+                                </ia:DataTriggerBehavior>
+                              </i:Interaction.Behaviors>
                             </TextBlock>
                         </StackPanel>
                         <Button Classes="ActionButton" Content="Apply changes" FontSize="13" Command="{Binding BulkDelayApplyCommand}" Margin="0 10 0 5"/>
@@ -294,7 +290,7 @@
                 </Viewbox>
 
                 <Viewbox Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" Margin="5 0">
-                    <TextBlock>
+                    <TextBlock Classes="LegendText">
                                 <i:Interaction.Behaviors>
                                     <ia:DataTriggerBehavior Binding="{Binding BulkEditResultCount}" Value="-1">
                                         <ia:ChangePropertyAction Value="... but an error occured" PropertyName="Text"/>
@@ -316,13 +312,13 @@
                             </TextBlock>
                         </ToolTip.Tip>
                         <TextBlock.Styles>
-                            <Style Selector="TextBlock" InheritanceParent="{StaticResource LegendText}">
-                                <Setter Property="Text">
-                                    <Setter.Value>
-                                        <Binding Path="BulkEditResultCount" StringFormat="{}{0} items were modified"/>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
+                          <Style Selector="TextBlock">
+                            <Setter Property="Text">
+                              <Setter.Value>
+                                <Binding Path="BulkEditResultCount" StringFormat="{}{0} items were modified"/>
+                              </Setter.Value>
+                            </Setter>
+                          </Style>
                         </TextBlock.Styles>
                     </TextBlock>
                 </Viewbox>
