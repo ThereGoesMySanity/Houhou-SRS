@@ -96,7 +96,7 @@
                         <DataGridTemplateColumn Width="33" CanUserResize="False" CanUserSort="False" CanUserReorder="False">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Border Background="{Binding LevelGroup.Color,  Converter={StaticResource ColorToBrushConverter}}" Padding="2 0" BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="2 0 2 0" Height="Auto">
+                                    <Border Background="{Binding LevelGroup.Color,  Converter={StaticResource ColorToBrushConverter}}" Padding="2 0" BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="2 0 2 0" Height="NaN">
                                         <Grid>
                                             <TextBlock Foreground="Black" Text="{Binding Level.Name, }" HorizontalAlignment="Center" VerticalAlignment="Center">
                                                 <TextBlock.RenderTransform>
@@ -109,8 +109,8 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Binding="{Binding Representation}" Header="Item" Width="Auto" MaxWidth="80" FontSize="14"/>
-                        <DataGridTextColumn Binding="{Binding Readings}" Header="Readings" Width="Auto" MaxWidth="150" FontSize="14"/>
+                        <DataGridTextColumn Binding="{Binding Representation}" Header="Item" Width="NaN" MaxWidth="80" FontSize="14"/>
+                        <DataGridTextColumn Binding="{Binding Readings}" Header="Readings" Width="NaN" MaxWidth="150" FontSize="14"/>
                         <DataGridTextColumn Binding="{Binding Meanings}" Header="Meanings" Width="*" FontSize="14"/>
                         <DataGridTemplateColumn Width="33" CanUserResize="False" CanUserSort="False" CanUserReorder="False">
                             <DataGridTemplateColumn.CellTemplate>
