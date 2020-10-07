@@ -30,7 +30,7 @@
                                 <ListBox Items="{Binding Content, Mode=OneWay}" Background="{x:Null}"
                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                     BorderBrush="{StaticResource FadedBorderBrush}"
-                                    PreviewMouseWheel="OnSubListBoxPreviewMouseWheel">
+                                    PointerWheelChanged="OnSubListBoxPreviewMouseWheel">
                                     <ListBox.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <StackPanel />

@@ -68,7 +68,7 @@
                         <Image Source="pack://application:,,,/Data/UI/CsvIcon.png" Classes="ImportChoiceImage" />
                         <StackPanel Classes="ImportStackPanel">
                             <TextBlock Classes="ImportChoiceText">
-                    Import SRS items from a CSV file.<LineBreak />
+                    Import SRS items from a CSV file.&#x0a;
                     Most softwares should be able to export data in CSV format.
                             </TextBlock>
                             <Button Classes="ImportChoiceButton ActionButton" Content="Select this option"
@@ -91,7 +91,7 @@
                         <Image Source="pack://application:,,,/Data/UI/WaniKaniIcon.png" Classes="ImportChoiceImage" />
                         <StackPanel Classes="ImportStackPanel">
                             <TextBlock Classes="ImportChoiceText">
-                        Import items from your WaniKani account.<LineBreak />
+                        Import items from your WaniKani account.&#x0a;
                         WaniKani is a kanji learning web application made by Tofugu.
                             </TextBlock>
                             <Button Classes="ImportChoiceButton ActionButton" Content="Select this option"

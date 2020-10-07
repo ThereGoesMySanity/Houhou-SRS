@@ -9,8 +9,8 @@
         <CheckBox IsChecked="{Binding IsIgnoreAnswerShortcutEnabled, Mode=TwoWay}" Content="Enable ignore shortcuts during reviews" />
         <StackPanel Margin="20 0 0 0">
             <TextBlock Classes="LegendText" TextWrapping="Wrap">
-                When this option is checked, the following shortcuts become available after validating your answer to a question during reviews:<LineBreak />
-                • [Backspace] to ignore your answer;<LineBreak />
+                When this option is checked, the following shortcuts become available after validating your answer to a question during reviews:&#x0a;
+                • [Backspace] to ignore your answer;&#x0a;
                 • [+] to add your answer to the list of accepted meanings or readings (when failed).
             </TextBlock>
         </StackPanel>

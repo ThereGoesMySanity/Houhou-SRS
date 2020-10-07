@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <HeaderedContentControl BorderBrush="#666666" Padding="5" Margin="0 0 0 0" DataContext="{Binding ParentMode.Timing}">
@@ -12,7 +11,7 @@
         </HeaderedContentControl.Header>
         <StackPanel>
             <TextBlock Classes="LegendText" TextWrapping="Wrap" Margin="0 0 0 8">
-                To avoid a situation where all of your items come up in reviews at the same time, you may want to spread them over time.<LineBreak />
+                To avoid a situation where all of your items come up in reviews at the same time, you may want to spread them over time.&#x0a;
                 This setting is only used if and when an item does not have another usable review date.
             </TextBlock>
 
@@ -23,7 +22,7 @@
             <Border Margin="15 5 0 0" BorderThickness="2 0 0 0" BorderBrush="#666666" Padding="5 0 0 0">
                 <StackPanel IsEnabled="{Binding ElementName=SpreadTimingRadio, Mode=OneWay, Path=IsChecked}">
                     <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
-                        <xctk:IntegerUpDown Value="{Binding SpreadAmountPerDay}" Width="60" Minimum="1" Maximum="99999" />
+                        <NumericUpDown Value="{Binding SpreadAmountPerDay}" Width="60" Minimum="1" Maximum="99999" />
                         <TextBlock Classes="LegendText" Margin="5 0 0 0">
                                             new items per day
                         </TextBlock>

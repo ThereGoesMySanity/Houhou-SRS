@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:behaviors="clr-namespace:Kanji.Interface.Behaviors"
              xmlns:models="clr-namespace:Kanji.Interface.Models"
-             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+                    xmlns:utility="clr-namespace:Kanji.Interface.Utilities"
              xmlns:controls="clr-namespace:Kanji.Interface.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="1200" d:DesignWidth="600">
@@ -35,7 +35,7 @@
                     </HeaderedContentControl.Header>
                     <StackPanel>
                         <TextBlock FontSize="14" TextWrapping="Wrap" Margin="0 0 0 3">
-                            Please configure how fields are arranged in your CSV document.<LineBreak />
+                            Please configure how fields are arranged in your CSV document.&#x0a;
                             Only fields with a * symbol are required.
                         </TextBlock>
                         <Grid>
@@ -121,7 +121,7 @@
                             When "Item type" is not specified...
                         </TextBlock>
                         <ComboBox Name="NoTypeComboBox"
-                            Items="{Binding Source={StaticResource CsvImportNoTypeBehaviorEnum}}"
+                            Items="{Binding Source={utility:EnumBindingSource {x:Type models:CsvImportNoTypeBehavior}}}"
                             SelectedItem="{Binding NoTypeBehavior, Mode=TwoWay}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>

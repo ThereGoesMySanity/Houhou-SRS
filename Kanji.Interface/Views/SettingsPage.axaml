@@ -1,89 +1,90 @@
-<?xml version="1.0" ?><UserControl xmlns="https://github.com/avaloniaui"
+<?xml version="1.0" ?>
+<UserControl xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:models="clr-namespace:Kanji.Interface.Models"
                     xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
                     xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
-                    xmlns:controls="clr-namespace:Kanji.Interface.Controls" x:Class="Kanji.Interface.Views.SettingsPage" mc:Ignorable="d" Focusable="true" d:DesignHeight="300" d:DesignWidth="600" KeyDown="OnKeyDown" IsVisibleChanged="OnIsVisibleChanged">
+                    xmlns:controls="clr-namespace:Kanji.Interface.Controls" x:Class="Kanji.Interface.Views.SettingsPage" mc:Ignorable="d" Focusable="true" d:DesignHeight="300" d:DesignWidth="600" KeyDown="OnKeyDown">
 
-    <DockPanel>
-        <controls:NavigationBar DockPanel.Dock="Top"/>
-        <Border Classes="SettingsPageSeparator PageSeparator" DockPanel.Dock="Top"/>
-        <Border Classes="SettingsPageBorder PageBorder">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="75"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                
-                <!-- Settings category list -->
-                <controls:SettingsCategoryControl Margin="0 0 0 0"/>
-                
-                <!-- Content title -->
-                <Border Grid.Column="1" BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="1" Padding="10 0 0 0">
-                    <Border.Styles>
-                        <Style Selector="Border">
-                            <i:Interaction.Behaviors>
-                                <ia:DataTriggerBehavior Binding="{Binding CurrentCategory}" Value="{x:Static models:SettingsCategoryEnum.Srs}">
-                                    <ia:ChangePropertyAction Value="{StaticResource SrsTabFadeBrush}" PropertyName="Background"/>
-                                </ia:DataTriggerBehavior>
-                                <ia:DataTriggerBehavior Binding="{Binding CurrentCategory}" Value="{x:Static models:SettingsCategoryEnum.Kanji}">
-                                    <ia:ChangePropertyAction Value="{StaticResource KanjiTabFadeBrush}" PropertyName="Background"/>
-                                </ia:DataTriggerBehavior>
-                                <ia:DataTriggerBehavior Binding="{Binding CurrentCategory}" Value="{x:Static models:SettingsCategoryEnum.Vocab}">
-                                    <ia:ChangePropertyAction Value="{StaticResource VocabTabFadeBrush}" PropertyName="Background"/>
-                                </ia:DataTriggerBehavior>
-                                <ia:DataTriggerBehavior Binding="{Binding CurrentCategory}" Value="{x:Static models:SettingsCategoryEnum.Application}">
-                                    <ia:ChangePropertyAction Value="{StaticResource HomeTabFadeBrush}" PropertyName="Background"/>
-                                </ia:DataTriggerBehavior>
-                            </i:Interaction.Behaviors>
-                        </Style>
-                    </Border.Styles>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="50"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Viewbox HorizontalAlignment="Left" Margin="0 0 0 5">
-                            <TextBlock FontWeight="SemiBold">
-                                <TextBlock.Styles>
-                                    <Style Selector="TextBlock">
-                                        <i:Interaction.Behaviors>
-                                            <ia:DataTriggerBehavior Binding="{Binding CurrentCategory}" Value="{x:Static models:SettingsCategoryEnum.Srs}">
-                                                <ia:ChangePropertyAction Value="{StaticResource SrsTabGradientEndBrush}" PropertyName="Foreground"/>
-                                            </ia:DataTriggerBehavior>
-                                            <ia:DataTriggerBehavior Binding="{Binding CurrentCategory}" Value="{x:Static models:SettingsCategoryEnum.Kanji}">
-                                                <ia:ChangePropertyAction Value="{StaticResource KanjiTabGradientEndBrush}" PropertyName="Foreground"/>
-                                            </ia:DataTriggerBehavior>
-                                            <ia:DataTriggerBehavior Binding="{Binding CurrentCategory}" Value="{x:Static models:SettingsCategoryEnum.Vocab}">
-                                                <ia:ChangePropertyAction Value="{StaticResource VocabTabGradientEndBrush}" PropertyName="Foreground"/>
-                                            </ia:DataTriggerBehavior>
-                                            <ia:DataTriggerBehavior Binding="{Binding CurrentCategory}" Value="{x:Static models:SettingsCategoryEnum.Application}">
-                                                <ia:ChangePropertyAction Value="{StaticResource HomeTabGradientEndBrush}" PropertyName="Foreground"/>
-                                            </ia:DataTriggerBehavior>
-                                        </i:Interaction.Behaviors>
-                                    </Style>
-                                </TextBlock.Styles>
-                                <TextBlock.Text>
-                                    <Binding Path="CurrentCategory" Converter="{StaticResource EnumDescriptionConverter}" StringFormat="{}{0} settings"/>
-                                </TextBlock.Text>
-                            </TextBlock>
-                        </Viewbox>
-                        <!-- Content -->
-                        <ScrollViewer Grid.Column="1" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="1" Padding="5">
-                            <controls:SettingsContentControl/>
-                        </ScrollViewer>
-                    </Grid>
-                </Border>
+  <DockPanel>
+    <controls:NavigationBar DockPanel.Dock="Top"/>
+    <Border Classes="SettingsPageSeparator PageSeparator" DockPanel.Dock="Top"/>
+    <Border Classes="SettingsPageBorder PageBorder">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="*"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="75"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-                <!-- Action buttons -->
-                <controls:SettingsActionsControl Grid.Row="1" Grid.ColumnSpan="2" Margin="0 5 0 0"/>
-            </Grid>
+        <!-- Settings category list -->
+        <controls:SettingsCategoryControl Margin="0 0 0 0"/>
+
+        <!-- Content title -->
+        <Border Grid.Column="1" BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="1" Padding="10 0 0 0">
+          <Border.Styles>
+            <Style Selector="Border">
+              <i:Interaction.Behaviors>
+                <ia:DataTriggerBehavior Binding="{Binding CurrentCategory}" Value="{x:Static models:SettingsCategoryEnum.Srs}">
+                  <ia:ChangePropertyAction Value="{StaticResource SrsTabFadeBrush}" PropertyName="Background"/>
+                </ia:DataTriggerBehavior>
+                <ia:DataTriggerBehavior Binding="{Binding CurrentCategory}" Value="{x:Static models:SettingsCategoryEnum.Kanji}">
+                  <ia:ChangePropertyAction Value="{StaticResource KanjiTabFadeBrush}" PropertyName="Background"/>
+                </ia:DataTriggerBehavior>
+                <ia:DataTriggerBehavior Binding="{Binding CurrentCategory}" Value="{x:Static models:SettingsCategoryEnum.Vocab}">
+                  <ia:ChangePropertyAction Value="{StaticResource VocabTabFadeBrush}" PropertyName="Background"/>
+                </ia:DataTriggerBehavior>
+                <ia:DataTriggerBehavior Binding="{Binding CurrentCategory}" Value="{x:Static models:SettingsCategoryEnum.Application}">
+                  <ia:ChangePropertyAction Value="{StaticResource HomeTabFadeBrush}" PropertyName="Background"/>
+                </ia:DataTriggerBehavior>
+              </i:Interaction.Behaviors>
+            </Style>
+          </Border.Styles>
+          <Grid>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="50"/>
+              <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Viewbox HorizontalAlignment="Left" Margin="0 0 0 5">
+              <TextBlock FontWeight="SemiBold">
+                <TextBlock.Styles>
+                  <Style Selector="TextBlock">
+                    <i:Interaction.Behaviors>
+                      <ia:DataTriggerBehavior Binding="{Binding CurrentCategory}" Value="{x:Static models:SettingsCategoryEnum.Srs}">
+                        <ia:ChangePropertyAction Value="{StaticResource SrsTabGradientEndBrush}" PropertyName="Foreground"/>
+                      </ia:DataTriggerBehavior>
+                      <ia:DataTriggerBehavior Binding="{Binding CurrentCategory}" Value="{x:Static models:SettingsCategoryEnum.Kanji}">
+                        <ia:ChangePropertyAction Value="{StaticResource KanjiTabGradientEndBrush}" PropertyName="Foreground"/>
+                      </ia:DataTriggerBehavior>
+                      <ia:DataTriggerBehavior Binding="{Binding CurrentCategory}" Value="{x:Static models:SettingsCategoryEnum.Vocab}">
+                        <ia:ChangePropertyAction Value="{StaticResource VocabTabGradientEndBrush}" PropertyName="Foreground"/>
+                      </ia:DataTriggerBehavior>
+                      <ia:DataTriggerBehavior Binding="{Binding CurrentCategory}" Value="{x:Static models:SettingsCategoryEnum.Application}">
+                        <ia:ChangePropertyAction Value="{StaticResource HomeTabGradientEndBrush}" PropertyName="Foreground"/>
+                      </ia:DataTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                  </Style>
+                </TextBlock.Styles>
+                <TextBlock.Text>
+                  <Binding Path="CurrentCategory" Converter="{StaticResource EnumDescriptionConverter}" StringFormat="{}{0} settings"/>
+                </TextBlock.Text>
+              </TextBlock>
+            </Viewbox>
+            <!-- Content -->
+            <ScrollViewer Grid.Column="1" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="1" Padding="5">
+              <controls:SettingsContentControl/>
+            </ScrollViewer>
+          </Grid>
         </Border>
-    </DockPanel>
+
+        <!-- Action buttons -->
+        <controls:SettingsActionsControl Grid.Row="1" Grid.ColumnSpan="2" Margin="0 5 0 0"/>
+      </Grid>
+    </Border>
+  </DockPanel>
 </UserControl>

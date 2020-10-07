@@ -19,10 +19,10 @@
   </UserControl.Styles>
 
   <UserControl.KeyBindings>
-    <KeyBinding KeyGesture.Key="Back" Command="{Binding IgnoreAnswerShortcutCommand}"/>
-    <KeyBinding KeyGesture.Key="OemPlus" Command="{Binding AddAnswerShortcutCommand}"/>
-    <KeyBinding KeyGesture.Key="Add" Command="{Binding AddAnswerShortcutCommand}"/>
-    <KeyBinding KeyGesture.Key="W" KeyGesture.Modifiers="Control" Command="{Binding WrapUpCommand}"/>
+    <KeyBinding Gesture="Back" Command="{Binding IgnoreAnswerShortcutCommand}"/>
+    <KeyBinding Gesture="OemPlus" Command="{Binding AddAnswerShortcutCommand}"/>
+    <KeyBinding Gesture="Add" Command="{Binding AddAnswerShortcutCommand}"/>
+    <KeyBinding Gesture="Ctrl+W" Command="{Binding WrapUpCommand}"/>
   </UserControl.KeyBindings>
 
   <Grid>
@@ -229,7 +229,7 @@
     <!-- Input textbox -->
     <TextBox Grid.Row="4" Text="{Binding CurrentAnswer, Mode=TwoWay}" FontSize="20">
       <TextBox.KeyBindings>
-        <KeyBinding KeyGesture.Key="Enter" Command="{Binding SubmitCommand}"/>
+        <KeyBinding Gesture="Enter" Command="{Binding SubmitCommand}"/>
       </TextBox.KeyBindings>
       <TextBox.Styles>
         <Style Selector="TextBox">

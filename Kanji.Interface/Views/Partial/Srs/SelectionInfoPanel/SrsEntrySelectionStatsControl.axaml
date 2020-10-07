@@ -5,16 +5,14 @@
                     xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" x:Class="Kanji.Interface.Controls.SrsEntrySelectionStatsControl" mc:Ignorable="d" d:DesignHeight="80" d:DesignWidth="400">
 
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <Style Selector="Border.StatBox" >
-                <Setter Property="BorderBrush" Value="{StaticResource FadedBorderBrush}"/>
-                <Setter Property="BorderThickness" Value="1"/>
-                <Setter Property="Padding" Value="5"/>
-                <Setter Property="Background" Value="#99000000"/>
-            </Style>
-        </ResourceDictionary>
-    </UserControl.Resources>
+    <UserControl.Styles>
+      <Style Selector="Border.StatBox" >
+        <Setter Property="BorderBrush" Value="{StaticResource FadedBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="Background" Value="#99000000"/>
+      </Style>
+    </UserControl.Styles>
 
     <UserControl.Styles>
         <Style Selector="UserControl">

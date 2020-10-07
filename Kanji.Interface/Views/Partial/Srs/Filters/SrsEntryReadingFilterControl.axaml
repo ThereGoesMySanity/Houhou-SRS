@@ -29,7 +29,7 @@
     </controls:SrsEntryFilterControlBase.Resources>
 
     <controls:SrsEntryFilterControlBase.Styles>
-        <Style Selector="{x:Type controls:SrsEntryFilterControlBase}">
+        <Style Selector="controls|SrsEntryFilterControlBase">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="UserControl">
@@ -57,7 +57,7 @@ When unchecked, matches any value containing this expression." IsChecked="{Bindi
                 </Setter.Value>
             </Setter>
         </Style>
-      <Style Selector="{x:Type controls:SrsEntryFilterControlBase}[IsInline=True]">
+      <Style Selector="controls|SrsEntryFilterControlBase[IsInline=True]">
         <Setter Property="Template" Value="{StaticResource InlineTemplate}" />
       </Style>
     </controls:SrsEntryFilterControlBase.Styles>

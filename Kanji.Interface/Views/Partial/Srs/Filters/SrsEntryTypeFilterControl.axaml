@@ -7,7 +7,7 @@
                     xmlns:controls="clr-namespace:Kanji.Interface.Controls" x:Class="Kanji.Interface.Controls.SrsEntryTypeFilterControl" mc:Ignorable="d" d:DesignHeight="30" d:DesignWidth="500">
 
     <controls:SrsEntryFilterControlBase.Styles>
-        <Style Selector="{x:Type controls:SrsEntryFilterControlBase}">
+        <Style Selector="controls|SrsEntryFilterControlBase">
             <Setter Property="Template">
                 <Setter.Value>
                     <!-- NON-Inline template -->
@@ -32,7 +32,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-      <Style Selector="{x:Type controls:SrsEntryFilterControlBase}[IsInline=True]">
+      <Style Selector="controls|SrsEntryFilterControlBase[IsInline=True]">
         <Setter Property="Template">
           <Setter.Value>
             <!-- Inline template -->
