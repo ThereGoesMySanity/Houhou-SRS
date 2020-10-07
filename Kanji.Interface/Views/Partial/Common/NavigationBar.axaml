@@ -23,8 +23,8 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <DockPanel>
-                <Label DockPanel.Dock="Left" Classes="NavigationPanelTabTitleKanji NavigationPanelTabTitle" Content="方法" FontSize="36" FontWeight="Normal" Margin="5 0 3 7"/>
-                <Label Classes="NavigationPanelTabTitle" Content="HOME"/>
+                <TextBox DockPanel.Dock="Left" Classes="NavigationPanelTabTitleKanji NavigationPanelTabTitle" Text="方法" FontSize="36" FontWeight="Normal" Margin="5 0 3 7"/>
+                <TextBox Classes="NavigationPanelTabTitle" Text="HOME"/>
             </DockPanel>
             <Button Grid.ColumnSpan="2" Classes="NavigationPanelButton" Command="{Binding NavigateCommand}" CommandParameter="{x:Static models:NavigationPageEnum.Home}" ToolTip.Tip="(CTRL+1)"/>
         </Grid>
@@ -36,7 +36,7 @@
                 <ColumnDefinition Width="80*"/>
                 <ColumnDefinition Width="10*"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="1" Classes="NavigationPanelTabTitle" Content="SRS"/>
+            <TextBox Grid.Column="1" Classes="NavigationPanelTabTitle" Text="SRS"/>
             <TextBlock Grid.ColumnSpan="3" VerticalAlignment="Bottom" Margin="0 0 0 3" HorizontalAlignment="Center" Foreground="White" FontWeight="SemiBold">
                 <TextBlock.Styles>
                     <Style Selector="TextBlock">
@@ -68,7 +68,7 @@
                 <ColumnDefinition Width="80*"/>
                 <ColumnDefinition Width="10*"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="1" Classes="NavigationPanelTabTitle" Content="KANJI"/>
+            <TextBox Grid.Column="1" Classes="NavigationPanelTabTitle" Text="KANJI"/>
             <Button Grid.ColumnSpan="3" Classes="NavigationPanelButton" Command="{Binding NavigateCommand}" CommandParameter="{x:Static models:NavigationPageEnum.Kanji}" ToolTip.Tip="(CTRL+3)"/>
         </Grid>
 
@@ -79,7 +79,7 @@
                 <ColumnDefinition Width="80*"/>
                 <ColumnDefinition Width="10*"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="1" Classes="NavigationPanelTabTitle" Content="VOCAB"/>
+            <TextBox Grid.Column="1" Classes="NavigationPanelTabTitle" Text="VOCAB"/>
             <Button Grid.ColumnSpan="3" Classes="NavigationPanelButton" Command="{Binding NavigateCommand}" CommandParameter="{x:Static models:NavigationPageEnum.Vocab}" ToolTip.Tip="(CTRL+4)"/>
         </Grid>
 
@@ -90,7 +90,7 @@
                 <ColumnDefinition Width="80*"/>
                 <ColumnDefinition Width="10*"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="1" Classes="NavigationPanelTabTitle" Content="SETTINGS"/>
+            <TextBox Grid.Column="1" Classes="NavigationPanelTabTitle" Text="SETTINGS"/>
             <TextBlock Grid.ColumnSpan="3" VerticalAlignment="Bottom" Margin="0 0 0 3" HorizontalAlignment="Center" Foreground="White" FontWeight="SemiBold">
               <i:Interaction.Behaviors>
                 <ia:DataTriggerBehavior Binding="{Binding CheckStatus,

@@ -45,16 +45,16 @@
                 <UniformGrid Columns="1" ScrollViewer.VerticalScrollBarVisibility="Auto" Visibility="{Binding BulkEditMode,
                       Converter={StaticResource ValueToVisibilityConverter},
                       ConverterParameter=None}">
-                    <Button Classes="ActionButton" Content="Bulk edit the meaning note" Margin="0 0 0 5" Command="{Binding BulkEditMeaningNoteCommand}" Height="Auto" MinHeight="20"/>
-                    <Button Classes="ActionButton" Content="Bulk edit the reading note" Margin="0 0 0 5" Command="{Binding BulkEditReadingNoteCommand}" Height="Auto" MinHeight="20"/>
-                    <Button Classes="ActionButton" Content="Bulk edit the tags" Margin="0 0 0 5" Command="{Binding BulkEditTagsCommand}" Height="Auto" MinHeight="20"/>
-                    <Button Classes="ActionButton" Content="Bulk edit the SRS level" Margin="0 0 0 5" Command="{Binding BulkEditLevelCommand}" Height="Auto" MinHeight="20"/>
-                    <Button Classes="ActionButton" Content="Bulk reschedule review dates" Margin="0 0 0 5" Command="{Binding BulkRescheduleCommand}" Height="Auto" MinHeight="20"/>
-                    <Button Classes="ActionButton" Content="Bulk delay review dates" Margin="0 0 0 5" Command="{Binding BulkDelayCommand}" Height="Auto" MinHeight="20"/>
-                    <Button Classes="ActionButton" Content="Suspend all selected items" Margin="0 0 0 5" Command="{Binding BulkSuspendCommand}" Height="Auto" MinHeight="20"/>
-                    <Button Classes="ActionButton" Content="Resume all selected items" Margin="0 0 0 5" Command="{Binding BulkResumeCommand}" Height="Auto" MinHeight="20"/>
-                    <Button Classes="ActionButton" Content="Delete all selected items" Margin="0 0 0 5" Command="{Binding BulkDeleteCommand}" Height="Auto" MinHeight="20"/>
-                    <Button Classes="ActionButton" Content="Export all selected items" Margin="0 0 0 5" Command="{Binding ExportCommand}" Height="Auto" MinHeight="20"/>
+                    <Button Classes="ActionButton" Content="Bulk edit the meaning note" Margin="0 0 0 5" Command="{Binding BulkEditMeaningNoteCommand}" Height="NaN" MinHeight="20"/>
+                    <Button Classes="ActionButton" Content="Bulk edit the reading note" Margin="0 0 0 5" Command="{Binding BulkEditReadingNoteCommand}" Height="NaN" MinHeight="20"/>
+                    <Button Classes="ActionButton" Content="Bulk edit the tags" Margin="0 0 0 5" Command="{Binding BulkEditTagsCommand}" Height="NaN" MinHeight="20"/>
+                    <Button Classes="ActionButton" Content="Bulk edit the SRS level" Margin="0 0 0 5" Command="{Binding BulkEditLevelCommand}" Height="NaN" MinHeight="20"/>
+                    <Button Classes="ActionButton" Content="Bulk reschedule review dates" Margin="0 0 0 5" Command="{Binding BulkRescheduleCommand}" Height="NaN" MinHeight="20"/>
+                    <Button Classes="ActionButton" Content="Bulk delay review dates" Margin="0 0 0 5" Command="{Binding BulkDelayCommand}" Height="NaN" MinHeight="20"/>
+                    <Button Classes="ActionButton" Content="Suspend all selected items" Margin="0 0 0 5" Command="{Binding BulkSuspendCommand}" Height="NaN" MinHeight="20"/>
+                    <Button Classes="ActionButton" Content="Resume all selected items" Margin="0 0 0 5" Command="{Binding BulkResumeCommand}" Height="NaN" MinHeight="20"/>
+                    <Button Classes="ActionButton" Content="Delete all selected items" Margin="0 0 0 5" Command="{Binding BulkDeleteCommand}" Height="NaN" MinHeight="20"/>
+                    <Button Classes="ActionButton" Content="Export all selected items" Margin="0 0 0 5" Command="{Binding ExportCommand}" Height="NaN" MinHeight="20"/>
                 </UniformGrid>
             </ScrollViewer>
 
