@@ -13,7 +13,7 @@
         <Grid x:Name="LoadedPanel">
             <Grid.Styles>
                 <Style Selector="Grid">
-                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Setter Property="IsVisible" Value="False"/>
                 </Style>
             </Grid.Styles>
           <i:Interaction.Behaviors>
@@ -59,7 +59,7 @@
                                 </MultiBinding>
                             </DataTrigger.Binding>
                             <DataTrigger.Setters>
-                                <Setter Property="Visibility" Value="Visible" />
+                                <Setter Property="IsVisible" Value="True" />
                             </DataTrigger.Setters>
                         </DataTrigger>-->
                         <ia:DataTriggerBehavior Binding="{Binding IsLoading, Mode=OneWay}" Value="True">
@@ -70,7 +70,7 @@
                     </i:Interaction.Behaviors>
             <StackPanel.Styles>
                 <Style Selector="StackPanel">
-                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Setter Property="IsVisible" Value="False"/>
                 </Style>
             </StackPanel.Styles>
             <controls:GifImage GifSource="/Data/UI/loading.gif" Width="24" Height="24" AutoStart="True" Stretch="Fill"/>

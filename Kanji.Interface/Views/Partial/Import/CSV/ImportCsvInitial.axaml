@@ -56,7 +56,7 @@
                                                     <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
                                                 </ia:DataTriggerBehavior>
                                             </i:Interaction.Behaviors>
-                                            <Setter Property="Visibility" Value="Hidden"/>
+                                            <Setter Property="IsVisible" Value="False"/>
                                         </Style>
                                     </TextBox.Styles>
                                 </TextBox>

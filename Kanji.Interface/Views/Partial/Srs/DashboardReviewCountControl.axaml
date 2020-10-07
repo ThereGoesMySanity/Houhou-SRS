@@ -54,7 +54,7 @@
                 <Grid x:Name="NoReviewsPanel" Grid.Row="1" Grid.Column="1" Margin="0 0 0 0">
                     <Grid.Styles>
                         <Style Selector="Grid">
-                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Setter Property="IsVisible" Value="False"/>
                         </Style>
                     </Grid.Styles>
                             <i:Interaction.Behaviors>

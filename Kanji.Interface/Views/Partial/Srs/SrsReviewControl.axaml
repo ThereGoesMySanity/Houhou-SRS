@@ -284,7 +284,7 @@
                                 <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
                             </ia:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
-                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Setter Property="IsVisible" Value="False"/>
                     </Style>
                 </Border.Styles>
                 <StackPanel Orientation="Vertical">
@@ -300,7 +300,7 @@
                                 <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
                             </ia:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
-                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Setter Property="IsVisible" Value="False"/>
                     </Style>
                 </Border.Styles>
                 <StackPanel Orientation="Vertical">
@@ -342,7 +342,7 @@
                                     <ia:ChangePropertyAction Value="Mark your answer as correct and add the answer as a correct meaning." PropertyName="ToolTip.Tip"/>
                                 </ia:DataTriggerBehavior>
                             </i:Interaction.Behaviors>
-                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Setter Property="IsVisible" Value="False"/>
                             <Setter Property="Content" Value="Add to readings"/>
                             <Setter Property="ToolTip.Tip" Value="Mark your answer as correct and add the answer as a correct reading. Shortcut if enabled: (+)"/>
                         </Style>

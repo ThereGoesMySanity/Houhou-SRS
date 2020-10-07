@@ -34,7 +34,7 @@
                                         <Binding Path="LoadedItemCount" />
                                     </MultiBinding>
                                 </DataTrigger.Binding>
-                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Setter Property="IsVisible" Value="False" />
                             </DataTrigger>
                         </Style.Triggers>-->
                     </Style>

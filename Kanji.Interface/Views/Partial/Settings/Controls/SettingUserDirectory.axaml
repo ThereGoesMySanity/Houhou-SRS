@@ -11,7 +11,7 @@
             <TextBlock Text="{Binding UserDirectoryPath,Mode=OneWay}" />
             <Button Classes="MiniActionButton" Content="Modify" Width="100" Margin="0 5 0 0" HorizontalAlignment="Left" Command="{Binding EnterEditModeCommand}" />
         </StackPanel>
-        <StackPanel Visibility="{Binding IsEditMode, Converter={StaticResource ValueToVisibilityConverter}}">
+        <StackPanel IsVisible="{Binding IsEditMode}">
             <TextBox FontSize="14" TextWrapping="Wrap" Classes="ErrorLabel" Text="{Binding ErrorMessage, Mode=OneWay}" />
             <TextBlock Classes="LegendText" Text="User directory path" />
             <TextBox Text="{Binding UserDirectoryPath,Mode=TwoWay}" />

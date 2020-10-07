@@ -306,7 +306,7 @@
                                         <ia:ChangePropertyAction Value="1 item was modified" PropertyName="Text"/>
                                     </ia:DataTriggerBehavior>
                                 </i:Interaction.Behaviors>
-                        <TextBlock.ToolTip.Tip>
+                        <ToolTip.Tip>
                             <TextBlock>
                                 Please note that the number of items effectively modified may vary
                                 depending on the nature of the operation.
@@ -314,7 +314,7 @@
                                 For example, bulk suspending will only affect items that were not
                                 already suspended.
                             </TextBlock>
-                        </TextBlock.ToolTip.Tip>
+                        </ToolTip.Tip>
                         <TextBlock.Styles>
                             <Style Selector="TextBlock" InheritanceParent="{StaticResource LegendText}">
                                 <Setter Property="Text">

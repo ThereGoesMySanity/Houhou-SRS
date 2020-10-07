@@ -60,7 +60,7 @@
 
         <!-- Total item count -->
         <Border Classes="StatBox">
-            <Border.ToolTip.Tip>
+            <ToolTip.Tip>
                 <StackPanel>
                     <TextBlock>
                         <TextBlock.Styles>
@@ -97,7 +97,7 @@
                                 </i:Interaction.Behaviors>
                     </TextBlock>
                 </StackPanel>
-            </Border.ToolTip.Tip>
+            </ToolTip.Tip>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3*"/>
@@ -136,7 +136,7 @@
 
         <!-- Total review count -->
         <Border Classes="StatBox">
-            <Border.ToolTip.Tip>
+            <ToolTip.Tip>
                 <StackPanel>
                     <TextBlock>
                         <TextBlock.Styles>
@@ -173,7 +173,7 @@
                                 </i:Interaction.Behaviors>
                     </TextBlock>
                 </StackPanel>
-            </Border.ToolTip.Tip>
+            </ToolTip.Tip>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3*"/>
