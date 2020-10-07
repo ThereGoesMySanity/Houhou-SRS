@@ -29,4 +29,7 @@
     <ProjectReference Include="..\Kanji.Common\Kanji.Common.csproj" />
     <ProjectReference Include="..\Kanji.Database\Kanji.Database.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <AvaloniaResource Include="ViewResources\*"/>
+  </ItemGroup>
 </Project>

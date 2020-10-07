@@ -219,7 +219,7 @@
                       </Style>
                     </Button.Styles>
                 </Button>
-              <Grid Width="70" Height="60" DataContext="{Binding SrsEntry}" Visibility="{Binding .}">
+              <Grid Width="70" Height="60" DataContext="{Binding SrsEntry}" IsVisible="{Binding .}">
                 <Button Classes="ActionButton" Content="In SRS " Width="70" Height="60" FontSize="12" Margin="0 0 0 0" BorderBrush="{StaticResource FadedBorderBrush}"
                         Command="{Binding DataContext.EditSrsEntryCommand, RelativeSource={RelativeSource AncestorType=controls:KanjiDetails}}" HorizontalContentAlignment="Center">
                   <Button.Styles>

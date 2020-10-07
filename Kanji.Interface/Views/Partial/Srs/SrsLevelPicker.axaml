@@ -7,9 +7,7 @@
                     xmlns:converters="clr-namespace:Kanji.Interface.Converters"
                     xmlns:controls="clr-namespace:Kanji.Interface.Controls" x:Class="Kanji.Interface.Controls.SrsLevelPicker" mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
 
-    <UserControl.Resources>
-        <ResourceDictionary>
-            
+    <UserControl.Styles>
             <!-- Child level listbox style -->
           <Style Selector="ListBox.SrsLevelSublist" >
             <Setter Property="BorderThickness" Value="0"/>
@@ -31,6 +29,14 @@
                         <ia:InvokeCommandAction Command="{Binding DataContext.SelectSrsLevelCommand,
                                                          RelativeSource={RelativeSource AncestorType={x:Type controls:SrsLevelPicker}}}" CommandParameter="{Binding .}"/>
                       </ia:EventTriggerBehavior>
+                      <!-- Compare the CurrentGrade of the SrsEntry of the ViewModel far above,
+                                            with the Value of the level. If >=, remove the white background. -->
+                      <ia:DataTriggerBehavior Binding="{Binding $parent[controls:SrsLevelPicker].DataContext.CurrentLevelValue}"
+                                              ComparisonCondition="GreaterThanOrEqual" Value="{Binding Value}">
+                        <ia:ChangePropertyAction Value="{Binding $parent[ListBoxItem].DataContext.Color,
+                                                         Converter={StaticResource ColorToBrushConverter}}" PropertyName="Background"/>
+                        <ia:ChangePropertyAction Value="White" PropertyName="Foreground"/>
+                      </ia:DataTriggerBehavior>
                     </i:Interaction.Behaviors>
                     <Grid>
                       <TextBlock FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black" Text="{Binding Name}">
@@ -41,17 +47,6 @@
                       <TextBlock FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{TemplateBinding Foreground}" Text="{Binding Name}"/>
                     </Grid>
                   </Border>
-                  <i:Interaction.Behaviors>
-                    <!-- Compare the CurrentGrade of the SrsEntry of the ViewModel far above,
-                                            with the Value of the level. If >=, remove the white background. -->
-                    <ia:DataTriggerBehavior Binding="{Binding $parent[controls:SrsLevelPicker].DataContext.CurrentLevelValue}"
-                                            ComparisonCondition="GreaterThanOrEqual" Value="{Binding Value}">
-                      <ia:ChangePropertyAction Value="{Binding
-                                                                             $parent[ListBoxItem].DataContext.Color,
-                                                         Converter={StaticResource ColorToBrushConverter}}" PropertyName="Background"/>
-                      <ia:ChangePropertyAction Value="White" PropertyName="Foreground"/>
-                    </ia:DataTriggerBehavior>
-                  </i:Interaction.Behaviors>
                 </ControlTemplate>
               </Setter.Value>
             </Setter>
@@ -74,25 +69,20 @@
                         </ItemsPanelTemplate>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="ItemContainerStyle">
-                    <Setter.Value>
-                        <Style Selector="ListBoxItem">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="ListBoxItem">
-                                        <Border BorderThickness="1" BorderBrush="#444444" Background="{Binding Color, Converter={StaticResource ColorToBrushConverter}}" Margin="0 0 2 0">
-                                            <ListBox Items="{Binding Levels}" Classes="SrsLevelSublist"/>
-                                        </Border>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </Setter.Value>
-                </Setter>
+            </Style>
+            <Style Selector="ListBox.SrsLevelSelectionList ListBoxItem">
+              <Setter Property="Template">
+                <Setter.Value>
+                  <ControlTemplate TargetType="ListBoxItem">
+                    <Border BorderThickness="1" BorderBrush="#444444" Background="{Binding Color, Converter={StaticResource ColorToBrushConverter}}" Margin="0 0 2 0">
+                      <ListBox Items="{Binding Levels}" Classes="SrsLevelSublist"/>
+                    </Border>
+                  </ControlTemplate>
+                </Setter.Value>
+              </Setter>
             </Style>
             
-        </ResourceDictionary>
-    </UserControl.Resources>
+    </UserControl.Styles>
 
     <ListBox Grid.ColumnSpan="2" Grid.Row="2" Classes="SrsLevelSelectionList" Margin="0 3 0 0" Items="{Binding SrsLevelGroups}"/>
 </UserControl>

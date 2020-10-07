@@ -86,7 +86,7 @@
                 </Grid.ColumnDefinitions>
                 
                 <!-- List -->
-                <DataGrid Name="SrsList" Items="{Binding LoadedItems,  Mode=OneWay}" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Extended" SelectionUnit="FullRow" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <DataGrid Name="SrsList" Items="{Binding LoadedItems,  Mode=OneWay}" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Extended" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <i:Interaction.Behaviors>
                         <ia:EventTriggerBehavior EventName="SelectionChanged">
                             <ia:InvokeCommandAction Command="{Binding RefreshSelectionCommand, Mode=OneWay}"/>
@@ -117,12 +117,12 @@
                                 <DataTemplate>
                                     <Border Padding="3 1" BorderBrush="#99000000" BorderThickness="1" Background="#33000000" Margin="2 0" ToolTip.Tip="Inactive item">
                                         <Border.Styles>
+                                            <Style Selector="Border">
                                                 <i:Interaction.Behaviors>
-                                                    <ia:DataTriggerBehavior Binding="{Binding IsActive, }" Value="False">
+                                                    <ia:DataTriggerBehavior Binding="{Binding IsActive}" Value="False">
                                                         <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
                                                     </ia:DataTriggerBehavior>
                                                 </i:Interaction.Behaviors>
-                                            <Style Selector="Border">
                                                 <Setter Property="IsVisible" Value="False"/>
                                             </Style>
                                         </Border.Styles>

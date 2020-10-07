@@ -6,18 +6,16 @@
                     xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
                     xmlns:business="clr-namespace:Kanji.Interface.Business" x:Class="Kanji.Interface.Controls.DashboardReviewStatsControl" mc:Ignorable="d" d:DesignHeight="85" d:DesignWidth="500">
 
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <Style Selector="Border.StatBox" >
-                <Setter Property="BorderBrush" Value="{StaticResource FadedBorderBrush}"/>
-                <Setter Property="BorderThickness" Value="0"/>
-                <Setter Property="Padding" Value="5"/>
-                <Setter Property="Margin" Value="3 0"/>
-                <Setter Property="CornerRadius" Value="8"/>
-                <Setter Property="Background" Value="#FF444444"/>
-            </Style>
-        </ResourceDictionary>
-    </UserControl.Resources>
+    <UserControl.Styles>
+      <Style Selector="Border.StatBox" >
+        <Setter Property="BorderBrush" Value="{StaticResource FadedBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="Margin" Value="3 0"/>
+        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="Background" Value="#FF444444"/>
+      </Style>
+    </UserControl.Styles>
     
     <UniformGrid Rows="1">
         <!-- Remaining reviews today count -->

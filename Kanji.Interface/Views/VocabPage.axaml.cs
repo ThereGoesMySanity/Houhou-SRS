@@ -20,6 +20,7 @@ namespace Kanji.Interface.Views
         {
             InitializeComponent();
             DataContext = new VocabViewModel();
+            this.GetObservable(IsVisibleProperty).Subscribe(OnIsVisibleChanged);
         }
         private void InitializeComponent()
         {
@@ -79,11 +80,11 @@ namespace Kanji.Interface.Views
             }
         }
 
-        private void OnIsVisibleChanged(object sender, AvaloniaPropertyChangedEventArgs e)
+        private void OnIsVisibleChanged(bool newValue)
         {
             // Focus the page once it becomes visible.
             // This is so that the navigation bar does not keep the focus, which would prevent shortcut keys from working.
-            if (((bool)e.NewValue))
+            if (newValue)
             {
                 Focus();
             }

@@ -3,7 +3,7 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:controls="clr-namespace:Kanji.Interface.Controls"
-                    xmlns:utilities="clr-namespace:Kanji.Interface.Utilities"
+                    xmlns:utility="clr-namespace:Kanji.Interface.Utilities"
                     xmlns:behaviors="clr-namespace:Kanji.Interface.Behaviors"
                     xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
                     xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
@@ -68,13 +68,18 @@
             </controls:CommandTextBox>
           </Decorator>
           <TextBlock Grid.Row="1" Grid.Column="2" Text="as" VerticalAlignment="Center" Margin="5,0"/>
-          <ComboBox Name="FilterModeCombobox" Grid.Row="1" Grid.Column="3" Items="{Binding Source={StaticResource KanjiFilterModeEnum}}" SelectedItem="{Binding MainFilterMode}" behaviors:SelectionChangedBehavior.Command="{Binding FilterModeChangedCommand}">
-            <ComboBox.ItemTemplate>
-              <DataTemplate>
-                <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}"/>
-              </DataTemplate>
-            </ComboBox.ItemTemplate>
-          </ComboBox>
+      <ComboBox Name="FilterModeCombobox" Grid.Row="1" Grid.Column="3" Items="{Binding Source={utility:EnumBindingSource models:KanjiFilterModeEnum}}" SelectedItem="{Binding MainFilterMode}" >
+        <i:Interaction.Behaviors>
+          <ia:EventTriggerBehavior EventName="SelectionChanged">
+            <ia:InvokeCommandAction Command="{Binding FilterModeChangedCommand}" />
+          </ia:EventTriggerBehavior>
+        </i:Interaction.Behaviors>
+        <ComboBox.ItemTemplate>
+          <DataTemplate>
+            <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}"/>
+          </DataTemplate>
+        </ComboBox.ItemTemplate>
+      </ComboBox>
 
           <!-- JLPT/WK levels -->
           <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Margin="0 5 0 0">
@@ -90,7 +95,7 @@
           <TextBlock Grid.Row="3" Grid.ColumnSpan="4" Text="containing the selected radicals:"/>
 
           <!-- 3. Radical list -->
-          <ListBox Name="RadicalList" Grid.Row="4" Grid.ColumnSpan="4" Classes="RadicalList" Margin="0 2" Items="{Binding Radicals Mode=TwoWay}" SelectionMode="Multiple,Toggle"/>
+          <ListBox Name="RadicalList" Grid.Row="4" Grid.ColumnSpan="4" Classes="RadicalList" Margin="0 2" Items="{Binding Radicals, Mode=TwoWay}" SelectionMode="Multiple,Toggle"/>
 
           <!-- 4. Radical filter -->
           <Grid Grid.Row="5" Grid.ColumnSpan="4" Margin="0 5">
@@ -103,7 +108,7 @@
             <Decorator>
               <TextBox Name="RadicalNameFilter" Text="{Binding RadicalFilter, Mode=TwoWay}" ToolTip.Tip="Type the filter until one single result remains, then press Enter to select or deselect it (CTRL+R).">
                 <TextBox.KeyBindings>
-                  <KeyBinding Command="{Binding SendRadicalFilterCommand}" Key="Enter"/>
+                  <KeyBinding Command="{Binding SendRadicalFilterCommand}" Gesture="Enter"/>
                 </TextBox.KeyBindings>
                 <controls:WatermarkService.Watermark>
                   <TextBlock TextAlignment="Center" VerticalAlignment="Center">

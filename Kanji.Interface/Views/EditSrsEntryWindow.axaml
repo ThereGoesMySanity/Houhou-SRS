@@ -4,7 +4,7 @@
                     xmlns:converters="clr-namespace:Kanji.Interface.Converters"
                     xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
                     xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
-                    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="Kanji.Interface.Views.EditSrsEntryWindow" Height="500" Width="500" KeyDown="OnKeyDown">
+                     x:Class="Kanji.Interface.Views.EditSrsEntryWindow" Height="500" Width="500" KeyDown="OnKeyDown">
     <Window.Styles>
         <Style Selector="Window">
             <i:Interaction.Behaviors>
