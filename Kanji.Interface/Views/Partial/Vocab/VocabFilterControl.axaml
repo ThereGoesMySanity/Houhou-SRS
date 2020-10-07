@@ -68,16 +68,14 @@
                       </ia:DataTriggerBehavior>
                     </i:Interaction.Behaviors>
                     <Setter Property="Tag" Value="False"/>
-                    <Setter Property="ToolTip.Tip">
-                      <Setter.Value>
-                        <TextBlock>
-                          Common vocab is not displayed first.&#x0a;
-                          Click this button if you want common vocab to be displayed first.
-                        </TextBlock>
-                      </Setter.Value>
-                    </Setter>
                   </Style>
                 </Button.Styles>
+              <ToolTip.Tip>
+                <TextBlock>
+                  Common vocab is not displayed first.&#x0a;
+                  Click this button if you want common vocab to be displayed first.
+                </TextBlock>
+              </ToolTip.Tip>
             </Button>
             <Button Content="pack://application:,,,/Data/UI/SortLengthIcon.png" Command="{Binding SwitchWritingLengthOrderCommand}" Margin="5 0 0 0" Classes="ImageActionButton">
                 <Button.Styles>
@@ -96,16 +94,14 @@
                       </ia:DataTriggerBehavior>
                     </i:Interaction.Behaviors>
                     <Setter Property="Tag" Value="False"/>
-                    <Setter Property="ToolTip.Tip">
-                      <Setter.Value>
-                        <TextBlock>
-                          Vocab is sorted by descending writing length.&#x0a;
-                          Click this button if you want to change this behavior.
-                        </TextBlock>
-                      </Setter.Value>
-                    </Setter>
                   </Style>
                 </Button.Styles>
+              <ToolTip.Tip>
+                <TextBlock>
+                  Vocab is sorted by descending writing length.&#x0a;
+                  Click this button if you want to change this behavior.
+                </TextBlock>
+              </ToolTip.Tip>
             </Button>
         </StackPanel>
 

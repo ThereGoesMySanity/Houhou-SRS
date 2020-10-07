@@ -48,7 +48,7 @@ namespace Kanji.Interface.Utilities
             };
             if (collectionArgs.NewValue)
             {
-                CollectionIsSatisfied(this, collectionArgs);
+                CollectionIsSatisfied?.Invoke(this, collectionArgs);
             }
         }
 

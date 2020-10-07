@@ -35,7 +35,7 @@ namespace Kanji.Interface.Utilities
             get => _name; 
             set
             {
-                if (!Enum.GetNames(EnumType).Contains(value))
+                if (value != null && !Enum.GetNames(EnumType).Contains(value))
                     throw new ArgumentException("Name must be name of an enum in type");
 
                 _name = value;

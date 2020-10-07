@@ -23,6 +23,7 @@ using Avalonia.Threading;
 using Avalonia.Media;
 using Avalonia;
 using Kanji.Interface.Actors;
+using Avalonia.Input;
 
 namespace Kanji.Interface.ViewModels
 {
@@ -200,12 +201,7 @@ namespace Kanji.Interface.ViewModels
         /// <summary>
         /// Gets the command used to advance to the next stroke.
         /// </summary>
-        public RelayCommand NextStrokeCommand { get; private set; }
-
-        /// <summary>
-        /// Gets the command used to go back to the previous stroke.
-        /// </summary>
-        public RelayCommand PreviousStrokeCommand { get; private set; }
+        public RelayCommand<PointerReleasedEventArgs> NextStrokeCommand { get; private set; }
 
         /// <summary>
         /// Gets the command used to advance to the last stroke.
@@ -267,8 +263,7 @@ namespace Kanji.Interface.ViewModels
             EditSrsEntryCommand = new RelayCommand(OnEditSrsEntry);
             FilterReadingCommand = new RelayCommand<string>(OnFilterReading);
 
-            NextStrokeCommand = new RelayCommand(OnNextStroke);
-            PreviousStrokeCommand = new RelayCommand(OnPreviousStroke);
+            NextStrokeCommand = new RelayCommand<PointerReleasedEventArgs>(OnNextStroke);
             LastStrokeCommand = new RelayCommand(OnLastStroke);
             FirstStrokeCommand = new RelayCommand(OnFirstStroke);
             WaniKaniCommand = new RelayCommand(OnWaniKani);
@@ -473,34 +468,28 @@ namespace Kanji.Interface.ViewModels
         /// Called when the NextStrokeCommand is fired.
         /// Advances to the next stroke. Stops the timer if it was active.
         /// </summary>
-        private void OnNextStroke()
+        private void OnNextStroke(PointerReleasedEventArgs args)
         {
-            if (_strokeUpdateTimer != null)
+            if ((args.InitialPressMouseButton == MouseButton.Left || args.InitialPressMouseButton == MouseButton.Right)
+                &&_strokeUpdateTimer != null)
             {
                 _strokeUpdateTimer.Stop();
             }
 
-            GoToNextStroke();
-        }
-
-        /// <summary>
-        /// Called when the PreviousStrokeCommand is fired.
-        /// Goes back to the previous stroke. Stops the timer if it was active.
-        /// </summary>
-        private void OnPreviousStroke()
-        {
-            if (_strokeUpdateTimer != null)
+            switch(args.InitialPressMouseButton)
             {
-                _strokeUpdateTimer.Stop();
+                case MouseButton.Left:
+                    GoToNextStroke();
+                    break;
+                case MouseButton.Right:
+                    int next = CurrentStroke - 1;
+                    if (next <= 0)
+                    {
+                        next = StrokesCount;
+                    }
+                    SetCurrentStroke(next);
+                    break;
             }
-
-            int next = CurrentStroke - 1;
-            if (next <= 0)
-            {
-                next = StrokesCount;
-            }
-
-            SetCurrentStroke(next);
         }
 
         /// <summary>

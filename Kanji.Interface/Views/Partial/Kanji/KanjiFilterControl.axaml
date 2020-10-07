@@ -68,7 +68,7 @@
             </controls:CommandTextBox>
           </Decorator>
           <TextBlock Grid.Row="1" Grid.Column="2" Text="as" VerticalAlignment="Center" Margin="5,0"/>
-      <ComboBox Name="FilterModeCombobox" Grid.Row="1" Grid.Column="3" Items="{Binding Source={utility:EnumBindingSource models:KanjiFilterModeEnum}}" SelectedItem="{Binding MainFilterMode}" >
+      <ComboBox Name="FilterModeCombobox" Grid.Row="1" Grid.Column="3" Items="{Binding Source={utility:EnumBindingSource {x:Type models:KanjiFilterModeEnum}}}" SelectedItem="{Binding MainFilterMode}" >
         <i:Interaction.Behaviors>
           <ia:EventTriggerBehavior EventName="SelectionChanged">
             <ia:InvokeCommandAction Command="{Binding FilterModeChangedCommand}" />

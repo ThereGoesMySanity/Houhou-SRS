@@ -265,6 +265,12 @@ namespace Kanji.Interface.Actors
                 MainWindow.Show();
             });
         }
+        public void SetMainWindow(MainWindow window)
+        {
+            MainWindow = window;
+            ActiveWindow = MainWindow;
+            MainWindow.Closed += OnMainWindowClosed;
+        }
 
         /// <summary>
         /// Event handler triggered when the Main Window is closed.
