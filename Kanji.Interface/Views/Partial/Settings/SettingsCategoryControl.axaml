@@ -9,19 +9,20 @@
              d:DesignHeight="300" d:DesignWidth="150">
 
     <Border BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="1">
+      <LayoutTransformContainer>
         <UniformGrid Rows="1">
-            <UniformGrid.LayoutTransform>
-                <RotateTransform Angle="-90" />
-            </UniformGrid.LayoutTransform>
-        
-            <controls:SettingsCategoryTabControl Tag="{x:Static models:SettingsCategoryEnum.Srs}"
-                Background="{StaticResource SrsTabGradient}" />
-            <controls:SettingsCategoryTabControl Tag="{x:Static models:SettingsCategoryEnum.Kanji}"
-                Background="{StaticResource KanjiTabGradient}" />
-            <controls:SettingsCategoryTabControl Tag="{x:Static models:SettingsCategoryEnum.Vocab}"
-                Background="{StaticResource VocabTabGradient}" />
-            <controls:SettingsCategoryTabControl Tag="{x:Static models:SettingsCategoryEnum.Application}"
-                Background="{StaticResource HomeTabGradient}" />
+          <controls:SettingsCategoryTabControl Tag="{x:Static models:SettingsCategoryEnum.Srs}"
+              Background="{StaticResource SrsTabGradient}" />
+          <controls:SettingsCategoryTabControl Tag="{x:Static models:SettingsCategoryEnum.Kanji}"
+              Background="{StaticResource KanjiTabGradient}" />
+          <controls:SettingsCategoryTabControl Tag="{x:Static models:SettingsCategoryEnum.Vocab}"
+              Background="{StaticResource VocabTabGradient}" />
+          <controls:SettingsCategoryTabControl Tag="{x:Static models:SettingsCategoryEnum.Application}"
+              Background="{StaticResource HomeTabGradient}" />
         </UniformGrid>
+        <LayoutTransformContainer.LayoutTransform>
+          <RotateTransform Angle="-90"/>
+        </LayoutTransformContainer.LayoutTransform>
+      </LayoutTransformContainer>
     </Border>
 </UserControl>

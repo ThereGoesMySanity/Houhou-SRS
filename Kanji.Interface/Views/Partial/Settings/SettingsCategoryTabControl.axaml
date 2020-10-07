@@ -20,14 +20,15 @@
     
     <Border BorderThickness="1" BorderBrush="#FF999999">
         <Grid>
+          <LayoutTransformContainer>
             <TextBlock FontSize="18" FontWeight="SemiBold" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Tag, RelativeSource={RelativeSource AncestorType=UserControl},
-                 Converter={StaticResource EnumDescriptionConverter}}">
-                <TextBlock.LayoutTransform>
-                    <ScaleTransform ScaleY="1.2" ScaleX="0.7"/>
-                </TextBlock.LayoutTransform>
-            </TextBlock>
+                 Converter={StaticResource EnumDescriptionConverter}}"/>
+            <LayoutTransformContainer.LayoutTransform>
+              <ScaleTransform ScaleY="1.2" ScaleX="0.7"/>
+            </LayoutTransformContainer.LayoutTransform>
+          </LayoutTransformContainer>
 
-            <Button Opacity="0" Command="{Binding CategorySelectionCommand}" CommandParameter="{Binding Tag, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+          <Button Opacity="0" Command="{Binding CategorySelectionCommand}" CommandParameter="{Binding Tag, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
         </Grid>
     </Border>
 </UserControl>
