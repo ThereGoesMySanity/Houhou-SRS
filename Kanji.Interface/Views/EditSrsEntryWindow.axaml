@@ -167,7 +167,7 @@
                               ConverterParameter={x:Static converters:DateTimeToStringConversionEnum.Absolute},
                               Mode=OneWay}" Visibility="{Binding IsEditingDate, Converter={StaticResource ValueToVisibilityConverter}, ConverterParameter=False}"/>
 
-                      <DatePicker x:Name="ReviewDatePicker" Grid.Column="1" Value="{Binding Entry.NextAnswerDate}" TextAlignment="Left" Visibility="{Binding IsEditingDate, Converter={StaticResource ValueToVisibilityConverter}}" Focusable="True"/>
+                      <DatePicker x:Name="ReviewDatePicker" Grid.Column="1" Value="{Binding Entry.NextAnswerDate}" TextAlignment="Left" IsVisible="{Binding IsEditingDate}" Focusable="True"/>
                         
                         <Button Grid.Column="2" Command="{Binding ToggleDateEditCommand}" Margin="10 0 0 0" Width="70" HorizontalAlignment="Right" ToolTip.Tip="Edit the next review date manually (CTRL+E).">
                             <Button.Styles>

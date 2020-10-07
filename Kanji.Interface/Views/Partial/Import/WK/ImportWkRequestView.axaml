@@ -47,7 +47,7 @@
                 </ProgressBar>
                 <TextBox Classes="ErrorLabel" Text="{Binding Error, Mode=OneWay}"/>
 
-                <Border Visibility="{Binding IsComplete, Converter={StaticResource ValueToVisibilityConverter}}">
+                <Border IsVisible="{Binding IsComplete}">
                     <HeaderedContentControl BorderBrush="#666666" Padding="5" Margin="0 5 0 0">
                         <HeaderedContentControl.Header>
                             <TextBlock Text="Results" Classes="SettingCategoryTitle"/>

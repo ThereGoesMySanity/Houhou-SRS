@@ -951,9 +951,9 @@
                           <TextBox.Styles>
                             <Style Selector="TextBox" InheritanceParent="{StaticResource LabelBox}"/>
                           </TextBox.Styles>
-                          <TextBox.ToolTip.Tip>
+                          <ToolTip.Tip>
                             <TextBlock Text="{Binding Furigana}" FontSize="16"/>
-                          </TextBox.ToolTip.Tip>
+                          </ToolTip.Tip>
                         </TextBox>
                       </Viewbox>
                     </Border>
@@ -1126,7 +1126,8 @@
                           <StackPanel>
 
                             <WrapPanel Orientation="Horizontal" Margin="0 2 0 2">
-                              <Border Margin="5 0 0 0" BorderThickness="1" BorderBrush="#55000000" CornerRadius="2" HorizontalAlignment="Left" Padding="5 0 5 0" Width="93" Visibility="{Binding ShowBookRanking, Converter={StaticResource ValueToVisibilityConverter}}" Background="{Binding DbVocab.FrequencyRank, Converter={StaticResource VocabFrequencyToBrushConverter}}">
+                              <Border Margin="5 0 0 0" BorderThickness="1" BorderBrush="#55000000" CornerRadius="2" HorizontalAlignment="Left" Padding="5 0 5 0" Width="93" 
+                                      IsVisible="{Binding ShowBookRanking}" Background="{Binding DbVocab.FrequencyRank, Converter={StaticResource VocabFrequencyToBrushConverter}}">
                                 <Border.Styles>
                                   <Style Selector="Border">
                                     <i:Interaction.Behaviors>
@@ -1161,10 +1162,11 @@
                                 </DockPanel>
                               </Border>
 
-                              <Border Margin="5 0 0 0" BorderThickness="1" BorderBrush="#55000000" CornerRadius="2" HorizontalAlignment="Left" Padding="5 0 5 0" Visibility="{Binding ShowWikipediaRank, Converter={StaticResource ValueToVisibilityConverter}}" Background="{Binding DbVocab.WikipediaRank, Converter={StaticResource WikipediaRankToBrushConverter}}">
-                                <Border.ToolTip.Tip>
+                              <Border Margin="5 0 0 0" BorderThickness="1" BorderBrush="#55000000" CornerRadius="2" HorizontalAlignment="Left" Padding="5 0 5 0"
+                                      IsVisible="{Binding ShowWikipediaRank}" Background="{Binding DbVocab.WikipediaRank, Converter={StaticResource WikipediaRankToBrushConverter}}">
+                                <ToolTip.Tip>
                                   <Binding Path="DbVocab.WikipediaRank" Converter="{StaticResource IntegerToOrdinalStringConverter}" StringFormat="{}{0} out of 20000 most used word in a study of Japanese Wikipedia articles."/>
-                                </Border.ToolTip.Tip>
+                                </ToolTip.Tip>
                                 <DockPanel LastChildFill="True">
                                   <TextBlock HorizontalAlignment="Left" FontSize="10" DockPanel.Dock="Left" Margin="0 0 6 0" FontWeight="SemiBold">
                                     W
@@ -1185,10 +1187,11 @@
                                 </DockPanel>
                               </Border>
 
-                              <Border Margin="5 0 0 0" BorderThickness="1" BorderBrush="#55000000" CornerRadius="2" HorizontalAlignment="Left" Padding="5 0 5 0" Visibility="{Binding ShowJlptLevel, Converter={StaticResource ValueToVisibilityConverter}}" Background="{Binding DbVocab.JlptLevel, Converter={StaticResource JlptLevelToBrushConverter}}">
-                                <Border.ToolTip.Tip>
+                              <Border Margin="5 0 0 0" BorderThickness="1" BorderBrush="#55000000" CornerRadius="2" HorizontalAlignment="Left" Padding="5 0 5 0"
+                                      IsVisible="{Binding ShowJlptLevel}" Background="{Binding DbVocab.JlptLevel, Converter={StaticResource JlptLevelToBrushConverter}}">
+                                <ToolTip.Tip>
                                   <Binding Path="DbVocab.JlptLevel" StringFormat="{}Part of the vocabulary list for the N{0} level of the Japanese-Language Proficiency Test."/>
-                                </Border.ToolTip.Tip>
+                                </ToolTip.Tip>
                                 <DockPanel LastChildFill="True">
                                   <TextBlock HorizontalAlignment="Left" FontSize="10" DockPanel.Dock="Left" Opacity="1" FontWeight="SemiBold">
                                     JLPT
@@ -1209,10 +1212,10 @@
                                 </DockPanel>
                               </Border>
 
-                              <Border Margin="5 0 0 0" BorderThickness="1" BorderBrush="#55000000" CornerRadius="2" HorizontalAlignment="Left" Padding="5 0 5 0" Visibility="{Binding ShowWkLevel, Converter={StaticResource ValueToVisibilityConverter}}" Background="{Binding DbVocab.WaniKaniLevel, Converter={StaticResource WkLevelToBrushConverter}}">
-                                <Border.ToolTip.Tip>
+                              <Border Margin="5 0 0 0" BorderThickness="1" BorderBrush="#55000000" CornerRadius="2" HorizontalAlignment="Left" Padding="5 0 5 0" IsVisible="{Binding ShowWkLevel}" Background="{Binding DbVocab.WaniKaniLevel, Converter={StaticResource WkLevelToBrushConverter}}">
+                                <ToolTip.Tip>
                                   <Binding Path="DbVocab.WaniKaniLevel" StringFormat="{}Vocab learned at level {0} on the kanji learning website WaniKani."/>
-                                </Border.ToolTip.Tip>
+                                </ToolTip.Tip>
                                 <DockPanel LastChildFill="True">
                                   <TextBlock HorizontalAlignment="Left" FontSize="10" DockPanel.Dock="Left" Opacity="1" FontWeight="SemiBold">
                                     WK
@@ -1265,7 +1268,7 @@
                               </TextBox.Styles>
                             </TextBox>
 
-                            <Button x:Name="ExpandButton" Content="Show more meanings" Width="140" HorizontalAlignment="Left" Classes="MiniActionButton" Margin="5 0 0 3" Visibility="{Binding NeedsExpanding, Converter={StaticResource ValueToVisibilityConverter}}">
+                            <Button x:Name="ExpandButton" Content="Show more meanings" Width="140" HorizontalAlignment="Left" Classes="MiniActionButton" Margin="5 0 0 3" IsVisible="{Binding NeedsExpanding}">
                               <i:Interaction.Behaviors>
                                 <ia:EventTriggerBehavior EventName="Click">
                                   <ia:ChangePropertyAction TargetObject="{Binding ElementName=MeaningRtb}" PropertyName="Document" Value="{Binding DbVocab, Mode=OneTime,  Converter={StaticResource VocabMeaningsToStringConverter}, ConverterParameter=Full}"/>
@@ -1284,7 +1287,7 @@
                                     <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
                                   </ia:DataTriggerBehavior>
                                 </i:Interaction.Behaviors>
-                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Setter Property="IsVisible" Value="False"/>
                               </Style>
                             </StackPanel.Styles>
                             <Button Content="✙ Add" Width="70" HorizontalAlignment="Left" BorderBrush="#22000000" Command="{Binding DataContext.AddToSrsCommand,
@@ -1312,10 +1315,10 @@
                                                         <Style Selector="Button" InheritanceParent="{StaticResource MiniActionButton}">
                                                             <Style.Triggers>
                                                                 <DataTrigger Binding="{Binding SrsEntry}" Value="{x:Null}">
-                                                                    <Setter Property="Visibility" Value="Visible" />
+                                                                    <Setter Property="IsVisible" Value="True" />
                                                                 </DataTrigger>
                                                             </Style.Triggers>
-                                                            <Setter Property="Visibility" Value="Collapsed" />
+                                                            <Setter Property="IsVisible" Value="False" />
                                                         </Style>
                                                     </Button.Styles>
                                                 </Button>
@@ -1325,7 +1328,7 @@
                                                         <Style Selector="controls:SrsVocabEntryProgress">
                                                             <Style.Triggers>
                                                                 <DataTrigger Binding="{Binding .}" Value="{x:Null}">
-                                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                                    <Setter Property="IsVisible" Value="False" />
                                                                 </DataTrigger>
                                                             </Style.Triggers>
                                                         </Style>
@@ -1412,7 +1415,7 @@
                                                 </Grid>
                                             </Border>
 
-                        <Border Grid.Row="1" Grid.ColumnSpan="2" Visibility="{Binding HasVariants, Converter={StaticResource ValueToVisibilityConverter}}" BorderThickness="0 1 0 0" BorderBrush="#22000000" Padding="0 2 0 2">
+                        <Border Grid.Row="1" Grid.ColumnSpan="2" IsVisible="{Binding HasVariants}" BorderThickness="0 1 0 0" BorderBrush="#22000000" Padding="0 2 0 2">
                           <ListBox Classes="VocabVariantList" Items="{Binding ., Mode=OneWay,
                                                                           Converter={StaticResource ExtendedVocabToVariantListConverter},
                                                                           }"/>
@@ -1555,12 +1558,12 @@
                                     <Style Selector="Grid">
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding ReviewCount}" Value="0">
-                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                <Setter Property="IsVisible" Value="False" />
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
                                 </Grid.Styles>
-                                <Grid.ToolTip.Tip>
+                                <ToolTip.Tip>
                                     <Border>
                                         <StackPanel>
                                             <TextBlock>
@@ -1625,7 +1628,7 @@
                                             </TextBlock>
                                         </StackPanel>
                                     </Border>
-                                </Grid.ToolTip.Tip>
+                                </ToolTip.Tip>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
@@ -1663,10 +1666,10 @@
                                     <Style Selector="Grid">
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding ReviewCount}" Value="0">
-                                                <Setter Property="Visibility" Value="Visible" />
+                                                <Setter Property="IsVisible" Value="True" />
                                             </DataTrigger>
                                         </Style.Triggers>
-                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Setter Property="IsVisible" Value="False" />
                                     </Style>
                                 </Grid.Styles>
                                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10"
@@ -1697,7 +1700,7 @@
               <Grid>
                 <!-- Default template -->
                 <Grid>
-                  <Grid.ToolTip.Tip>
+                  <ToolTip.Tip>
                     <Border>
                       <StackPanel>
                         <TextBlock>
@@ -1759,7 +1762,7 @@
                         </TextBlock>
                       </StackPanel>
                     </Border>
-                  </Grid.ToolTip.Tip>
+                  </ToolTip.Tip>
                   <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                   </Grid.ColumnDefinitions>

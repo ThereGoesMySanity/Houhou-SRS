@@ -25,7 +25,7 @@
             <TextBox x:Name="KanjiTitleLabel" Classes="KanjiTitle" Text="{Binding KanjiEntity.DbKanji.Character}"/>
 
             <!-- Radical list -->
-            <StackPanel Grid.Column="0" Grid.Row="1" Margin="5 3 5 0" Visibility="{Binding ShowDetails, Converter={StaticResource ValueToVisibilityConverter}}">
+            <StackPanel Grid.Column="0" Grid.Row="1" Margin="5 3 5 0" IsVisible="{Binding ShowDetails}">
                 <ListBox Items="{Binding KanjiEntity.Radicals}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" ItemContainerClasses="MiniRadicalInList" Width="100" Background="Transparent">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -87,9 +87,9 @@
                 </Border>
                 
                 <Border CornerRadius="4" Width="70" Height="60" BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="1" Margin="0 0 10 0" Background="#3377FF77" Visibility="{Binding KanjiEntity.ShowBookRanking, Converter={StaticResource ValueToVisibilityConverter}}">
-                    <Border.ToolTip.Tip>
+                    <ToolTip.Tip>
                         <Binding Path="KanjiEntity.DbKanji.MostUsedRank" Converter="{StaticResource IntegerToOrdinalStringConverter}" StringFormat="{}{0} most used kanji in an analysis of 7905 books."/>
-                    </Border.ToolTip.Tip>
+                    </ToolTip.Tip>
                     <StackPanel VerticalAlignment="Center">
                         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                             <TextBlock HorizontalAlignment="Center" FontSize="16" Text="{Binding Path=KanjiEntity.DbKanji.MostUsedRank}"/>
@@ -161,9 +161,9 @@
                     </StackPanel>
                 </Border>
                 <Border CornerRadius="4" Width="70" Height="60" BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="1" Margin="0 0 10 0" Background="#3377FF77" Visibility="{Binding KanjiEntity.ShowJlptLevel, Converter={StaticResource ValueToVisibilityConverter}}">
-                    <Border.ToolTip.Tip>
+                    <ToolTip.Tip>
                         <Binding Path="KanjiEntity.DbKanji.JlptLevel" StringFormat="{}Part of the kanji list for the N{0} level of the Japanese-Language Proficiency Test."/>
-                    </Border.ToolTip.Tip>
+                    </ToolTip.Tip>
                     <StackPanel VerticalAlignment="Center">
                         <TextBlock HorizontalAlignment="Center" FontSize="16">
                             <TextBlock.Text>
@@ -179,9 +179,9 @@
                             <ia:InvokeCommandAction Command="{Binding WaniKaniCommand}"/>
                         </ia:EventTriggerBehavior>
                     </i:Interaction.Behaviors>
-                    <Border.ToolTip.Tip>
+                    <ToolTip.Tip>
                         <Binding Path="KanjiEntity.DbKanji.WaniKaniLevel" StringFormat="{}Kanji learned at level {0} on the kanji learning website WaniKani."/>
-                    </Border.ToolTip.Tip>
+                    </ToolTip.Tip>
                     <Border.Styles>
                         <Style Selector="Border">
                             <Setter Property="Background" Value="#3377FF77"/>
@@ -207,7 +207,7 @@
                                     <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
                                 </ia:DataTriggerBehavior>
                             </i:Interaction.Behaviors>
-                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Setter Property="IsVisible" Value="False"/>
                         </Style>
                     </Button.Styles>
                 </Button>
@@ -229,10 +229,10 @@
                         </Button.Styles>
                     </Button>
                     <Border DockPanel.Dock="Left" Background="{Binding LevelGroup.Color, Converter={StaticResource ColorToBrushConverter}}" Height="18" Margin="0 25 0 0" IsHitTestVisible="False" Padding="2 0" BorderBrush="#AA000000" BorderThickness="1" CornerRadius="3" Width="25">
-                        <Border.ToolTip.Tip>
+                        <ToolTip.Tip>
                             <Binding Path="NextAnswerDate" Mode="OneWay" Converter="{StaticResource DateTimeToStringConverter}"
                                                   ConverterParameter="{x:Static converters:DateTimeToStringConversionEnum.Relative}" StringFormat="{}Next review: {0}."/>
-                        </Border.ToolTip.Tip>
+                        </ToolTip.Tip>
                         <Grid>
                             <TextBlock Foreground="Black" Text="{Binding Level.Name}" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <TextBlock.RenderTransform>
@@ -245,7 +245,7 @@
                 </Grid>
             </WrapPanel>
 
-            <ListBox Classes="KanjiReadingsListbox" Margin="0 5 0 0" Visibility="{Binding ShowDetails, Converter={StaticResource ValueToVisibilityConverter}}" Items="{Binding KanjiEntity, Converter={StaticResource KanjiToReadingListConverter}}"/>
+            <ListBox Classes="KanjiReadingsListbox" Margin="0 5 0 0" IsVisible="{Binding ShowDetails}" Items="{Binding KanjiEntity, Converter={StaticResource KanjiToReadingListConverter}}"/>
 
         </StackPanel>
 

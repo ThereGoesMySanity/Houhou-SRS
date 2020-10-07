@@ -87,7 +87,7 @@
             <Button.Content>
                 <Binding Path="LastUpdate.Name" Converter="{StaticResource StringFormatConverter}" ConverterParameter="Update to {0}"/>
             </Button.Content>
-            <Button.ToolTip.Tip>
+            <ToolTip.Tip>
                 <TextBlock>
                     <TextBlock.Text>
                         <MultiBinding StringFormat="Version: {0} Description: {1}">
@@ -98,7 +98,7 @@
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>
-            </Button.ToolTip.Tip>
+            </ToolTip.Tip>
             <Button.Styles>
                 <Style Selector="Button" InheritanceParent="{StaticResource ActionButton}">
                     <i:Interaction.Behaviors>
@@ -106,7 +106,7 @@
                             <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
                         </ia:DataTriggerBehavior>
                     </i:Interaction.Behaviors>
-                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Setter Property="IsVisible" Value="False"/>
                 </Style>
             </Button.Styles>
         </Button>

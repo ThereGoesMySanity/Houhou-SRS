@@ -13,11 +13,11 @@
             <!-- Level indicator -->
             <Border Background="{Binding LevelGroup.Color, Converter={StaticResource ColorToBrushConverter}}" Height="20"
                 Padding="5 0" BorderBrush="Black" BorderThickness="1 1 0 1" CornerRadius="3 0 0 3" Margin="5 0 0 0" x:Name="SrsLevelIndicator">
-                <Border.ToolTip.Tip>
+                <ToolTip.Tip>
                     <Binding Path="NextAnswerDate" Mode="OneWay" Converter="{StaticResource DateTimeToStringConverter}"
                         ConverterParameter="{x:Static converters:DateTimeToStringConversionEnum.Relative}"
                         StringFormat="{}Next review: {0}." />
-                </Border.ToolTip.Tip>
+                </ToolTip.Tip>
                 <Grid>
                     <TextBlock Foreground="Black" Text="{Binding Level.Name}"
                                HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -51,11 +51,11 @@
                         Command="{Binding DataContext.SubtractSrsDelayCommand, RelativeSource={RelativeSource AncestorType=controls:VocabList}}"
                         CommandParameter="{Binding DataContext, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" />
                     <Viewbox DockPanel.Dock="Left" Height="14">
-                        <Viewbox.ToolTip.Tip>
+                        <ToolTip.Tip>
                             <Binding Path="NextAnswerDate" Mode="OneWay" Converter="{StaticResource DateTimeToStringConverter}"
                                     ConverterParameter="{x:Static converters:DateTimeToStringConversionEnum.Relative}"
                                 StringFormat="{}Next review: {0}." />
-                        </Viewbox.ToolTip.Tip>
+                        </ToolTip.Tip>
                         <TextBlock Classes="LegendText" Text="{Binding NextAnswerDate, Converter={StaticResource DateTimeToStringConverter},
                             ConverterParameter={x:Static converters:DateTimeToStringConversionEnum.Relative}}" VerticalAlignment="Center"
                             Margin="8 0 5 0" />
