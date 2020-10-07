@@ -9,16 +9,16 @@
         <TextBlock Classes="LegendText" Text="SRS review date delay steps"/>
         <StackPanel Orientation="Horizontal" Margin="0 2 0 3">
             <xctk:DoubleUpDown Value="{Binding QuickDelayHours}" Width="60"/>
-            <TextBlock Margin="6 0 0 0" Foreground="Black">
+            <TextBlock Margin="6 0 0 0" Foreground="Black" Classes="LegendText">
                 <TextBlock.Styles>
-                    <Style Selector="TextBlock" InheritanceParent="{StaticResource LegendText}">
-                        <i:Interaction.Behaviors>
-                            <ia:DataTriggerBehavior Binding="{Binding QuickDelayHours}" Value="1">
-                                <ia:ChangePropertyAction Value="hour" PropertyName="Text"/>
-                            </ia:DataTriggerBehavior>
-                        </i:Interaction.Behaviors>
-                        <Setter Property="Text" Value="hours"/>
-                    </Style>
+                  <Style Selector="TextBlock">
+                    <i:Interaction.Behaviors>
+                      <ia:DataTriggerBehavior Binding="{Binding QuickDelayHours}" Value="1">
+                        <ia:ChangePropertyAction Value="hour" PropertyName="Text"/>
+                      </ia:DataTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                    <Setter Property="Text" Value="hours"/>
+                  </Style>
                 </TextBlock.Styles>
             </TextBlock>
         </StackPanel>

@@ -6,17 +6,16 @@
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="700">
 
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <Style Selector="Button.ImportChoiceButton" InheritanceParent="{StaticResource ActionButton}" >
-                <Setter Property="Padding" Value="0" />
-                <Setter Property="Margin" Value="0 15 0 0" />
-                <Setter Property="Grid.Column" Value="1" />
-                <Setter Property="Grid.Row" Value="1" />
-                <Setter Property="Width" Value="150" />
-                <Setter Property="Height" Value="25" />
-                <Setter Property="HorizontalAlignment" Value="Left" />
-            </Style>
+    <UserControl.Styles>
+      <Style Selector="Button.ImportChoiceButton">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Margin" Value="0 15 0 0" />
+        <Setter Property="Grid.Column" Value="1" />
+        <Setter Property="Grid.Row" Value="1" />
+        <Setter Property="Width" Value="150" />
+        <Setter Property="Height" Value="25" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+      </Style>
             <Style Selector="Image.ImportChoiceImage" >
                 <Setter Property="Margin" Value="8 10" />
                 <Setter Property="MaxHeight" Value="128" />
@@ -40,8 +39,7 @@
                 <Setter Property="BorderBrush" Value="{StaticResource FadedBorderBrush}" />
                 <Setter Property="BorderThickness" Value="1" />
             </Style>
-        </ResourceDictionary>
-    </UserControl.Resources>
+    </UserControl.Styles>
     
     <Grid>
         <Grid.RowDefinitions>
@@ -73,7 +71,7 @@
                     Import SRS items from a CSV file.<LineBreak />
                     Most softwares should be able to export data in CSV format.
                             </TextBlock>
-                            <Button Classes="ImportChoiceButton" Content="Select this option"
+                            <Button Classes="ImportChoiceButton ActionButton" Content="Select this option"
                                     Command="{Binding SelectImportCommand}"
                                     CommandParameter="{Binding CsvImportVm}" />
                         </StackPanel>
@@ -96,7 +94,7 @@
                         Import items from your WaniKani account.<LineBreak />
                         WaniKani is a kanji learning web application made by Tofugu.
                             </TextBlock>
-                            <Button Classes="ImportChoiceButton" Content="Select this option"
+                            <Button Classes="ImportChoiceButton ActionButton" Content="Select this option"
                                     Command="{Binding SelectImportCommand}"
                                     CommandParameter="{Binding WkImportVm}" />
                         </StackPanel>

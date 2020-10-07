@@ -69,21 +69,18 @@
                 </TextBlock>
             </StackPanel>
         </Border>
-        <Button Margin="10 0 0 0" Width="150" Height="44" Content="Check for updates" Command="{Binding CheckCommand}" ToolTip.Tip="Check for available Houhou updates. Requires an internet connection.">
-            <Button.Styles>
-                <Style Selector="Button" InheritanceParent="{StaticResource ActionButton}">
-                    <i:Interaction.Behaviors>
-                        <ia:DataTriggerBehavior Binding="{Binding CheckStatus}" Value="UpdateAvailable">
-                            <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
-                        </ia:DataTriggerBehavior>
-                        <ia:DataTriggerBehavior Binding="{Binding CheckStatus}" Value="Checking">
-                            <ia:ChangePropertyAction Value="False" PropertyName="IsEnabled"/>
-                        </ia:DataTriggerBehavior>
-                    </i:Interaction.Behaviors>
-                </Style>
-            </Button.Styles>
+        <Button Classes="ActionButton" Margin="10 0 0 0" Width="150" Height="44" Content="Check for updates"
+                Command="{Binding CheckCommand}" ToolTip.Tip="Check for available Houhou updates. Requires an internet connection.">
+          <i:Interaction.Behaviors>
+            <ia:DataTriggerBehavior Binding="{Binding CheckStatus}" Value="UpdateAvailable">
+              <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
+            </ia:DataTriggerBehavior>
+            <ia:DataTriggerBehavior Binding="{Binding CheckStatus}" Value="Checking">
+              <ia:ChangePropertyAction Value="False" PropertyName="IsEnabled"/>
+            </ia:DataTriggerBehavior>
+          </i:Interaction.Behaviors>
         </Button>
-        <Button Margin="10 0 0 0" Width="150" Height="44" Command="{Binding UpdateCommand}">
+        <Button Classes="ActionButton" Margin="10 0 0 0" Width="150" Height="44" Command="{Binding UpdateCommand}">
             <Button.Content>
                 <Binding Path="LastUpdate.Name" Converter="{StaticResource StringFormatConverter}" ConverterParameter="Update to {0}"/>
             </Button.Content>
@@ -100,14 +97,14 @@
                 </TextBlock>
             </ToolTip.Tip>
             <Button.Styles>
-                <Style Selector="Button" InheritanceParent="{StaticResource ActionButton}">
-                    <i:Interaction.Behaviors>
-                        <ia:DataTriggerBehavior Binding="{Binding CheckStatus}" Value="UpdateAvailable">
-                            <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
-                        </ia:DataTriggerBehavior>
-                    </i:Interaction.Behaviors>
-                    <Setter Property="IsVisible" Value="False"/>
-                </Style>
+              <Style Selector="Button">
+                <i:Interaction.Behaviors>
+                  <ia:DataTriggerBehavior Binding="{Binding CheckStatus}" Value="UpdateAvailable">
+                    <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
+                  </ia:DataTriggerBehavior>
+                </i:Interaction.Behaviors>
+                <Setter Property="IsVisible" Value="False"/>
+              </Style>
             </Button.Styles>
         </Button>
     </StackPanel>

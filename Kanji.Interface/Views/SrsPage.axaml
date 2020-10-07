@@ -12,8 +12,8 @@
 
     <DockPanel>
         <controls:NavigationBar DockPanel.Dock="Top"/>
-        <Border Classes="SrsPageSeparator" DockPanel.Dock="Top"/>
-        <Border Classes="SrsPageBorder">
+        <Border Classes="SrsPageSeparator PageSeparator" DockPanel.Dock="Top"/>
+        <Border Classes="SrsPageBorder PageBorder">
             <Grid>
                 <Grid>
                     <Grid.Styles>
@@ -62,16 +62,16 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <controls:SrsEntryFilterControl x:Name="FilterControl" DataContext="{Binding FilterVm}"/>
+                        <controls:SrsEntryFilterControl Name="FilterControl" DataContext="{Binding FilterVm}"/>
                         <controls:SrsEntryList Grid.Row="1" DataContext="{Binding ListVm}"/>
                     </Grid>
                     
                     <!-- Navigation control as a footer, always visible -->
-                    <controls:SrsPageNavigationControl x:Name="Navigation" Grid.Row="3"/>
+                    <controls:SrsPageNavigationControl Name="Navigation" Grid.Row="3"/>
                 </Grid>
 
                 <!-- SRS Review control taking the whole space when the review session is started -->
-                <controls:SrsReviewControl x:Name="ReviewControl" DataContext="{Binding ReviewVm}"/>
+                <controls:SrsReviewControl Name="ReviewControl" DataContext="{Binding ReviewVm}"/>
             </Grid>
         </Border>
     </DockPanel>

@@ -41,11 +41,11 @@
                 </Viewbox>
 
                 <Viewbox Grid.Row="1">
-                    <TextBlock Foreground="#99FFFFFF" TextAlignment="Center">
+                    <TextBlock Foreground="#99FFFFFF" TextAlignment="Center" Classes="LegendText">
                         <TextBlock.Styles>
-                            <Style Selector="TextBlock" InheritanceParent="{StaticResource LegendText}">
-                                <Setter Property="Text" Value="reviews today"/>
-                            </Style>
+                          <Style Selector="TextBlock">
+                            <Setter Property="Text" Value="reviews today"/>
+                          </Style>
                         </TextBlock.Styles>
                       <i:Interaction.Behaviors>
                         <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TodayReviewsCount,
@@ -117,11 +117,11 @@
                 </Viewbox>
 
                 <Viewbox Grid.Row="1">
-                    <TextBlock Foreground="#99FFFFFF">
+                    <TextBlock Foreground="#99FFFFFF" Classes="LegendText">
                         <TextBlock.Styles>
-                            <Style Selector="TextBlock" InheritanceParent="{StaticResource LegendText}">
-                                <Setter Property="Text" Value="total items"/>
-                            </Style>
+                          <Style Selector="TextBlock">
+                            <Setter Property="Text" Value="total items"/>
+                          </Style>
                         </TextBlock.Styles>
                                 <i:Interaction.Behaviors>
                                     <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TotalItemsCount,
@@ -193,18 +193,18 @@
                 </Viewbox>
 
                 <Viewbox Grid.Row="1">
-                    <TextBlock Foreground="#99FFFFFF">
+                    <TextBlock Foreground="#99FFFFFF" Classes="LegendText">
                         <TextBlock.Styles>
-                            <Style Selector="TextBlock" InheritanceParent="{StaticResource LegendText}">
-                                <Setter Property="Text" Value="totalled reviews"/>
-                            </Style>
+                          <Style Selector="TextBlock">
+                            <Setter Property="Text" Value="totalled reviews"/>
+                          </Style>
                         </TextBlock.Styles>
-                                <i:Interaction.Behaviors>
-                                    <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TotalReviewsCount,
+                      <i:Interaction.Behaviors>
+                        <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TotalReviewsCount,
                                          Source={x:Static business:SrsBusiness.Instance}}" Value="1">
-                                        <ia:ChangePropertyAction Value="totalled review" PropertyName="Text"/>
-                                    </ia:DataTriggerBehavior>
-                                </i:Interaction.Behaviors>
+                          <ia:ChangePropertyAction Value="totalled review" PropertyName="Text"/>
+                        </ia:DataTriggerBehavior>
+                      </i:Interaction.Behaviors>
                     </TextBlock>
                 </Viewbox>
             </Grid>

@@ -22,7 +22,7 @@
         <!-- Left panel -->
         <StackPanel>
             <!-- Big kanji character -->
-            <TextBox x:Name="KanjiTitleLabel" Classes="KanjiTitle" Text="{Binding KanjiEntity.DbKanji.Character}"/>
+            <TextBox Name="KanjiTitleLabel" Classes="KanjiTitle LabelBox" Text="{Binding KanjiEntity.DbKanji.Character}"/>
 
             <!-- Radical list -->
             <StackPanel Grid.Column="0" Grid.Row="1" Margin="5 3 5 0" IsVisible="{Binding ShowDetails}">
@@ -40,7 +40,7 @@
         <StackPanel Grid.Column="1" Margin="10 5 5 0">
             
             <!-- Meanings label -->
-            <TextBox x:Name="MeaningsLabel" Classes="KanjiMeaningLabel" Text="{Binding Path=KanjiEntity.DbKanji,
+            <TextBox Name="MeaningsLabel" Classes="KanjiMeaningLabel LabelBox" Text="{Binding Path=KanjiEntity.DbKanji,
                   Converter={StaticResource KanjiToStringConverter},
                   ConverterParameter={x:Static converters:KanjiToStringConversionType.Full}}"/>
             
@@ -93,15 +93,15 @@
                     <StackPanel VerticalAlignment="Center">
                         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                             <TextBlock HorizontalAlignment="Center" FontSize="16" Text="{Binding Path=KanjiEntity.DbKanji.MostUsedRank}"/>
-                          <LayoutTransformContainer>
+                          <LayoutTransformControl>
                             <TextBlock Classes="LegendText" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="2 0 0 0" 
                                        Text="{Binding Path=KanjiEntity.DbKanji.MostUsedRank, 
                                               Converter={StaticResource IntegerToOrdinalStringConverter}, 
                                               ConverterParameter=SuffixOnly}"/>
-                              <LayoutTransformContainer.LayoutTransform>
+                              <LayoutTransformControl.LayoutTransform>
                                 <TranslateTransform Y="-5"/>
-                              </LayoutTransformContainer.LayoutTransform>
-                            </LayoutTransformContainer>
+                              </LayoutTransformControl.LayoutTransform>
+                            </LayoutTransformControl>
                         </StackPanel>
                         <TextBlock Classes="LegendText" Text="most used" HorizontalAlignment="Center"/>
                     </StackPanel>
@@ -140,26 +140,26 @@
                                 </Style>
                             </TextBlock.Styles>
                         </TextBlock>
-                        <TextBlock HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Center" Classes="LegendText">
                             <TextBlock.Styles>
-                                <Style Selector="TextBlock" InheritanceParent="{StaticResource LegendText}">
-                                    <i:Interaction.Behaviors>
-                                        <ia:DataTriggerBehavior Binding="{Binding KanjiEntity.DbKanji.Grade}" Value="8">
-                                            <ia:ChangePropertyAction Value="Secondary" PropertyName="Text"/>
-                                        </ia:DataTriggerBehavior>
-                                        <ia:DataTriggerBehavior Binding="{Binding KanjiEntity.DbKanji.Grade}" Value="9">
-                                            <ia:ChangePropertyAction Value="Name kanji" PropertyName="Text"/>
-                                        </ia:DataTriggerBehavior>
-                                        <ia:DataTriggerBehavior Binding="{Binding KanjiEntity.DbKanji.Grade}" Value="10">
-                                            <ia:ChangePropertyAction Value="Name kanji" PropertyName="Text"/>
-                                        </ia:DataTriggerBehavior>
-                                    </i:Interaction.Behaviors>
-                                    <Setter Property="Text">
-                                        <Setter.Value>
-                                            <Binding Path="KanjiEntity.DbKanji.Grade" Converter="{StaticResource IntegerToOrdinalStringConverter}" StringFormat="{}{0} grade"/>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
+                              <Style Selector="TextBlock">
+                                <i:Interaction.Behaviors>
+                                  <ia:DataTriggerBehavior Binding="{Binding KanjiEntity.DbKanji.Grade}" Value="8">
+                                    <ia:ChangePropertyAction Value="Secondary" PropertyName="Text"/>
+                                  </ia:DataTriggerBehavior>
+                                  <ia:DataTriggerBehavior Binding="{Binding KanjiEntity.DbKanji.Grade}" Value="9">
+                                    <ia:ChangePropertyAction Value="Name kanji" PropertyName="Text"/>
+                                  </ia:DataTriggerBehavior>
+                                  <ia:DataTriggerBehavior Binding="{Binding KanjiEntity.DbKanji.Grade}" Value="10">
+                                    <ia:ChangePropertyAction Value="Name kanji" PropertyName="Text"/>
+                                  </ia:DataTriggerBehavior>
+                                </i:Interaction.Behaviors>
+                                <Setter Property="Text">
+                                  <Setter.Value>
+                                    <Binding Path="KanjiEntity.DbKanji.Grade" Converter="{StaticResource IntegerToOrdinalStringConverter}" StringFormat="{}{0} grade"/>
+                                  </Setter.Value>
+                                </Setter>
+                              </Style>
                             </TextBlock.Styles>
                         </TextBlock>
                     </StackPanel>
@@ -203,33 +203,34 @@
                         <TextBlock Classes="LegendText" HorizontalAlignment="Center" Text="on WaniKani" FontSize="11"/>
                     </StackPanel>
                 </Border>
-                <Button Content="  ✙ Add" FontSize="12" Width="70" Height="60" Margin="0 0 0 0" Command="{Binding AddToSrsCommand}" HorizontalContentAlignment="Center">
+                <Button Classes="ActionButton" Content="  ✙ Add" FontSize="12" Width="70" Height="60" Margin="0 0 0 0" Command="{Binding AddToSrsCommand}" HorizontalContentAlignment="Center">
                     <Button.Styles>
-                        <Style Selector="Button" InheritanceParent="{StaticResource ActionButton}">
-                            <i:Interaction.Behaviors>
-                                <ia:DataTriggerBehavior Binding="{Binding SrsEntry}" Value="{x:Null}">
-                                    <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
-                                </ia:DataTriggerBehavior>
-                            </i:Interaction.Behaviors>
-                            <Setter Property="IsVisible" Value="False"/>
-                        </Style>
+                      <Style Selector="Button">
+                        <i:Interaction.Behaviors>
+                          <ia:DataTriggerBehavior Binding="{Binding SrsEntry}" Value="{x:Null}">
+                            <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
+                          </ia:DataTriggerBehavior>
+                        </i:Interaction.Behaviors>
+                        <Setter Property="IsVisible" Value="False"/>
+                      </Style>
                     </Button.Styles>
                 </Button>
                 <Grid Width="70" Height="60" DataContext="{Binding SrsEntry}" Visibility="{Binding ., Converter={StaticResource ValueToVisibilityConverter}}">
-                    <Button Content="In SRS " Width="70" Height="60" FontSize="12" Margin="0 0 0 0" BorderBrush="{StaticResource FadedBorderBrush}" Command="{Binding DataContext.EditSrsEntryCommand, RelativeSource={RelativeSource AncestorType=controls:KanjiDetails}}" HorizontalContentAlignment="Center">
+                    <Button Classes="ActionButton" Content="In SRS " Width="70" Height="60" FontSize="12" Margin="0 0 0 0" BorderBrush="{StaticResource FadedBorderBrush}" 
+                            Command="{Binding DataContext.EditSrsEntryCommand, RelativeSource={RelativeSource AncestorType=controls:KanjiDetails}}" HorizontalContentAlignment="Center">
                         <Button.Styles>
-                            <Style Selector="Button" InheritanceParent="{StaticResource ActionButton}">
-                                <Setter Property="Background">
-                                    <Setter.Value>
-                                        <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
-                                            <GradientStop Color="#3377FF77" Offset="0.1"/>
-                                            <GradientStop Color="#3377FF77" Offset="0.49"/>
-                                            <GradientStop Color="#3344CC44" Offset="0.5"/>
-                                            <GradientStop Color="#3344CC44" Offset="0.9"/>
-                                        </LinearGradientBrush>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
+                          <Style Selector="Button">
+                            <Setter Property="Background">
+                              <Setter.Value>
+                                <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
+                                  <GradientStop Color="#3377FF77" Offset="0.1"/>
+                                  <GradientStop Color="#3377FF77" Offset="0.49"/>
+                                  <GradientStop Color="#3344CC44" Offset="0.5"/>
+                                  <GradientStop Color="#3344CC44" Offset="0.9"/>
+                                </LinearGradientBrush>
+                              </Setter.Value>
+                            </Setter>
+                          </Style>
                         </Button.Styles>
                     </Button>
                     <Border DockPanel.Dock="Left" Background="{Binding LevelGroup.Color, Converter={StaticResource ColorToBrushConverter}}" Height="18" Margin="0 25 0 0" IsHitTestVisible="False" Padding="2 0" BorderBrush="#AA000000" BorderThickness="1" CornerRadius="3" Width="25">
@@ -261,26 +262,26 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Button Command="{Binding ToggleDetailsCommand}" Margin="0 2 0 0">
+            <Button Command="{Binding ToggleDetailsCommand}" Margin="0 2 0 0" Classes="MiniActionButton ActionButton">
                 <Button.Styles>
-                    <Style Selector="Button" InheritanceParent="{StaticResource MiniActionButton}">
-                        <i:Interaction.Behaviors>
-                            <ia:DataTriggerBehavior Binding="{Binding ShowDetails}" Value="False">
-                                <ia:ChangePropertyAction Value="▼ ▼ ▼ ▼ ▼" PropertyName="Content"/>
-                            </ia:DataTriggerBehavior>
-                        </i:Interaction.Behaviors>
-                        <Setter Property="Content" Value="▲ ▲ ▲ ▲ ▲"/>
-                    </Style>
+                  <Style Selector="Button">
+                    <i:Interaction.Behaviors>
+                      <ia:DataTriggerBehavior Binding="{Binding ShowDetails}" Value="False">
+                        <ia:ChangePropertyAction Value="▼ ▼ ▼ ▼ ▼" PropertyName="Content"/>
+                      </ia:DataTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                    <Setter Property="Content" Value="▲ ▲ ▲ ▲ ▲"/>
+                  </Style>
                 </Button.Styles>
             </Button>
 
             <Separator Grid.Row="1" Margin="5,10" Height="2" Background="Black" Foreground="Black" BorderBrush="Black"/>
             
             <!-- Reading filter -->
-            <controls:VocabFilterControl x:Name="VocabFilter" Grid.Row="2" DataContext="{Binding VocabFilterVm}"/>
+            <controls:VocabFilterControl Name="VocabFilter" Grid.Row="2" DataContext="{Binding VocabFilterVm}"/>
         </Grid>
 
         <!-- Vocab table -->
-        <controls:VocabList x:Name="VocabList" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Stretch" DataContext="{Binding VocabListVm}"/>
+        <controls:VocabList Name="VocabList" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Stretch" DataContext="{Binding VocabListVm}"/>
     </Grid>
 </UserControl>

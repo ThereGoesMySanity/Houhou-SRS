@@ -17,7 +17,7 @@
             <TextBlock Classes="LegendText" TextWrapping="Wrap" Margin="0 0 0 0">
                                 About the imported item...
             </TextBlock>
-            <RadioButton x:Name="DuplicateNewImport" GroupName="DuplicateNewBehavior" Content="Import the new item" IsChecked="{Binding DuplicateNewItemAction, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Import}" />
+            <RadioButton Name="DuplicateNewImport" GroupName="DuplicateNewBehavior" Content="Import the new item" IsChecked="{Binding DuplicateNewItemAction, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Import}" />
             <RadioButton GroupName="DuplicateNewBehavior" Content="Ignore the new item" IsChecked="{Binding DuplicateNewItemAction, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Ignore}" />
             <Separator Margin="5 12 5 8" />
             <TextBlock Classes="LegendText" TextWrapping="Wrap" Margin="0 0 0 0">

@@ -33,9 +33,9 @@
             </Grid.RowDefinitions>
             
             <!-- Error message -->
-            <TextBox Grid.ColumnSpan="2" Margin="0 0 0 5" Text="{Binding ErrorMessage}">
+            <TextBox Grid.ColumnSpan="2" Margin="0 0 0 5" Text="{Binding ErrorMessage}" Classes="ErrorLabel LabelBox">
                 <TextBox.Styles>
-                    <Style Selector="TextBox" InheritanceParent="{StaticResource ErrorLabel}">
+                    <Style Selector="TextBox">
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding ErrorMessage}" Value="{x:Null}">
                                 <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
@@ -84,16 +84,13 @@
 
                     <TextBlock Grid.ColumnSpan="2" Classes="LegendText" Text="Kanji character:"/>
                     <TextBox Grid.Row="1" Classes="SrsKanjiInput" Text="{Binding AssociatedKanjiString, Mode=TwoWay}"/>
-                    <Button Grid.Column="1" Grid.Row="1" Margin="0 0 0 0" Content="pack://application:,,,/Data/UI/DownIcon.png" Command="{Binding ApplyAssociatedKanjiCommand}" ToolTip.Tip="Update fields">
-                        <Button.Styles>
-                            <Style Selector="Button" InheritanceParent="{StaticResource ImageActionButton}">
-                                <i:Interaction.Behaviors>
-                                    <ia:DataTriggerBehavior Binding="{Binding AssociatedKanji}" Value="{x:Null}">
-                                        <ia:ChangePropertyAction Value="False" PropertyName="IsEnabled"/>
-                                    </ia:DataTriggerBehavior>
-                                </i:Interaction.Behaviors>
-                            </Style>
-                        </Button.Styles>
+                    <Button Grid.Column="1" Grid.Row="1" Margin="0 0 0 0" Content="pack://application:,,,/Data/UI/DownIcon.png"
+                            Command="{Binding ApplyAssociatedKanjiCommand}" ToolTip.Tip="Update fields" Classes="ImageActionButton">
+                      <i:Interaction.Behaviors>
+                        <ia:DataTriggerBehavior Binding="{Binding AssociatedKanji}" Value="{x:Null}">
+                          <ia:ChangePropertyAction Value="False" PropertyName="IsEnabled"/>
+                        </ia:DataTriggerBehavior>
+                      </i:Interaction.Behaviors>
                     </Button>
                 </Grid>
 
@@ -121,16 +118,12 @@
 
                     <TextBlock Grid.ColumnSpan="2" Classes="LegendText" Text="Vocab writing:"/>
                     <TextBox Grid.Row="1" Classes="SrsVocabInput" Text="{Binding AssociatedVocabString, Mode=TwoWay}"/>
-                    <Button Grid.Column="1" Grid.Row="1" Margin="0 0 0 0" Content="pack://application:,,,/Data/UI/DownIcon.png" Command="{Binding ApplyAssociatedVocabCommand}" ToolTip.Tip="Update fields">
-                        <Button.Styles>
-                            <Style Selector="Button" InheritanceParent="{StaticResource ImageActionButton}">
-                                <i:Interaction.Behaviors>
-                                    <ia:DataTriggerBehavior Binding="{Binding AssociatedVocab}" Value="{x:Null}">
-                                        <ia:ChangePropertyAction Value="False" PropertyName="IsEnabled"/>
-                                    </ia:DataTriggerBehavior>
-                                </i:Interaction.Behaviors>
-                            </Style>
-                        </Button.Styles>
+                    <Button Classes="ImageActionButton" Grid.Column="1" Grid.Row="1" Margin="0 0 0 0" Content="pack://application:,,,/Data/UI/DownIcon.png" Command="{Binding ApplyAssociatedVocabCommand}" ToolTip.Tip="Update fields">
+                      <i:Interaction.Behaviors>
+                        <ia:DataTriggerBehavior Binding="{Binding AssociatedVocab}" Value="{x:Null}">
+                          <ia:ChangePropertyAction Value="False" PropertyName="IsEnabled"/>
+                        </ia:DataTriggerBehavior>
+                      </i:Interaction.Behaviors>
                     </Button>
                 </Grid>
 
@@ -147,19 +140,19 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         
-                        <TextBlock Margin="0 0 5 0">
+                        <TextBlock Margin="0 0 5 0" Classes="LegendText">
                             <TextBlock.Styles>
-                                <Style Selector="TextBlock" InheritanceParent="{StaticResource LegendText}">
-                                    <i:Interaction.Behaviors>
-                                        <ia:DataTriggerBehavior Binding="{Binding Entry.SuspensionDate}" Value="{x:Null}">
-                                            <ia:ChangePropertyAction Value="Next review:" PropertyName="Text"/>
-                                        </ia:DataTriggerBehavior>
-                                    </i:Interaction.Behaviors>
-                                    <Setter Property="Text" Value="Next review if resumed:"/>
-                                </Style>
+                              <Style Selector="TextBlock">
+                                <i:Interaction.Behaviors>
+                                  <ia:DataTriggerBehavior Binding="{Binding Entry.SuspensionDate}" Value="{x:Null}">
+                                    <ia:ChangePropertyAction Value="Next review:" PropertyName="Text"/>
+                                  </ia:DataTriggerBehavior>
+                                </i:Interaction.Behaviors>
+                                <Setter Property="Text" Value="Next review if resumed:"/>
+                              </Style>
                             </TextBlock.Styles>
                         </TextBlock>
-                        <TextBox Grid.Column="1" Classes="NextReviewDateLabel" Text="{Binding Entry.NextAnswerDate,
+                        <TextBox Grid.Column="1" Classes="NextReviewDateLabel LabelBox" Text="{Binding Entry.NextAnswerDate,
                               Converter={StaticResource DateTimeToStringConverter},
                               ConverterParameter={x:Static converters:DateTimeToStringConversionEnum.Relative},
                               Mode=OneWay}" ToolTip.Tip="{Binding Entry.NextAnswerDate,
@@ -167,42 +160,43 @@
                               ConverterParameter={x:Static converters:DateTimeToStringConversionEnum.Absolute},
                               Mode=OneWay}" Visibility="{Binding IsEditingDate, Converter={StaticResource ValueToVisibilityConverter}, ConverterParameter=False}"/>
 
-                      <DatePicker x:Name="ReviewDatePicker" Grid.Column="1" Value="{Binding Entry.NextAnswerDate}" TextAlignment="Left" IsVisible="{Binding IsEditingDate}" Focusable="True"/>
+                      <DatePicker Name="ReviewDatePicker" Grid.Column="1" Value="{Binding Entry.NextAnswerDate}" TextAlignment="Left" IsVisible="{Binding IsEditingDate}" Focusable="True"/>
                         
-                        <Button Grid.Column="2" Command="{Binding ToggleDateEditCommand}" Margin="10 0 0 0" Width="70" HorizontalAlignment="Right" ToolTip.Tip="Edit the next review date manually (CTRL+E).">
+                        <Button Grid.Column="2" Command="{Binding ToggleDateEditCommand}" Margin="10 0 0 0" Width="70" 
+                                HorizontalAlignment="Right" ToolTip.Tip="Edit the next review date manually (CTRL+E)."
+                                Classes="MiniActionButton ActionButton">
                             <Button.Styles>
-                                <Style Selector="Button" InheritanceParent="{StaticResource MiniActionButton}">
-                                    <i:Interaction.Behaviors>
-                                        <ia:DataTriggerBehavior Binding="{Binding IsEditingDate}" Value="True">
-                                            <ia:ChangePropertyAction Value="Confirm" PropertyName="Content"/>
-                                            <ia:ChangePropertyAction Value="Confirm the review date." PropertyName="ToolTip.Tip"/>
-                                        </ia:DataTriggerBehavior>
-                                    </i:Interaction.Behaviors>
-                                    <Setter Property="Content" Value="Edit"/>
-                                    <Setter Property="ToolTip.Tip" Value="Edit the next review date manually."/>
-                                </Style>
+                              <Style Selector="Button">
+                                <i:Interaction.Behaviors>
+                                  <ia:DataTriggerBehavior Binding="{Binding IsEditingDate}" Value="True">
+                                    <ia:ChangePropertyAction Value="Confirm" PropertyName="Content"/>
+                                    <ia:ChangePropertyAction Value="Confirm the review date." PropertyName="ToolTip.Tip"/>
+                                  </ia:DataTriggerBehavior>
+                                </i:Interaction.Behaviors>
+                                <Setter Property="Content" Value="Edit"/>
+                                <Setter Property="ToolTip.Tip" Value="Edit the next review date manually."/>
+                              </Style>
                             </Button.Styles>
                         </Button>
                         
                         <UniformGrid Columns="3" Grid.Row="1" Grid.ColumnSpan="3" Margin="0 3 0 0">
-                            <Button Classes="MiniActionButton" Command="{Binding DateToNowCommand}" Content="Reset date" ToolTip.Tip="Set the next review date to now (CTRL+R)."/>
-                            <Button Classes="MiniActionButton" Command="{Binding DateToNeverCommand}" Content="Never review" ToolTip.Tip="Set the next review date to never (CTRL+N)." Margin="5 0"/>
-                            <Button Command="{Binding ToggleSuspendCommand}">
+                            <Button Classes="MiniActionButton ActionButton" Command="{Binding DateToNowCommand}" Content="Reset date" ToolTip.Tip="Set the next review date to now (CTRL+R)."/>
+                            <Button Classes="MiniActionButton ActionButton" Command="{Binding DateToNeverCommand}" Content="Never review" ToolTip.Tip="Set the next review date to never (CTRL+N)." Margin="5 0"/>
+                            <Button Classes="MiniActionButton ActionButton" Command="{Binding ToggleSuspendCommand}">
                                 <Button.Styles>
-                                    <Style Selector="Button" InheritanceParent="{StaticResource MiniActionButton}">
-                                        <i:Interaction.Behaviors>
-                                            <ia:DataTriggerBehavior Binding="{Binding Entry.SuspensionDate}" Value="{x:Null}">
-                                                <ia:ChangePropertyAction Value="Suspend" PropertyName="Content"/>
-                                                <ia:ChangePropertyAction Value="Suspends the item. The item will not appear in reviews until you resume it (CTRL+S)." PropertyName="ToolTip.Tip"/>
-                                            </ia:DataTriggerBehavior>
-                                        </i:Interaction.Behaviors>
-                                        <Setter Property="Content" Value="Resume"/>
-                                        <Setter Property="ToolTip.Tip" Value="Resumes the SRS progression (CTRL+S)."/>
-                                    </Style>
+                                  <Style Selector="Button">
+                                    <i:Interaction.Behaviors>
+                                      <ia:DataTriggerBehavior Binding="{Binding Entry.SuspensionDate}" Value="{x:Null}">
+                                        <ia:ChangePropertyAction Value="Suspend" PropertyName="Content"/>
+                                        <ia:ChangePropertyAction Value="Suspends the item. The item will not appear in reviews until you resume it (CTRL+S)." PropertyName="ToolTip.Tip"/>
+                                      </ia:DataTriggerBehavior>
+                                    </i:Interaction.Behaviors>
+                                    <Setter Property="Content" Value="Resume"/>
+                                    <Setter Property="ToolTip.Tip" Value="Resumes the SRS progression (CTRL+S)."/>
+                                  </Style>
                                 </Button.Styles>
                             </Button>
                         </UniformGrid>
-                        
                     </Grid>
                 </Grid>
                 <!--<ProgressBar Grid.Column="1" Grid.Row="1" Classes="SrsItemProgressBar" DataContext="{Binding Entry}" Margin="0 5 0 0" />-->
@@ -273,31 +267,27 @@
             
             <!-- Action button row -->
             <UniformGrid Grid.Row="5" Grid.ColumnSpan="2" Rows="1">
-                <Button Classes="MiniActionButton" Content="Cancel changes" Margin="3 5 3 0" Command="{Binding CancelCommand}" IsCancel="True" ToolTip.Tip="Cancel any changes you have made (Escape)."/>
-                <Button Content="Delete this item" Margin="0 5 3 0" Command="{Binding DeleteCommand}" ToolTip.Tip="Delete this SRS item (CTRL+Delete).">
-                    <Button.Styles>
-                        <Style Selector="Button" InheritanceParent="{StaticResource MiniActionButton}">
-                            <i:Interaction.Behaviors>
-                                <ia:DataTriggerBehavior Binding="{Binding IsNew}" Value="True">
-                                    <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
-                                </ia:DataTriggerBehavior>
-                            </i:Interaction.Behaviors>
-                        </Style>
-                    </Button.Styles>
+                <Button Classes="MiniActionButton ActionButton" Content="Cancel changes" Margin="3 5 3 0" Command="{Binding CancelCommand}" IsCancel="True" ToolTip.Tip="Cancel any changes you have made (Escape)."/>
+                <Button Classes="MiniActionButton ActionButton" Content="Delete this item" Margin="0 5 3 0" Command="{Binding DeleteCommand}" ToolTip.Tip="Delete this SRS item (CTRL+Delete).">
+                  <i:Interaction.Behaviors>
+                    <ia:DataTriggerBehavior Binding="{Binding IsNew}" Value="True">
+                      <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
+                    </ia:DataTriggerBehavior>
+                  </i:Interaction.Behaviors>
                 </Button>
-                <Button Margin="3 5 0 0" Command="{Binding SubmitCommand}" ToolTip.Tip="Save the changes you have made (CTRL+Enter).">
+                <Button Classes="ActionButton" Margin="3 5 0 0" Command="{Binding SubmitCommand}" ToolTip.Tip="Save the changes you have made (CTRL+Enter).">
                     <Button.Styles>
-                        <Style Selector="Button" InheritanceParent="{StaticResource ActionButton}">
-                            <i:Interaction.Behaviors>
-                                <ia:DataTriggerBehavior Binding="{Binding IsNew}" Value="True">
-                                    <ia:ChangePropertyAction Value="Add this item" PropertyName="Content"/>
-                                </ia:DataTriggerBehavior>
-                                <ia:DataTriggerBehavior Binding="{Binding IsSending}" Value="True">
-                                    <ia:ChangePropertyAction Value="False" PropertyName="IsEnabled"/>
-                                </ia:DataTriggerBehavior>
-                            </i:Interaction.Behaviors>
-                            <Setter Property="Content" Value="Save changes"/>
-                        </Style>
+                      <Style Selector="Button">
+                        <i:Interaction.Behaviors>
+                          <ia:DataTriggerBehavior Binding="{Binding IsNew}" Value="True">
+                            <ia:ChangePropertyAction Value="Add this item" PropertyName="Content"/>
+                          </ia:DataTriggerBehavior>
+                          <ia:DataTriggerBehavior Binding="{Binding IsSending}" Value="True">
+                            <ia:ChangePropertyAction Value="False" PropertyName="IsEnabled"/>
+                          </ia:DataTriggerBehavior>
+                        </i:Interaction.Behaviors>
+                        <Setter Property="Content" Value="Save changes"/>
+                      </Style>
                     </Button.Styles>
                 </Button>
             </UniformGrid>

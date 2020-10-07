@@ -46,16 +46,16 @@
                 </Viewbox>
                 
                 <Viewbox Grid.Row="1">
-                    <TextBlock Foreground="#99FFFFFF">
+                    <TextBlock Foreground="#99FFFFFF" Classes="LegendText">
                                 <i:Interaction.Behaviors>
                                     <ia:DataTriggerBehavior Binding="{Binding SelectionTotalReviews}" Value="1">
                                         <ia:ChangePropertyAction Value="totalled review" PropertyName="Text"/>
                                     </ia:DataTriggerBehavior>
                                 </i:Interaction.Behaviors>
                         <TextBlock.Styles>
-                            <Style Selector="TextBlock" InheritanceParent="{StaticResource LegendText}">
-                                <Setter Property="Text" Value="totalled reviews"/>
-                            </Style>
+                          <Style Selector="TextBlock">
+                            <Setter Property="Text" Value="totalled reviews"/>
+                          </Style>
                         </TextBlock.Styles>
                     </TextBlock>
                 </Viewbox>
@@ -81,16 +81,16 @@
                 </Viewbox>
 
                 <Viewbox Grid.Row="1">
-                    <TextBlock Foreground="#99FFFFFF">
+                    <TextBlock Foreground="#99FFFFFF" Classes="LegendText">
                                 <i:Interaction.Behaviors>
                                     <ia:DataTriggerBehavior Binding="{Binding SelectionTotalSuccesses}" Value="1">
                                         <ia:ChangePropertyAction Value="totalled success" PropertyName="Text"/>
                                     </ia:DataTriggerBehavior>
                                 </i:Interaction.Behaviors>
                         <TextBlock.Styles>
-                            <Style Selector="TextBlock" InheritanceParent="{StaticResource LegendText}">
-                                <Setter Property="Text" Value="totalled successes"/>
-                            </Style>
+                          <Style Selector="TextBlock">
+                            <Setter Property="Text" Value="totalled successes"/>
+                          </Style>
                         </TextBlock.Styles>
                     </TextBlock>
                 </Viewbox>
@@ -116,16 +116,16 @@
                 </Viewbox>
 
                 <Viewbox Grid.Row="1">
-                    <TextBlock Foreground="#99FFFFFF">
+                    <TextBlock Foreground="#99FFFFFF" Classes="LegendText">
                                 <i:Interaction.Behaviors>
                                     <ia:DataTriggerBehavior Binding="{Binding SelectionTotalFailures}" Value="1">
                                         <ia:ChangePropertyAction Value="totalled failure" PropertyName="Text"/>
                                     </ia:DataTriggerBehavior>
                                 </i:Interaction.Behaviors>
                         <TextBlock.Styles>
-                            <Style Selector="TextBlock" InheritanceParent="{StaticResource LegendText}">
-                                <Setter Property="Text" Value="totalled failures"/>
-                            </Style>
+                          <Style Selector="TextBlock">
+                            <Setter Property="Text" Value="totalled failures"/>
+                          </Style>
                         </TextBlock.Styles>
                     </TextBlock>
                 </Viewbox>

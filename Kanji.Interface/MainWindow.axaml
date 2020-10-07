@@ -10,7 +10,7 @@
         Title="Houhou" Height="600" Width="1000" KeyDown="OnKeyDown">
 
     <Grid>
-      <views:HomePage x:Name="HomePage" IsVisible="False">
+      <views:HomePage Name="HomePage" IsVisible="False">
         <i:Interaction.Behaviors>
           <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}"
               Value="{x:Static models:NavigationPageEnum.Home}">

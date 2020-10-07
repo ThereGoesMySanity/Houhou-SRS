@@ -18,7 +18,7 @@
 
             <RadioButton GroupName="Timing" Content="Use the SRS level timing" IsChecked="{Binding TimingMode, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=UseSrsLevel}" />
             <RadioButton GroupName="Timing" Content="Start all reviews immediately" IsChecked="{Binding TimingMode, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Immediate}" />
-            <RadioButton x:Name="SpreadTimingRadio" GroupName="Timing" Content="Spread reviews over time" IsChecked="{Binding TimingMode, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Spread}" />
+            <RadioButton Name="SpreadTimingRadio" GroupName="Timing" Content="Spread reviews over time" IsChecked="{Binding TimingMode, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Spread}" />
 
             <Border Margin="15 5 0 0" BorderThickness="2 0 0 0" BorderBrush="#666666" Padding="5 0 0 0">
                 <StackPanel IsEnabled="{Binding ElementName=SpreadTimingRadio, Mode=OneWay, Path=IsChecked}">

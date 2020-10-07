@@ -11,8 +11,8 @@
 
     <DockPanel>
         <controls:NavigationBar DockPanel.Dock="Top" />
-        <Border Classes="HomePageSeparator" DockPanel.Dock="Top" />
-        <Border Classes="HomePageBorder">
+        <Border Classes="HomePageSeparator PageSeparator" DockPanel.Dock="Top" />
+        <Border Classes="HomePageBorder PageBorder">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="95" />

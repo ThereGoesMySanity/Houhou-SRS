@@ -10,19 +10,17 @@
              mc:Ignorable="d" 
              d:DesignHeight="1200" d:DesignWidth="600">
 
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <Style Selector="ComboBox.FieldComboBox" >
-                
-            </Style>
-            <Style Selector="ComboBox.RequiredFieldComboBox" InheritanceParent="{StaticResource FieldComboBox}" >
-                <Setter Property="BorderBrush" Value="#FFFF0000" />
-            </Style>
-            <Style Selector="StackPanel.FieldStackPanel" >
-                <Setter Property="Margin" Value="5" />
-            </Style>
-        </ResourceDictionary>
-    </UserControl.Resources>
+    <UserControl.Styles>
+      <Style Selector="ComboBox.FieldComboBox">
+
+      </Style>
+      <Style Selector="ComboBox.RequiredFieldComboBox">
+        <Setter Property="BorderBrush" Value="#FFFF0000" />
+      </Style>
+      <Style Selector="StackPanel.FieldStackPanel" >
+        <Setter Property="Margin" Value="5" />
+      </Style>
+    </UserControl.Styles>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -57,21 +55,21 @@
                                 <TextBlock Classes="LegendText">
                                     * Kanji reading
                                 </TextBlock>
-                                <ComboBox Classes="RequiredFieldComboBox" Items="{Binding RequiredColumns}" SelectedIndex="{Binding KanjiReadingColumn, Mode=TwoWay}" />
+                                <ComboBox Classes="RequiredFieldComboBox FieldComboBox" Items="{Binding RequiredColumns}" SelectedIndex="{Binding KanjiReadingColumn, Mode=TwoWay}" />
                             </StackPanel>
 
                             <StackPanel Grid.Column="1" Classes="FieldStackPanel">
                                 <TextBlock Classes="LegendText">
                                     * Accepted readings
                                 </TextBlock>
-                                <ComboBox Classes="RequiredFieldComboBox" Items="{Binding RequiredColumns}" SelectedIndex="{Binding AcceptedReadingsColumn, Mode=TwoWay}" />
+                                <ComboBox Classes="RequiredFieldComboBox FieldComboBox" Items="{Binding RequiredColumns}" SelectedIndex="{Binding AcceptedReadingsColumn, Mode=TwoWay}" />
                             </StackPanel>
 
                             <StackPanel Grid.Row="1" Classes="FieldStackPanel">
                                 <TextBlock Classes="LegendText">
                                     * Accepted meanings
                                 </TextBlock>
-                                <ComboBox Classes="RequiredFieldComboBox" Items="{Binding RequiredColumns}" SelectedIndex="{Binding AcceptedMeaningsColumn, Mode=TwoWay}" />
+                                <ComboBox Classes="RequiredFieldComboBox FieldComboBox" Items="{Binding RequiredColumns}" SelectedIndex="{Binding AcceptedMeaningsColumn, Mode=TwoWay}" />
                             </StackPanel>
 
                             <StackPanel Grid.Row="1" Grid.Column="1" Classes="FieldStackPanel">
@@ -122,7 +120,7 @@
                         <TextBlock Classes="LegendText">
                             When "Item type" is not specified...
                         </TextBlock>
-                        <ComboBox x:Name="NoTypeComboBox"
+                        <ComboBox Name="NoTypeComboBox"
                             Items="{Binding Source={StaticResource CsvImportNoTypeBehaviorEnum}}"
                             SelectedItem="{Binding NoTypeBehavior, Mode=TwoWay}">
                             <ComboBox.ItemTemplate>

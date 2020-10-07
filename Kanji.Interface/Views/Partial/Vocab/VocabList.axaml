@@ -23,7 +23,7 @@
         
         
         <!-- Vocab list -->
-        <ListBox x:Name="VocabListBox" Grid.Row="1" Classes="VocabList"
+        <ListBox Name="VocabListBox" Grid.Row="1" Classes="VocabList"
             Items="{Binding LoadedItems,  Mode=OneWay}" />
         
         <controls:ListLoadingFooterControl Grid.Row="2" Tag="vocab" />

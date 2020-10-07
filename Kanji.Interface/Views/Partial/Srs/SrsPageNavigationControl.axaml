@@ -9,27 +9,19 @@
         <Button Content="Add a kanji item" ToolTip.Tip="Add a new kanji SRS item to your list (CTRL+K)" Margin="0 0 5 0" Command="{Binding AddKanjiItemCommand}" Classes="ActionButton"/>
         <Button Content="Add a vocab item" ToolTip.Tip="Add a new vocab SRS item to your list (CTRL+V)" Margin="0 0 5 0" Command="{Binding AddVocabItemCommand}" Classes="ActionButton"/>
         <Button Content="Import SRS items" ToolTip.Tip="Import SRS items from external sources (Anki, WaniKani, etc) (CTRL+I)" Margin="0 0 5 0" Command="{Binding ImportCommand}" Classes="ActionButton"/>
-        <Button Content="Dashboard" ToolTip.Tip="Return to the dashboard (CTRL+Alt+Home)" Margin="0 0 5 0" Command="{Binding SwitchToDashboardCommand}">
-            <Button.Styles>
-                <Style Selector="Button" InheritanceParent="{StaticResource ActionButton}">
-                    <i:Interaction.Behaviors>
-                        <ia:DataTriggerBehavior Binding="{Binding ControlMode}" Value="Dashboard">
-                            <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
-                        </ia:DataTriggerBehavior>
-                    </i:Interaction.Behaviors>
-                </Style>
-            </Button.Styles>
+        <Button Content="Dashboard" ToolTip.Tip="Return to the dashboard (CTRL+Alt+Home)" Margin="0 0 5 0" Command="{Binding SwitchToDashboardCommand}" Classes="ActionButton">
+          <i:Interaction.Behaviors>
+            <ia:DataTriggerBehavior Binding="{Binding ControlMode}" Value="Dashboard">
+              <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
+            </ia:DataTriggerBehavior>
+          </i:Interaction.Behaviors>
         </Button>
-        <Button Content="Browse SRS items" ToolTip.Tip="Display the SRS item filter panel (CTRL+B)" Grid.Column="1" Command="{Binding SwitchToSimpleFilterCommand}">
-            <Button.Styles>
-                <Style Selector="Button" InheritanceParent="{StaticResource ActionButton}">
-                    <i:Interaction.Behaviors>
-                        <ia:DataTriggerBehavior Binding="{Binding ControlMode}" Value="SimpleFilter">
-                            <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
-                        </ia:DataTriggerBehavior>
-                    </i:Interaction.Behaviors>
-                </Style>
-            </Button.Styles>
+        <Button Content="Browse SRS items" ToolTip.Tip="Display the SRS item filter panel (CTRL+B)" Grid.Column="1" Command="{Binding SwitchToSimpleFilterCommand}" Classes="ActionButton">
+          <i:Interaction.Behaviors>
+            <ia:DataTriggerBehavior Binding="{Binding ControlMode}" Value="SimpleFilter">
+              <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
+            </ia:DataTriggerBehavior>
+          </i:Interaction.Behaviors>
         </Button>
     </UniformGrid>
 </UserControl>
