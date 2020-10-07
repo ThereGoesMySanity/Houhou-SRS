@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:behaviors="clr-namespace:Kanji.Interface.Behaviors"
+                    xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+                    xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
              xmlns:converters="clr-namespace:Kanji.Interface.Converters" x:Class="Kanji.Interface.Controls.JlptLevelFilterControl"
              mc:Ignorable="d" 
              d:DesignHeight="30" d:DesignWidth="500">
@@ -26,12 +28,12 @@
                    TextAlignment="Center"/>
         <Slider Name="LevelSlider" Grid.Column="2" VerticalAlignment="Center"
                 Minimum="0" Maximum="6" Value="{Binding JlptLevel, Mode=TwoWay}"
-                SmallChange="1" IsDirectionReversed="True" MinWidth="50"
-                TickPlacement="None" IsSnapToTickEnabled="True" Foreground="Black" IsMoveToPointEnabled="True"
+                SmallChange="1" MinWidth="50"
+                TickFrequency="NaN" IsSnapToTickEnabled="True" Foreground="Black"
                 ToolTip.Tip="Select the JLPT level to filter by (CTRL+J)">
-            <Slider.InputBindings>
-                <KeyBinding Command="{Binding FilterChangedCommand}" Key="Enter" />
-            </Slider.InputBindings>
+            <Slider.KeyBindings>
+                <KeyBinding Command="{Binding FilterChangedCommand}" Gesture="Enter" />
+            </Slider.KeyBindings>
         </Slider>
     </Grid>
 </UserControl>

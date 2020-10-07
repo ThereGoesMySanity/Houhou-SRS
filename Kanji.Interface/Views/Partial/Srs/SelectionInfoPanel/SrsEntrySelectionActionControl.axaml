@@ -9,14 +9,12 @@
 
     <Grid>
         <!-- Nothing selected -->
-        <Grid Name="ZeroItemPanel" Visibility="{Binding SelectedItems.Count,
-                  Converter={StaticResource ValueToVisibilityConverter},
-                  ConverterParameter=0}">
-            <TextBlock Text="Select items in the list to view stats or perform bulk edition." TextWrapping="Wrap" TextAlignment="Center" Classes="LegendText"/>
-        </Grid>
+      <Grid Name="ZeroItemPanel" IsVisible="{Binding !SelectedItems.Count}">
+        <TextBlock Text="Select items in the list to view stats or perform bulk edition." TextWrapping="Wrap" TextAlignment="Center" Classes="LegendText"/>
+      </Grid>
 
         <!-- 1 item selected -->
-        <Grid Name="OneItemPanel" Visibility="{Binding SelectedItems.Count,
+        <Grid Name="OneItemPanel" IsVisible="{Binding SelectedItems.Count,
                   Converter={StaticResource ValueToVisibilityConverter},
                   ConverterParameter=1}">
             <Grid.RowDefinitions>
@@ -32,21 +30,19 @@
         <!-- Multiple items selected -->
         <Grid>
           <i:Interaction.Behaviors>
-            <ia:DataTriggerBehavior Binding="{Binding Visibility, ElementName=OneItemPanel}" Value="Visible">
+            <ia:DataTriggerBehavior Binding="{Binding IsVisible, ElementName=OneItemPanel}" Value="True">
               <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
             </ia:DataTriggerBehavior>
-            <ia:DataTriggerBehavior Binding="{Binding Visibility, ElementName=ZeroItemPanel}" Value="Visible">
+            <ia:DataTriggerBehavior Binding="{Binding IsVisible, ElementName=ZeroItemPanel}" Value="True">
               <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
             </ia:DataTriggerBehavior>
           </i:Interaction.Behaviors>
 
           <!-- BulkEditMode = None -->
             <ScrollViewer Margin="0 0 0 5" VerticalScrollBarVisibility="Auto">
-                <UniformGrid Columns="1" ScrollViewer.VerticalScrollBarVisibility="Auto" Visibility="{Binding BulkEditMode,
-                      Converter={StaticResource ValueToVisibilityConverter},
-                      ConverterParameter=None}">
-                    <Button Classes="ActionButton" Content="Bulk edit the meaning note" Margin="0 0 0 5" Command="{Binding BulkEditMeaningNoteCommand}" Height="NaN" MinHeight="20"/>
-                    <Button Classes="ActionButton" Content="Bulk edit the reading note" Margin="0 0 0 5" Command="{Binding BulkEditReadingNoteCommand}" Height="NaN" MinHeight="20"/>
+                <UniformGrid Columns="1" ScrollViewer.VerticalScrollBarVisibility="Auto" IsVisible="{Binding BulkEditMode}">
+                  <Button Classes="ActionButton" Content="Bulk edit the meaning note" Margin="0 0 0 5" Command="{Binding BulkEditMeaningNoteCommand}" Height="NaN" MinHeight="20"/>
+                  <Button Classes="ActionButton" Content="Bulk edit the reading note" Margin="0 0 0 5" Command="{Binding BulkEditReadingNoteCommand}" Height="NaN" MinHeight="20"/>
                     <Button Classes="ActionButton" Content="Bulk edit the tags" Margin="0 0 0 5" Command="{Binding BulkEditTagsCommand}" Height="NaN" MinHeight="20"/>
                     <Button Classes="ActionButton" Content="Bulk edit the SRS level" Margin="0 0 0 5" Command="{Binding BulkEditLevelCommand}" Height="NaN" MinHeight="20"/>
                     <Button Classes="ActionButton" Content="Bulk reschedule review dates" Margin="0 0 0 5" Command="{Binding BulkRescheduleCommand}" Height="NaN" MinHeight="20"/>
@@ -123,7 +119,7 @@
             </Grid>
 
             <!-- BulkEditMode = Level -->
-            <Grid Visibility="{Binding BulkEditMode,
+            <Grid IsVisible="{Binding BulkEditMode,
                       Converter={StaticResource ValueToVisibilityConverter},
                       ConverterParameter=Level}">
                         <i:Interaction.Behaviors>
@@ -155,7 +151,7 @@
             </Grid>
             
             <!-- BulkEditMode = Timing -->
-            <Grid Visibility="{Binding BulkEditMode,
+            <Grid IsVisible="{Binding BulkEditMode,
                       Converter={StaticResource ValueToVisibilityConverter},
                       ConverterParameter=Timing}">
                         <i:Interaction.Behaviors>
@@ -207,7 +203,7 @@
             </Grid>
 
             <!-- BulkEditMode = Delay -->
-            <Grid Visibility="{Binding BulkEditMode,
+            <Grid IsVisible="{Binding BulkEditMode,
                       Converter={StaticResource ValueToVisibilityConverter},
                       ConverterParameter=Delay}">
                         <i:Interaction.Behaviors>
@@ -248,7 +244,7 @@
             </Grid>
 
             <!-- BulkEditMode = Applying -->
-            <Grid Visibility="{Binding BulkEditMode,
+            <Grid IsVisible="{Binding BulkEditMode,
                   Converter={StaticResource ValueToVisibilityConverter},
                   ConverterParameter=Applying}">
                 <Grid.RowDefinitions>
@@ -271,7 +267,7 @@
             </Grid>
 
             <!-- BulkEditMode = Applied -->
-            <Grid Visibility="{Binding BulkEditMode,
+            <Grid IsVisible="{Binding BulkEditMode,
                   Converter={StaticResource ValueToVisibilityConverter},
                   ConverterParameter=Applied}">
                 <Grid.RowDefinitions>
@@ -306,7 +302,7 @@
                             <TextBlock>
                                 Please note that the number of items effectively modified may vary
                                 depending on the nature of the operation.
-                                <LineBreak/>
+                                &#x0a;
                                 For example, bulk suspending will only affect items that were not
                                 already suspended.
                             </TextBlock>

@@ -13,7 +13,7 @@
     
     <Border Margin="5">
         <ContentControl Content="{Binding ActiveVm}">
-            <ContentControl.Resources>
+            <ContentControl.DataTemplates>
                 <DataTemplate DataType="{x:Type vm:ImportViewModel}">
                     <controls:ImportSelectionDialog />
                 </DataTemplate>
@@ -35,7 +35,7 @@
                 <DataTemplate DataType="{x:Type vm:WkImportRequestViewModel}">
                     <controls:ImportWkRequestView />
                 </DataTemplate>
-            </ContentControl.Resources>
+            </ContentControl.DataTemplates>
         </ContentControl>
     </Border>
 </Window>

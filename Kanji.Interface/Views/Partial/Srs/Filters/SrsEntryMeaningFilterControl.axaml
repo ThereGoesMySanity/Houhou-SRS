@@ -16,13 +16,13 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Containing the meaning:" Classes="LegendText" VerticalAlignment="Center" Margin="0 0 5 0"/>
 
-                    <AdornerDecorator Grid.Column="1">
+                    <Decorator Grid.Column="1">
                         <controls:CommandTextBox Name="FilterTextBox" MaxLength="100" ToolTip.Tip="Enter the meaning filter. (CTRL+M)" Text="{Binding MeaningFilter}" ValidationCommand="{Binding ValidateCommand}">
                             <controls:WatermarkService.Watermark>
                                 <TextBlock HorizontalAlignment="Center">Meaning filter</TextBlock>
                             </controls:WatermarkService.Watermark>
                         </controls:CommandTextBox>
-                    </AdornerDecorator>
+                    </Decorator>
                 </Grid>
             </ControlTemplate>
         </ResourceDictionary>
@@ -41,13 +41,13 @@
 
                             <TextBlock Text="Containing the meaning:" Classes="LegendText"/>
                             <StackPanel Grid.Row="1">
-                                <AdornerDecorator>
+                                <Decorator>
                                     <controls:CommandTextBox Name="FilterTextBox" MaxLength="100" ToolTip.Tip="Enter the meaning filter. (CTRL+M)" Text="{Binding MeaningFilter}" ValidationCommand="{Binding ValidateCommand}">
                                         <controls:WatermarkService.Watermark>
                                             <TextBlock HorizontalAlignment="Center">Meaning filter</TextBlock>
                                         </controls:WatermarkService.Watermark>
                                     </controls:CommandTextBox>
-                                </AdornerDecorator>
+                                </Decorator>
 
                                 <CheckBox Content="Exact match" ToolTip.Tip="When checked, matches only items with this exact expression.
 When unchecked, matches any value containing this expression." IsChecked="{Binding IsExactMatch}" Command="{Binding ValidateCommand}" HorizontalAlignment="Center"/>

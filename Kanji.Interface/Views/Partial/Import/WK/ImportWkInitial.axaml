@@ -23,7 +23,7 @@
                             This key can be found on your Account Settings page on WaniKani.com.
                         </TextBlock>
                         <TextBox Classes="ErrorLabel LabelBox" TextWrapping="Wrap" Text="{Binding ApiKeyError}" />
-                        <AdornerDecorator Margin="0 5 0 0">
+                        <Decorator Margin="0 5 0 0">
                             <TextBox Text="{Binding ParentMode.ApiKey, Mode=TwoWay}" Height="22">
                                 <controls:WatermarkService.Watermark>
                                     <TextBlock HorizontalAlignment="Center" TextAlignment="Center"
@@ -32,7 +32,7 @@
                                     </TextBlock>
                                 </controls:WatermarkService.Watermark>
                             </TextBox>
-                        </AdornerDecorator>
+                        </Decorator>
                     </StackPanel>
                 </HeaderedContentControl>
 

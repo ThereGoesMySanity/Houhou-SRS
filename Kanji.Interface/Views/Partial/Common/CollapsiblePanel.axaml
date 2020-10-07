@@ -7,7 +7,7 @@
                     xmlns:controls="clr-namespace:Kanji.Interface.Controls" x:Class="Kanji.Interface.Controls.CollapsiblePanel" mc:Ignorable="d" d:DesignHeight="100" d:DesignWidth="300">
 
     <controls:CollapsiblePanelBase.Styles>
-        <Style Selector="controls:CollapsiblePanelBase">
+        <Style Selector="controls|CollapsiblePanelBase">
             <Setter Property="Background" Value="#99000000"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -35,9 +35,9 @@
                                     <Button Name="CommandButton" Click="OnCommandButtonClick" Opacity="0" Command="{TemplateBinding Command}" CommandParameter="{TemplateBinding CommandParameter}"/>
                                 </Grid>
                             </Border>
-                            <Border Grid.Row="1" Background="#11000000" BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="1 0 1 1" Padding="5" Visibility="{TemplateBinding IsContentShown, Converter={StaticResource ValueToVisibilityConverter}}">
-                                <ContentPresenter Content="{TemplateBinding Content}"/>
-                            </Border>
+                          <Border Grid.Row="1" Background="#11000000" BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="1 0 1 1" Padding="5" IsVisible="{TemplateBinding IsContentShown}">
+                            <ContentPresenter Content="{TemplateBinding Content}"/>
+                          </Border>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>

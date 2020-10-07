@@ -6,7 +6,4 @@
     <Application.Styles>
       <StyleInclude Source="pack://application:,,,/ViewResources/Style.axaml"/>
     </Application.Styles>
-  <Application.Resources>
-    <ResourceInclude Source="pack://application:,,,/ViewResources/Resource.axaml"/>
-  </Application.Resources>
 </Application>

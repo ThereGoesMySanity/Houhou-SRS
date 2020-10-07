@@ -158,9 +158,9 @@
                               Mode=OneWay}" ToolTip.Tip="{Binding Entry.NextAnswerDate,
                               Converter={StaticResource DateTimeToStringConverter},
                               ConverterParameter={x:Static converters:DateTimeToStringConversionEnum.Absolute},
-                              Mode=OneWay}" Visibility="{Binding IsEditingDate, Converter={StaticResource ValueToVisibilityConverter}, ConverterParameter=False}"/>
+                              Mode=OneWay}" IsVisible="{Binding !IsEditingDate}"/>
 
-                      <DatePicker Name="ReviewDatePicker" Grid.Column="1" Value="{Binding Entry.NextAnswerDate}" TextAlignment="Left" IsVisible="{Binding IsEditingDate}" Focusable="True"/>
+                      <DatePicker Name="ReviewDatePicker" Grid.Column="1" SelectedDate="{Binding Entry.NextAnswerDate}" IsVisible="{Binding IsEditingDate}" Focusable="True"/>
                         
                         <Button Grid.Column="2" Command="{Binding ToggleDateEditCommand}" Margin="10 0 0 0" Width="70" 
                                 HorizontalAlignment="Right" ToolTip.Tip="Edit the next review date manually (CTRL+E)."
@@ -228,16 +228,16 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <TextBlock Classes="LegendText" Text="Meaning notes:"/>
-                <AdornerDecorator Grid.Row="1">
+                <Decorator Grid.Row="1">
                     <TextBox MaxLength="1000" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding Entry.MeaningNote, Mode=TwoWay}">
                         <controls:WatermarkService.Watermark>
                             <TextBlock HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Padding="8">
-                                Optional meaning notes (mnemonics, details, remarks...).<LineBreak/><LineBreak/>
+                                Optional meaning notes (mnemonics, details, remarks...).&#x0a;&#x0a;
                                 These notes will be shown in reviews after you submit an answer.
                             </TextBlock>
                         </controls:WatermarkService.Watermark>
                     </TextBox>
-                </AdornerDecorator>
+                </Decorator>
             </Grid>
 
             <!-- Reading notes field -->
@@ -247,16 +247,16 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <TextBlock Classes="LegendText" Text="Reading notes:"/>
-                <AdornerDecorator Grid.Row="1">
+                <Decorator Grid.Row="1">
                     <TextBox MaxLength="1000" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding Entry.ReadingNote, Mode=TwoWay}">
                         <controls:WatermarkService.Watermark>
                             <TextBlock HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Padding="8">
-                                Optional reading notes (mnemonics, details, remarks...).<LineBreak/><LineBreak/>
+                                Optional reading notes (mnemonics, details, remarks...).&#x0a;&#x0a;
                                 These notes will be shown in reviews after you submit an answer.
                             </TextBlock>
                         </controls:WatermarkService.Watermark>
                     </TextBox>
-                </AdornerDecorator>
+                </Decorator>
             </Grid>
             
             <!-- Tags field row -->
