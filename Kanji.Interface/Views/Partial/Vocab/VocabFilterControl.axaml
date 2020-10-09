@@ -52,58 +52,58 @@
         <!-- Filter buttons -->
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="3" Margin="5 0 0 0">
             <Button Content="pack://application:,,,/Data/UI/SortFrequencyIcon.png" Command="{Binding SwitchCommonOrderCommand}" Classes="ImageActionButton">
-                <Button.Styles>
-                  <Style Selector="Button">
-                    <i:Interaction.Behaviors>
-                      <ia:DataTriggerBehavior Binding="{Binding IsCommonFirst}" Value="True">
-                        <ia:ChangePropertyAction Value="True" PropertyName="Tag"/>
-                        <ia:ChangePropertyAction PropertyName="ToolTip.Tip">
-                          <ia:ChangePropertyAction.Value>
-                            <TextBlock>
-                              Common vocab is displayed first.&#x0a;
-                              Click this button if you want to change this behavior.
-                            </TextBlock>
-                          </ia:ChangePropertyAction.Value>
-                        </ia:ChangePropertyAction>
-                      </ia:DataTriggerBehavior>
-                    </i:Interaction.Behaviors>
-                    <Setter Property="Tag" Value="False"/>
-                  </Style>
-                </Button.Styles>
-              <ToolTip.Tip>
-                <TextBlock>
-                  Common vocab is not displayed first.&#x0a;
-                  Click this button if you want common vocab to be displayed first.
-                </TextBlock>
-              </ToolTip.Tip>
+              <i:Interaction.Behaviors>
+                <ia:DataTriggerBehavior Binding="{Binding IsCommonFirst}" Value="True">
+                  <ia:ChangePropertyAction Value="True" PropertyName="Tag"/>
+                  <ia:ChangePropertyAction PropertyName="ToolTip.Tip">
+                    <ia:ChangePropertyAction.Value>
+                      <TextBlock>
+                        Common vocab is displayed first.&#x0a;
+                        Click this button if you want to change this behavior.
+                      </TextBlock>
+                    </ia:ChangePropertyAction.Value>
+                  </ia:ChangePropertyAction>
+                </ia:DataTriggerBehavior>
+                <ia:DataTriggerBehavior Binding="{Binding IsCommonFirst}" Value="False">
+                  <ia:ChangePropertyAction Value="False" PropertyName="Tag"/>
+                  <ia:ChangePropertyAction PropertyName="ToolTip.Tip" Value="">
+                    <ia:ChangePropertyAction.Value>
+                      <TextBlock>
+                        Common vocab is not displayed first.&#x0a;
+                        Click this button if you want common vocab to be displayed first.
+                      </TextBlock>
+                    </ia:ChangePropertyAction.Value>
+                  </ia:ChangePropertyAction>
+                </ia:DataTriggerBehavior>
+              </i:Interaction.Behaviors>
             </Button>
             <Button Content="pack://application:,,,/Data/UI/SortLengthIcon.png" Command="{Binding SwitchWritingLengthOrderCommand}" Margin="5 0 0 0" Classes="ImageActionButton">
-                <Button.Styles>
-                  <Style Selector="Button">
-                    <i:Interaction.Behaviors>
-                      <ia:DataTriggerBehavior Binding="{Binding IsShortReadingFirst}" Value="True">
-                        <ia:ChangePropertyAction Value="True" PropertyName="Tag"/>
-                        <ia:ChangePropertyAction PropertyName="ToolTip.Tip">
-                          <ia:ChangePropertyAction.Value>
-                            <TextBlock>
-                              Vocab is sorted by ascending writing length.&#x0a;
-                              Click this button if you want to change this behavior.
-                            </TextBlock>
-                          </ia:ChangePropertyAction.Value>
-                        </ia:ChangePropertyAction>
-                      </ia:DataTriggerBehavior>
-                    </i:Interaction.Behaviors>
-                    <Setter Property="Tag" Value="False"/>
-                  </Style>
-                </Button.Styles>
-              <ToolTip.Tip>
-                <TextBlock>
-                  Vocab is sorted by descending writing length.&#x0a;
-                  Click this button if you want to change this behavior.
-                </TextBlock>
-              </ToolTip.Tip>
+              <i:Interaction.Behaviors>
+                <ia:DataTriggerBehavior Binding="{Binding IsShortReadingFirst}" Value="True">
+                  <ia:ChangePropertyAction Value="True" PropertyName="Tag"/>
+                  <ia:ChangePropertyAction PropertyName="ToolTip.Tip">
+                    <ia:ChangePropertyAction.Value>
+                      <TextBlock>
+                        Vocab is sorted by ascending writing length.&#x0a;
+                        Click this button if you want to change this behavior.
+                      </TextBlock>
+                    </ia:ChangePropertyAction.Value>
+                  </ia:ChangePropertyAction>
+                </ia:DataTriggerBehavior>
+                <ia:DataTriggerBehavior Binding="{Binding IsShortReadingFirst}" Value="False">
+                  <ia:ChangePropertyAction Value="False" PropertyName="Tag"/>
+                  <ia:ChangePropertyAction PropertyName="ToolTip.Tip">
+                    <ia:ChangePropertyAction.Value>
+                      <TextBlock>
+                        Vocab is sorted by descending writing length.&#x0a;
+                        Click this button if you want to change this behavior.
+                      </TextBlock>
+                    </ia:ChangePropertyAction.Value>
+                  </ia:ChangePropertyAction>
+                </ia:DataTriggerBehavior>
+              </i:Interaction.Behaviors>
             </Button>
-        </StackPanel>
+          </StackPanel>
 
         <!-- JLPT/WK levels -->
         <controls:WkLevelFilterControl Name="WkLevelFilter" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" DataContext="{Binding}"/>

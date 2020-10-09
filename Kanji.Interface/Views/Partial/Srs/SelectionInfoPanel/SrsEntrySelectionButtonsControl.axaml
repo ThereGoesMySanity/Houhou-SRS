@@ -12,16 +12,9 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Button Margin="0 0 3 0" Content="Unselect" Command="{Binding UnselectCommand}" Classes="MiniActionButton ActionButton">
-              <i:Interaction.Behaviors>
-                <ia:DataTriggerBehavior Binding="{Binding SelectedItems.Count}" Value="0">
-                  <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
-                </ia:DataTriggerBehavior>
-              </i:Interaction.Behaviors>
-            </Button>
+            <Button Margin="0 0 3 0" Content="Unselect" Command="{Binding UnselectCommand}" Classes="MiniActionButton ActionButton"
+                    IsVisible="{Binding !!SelectedItems.Count}"/>
             <Button Grid.Column="1" Margin="3 0 0 0" Content="Select all" Command="{Binding SelectAllCommand}" Classes="MiniActionButton ActionButton">
-                <Button.Styles>
-                  <Style Selector="Button">
                     <!--<Style.Triggers>
                             <DataTrigger Value="True">
                                 <DataTrigger.Binding>
@@ -33,8 +26,6 @@
                                 <Setter Property="IsVisible" Value="False" />
                             </DataTrigger>
                         </Style.Triggers>-->
-                  </Style>
-                </Button.Styles>
             </Button>
         </Grid>
     </Border>

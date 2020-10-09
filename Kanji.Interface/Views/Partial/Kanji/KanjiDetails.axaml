@@ -48,19 +48,13 @@
             <!-- Secondary information panel -->
             <WrapPanel Orientation="Horizontal">
                 <Border Width="70" Height="60" BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="1" CornerRadius="4" Background="White" Margin="0 0 10 0">
-                    <Border.Styles>
-                        <Style Selector="Border">
-                            <i:Interaction.Behaviors>
-                                <ia:DataTriggerBehavior Binding="{Binding StrokesDrawingGroup}" Value="{x:Null}">
-                                    <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
-                                </ia:DataTriggerBehavior>
-                                <ia:DataTriggerBehavior Binding="{Binding KanjiEntity.ShowStrokes}" Value="False">
-                                    <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
-                                </ia:DataTriggerBehavior>
-                            </i:Interaction.Behaviors>
-                        </Style>
-                    </Border.Styles>
-                    <Grid>
+                  <Border.IsVisible>
+                    <MultiBinding Converter="{x:Static BoolConverters.And}">
+                      <Binding Path="StrokesDrawingGroup" Converter="{x:Static ObjectConverters.IsNotNull}"/>
+                      <Binding Path="KanjiEntity.ShowStrokes" />
+                    </MultiBinding>
+                  </Border.IsVisible>
+                  <Grid>
                         <Image HorizontalAlignment="Center" Cursor="Hand">
                             <i:Interaction.Behaviors>
                                 <ia:EventTriggerBehavior EventName="PointerReleased">
@@ -107,60 +101,48 @@
               </Border>
               <Border CornerRadius="4" Width="70" Height="60" BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="1" Margin="0 0 10 0"
                       Background="#3377FF77" IsVisible="{Binding KanjiEntity.ShowGrade}">
-                <Border.Styles>
-                  <Style Selector="Border">
-                    <i:Interaction.Behaviors>
-                      <ia:DataTriggerBehavior Binding="{Binding KanjiEntity.DbKanji.Grade}" Value="8">
-                        <ia:ChangePropertyAction Value="Jouyou kanji taught in secondary school." PropertyName="ToolTip.Tip"/>
-                      </ia:DataTriggerBehavior>
-                      <ia:DataTriggerBehavior Binding="{Binding KanjiEntity.DbKanji.Grade}" Value="9">
-                        <ia:ChangePropertyAction Value="Jinmeiyou kanji. Not a jouyou kanji, but can be used in personal names." PropertyName="ToolTip.Tip"/>
-                      </ia:DataTriggerBehavior>
-                    </i:Interaction.Behaviors>
-                    <Setter Property="ToolTip.Tip">
-                      <Setter.Value>
+                <i:Interaction.Behaviors>
+                  <ia:DataTriggerBehavior Binding="{Binding KanjiEntity.DbKanji.Grade}" Value="8" ComparisonCondition="LessThan">
+                    <ia:ChangePropertyAction PropertyName="ToolTip.Tip">
+                      <ia:ChangePropertyAction.Value>
                         <Binding Path="KanjiEntity.DbKanji.Grade" Converter="{StaticResource IntegerToOrdinalStringConverter}" StringFormat="{}Jouyou kanji taught in {0} grade."/>
-                      </Setter.Value>
-                    </Setter>
-                  </Style>
-                </Border.Styles>
+                      </ia:ChangePropertyAction.Value>
+                    </ia:ChangePropertyAction>
+                  </ia:DataTriggerBehavior>
+                  <ia:DataTriggerBehavior Binding="{Binding KanjiEntity.DbKanji.Grade}" Value="8">
+                    <ia:ChangePropertyAction Value="Jouyou kanji taught in secondary school." PropertyName="ToolTip.Tip"/>
+                  </ia:DataTriggerBehavior>
+                  <ia:DataTriggerBehavior Binding="{Binding KanjiEntity.DbKanji.Grade}" Value="9" ComparisonCondition="GreaterThanOrEqual">
+                    <ia:ChangePropertyAction Value="Jinmeiyou kanji. Not a jouyou kanji, but can be used in personal names." PropertyName="ToolTip.Tip"/>
+                  </ia:DataTriggerBehavior>
+                </i:Interaction.Behaviors>
                 <StackPanel VerticalAlignment="Center">
                   <TextBlock HorizontalAlignment="Center" FontSize="16">
-                    <TextBlock.Styles>
-                      <Style Selector="TextBlock">
-                        <i:Interaction.Behaviors>
-                          <ia:DataTriggerBehavior Binding="{Binding KanjiEntity.DbKanji.Grade}" Value="9">
-                            <ia:ChangePropertyAction Value="人名用" PropertyName="Text"/>
-                          </ia:DataTriggerBehavior>
-                          <ia:DataTriggerBehavior Binding="{Binding KanjiEntity.DbKanji.Grade}" Value="10">
-                            <ia:ChangePropertyAction Value="人名用" PropertyName="Text"/>
-                          </ia:DataTriggerBehavior>
-                        </i:Interaction.Behaviors>
-                        <Setter Property="Text" Value="常用"/>
-                      </Style>
-                    </TextBlock.Styles>
+                    <i:Interaction.Behaviors>
+                      <ia:DataTriggerBehavior Binding="{Binding KanjiEntity.DbKanji.Grade}" Value="9" ComparisonCondition="LessThan">
+                        <ia:ChangePropertyAction Value="常用" PropertyName="Text"/>
+                      </ia:DataTriggerBehavior>
+                      <ia:DataTriggerBehavior Binding="{Binding KanjiEntity.DbKanji.Grade}" Value="9" ComparisonCondition="GreaterThanOrEqual">
+                        <ia:ChangePropertyAction Value="人名用" PropertyName="Text"/>
+                      </ia:DataTriggerBehavior>
+                    </i:Interaction.Behaviors>
                   </TextBlock>
                   <TextBlock HorizontalAlignment="Center" Classes="LegendText">
-                    <TextBlock.Styles>
-                      <Style Selector="TextBlock">
-                        <i:Interaction.Behaviors>
-                          <ia:DataTriggerBehavior Binding="{Binding KanjiEntity.DbKanji.Grade}" Value="8">
-                            <ia:ChangePropertyAction Value="Secondary" PropertyName="Text"/>
-                          </ia:DataTriggerBehavior>
-                          <ia:DataTriggerBehavior Binding="{Binding KanjiEntity.DbKanji.Grade}" Value="9">
-                            <ia:ChangePropertyAction Value="Name kanji" PropertyName="Text"/>
-                          </ia:DataTriggerBehavior>
-                          <ia:DataTriggerBehavior Binding="{Binding KanjiEntity.DbKanji.Grade}" Value="10">
-                            <ia:ChangePropertyAction Value="Name kanji" PropertyName="Text"/>
-                          </ia:DataTriggerBehavior>
-                        </i:Interaction.Behaviors>
-                        <Setter Property="Text">
-                          <Setter.Value>
+                    <i:Interaction.Behaviors>
+                      <ia:DataTriggerBehavior Binding="{Binding KanjiEntity.DbKanji.Grade}" Value="8" ComparisonCondition="LessThan">
+                        <ia:ChangePropertyAction PropertyName="Text">
+                          <ia:ChangePropertyAction.Value>
                             <Binding Path="KanjiEntity.DbKanji.Grade" Converter="{StaticResource IntegerToOrdinalStringConverter}" StringFormat="{}{0} grade"/>
-                          </Setter.Value>
-                        </Setter>
-                      </Style>
-                    </TextBlock.Styles>
+                          </ia:ChangePropertyAction.Value>
+                        </ia:ChangePropertyAction>
+                      </ia:DataTriggerBehavior>
+                      <ia:DataTriggerBehavior Binding="{Binding KanjiEntity.DbKanji.Grade}" Value="8">
+                        <ia:ChangePropertyAction Value="Secondary" PropertyName="Text"/>
+                      </ia:DataTriggerBehavior>
+                      <ia:DataTriggerBehavior Binding="{Binding KanjiEntity.DbKanji.Grade}" Value="9" ComparisonCondition="GreaterThanOrEqual">
+                        <ia:ChangePropertyAction Value="Name kanji" PropertyName="Text"/>
+                      </ia:DataTriggerBehavior>
+                    </i:Interaction.Behaviors>
                   </TextBlock>
                 </StackPanel>
               </Border>
@@ -205,35 +187,19 @@
                         <TextBlock Classes="LegendText" HorizontalAlignment="Center" Text="on WaniKani" FontSize="11"/>
                     </StackPanel>
                 </Border>
-                <Button Classes="ActionButton" Content="  ✙ Add" FontSize="12" Width="70" Height="60" Margin="0 0 0 0" Command="{Binding AddToSrsCommand}" HorizontalContentAlignment="Center">
-                    <Button.Styles>
-                      <Style Selector="Button">
-                        <i:Interaction.Behaviors>
-                          <ia:DataTriggerBehavior Binding="{Binding SrsEntry}" Value="{x:Null}">
-                            <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
-                          </ia:DataTriggerBehavior>
-                        </i:Interaction.Behaviors>
-                        <Setter Property="IsVisible" Value="False"/>
-                      </Style>
-                    </Button.Styles>
-                </Button>
+                <Button Classes="ActionButton" Content="  ✙ Add" FontSize="12" Width="70" Height="60" Margin="0 0 0 0" Command="{Binding AddToSrsCommand}" HorizontalContentAlignment="Center"
+                        IsVisible="{Binding SrsEntry, Converter={x:Static ObjectConverters.IsNull}}"/>
               <Grid Width="70" Height="60" DataContext="{Binding SrsEntry}" IsVisible="{Binding .}">
                 <Button Classes="ActionButton" Content="In SRS " Width="70" Height="60" FontSize="12" Margin="0 0 0 0" BorderBrush="{StaticResource FadedBorderBrush}"
                         Command="{Binding DataContext.EditSrsEntryCommand, RelativeSource={RelativeSource AncestorType=controls:KanjiDetails}}" HorizontalContentAlignment="Center">
-                  <Button.Styles>
-                    <Style Selector="Button">
-                      <Setter Property="Background">
-                        <Setter.Value>
-                          <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
-                            <GradientStop Color="#3377FF77" Offset="0.1"/>
-                            <GradientStop Color="#3377FF77" Offset="0.49"/>
-                            <GradientStop Color="#3344CC44" Offset="0.5"/>
-                            <GradientStop Color="#3344CC44" Offset="0.9"/>
-                          </LinearGradientBrush>
-                        </Setter.Value>
-                      </Setter>
-                    </Style>
-                  </Button.Styles>
+                  <Button.Background>
+                    <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
+                      <GradientStop Color="#3377FF77" Offset="0.1"/>
+                      <GradientStop Color="#3377FF77" Offset="0.49"/>
+                      <GradientStop Color="#3344CC44" Offset="0.5"/>
+                      <GradientStop Color="#3344CC44" Offset="0.9"/>
+                    </LinearGradientBrush>
+                  </Button.Background>
                 </Button>
                 <Border DockPanel.Dock="Left" Background="{Binding LevelGroup.Color, Converter={StaticResource ColorToBrushConverter}}" Height="18" Margin="0 25 0 0" IsHitTestVisible="False" Padding="2 0" BorderBrush="#AA000000" BorderThickness="1" CornerRadius="3" Width="25">
                   <ToolTip.Tip>
@@ -265,16 +231,14 @@
             </Grid.RowDefinitions>
 
             <Button Command="{Binding ToggleDetailsCommand}" Margin="0 2 0 0" Classes="MiniActionButton ActionButton">
-                <Button.Styles>
-                  <Style Selector="Button">
-                    <i:Interaction.Behaviors>
-                      <ia:DataTriggerBehavior Binding="{Binding ShowDetails}" Value="False">
-                        <ia:ChangePropertyAction Value="▼ ▼ ▼ ▼ ▼" PropertyName="Content"/>
-                      </ia:DataTriggerBehavior>
-                    </i:Interaction.Behaviors>
-                    <Setter Property="Content" Value="▲ ▲ ▲ ▲ ▲"/>
-                  </Style>
-                </Button.Styles>
+              <i:Interaction.Behaviors>
+                <ia:DataTriggerBehavior Binding="{Binding ShowDetails}" Value="False">
+                  <ia:ChangePropertyAction Value="▼ ▼ ▼ ▼ ▼" PropertyName="Content"/>
+                </ia:DataTriggerBehavior>
+                <ia:DataTriggerBehavior Binding="{Binding ShowDetails}" Value="True">
+                  <ia:ChangePropertyAction PropertyName="Content" Value="▲ ▲ ▲ ▲ ▲"/>
+                </ia:DataTriggerBehavior>
+              </i:Interaction.Behaviors>
             </Button>
 
             <Separator Grid.Row="1" Margin="5,10" Height="2" Background="Black" Foreground="Black" BorderBrush="Black"/>

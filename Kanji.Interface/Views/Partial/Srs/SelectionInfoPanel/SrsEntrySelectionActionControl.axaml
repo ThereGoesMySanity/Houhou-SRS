@@ -5,6 +5,7 @@
                     
                     xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
                     xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
+                    xmlns:utility="clr-namespace:Kanji.Interface.Utilities"
                     xmlns:controls="clr-namespace:Kanji.Interface.Controls" x:Class="Kanji.Interface.Controls.SrsEntrySelectionActionControl" mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
 
     <Grid>
@@ -15,7 +16,7 @@
 
         <!-- 1 item selected -->
         <Grid Name="OneItemPanel" IsVisible="{Binding SelectedItems.Count,
-                  Converter={StaticResource ValueToVisibilityConverter},
+                  Converter={StaticResource ValueToBoolConverter},
                   ConverterParameter=1}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -29,15 +30,12 @@
 
         <!-- Multiple items selected -->
         <Grid>
-          <i:Interaction.Behaviors>
-            <ia:DataTriggerBehavior Binding="{Binding IsVisible, ElementName=OneItemPanel}" Value="True">
-              <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
-            </ia:DataTriggerBehavior>
-            <ia:DataTriggerBehavior Binding="{Binding IsVisible, ElementName=ZeroItemPanel}" Value="True">
-              <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
-            </ia:DataTriggerBehavior>
-          </i:Interaction.Behaviors>
-
+          <Grid.IsVisible>
+            <MultiBinding Converter="{x:Static BoolConverters.And}">
+              <Binding Path="!#OneItemPanel.IsVisible"/>
+              <Binding Path="!#ZeroItemPanel.IsVisible"/>
+            </MultiBinding>
+          </Grid.IsVisible>
           <!-- BulkEditMode = None -->
             <ScrollViewer Margin="0 0 0 5" VerticalScrollBarVisibility="Auto">
                 <UniformGrid Columns="1" ScrollViewer.VerticalScrollBarVisibility="Auto" IsVisible="{Binding BulkEditMode}">
@@ -57,11 +55,6 @@
 
             <!-- BulkEditMode in (ReadingNote, MeaningNote, Tags) -->
             <Grid>
-                <Grid.Styles>
-                    <Style Selector="Grid">
-                        <Setter Property="IsVisible" Value="False"/>
-                    </Style>
-                </Grid.Styles>
                         <i:Interaction.Behaviors>
                             <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="ReadingNote">
                                 <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
@@ -72,6 +65,14 @@
                             <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="Tags">
                                 <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
                             </ia:DataTriggerBehavior>
+                          <utility:MultiDataTriggerBehavior>
+                            <utility:MultiDataTriggerBehavior.Conditions>
+                              <utility:Condition Binding="{Binding BulkEditMode}" Value="ReadingNote" ComparisonCondition="NotEqual"/>
+                              <utility:Condition Binding="{Binding BulkEditMode}" Value="MeaningNote" ComparisonCondition="NotEqual"/>
+                              <utility:Condition Binding="{Binding BulkEditMode}" Value="Tags" ComparisonCondition="NotEqual"/>
+                            </utility:MultiDataTriggerBehavior.Conditions>
+                            <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
+                          </utility:MultiDataTriggerBehavior>
                         </i:Interaction.Behaviors>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -98,21 +99,17 @@
                 </DockPanel>
 
                 <TextBox Grid.Row="1" Margin="0 5 0 2" Text="{Binding BulkEditValue, Mode=TwoWay}">
-                    <TextBox.Styles>
-                        <Style Selector="TextBox">
-                        </Style>
-                    </TextBox.Styles>
-                            <i:Interaction.Behaviors>
-                                <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="MeaningNote">
-                                    <ia:ChangePropertyAction Value="1000" PropertyName="MaxLength"/>
-                                </ia:DataTriggerBehavior>
-                                <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="ReadingNote">
-                                    <ia:ChangePropertyAction Value="1000" PropertyName="MaxLength"/>
-                                </ia:DataTriggerBehavior>
-                                <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="Tags">
-                                    <ia:ChangePropertyAction Value="300" PropertyName="MaxLength"/>
-                                </ia:DataTriggerBehavior>
-                            </i:Interaction.Behaviors>
+                  <i:Interaction.Behaviors>
+                    <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="MeaningNote">
+                      <ia:ChangePropertyAction Value="1000" PropertyName="MaxLength"/>
+                    </ia:DataTriggerBehavior>
+                    <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="ReadingNote">
+                      <ia:ChangePropertyAction Value="1000" PropertyName="MaxLength"/>
+                    </ia:DataTriggerBehavior>
+                    <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="Tags">
+                      <ia:ChangePropertyAction Value="300" PropertyName="MaxLength"/>
+                    </ia:DataTriggerBehavior>
+                  </i:Interaction.Behaviors>
                 </TextBox>
 
                 <Button Grid.Row="2" Classes="ActionButton" Content="Apply changes" FontSize="13" Command="{Binding BulkEditTextApplyCommand}" Margin="0 0 0 5"/>
@@ -120,19 +117,17 @@
 
             <!-- BulkEditMode = Level -->
             <Grid IsVisible="{Binding BulkEditMode,
-                      Converter={StaticResource ValueToVisibilityConverter},
+                      Converter={StaticResource ValueToBoolConverter},
                       ConverterParameter=Level}">
-                        <i:Interaction.Behaviors>
-                            <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="Tags">
-                                <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
-                            </ia:DataTriggerBehavior>
-                        </i:Interaction.Behaviors>
-                <Grid.Styles>
-                    <Style Selector="Grid">
-                        <Setter Property="IsVisible" Value="False"/>
-                    </Style>
-                </Grid.Styles>
-                <Grid.RowDefinitions>
+              <i:Interaction.Behaviors>
+                <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="Tags">
+                  <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
+                </ia:DataTriggerBehavior>
+                <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="Tags" ComparisonCondition="NotEqual">
+                  <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
+                </ia:DataTriggerBehavior>
+              </i:Interaction.Behaviors>
+              <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -152,19 +147,16 @@
             
             <!-- BulkEditMode = Timing -->
             <Grid IsVisible="{Binding BulkEditMode,
-                      Converter={StaticResource ValueToVisibilityConverter},
+                      Converter={StaticResource ValueToBoolConverter},
                       ConverterParameter=Timing}">
-                        <i:Interaction.Behaviors>
-                            <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="Tags">
-                                <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
-                            </ia:DataTriggerBehavior>
-                        </i:Interaction.Behaviors>
-                <Grid.Styles>
-                    <Style Selector="Grid">
-                        <Setter Property="IsVisible" Value="False"/>
-                    </Style>
-                </Grid.Styles>
-
+              <i:Interaction.Behaviors>
+                <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="Tags">
+                  <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
+                </ia:DataTriggerBehavior>
+                <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="Tags" ComparisonCondition="NotEqual">
+                  <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
+                </ia:DataTriggerBehavior>
+              </i:Interaction.Behaviors>
                 <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                     <StackPanel>
                         <Button DockPanel.Dock="Right" Classes="MiniActionButton ActionButton" Content="Cancel" Padding="8 0" Command="{Binding CancelBulkEditCommand}"/>
@@ -204,19 +196,16 @@
 
             <!-- BulkEditMode = Delay -->
             <Grid IsVisible="{Binding BulkEditMode,
-                      Converter={StaticResource ValueToVisibilityConverter},
+                      Converter={StaticResource ValueToBoolConverter},
                       ConverterParameter=Delay}">
-                        <i:Interaction.Behaviors>
-                            <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="Tags">
-                                <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
-                            </ia:DataTriggerBehavior>
-                        </i:Interaction.Behaviors>
-                <Grid.Styles>
-                    <Style Selector="Grid">
-                        <Setter Property="IsVisible" Value="False"/>
-                    </Style>
-                </Grid.Styles>
-
+              <i:Interaction.Behaviors>
+                <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="Tags">
+                  <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
+                </ia:DataTriggerBehavior>
+                <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="Tags" ComparisonCondition="NotEqual">
+                  <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
+                </ia:DataTriggerBehavior>
+              </i:Interaction.Behaviors>
                 <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                     <StackPanel>
                         <Button DockPanel.Dock="Right" Classes="MiniActionButton ActionButton" Content="Cancel" Padding="8 0" Command="{Binding CancelBulkEditCommand}"/>
@@ -226,14 +215,12 @@
                         <StackPanel Orientation="Horizontal" Margin="0 2 0 3">
                             <NumericUpDown Value="{Binding TimingDelay}" Width="60"/>
                             <TextBlock Margin="6 0 0 0" Foreground="Black" Classes="LegendText">
-                                <TextBlock.Styles>
-                                  <Style Selector="TextBlock">
-                                    <Setter Property="Text" Value="hours"/>
-                                  </Style>
-                                </TextBlock.Styles>
                               <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding TimingDelay}" Value="1">
                                   <ia:ChangePropertyAction Value="hour" PropertyName="Text"/>
+                                </ia:DataTriggerBehavior>
+                                <ia:DataTriggerBehavior Binding="{Binding TimingDelay}" Value="1" ComparisonCondition="NotEqual">
+                                  <ia:ChangePropertyAction Value="hours" PropertyName="Text"/>
                                 </ia:DataTriggerBehavior>
                               </i:Interaction.Behaviors>
                             </TextBlock>
@@ -245,7 +232,7 @@
 
             <!-- BulkEditMode = Applying -->
             <Grid IsVisible="{Binding BulkEditMode,
-                  Converter={StaticResource ValueToVisibilityConverter},
+                  Converter={StaticResource ValueToBoolConverter},
                   ConverterParameter=Applying}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -268,7 +255,7 @@
 
             <!-- BulkEditMode = Applied -->
             <Grid IsVisible="{Binding BulkEditMode,
-                  Converter={StaticResource ValueToVisibilityConverter},
+                  Converter={StaticResource ValueToBoolConverter},
                   ConverterParameter=Applied}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -286,37 +273,35 @@
                 </Viewbox>
 
                 <Viewbox Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" Margin="5 0">
-                    <TextBlock Classes="LegendText">
-                                <i:Interaction.Behaviors>
-                                    <ia:DataTriggerBehavior Binding="{Binding BulkEditResultCount}" Value="-1">
-                                        <ia:ChangePropertyAction Value="... but an error occured" PropertyName="Text"/>
-                                    </ia:DataTriggerBehavior>
-                                    <ia:DataTriggerBehavior Binding="{Binding BulkEditResultCount}" Value="0">
-                                        <ia:ChangePropertyAction Value="... but no items were modified" PropertyName="Text"/>
-                                    </ia:DataTriggerBehavior>
-                                    <ia:DataTriggerBehavior Binding="{Binding BulkEditResultCount}" Value="1">
-                                        <ia:ChangePropertyAction Value="1 item was modified" PropertyName="Text"/>
-                                    </ia:DataTriggerBehavior>
-                                </i:Interaction.Behaviors>
-                        <ToolTip.Tip>
-                            <TextBlock>
-                                Please note that the number of items effectively modified may vary
-                                depending on the nature of the operation.
-                                &#x0a;
-                                For example, bulk suspending will only affect items that were not
-                                already suspended.
-                            </TextBlock>
-                        </ToolTip.Tip>
-                        <TextBlock.Styles>
-                          <Style Selector="TextBlock">
-                            <Setter Property="Text">
-                              <Setter.Value>
-                                <Binding Path="BulkEditResultCount" StringFormat="{}{0} items were modified"/>
-                              </Setter.Value>
-                            </Setter>
-                          </Style>
-                        </TextBlock.Styles>
-                    </TextBlock>
+                  <TextBlock Classes="LegendText">
+                    <i:Interaction.Behaviors>
+                      <ia:DataTriggerBehavior Binding="{Binding BulkEditResultCount}" Value="-1">
+                        <ia:ChangePropertyAction Value="... but an error occured" PropertyName="Text"/>
+                      </ia:DataTriggerBehavior>
+                      <ia:DataTriggerBehavior Binding="{Binding BulkEditResultCount}" Value="0">
+                        <ia:ChangePropertyAction Value="... but no items were modified" PropertyName="Text"/>
+                      </ia:DataTriggerBehavior>
+                      <ia:DataTriggerBehavior Binding="{Binding BulkEditResultCount}" Value="1">
+                        <ia:ChangePropertyAction Value="1 item was modified" PropertyName="Text"/>
+                      </ia:DataTriggerBehavior>
+                      <ia:DataTriggerBehavior Binding="{Binding BulkEditResultCount}" Value="1" ComparisonCondition="GreaterThan">
+                        <ia:ChangePropertyAction PropertyName="Text">
+                          <ia:ChangePropertyAction.Value>
+                            <Binding Path="BulkEditResultCount" StringFormat="{}{0} items were modified"/>
+                          </ia:ChangePropertyAction.Value>
+                        </ia:ChangePropertyAction>
+                      </ia:DataTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                    <ToolTip.Tip>
+                      <TextBlock>
+                        Please note that the number of items effectively modified may vary
+                        depending on the nature of the operation.
+                        &#x0a;
+                        For example, bulk suspending will only affect items that were not
+                        already suspended.
+                      </TextBlock>
+                    </ToolTip.Tip>
+                  </TextBlock>
                 </Viewbox>
 
                 <Button Grid.Row="2" Grid.ColumnSpan="3" Classes="ActionButton" Content="Refresh the list" Command="{Binding ReapplyFilterCommand}" Margin="0 0 0 5"/>

@@ -10,22 +10,16 @@
             <StackPanel VerticalAlignment="Center">
                 <TextBlock Text="Update check status:" FontSize="10" HorizontalAlignment="Center" Foreground="#AAFFFFFF"/>
                 <TextBlock HorizontalAlignment="Center" Foreground="#AAFFFFFF" FontWeight="SemiBold" FontSize="16">
-                    <TextBlock.Styles>
-                        <Style Selector="TextBlock">
-                            <Setter Property="Text" Value="Not checked yet"/>
-                            <Setter Property="ToolTip.Tip" Value="If automatic update check is disabled, Houhou will not check for updates until you click the 'Check for updates' button. If automatic update check is enabled, be aware that there is a delay before updates are checked."/>
-                        </Style>
-                    </TextBlock.Styles>
                   <i:Interaction.Behaviors>
+                    <ia:DataTriggerBehavior Binding="{Binding CheckStatus}" Value="NotYetChecked">
+                      <ia:ChangePropertyAction PropertyName="Text" Value="Not checked yet"/>
+                      <ia:ChangePropertyAction PropertyName="ToolTip.Tip" Value="If automatic update check is disabled, Houhou will not check for updates until you click the 'Check for updates' button. If automatic update check is enabled, be aware that there is a delay before updates are checked."/>
+                    </ia:DataTriggerBehavior>
                     <ia:DataTriggerBehavior Binding="{Binding CheckStatus}" Value="MostRecent">
                       <ia:ChangePropertyAction Value="No updates" PropertyName="Text"/>
                       <ia:ChangePropertyAction PropertyName="ToolTip.Tip">
                         <ia:ChangePropertyAction.Value>
-                          <TextBlock>
-                            <TextBlock.Text>
-                              <Binding Path="LastCheckDate" StringFormat="You are using the latest version of Houhou. (Last checked: {0})"/>
-                            </TextBlock.Text>
-                          </TextBlock>
+                          <Binding Path="LastCheckDate" StringFormat="You are using the latest version of Houhou. (Last checked: {0})"/>
                         </ia:ChangePropertyAction.Value>
                       </ia:ChangePropertyAction>
                     </ia:DataTriggerBehavior>
@@ -33,11 +27,7 @@
                       <ia:ChangePropertyAction Value="Update available!" PropertyName="Text"/>
                       <ia:ChangePropertyAction PropertyName="ToolTip.Tip">
                         <ia:ChangePropertyAction.Value>
-                          <TextBlock>
-                            <TextBlock.Text>
-                              <Binding Path="LastCheckDate" StringFormat="There is an update available to download. Click the Update button on the right to update. (Last checked: {0})"/>
-                            </TextBlock.Text>
-                          </TextBlock>
+                          <Binding Path="LastCheckDate" StringFormat="There is an update available to download. Click the Update button on the right to update. (Last checked: {0})"/>
                         </ia:ChangePropertyAction.Value>
                       </ia:ChangePropertyAction>
                     </ia:DataTriggerBehavior>
@@ -45,25 +35,13 @@
                       <ia:ChangePropertyAction Value="Unable to check" PropertyName="Text"/>
                       <ia:ChangePropertyAction PropertyName="ToolTip.Tip">
                         <ia:ChangePropertyAction.Value>
-                          <TextBlock>
-                            <TextBlock.Text>
-                              <Binding Path="LastCheckDate" StringFormat="An error occured during the last check attempt ({0}). Check your internet connection."/>
-                            </TextBlock.Text>
-                          </TextBlock>
+                          <Binding Path="LastCheckDate" StringFormat="An error occured during the last check attempt ({0}). Check your internet connection."/>
                         </ia:ChangePropertyAction.Value>
                       </ia:ChangePropertyAction>
                     </ia:DataTriggerBehavior>
                     <ia:DataTriggerBehavior Binding="{Binding CheckStatus}" Value="Checking">
                       <ia:ChangePropertyAction Value="Checking..." PropertyName="Text"/>
-                      <ia:ChangePropertyAction PropertyName="ToolTip.Tip">
-                        <ia:ChangePropertyAction.Value>
-                          <TextBlock>
-                            <TextBlock.Text>
-                              <Binding Path="LastCheckDate" StringFormat="Houhou is currently checking for updates. Please wait."/>
-                            </TextBlock.Text>
-                          </TextBlock>
-                        </ia:ChangePropertyAction.Value>
-                      </ia:ChangePropertyAction>
+                      <ia:ChangePropertyAction PropertyName="ToolTip.Tip" Value="Houhou is currently checking for updates. Please wait."/>
                     </ia:DataTriggerBehavior>
                   </i:Interaction.Behaviors>
                 </TextBlock>
@@ -75,8 +53,14 @@
             <ia:DataTriggerBehavior Binding="{Binding CheckStatus}" Value="UpdateAvailable">
               <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
             </ia:DataTriggerBehavior>
+            <ia:DataTriggerBehavior Binding="{Binding CheckStatus}" Value="UpdateAvailable" ComparisonCondition="NotEqual">
+              <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
+            </ia:DataTriggerBehavior>
             <ia:DataTriggerBehavior Binding="{Binding CheckStatus}" Value="Checking">
               <ia:ChangePropertyAction Value="False" PropertyName="IsEnabled"/>
+            </ia:DataTriggerBehavior>
+            <ia:DataTriggerBehavior Binding="{Binding CheckStatus}" Value="Checking" ComparisonCondition="NotEqual">
+              <ia:ChangePropertyAction Value="True" PropertyName="IsEnabled"/>
             </ia:DataTriggerBehavior>
           </i:Interaction.Behaviors>
         </Button>
@@ -96,16 +80,14 @@
                     </TextBlock.Text>
                 </TextBlock>
             </ToolTip.Tip>
-            <Button.Styles>
-              <Style Selector="Button">
-                <i:Interaction.Behaviors>
-                  <ia:DataTriggerBehavior Binding="{Binding CheckStatus}" Value="UpdateAvailable">
-                    <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
-                  </ia:DataTriggerBehavior>
-                </i:Interaction.Behaviors>
-                <Setter Property="IsVisible" Value="False"/>
-              </Style>
-            </Button.Styles>
+          <i:Interaction.Behaviors>
+            <ia:DataTriggerBehavior Binding="{Binding CheckStatus}" Value="UpdateAvailable">
+              <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
+            </ia:DataTriggerBehavior>
+            <ia:DataTriggerBehavior Binding="{Binding CheckStatus}" Value="UpdateAvailable" ComparisonCondition="NotEqual">
+              <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
+            </ia:DataTriggerBehavior>
+          </i:Interaction.Behaviors>
         </Button>
     </StackPanel>
 </UserControl>

@@ -3,6 +3,7 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
                     xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
+                    xmlns:utility="clr-namespace:Kanji.Interface.Utilities"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" x:Class="Kanji.Interface.Controls.ImportWkRequestView" mc:Ignorable="d" d:DesignHeight="430" d:DesignWidth="690">
     <Grid>
         <Grid.RowDefinitions>
@@ -10,44 +11,46 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-            <StackPanel>
-                <TextBlock Classes="LegendText">
-                    <TextBlock.Styles>
-                        <Style Selector="TextBlock">
-                            <i:Interaction.Behaviors>
-                                <ia:DataTriggerBehavior Binding="{Binding IsComplete}" Value="True">
-                                    <ia:ChangePropertyAction Value="The request was successful. Press the Next button to continue." PropertyName="Text"/>
-                                </ia:DataTriggerBehavior>
-                                <ia:DataTriggerBehavior Binding="{Binding IsError}" Value="True">
-                                    <ia:ChangePropertyAction Value="The request failed." PropertyName="Text"/>
-                                </ia:DataTriggerBehavior>
-                            </i:Interaction.Behaviors>
-                            <Setter Property="Text" Value="Requesting WaniKani. Please wait..."/>
-                            <Setter Property="TextWrapping" Value="Wrap"/>
-                        </Style>
-                    </TextBlock.Styles>
-                </TextBlock>
-                <ProgressBar Height="25" Margin="0 5">
-                    <ProgressBar.Styles>
-                        <Style Selector="ProgressBar">
-                            <i:Interaction.Behaviors>
-                                <ia:DataTriggerBehavior Binding="{Binding IsError}" Value="True">
-                                    <ia:ChangePropertyAction Value="Red" PropertyName="Foreground"/>
-                                    <ia:ChangePropertyAction Value="False" PropertyName="IsIndeterminate"/>
-                                    <ia:ChangePropertyAction Value="100" PropertyName="Value"/>
-                                </ia:DataTriggerBehavior>
-                                <ia:DataTriggerBehavior Binding="{Binding IsComplete}" Value="True">
-                                    <ia:ChangePropertyAction Value="False" PropertyName="IsIndeterminate"/>
-                                    <ia:ChangePropertyAction Value="100" PropertyName="Value"/>
-                                </ia:DataTriggerBehavior>
-                            </i:Interaction.Behaviors>
-                            <Setter Property="IsIndeterminate" Value="True"/>
-                        </Style>
-                    </ProgressBar.Styles>
-                </ProgressBar>
-                <TextBox Classes="ErrorLabel LabelBox" Text="{Binding Error, Mode=OneWay}"/>
+          <StackPanel>
+            <TextBlock Classes="LegendText" TextWrapping="Wrap">
+              <i:Interaction.Behaviors>
+                <ia:DataTriggerBehavior Binding="{Binding IsComplete}" Value="True">
+                  <ia:ChangePropertyAction Value="The request was successful. Press the Next button to continue." PropertyName="Text"/>
+                </ia:DataTriggerBehavior>
+                <ia:DataTriggerBehavior Binding="{Binding IsError}" Value="True">
+                  <ia:ChangePropertyAction Value="The request failed." PropertyName="Text"/>
+                </ia:DataTriggerBehavior>
+                <ia:DataTriggerBehavior Value="True">
+                  <ia:DataTriggerBehavior.Binding>
+                    <MultiBinding Converter="{x:Static BoolConverters.And}">
+                      <Binding Path="!IsComplete"/>
+                      <Binding Path="!IsError"/>
+                    </MultiBinding>
+                  </ia:DataTriggerBehavior.Binding>
+                  <ia:ChangePropertyAction PropertyName="Text" Value="Requesting WaniKani. Please wait..."/>
+                </ia:DataTriggerBehavior>
+              </i:Interaction.Behaviors>
+            </TextBlock>
+            <ProgressBar Height="25" Margin="0 5">
+              <ProgressBar.IsIndeterminate>
+                <MultiBinding Converter="{x:Static BoolConverters.And}">
+                  <Binding Path="!IsError"/>
+                  <Binding Path="!IsComplete"/>
+                </MultiBinding>
+              </ProgressBar.IsIndeterminate>
+              <i:Interaction.Behaviors>
+                <ia:DataTriggerBehavior Binding="{Binding IsError}" Value="True">
+                  <ia:ChangePropertyAction Value="Red" PropertyName="Foreground"/>
+                  <ia:ChangePropertyAction Value="100" PropertyName="Value"/>
+                </ia:DataTriggerBehavior>
+                <ia:DataTriggerBehavior Binding="{Binding IsComplete}" Value="True">
+                  <ia:ChangePropertyAction Value="100" PropertyName="Value"/>
+                </ia:DataTriggerBehavior>
+              </i:Interaction.Behaviors>
+            </ProgressBar>
+            <TextBox Classes="ErrorLabel LabelBox" Text="{Binding Error, Mode=OneWay}"/>
 
-                <Border IsVisible="{Binding IsComplete}">
+            <Border IsVisible="{Binding IsComplete}">
                     <HeaderedContentControl BorderBrush="#666666" Padding="5" Margin="0 5 0 0">
                         <HeaderedContentControl.Header>
                             <TextBlock Text="Results" Classes="SettingCategoryTitle"/>

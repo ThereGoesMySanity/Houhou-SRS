@@ -21,13 +21,7 @@
 
         <Grid Grid.Row="1">
             <!-- No results panel -->
-            <Grid>
-              <i:Interaction.Behaviors>
-                <ia:DataTriggerBehavior Binding="{Binding IsVisible, ElementName=ListGrid}" Value="True">
-                  <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
-                </ia:DataTriggerBehavior>
-              </i:Interaction.Behaviors>
-
+            <Grid IsVisible="{Binding !#ListGrid.IsVisible}">
               <Border BorderThickness="1" BorderBrush="{StaticResource LegendTextBrush}" Background="#33FFFFFF">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -36,50 +30,58 @@
                             <ColumnDefinition Width="15*"/>
                         </Grid.ColumnDefinitions>
                         <Viewbox Grid.Column="1">
-                            <TextBlock Foreground="{StaticResource LegendTextBrush}" TextWrapping="Wrap">
-                                        <i:Interaction.Behaviors>
-                                            <ia:DataTriggerBehavior Binding="{Binding IsFilterEmpty}" Value="True">
-                                                <ia:ChangePropertyAction PropertyName="Text">
-                                                    <ia:ChangePropertyAction.Value>
-                                                        Use the filter controls above to browse your SRS items.
-                                                    </ia:ChangePropertyAction.Value>
-                                                </ia:ChangePropertyAction>
-                                            </ia:DataTriggerBehavior>
-                                            <utility:MultiDataTriggerBehavior>
-                                                <utility:MultiDataTriggerBehavior.Conditions>
-                                                    <utility:Condition Binding="{Binding IsFilterEmpty}" Value="False"/>
-                                                    <utility:Condition Binding="{Binding IsFiltering}" Value="False"/>
-                                                    <utility:Condition Binding="{Binding IsLoading}" Value="False"/>
-                                                </utility:MultiDataTriggerBehavior.Conditions>
-                                                <ia:ChangePropertyAction PropertyName="Text">
-                                                    <ia:ChangePropertyAction.Value>
-                                                        There are no SRS items matching these filters.
-                                                    </ia:ChangePropertyAction.Value>
-                                                </ia:ChangePropertyAction>
-                                            </utility:MultiDataTriggerBehavior>
-                                        </i:Interaction.Behaviors>
-                                <TextBlock.Styles>
-                                    <Style Selector="TextBlock">
-                                        <Setter Property="Text">
-                                            <Setter.Value>
-                                                Loading filters. Please wait...
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </TextBlock.Styles>
-                            </TextBlock>
+                          <TextBlock Foreground="{StaticResource LegendTextBrush}" TextWrapping="Wrap">
+                            <i:Interaction.Behaviors>
+                              <ia:DataTriggerBehavior Binding="{Binding IsFilterEmpty}" Value="True">
+                                <ia:ChangePropertyAction PropertyName="Text">
+                                  <ia:ChangePropertyAction.Value>
+                                    Use the filter controls above to browse your SRS items.
+                                  </ia:ChangePropertyAction.Value>
+                                </ia:ChangePropertyAction>
+                              </ia:DataTriggerBehavior>
+                              <utility:MultiDataTriggerBehavior>
+                                <utility:MultiDataTriggerBehavior.Conditions>
+                                  <utility:Condition Binding="{Binding IsFilterEmpty}" Value="False"/>
+                                  <utility:Condition Binding="{Binding IsFiltering}" Value="False"/>
+                                  <utility:Condition Binding="{Binding IsLoading}" Value="False"/>
+                                </utility:MultiDataTriggerBehavior.Conditions>
+                                <ia:ChangePropertyAction PropertyName="Text">
+                                  <ia:ChangePropertyAction.Value>
+                                    There are no SRS items matching these filters.
+                                  </ia:ChangePropertyAction.Value>
+                                </ia:ChangePropertyAction>
+                              </utility:MultiDataTriggerBehavior>
+                              <utility:MultiDataTriggerBehavior>
+                                <utility:MultiDataTriggerBehavior.Conditions>
+                                  <utility:Condition Binding="{Binding IsFilterEmpty}" Value="False"/>
+                                  <utility:Condition Binding="{Binding IsFiltering}" Value="True"/>
+                                </utility:MultiDataTriggerBehavior.Conditions>
+                                <ia:ChangePropertyAction PropertyName="Text">
+                                  <ia:ChangePropertyAction.Value>
+                                    Loading filters. Please wait...
+                                  </ia:ChangePropertyAction.Value>
+                                </ia:ChangePropertyAction>
+                              </utility:MultiDataTriggerBehavior>
+                              <utility:MultiDataTriggerBehavior>
+                                <utility:MultiDataTriggerBehavior.Conditions>
+                                  <utility:Condition Binding="{Binding IsFilterEmpty}" Value="False"/>
+                                  <utility:Condition Binding="{Binding IsLoading}" Value="True"/>
+                                </utility:MultiDataTriggerBehavior.Conditions>
+                                <ia:ChangePropertyAction PropertyName="Text">
+                                  <ia:ChangePropertyAction.Value>
+                                    Loading filters. Please wait...
+                                  </ia:ChangePropertyAction.Value>
+                                </ia:ChangePropertyAction>
+                              </utility:MultiDataTriggerBehavior>
+                            </i:Interaction.Behaviors>
+                          </TextBlock>
                         </Viewbox>
                     </Grid>
                 </Border>
             </Grid>
             
             <!-- List + info panel -->
-            <Grid Name="ListGrid">
-                        <i:Interaction.Behaviors>
-                            <ia:DataTriggerBehavior Binding="{Binding LoadedItemCount}" Value="0">
-                                <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
-                            </ia:DataTriggerBehavior>
-                        </i:Interaction.Behaviors>
+            <Grid Name="ListGrid" IsVisible="{Binding !!LoadedItemCount}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="7*"/>
                     <ColumnDefinition Width="5*"/>
@@ -115,17 +117,8 @@
                         <DataGridTemplateColumn Width="33" CanUserResize="False" CanUserSort="False" CanUserReorder="False">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Border Padding="3 1" BorderBrush="#99000000" BorderThickness="1" Background="#33000000" Margin="2 0" ToolTip.Tip="Inactive item">
-                                        <Border.Styles>
-                                            <Style Selector="Border">
-                                                <i:Interaction.Behaviors>
-                                                    <ia:DataTriggerBehavior Binding="{Binding IsActive}" Value="False">
-                                                        <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
-                                                    </ia:DataTriggerBehavior>
-                                                </i:Interaction.Behaviors>
-                                                <Setter Property="IsVisible" Value="False"/>
-                                            </Style>
-                                        </Border.Styles>
+                                    <Border Padding="3 1" BorderBrush="#99000000" BorderThickness="1" Background="#33000000" Margin="2 0" ToolTip.Tip="Inactive item"
+                                            IsVisible="{Binding !IsActive}">
                                         <TextBlock Text="Zz" Foreground="#CCFFFFFF" FontSize="14"/>
                                     </Border>
                                 </DataTemplate>
@@ -135,19 +128,17 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Grid.Column="4" Classes="MiniActionButton ActionButton" Content="Edit" HorizontalAlignment="Stretch" 
-                                            Margin="2 0 2 0" Command="{Binding DataContext.EditSingleItemCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, }" CommandParameter="{Binding ., }"/>
+                                            Margin="2 0 2 0" Command="{Binding DataContext.EditSingleItemCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, }" CommandParameter="{Binding $self.DataContext}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
-                    <DataGrid.Styles>
-                        <Style Selector="DataGrid">
-                            <Setter Property="RowBackground" Value="#888421C6"/>
-                        </Style>
-                    </DataGrid.Styles>
                   <i:Interaction.Behaviors>
                     <ia:DataTriggerBehavior Binding="{Binding IsKanji}" Value="True">
                       <ia:ChangePropertyAction Value="#881784F8" PropertyName="RowBackground"/>
+                    </ia:DataTriggerBehavior>
+                    <ia:DataTriggerBehavior Binding="{Binding IsKanji}" Value="False">
+                      <ia:ChangePropertyAction PropertyName="RowBackground" Value="#888421C6"/>
                     </ia:DataTriggerBehavior>
                   </i:Interaction.Behaviors>
                 </DataGrid>

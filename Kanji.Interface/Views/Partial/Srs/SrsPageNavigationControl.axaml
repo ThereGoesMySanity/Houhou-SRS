@@ -14,12 +14,18 @@
             <ia:DataTriggerBehavior Binding="{Binding ControlMode}" Value="Dashboard">
               <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
             </ia:DataTriggerBehavior>
+            <ia:DataTriggerBehavior Binding="{Binding ControlMode}" Value="Dashboard" ComparisonCondition="NotEqual">
+              <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
+            </ia:DataTriggerBehavior>
           </i:Interaction.Behaviors>
         </Button>
         <Button Content="Browse SRS items" ToolTip.Tip="Display the SRS item filter panel (CTRL+B)" Grid.Column="1" Command="{Binding SwitchToSimpleFilterCommand}" Classes="ActionButton">
           <i:Interaction.Behaviors>
             <ia:DataTriggerBehavior Binding="{Binding ControlMode}" Value="SimpleFilter">
               <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
+            </ia:DataTriggerBehavior>
+            <ia:DataTriggerBehavior Binding="{Binding ControlMode}" Value="SimpleFilter" ComparisonCondition="NotEqual"> 
+              <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
             </ia:DataTriggerBehavior>
           </i:Interaction.Behaviors>
         </Button>

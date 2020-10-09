@@ -20,7 +20,7 @@
           <i:Interaction.Behaviors>
             <utility:MultiDataTriggerBehavior>
               <utility:MultiDataTriggerBehavior.Conditions>
-                <utility:Condition Binding="{Binding ElementName=LoadingPanel, Path=Visibility}" Value="Collapsed"/>
+                <utility:Condition Binding="{Binding ElementName=LoadingPanel, Path=IsVisible}" Value="False"/>
                 <utility:Condition Value="False">
                   <utility:Condition.Binding>
                     <MultiBinding Converter="{StaticResource DataTriggerValueBindingConverter}" ConverterParameter="{x:Type s:Int32}">
@@ -49,9 +49,9 @@
         </Grid>
 
         <!-- "Loading items" label panel -->
-        <StackPanel Name="LoadingPanel" Orientation="Horizontal">
-                    <i:Interaction.Behaviors>
-                        <!--<DataTrigger Value="False">
+        <StackPanel Name="LoadingPanel" Orientation="Horizontal" IsVisible="{Binding IsLoading}">
+                    <!--<i:Interaction.Behaviors>
+                        --><!--<DataTrigger Value="False">
                             <DataTrigger.Binding>
                                 <MultiBinding Converter="{StaticResource DataTriggerValueBindingConverter}"
                                     ConverterParameter="{x:Type s:Int32}">
@@ -62,18 +62,8 @@
                             <DataTrigger.Setters>
                                 <Setter Property="IsVisible" Value="True" />
                             </DataTrigger.Setters>
-                        </DataTrigger>-->
-                        <ia:DataTriggerBehavior Binding="{Binding IsLoading, Mode=OneWay}" Value="True">
-                            <ia:DataTriggerBehavior.Actions>
-                                <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
-                            </ia:DataTriggerBehavior.Actions>
-                        </ia:DataTriggerBehavior>
-                    </i:Interaction.Behaviors>
-            <StackPanel.Styles>
-                <Style Selector="StackPanel">
-                    <Setter Property="IsVisible" Value="False"/>
-                </Style>
-            </StackPanel.Styles>
+                        </DataTrigger>--><!--
+                    </i:Interaction.Behaviors>-->
             <!--TODO-->
             <!--<Image gif:GifImage.SourceUriRaw="/Data/UI/loading.gif" Width="24" Height="24" gif:GifImage.AutoStart="True" Stretch="Fill"/>-->
             <TextBox Classes="LabelBox" VerticalAlignment="Center" FontSize="18" Margin="5,0,0,0" Text="Loading items..."/>

@@ -28,7 +28,7 @@
                     <i:Interaction.Behaviors>
                       <utility:ClickTriggerBehavior MouseButtons="Left" EventName="PointerReleased">
                         <ia:InvokeCommandAction Command="{Binding DataContext.SelectSrsLevelCommand,
-                                                         RelativeSource={RelativeSource AncestorType={x:Type controls:SrsLevelPicker}}}" CommandParameter="{Binding .}"/>
+                                                         RelativeSource={RelativeSource AncestorType={x:Type controls:SrsLevelPicker}}}" CommandParameter="{Binding $self.DataContext}"/>
                       </utility:ClickTriggerBehavior>
                       <!-- Compare the CurrentGrade of the SrsEntry of the ViewModel far above,
                                             with the Value of the level. If >=, remove the white background. -->
@@ -37,6 +37,10 @@
                         <ia:ChangePropertyAction Value="{Binding $parent[ListBoxItem].DataContext.Color,
                                                          Converter={StaticResource ColorToBrushConverter}}" PropertyName="Background"/>
                         <ia:ChangePropertyAction Value="White" PropertyName="Foreground"/>
+                      </ia:DataTriggerBehavior>
+                      <ia:DataTriggerBehavior Binding="{Binding $parent[controls:SrsLevelPicker].DataContext.CurrentLevelValue}"
+                                              ComparisonCondition="LessThan" Value="{Binding Value}">
+                        <ia:ChangePropertyAction Value="{TemplateBinding Background}" PropertyName="Background"/>
                       </ia:DataTriggerBehavior>
                     </i:Interaction.Behaviors>
                     <Grid>
