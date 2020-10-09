@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
@@ -22,6 +23,7 @@ namespace Kanji.Interface
         {
             // Initialize the components.
             InitializeComponent();
+            this.AttachDevTools();
         }
 
         private void InitializeComponent()

@@ -11,6 +11,8 @@
                     xmlns:business="clr-namespace:Kanji.Interface.Business"
                     xmlns:utility="clr-namespace:Kanji.Interface.Utilities"
                     xmlns:cmodels="clr-namespace:Kanji.Common.Models;assembly=Kanji.Common">
+  <StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml"/>
+  <StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseLight.xaml"/>
   <Styles.Resources>
     <ResourceDictionary>
       <converters:KanjiToStringConverter x:Key="KanjiToStringConverter"/>
@@ -170,7 +172,7 @@
             <TextBlock HorizontalAlignment="Center" FontSize="32" Text="{Binding Reference.Character}"/>
 
             <!-- Radical name -->
-            <TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="{Binding Reference.Name}" TextWrapping="Wrap" FontSize="12"/>
+            <TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="{Binding Reference.Name}" TextWrapping="Wrap" LineHeight="12"/>
           </Grid>
         </Border>
       </ControlTemplate>
@@ -187,7 +189,7 @@
             <Image Source="{Binding Reference.ImageUri}" Stretch="None" />
 
             <!-- Radical name -->
-            <TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="{Binding Reference.Name}" TextWrapping="Wrap" FontSize="12"/>
+            <TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="{Binding Reference.Name}" TextWrapping="Wrap" LineHeight="12"/>
           </Grid>
         </Border>
       </ControlTemplate>
@@ -248,6 +250,13 @@
     </ResourceDictionary>
   </Styles.Resources>
   <!-- STYLES -->
+  <Style Selector="controls|Label">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <TextBlock Text="{TemplateBinding Text}"/>
+      </ControlTemplate>
+    </Setter>
+  </Style>
 
     <!-- PAGE ROOTS -->
     <Style Selector="Border.PageBorder">
@@ -747,7 +756,7 @@
     <Setter Property="TextWrapping" Value="NoWrap"/>
     <Setter Property="TextAlignment" Value="Center"/>
     <Setter Property="FontSize" Value="64"/>
-    <Setter Property="FontFamily" Value="../Data/Fonts/NotoSansCJKjp-Thin.otf#Noto Sans CJK JP Thin"/>
+    <Setter Property="FontFamily" Value="Noto Sans CJK JP Thin"/>
   </Style>
     <Style Selector="ListBox.MiniRadicalList ListBoxItem" >
       <i:Interaction.Behaviors>
@@ -852,7 +861,7 @@
                                         <Setter Property="FontSize" Value="26"/>
                                         <Setter Property="HorizontalAlignment" Value="Center"/>
                                         <Setter Property="VerticalAlignment" Value="Center"/>
-                                        <Setter Property="FontFamily" Value="../Data/Fonts/NotoSansCJKjp-Thin.otf#Noto Sans CJK JP Thin"/>
+                                        <Setter Property="FontFamily" Value="Noto Sans CJK JP Thin"/>
                                     </Style>
                                 </TextBlock.Styles>
                             </TextBlock>
@@ -955,7 +964,7 @@
       <Setter Property="Template">
         <Setter.Value>
           <ControlTemplate TargetType="ListBoxItem">
-            <TextBox Text="{Binding Character}" FontFamily="../Data/Fonts/NotoSansCJKjp-Thin.otf#Noto Sans CJK JP Thin" ToolTip.Tip="{Binding Kanji, Converter={StaticResource KanjiToStringConverter},
+            <TextBox Text="{Binding Character}" FontFamily="Noto Sans CJK JP Thin" ToolTip.Tip="{Binding Kanji, Converter={StaticResource KanjiToStringConverter},
                                             ConverterParameter={x:Static converters:KanjiToStringConversionType.Short}}" Classes="LabelBox">
               <i:Interaction.Behaviors>
                 <utility:ClickTriggerBehavior MouseButtons="Left" EventName="PointerReleased">
@@ -1835,14 +1844,14 @@
                     <ColumnDefinition Width="*"/>
                   </Grid.ColumnDefinitions>
                   <Border Name="PART_Track" CornerRadius="2" BorderThickness="0" BorderBrush="#333333">
-                    <Rectangle Name="PART_Indicator" HorizontalAlignment="Left"><!--TODO: RadiusX="2" RadiusY="2"-->
-                      <Rectangle.Fill>
+                    <Border Name="PART_Indicator" HorizontalAlignment="Left" CornerRadius="2">
+                      <Border.Background>
                         <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
                           <GradientStop Color="#FF26A861"/>
                           <GradientStop Color="#FF0D5D31" Offset="0.95"/>
                         </LinearGradientBrush>
-                      </Rectangle.Fill>
-                    </Rectangle>
+                      </Border.Background>
+                    </Border>
                   </Border>
                   <TextBlock Text="{Binding CompletionPercentage,
                                       Converter={StaticResource PercentageToStringConverter}}" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold" Foreground="Black">
@@ -1928,14 +1937,14 @@
                     <ColumnDefinition Width="*"/>
                   </Grid.ColumnDefinitions>
                   <Border Name="PART_Track" BorderThickness="0" BorderBrush="#333333">
-                    <Rectangle Name="PART_Indicator" HorizontalAlignment="Left">
-                      <Rectangle.Fill>
+                    <Border Name="PART_Indicator" HorizontalAlignment="Left">
+                      <Border.Background>
                         <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
                           <GradientStop Color="#DD7C7C7C"/>
                           <GradientStop Color="#DD343434" Offset="0.85"/>
                         </LinearGradientBrush>
-                      </Rectangle.Fill>
-                    </Rectangle>
+                      </Border.Background>
+                    </Border>
                   </Border>
                 </Grid>
               </Grid>
@@ -2123,26 +2132,24 @@
   </Style>
 
 
-    <Style Selector="TextBox.NavigationPanelTabTitle" >
+    <Style Selector="controls|Label.NavigationPanelTabTitle" >
       <Setter Property="Margin" Value="0 0 0 7"/>
       <Setter Property="FontSize" Value="24"/>
       <Setter Property="FontWeight" Value="Bold"/>
       <Setter Property="Template">
-        <Setter.Value>
-          <ControlTemplate TargetType="TextBox">
-            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-              <LayoutTransformControl>
-                <TextBlock Classes="NavigationPanelTabTitleSubShadow NavigationPanelTabTitleSubCommon" Text="{TemplateBinding Text}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}"/>
-              </LayoutTransformControl>
-              <LayoutTransformControl>
-                <TextBlock Classes="NavigationPanelTabTitleSubCommon" Text="{TemplateBinding Text}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}"/>
-              </LayoutTransformControl>
-            </Grid>
-          </ControlTemplate>
-        </Setter.Value>
+        <ControlTemplate>
+          <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+            <LayoutTransformControl>
+              <TextBlock Classes="NavigationPanelTabTitleSubShadow NavigationPanelTabTitleSubCommon" Text="{TemplateBinding Text}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}"/>
+            </LayoutTransformControl>
+            <LayoutTransformControl>
+              <TextBlock Classes="NavigationPanelTabTitleSubCommon" Text="{TemplateBinding Text}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}"/>
+            </LayoutTransformControl>
+          </Grid>
+        </ControlTemplate>
       </Setter>
     </Style>
-  <Style Selector="TextBox.NavigationPanelTabTitle LayoutTransformControl">
+  <Style Selector="TextBlock.NavigationPanelTabTitle LayoutTransformControl">
     <Setter Property="LayoutTransform">
       <Setter.Value>
         <!--NavigationPanelTabTitleScaleTransform-->
@@ -2151,19 +2158,17 @@
     </Setter>
   </Style>
 
-  <Style Selector="TextBox.NavigationPanelTabTitleKanji">
+  <Style Selector="controls|Label.NavigationPanelTabTitleKanji">
     <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="TextBox">
-          <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Classes="NavigationPanelTabTitleSubShadow NavigationPanelTabTitleSubCommon" Text="{TemplateBinding Text}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}"/>
-            <TextBlock Classes="NavigationPanelTabTitleSubCommon" Text="{TemplateBinding Text}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}"/>
-          </Grid>
-        </ControlTemplate>
-      </Setter.Value>
+      <ControlTemplate>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+          <TextBlock Classes="NavigationPanelTabTitleSubShadow NavigationPanelTabTitleSubCommon" Text="{TemplateBinding Text}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}"/>
+          <TextBlock Classes="NavigationPanelTabTitleSubCommon" Text="{TemplateBinding Text}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}"/>
+        </Grid>
+      </ControlTemplate>
     </Setter>
   </Style>
-  <Style Selector="TextBox.NavigationPanelTabTitleKanji LayoutTransformControl">
+  <Style Selector="TextBlock.NavigationPanelTabTitleKanji LayoutTransformControl">
     <Setter Property="LayoutTransform" Value="{x:Null}" />
   </Style>
 

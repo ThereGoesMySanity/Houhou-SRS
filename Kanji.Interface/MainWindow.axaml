@@ -10,11 +10,15 @@
         Title="Houhou" Height="600" Width="1000" KeyDown="OnKeyDown">
 
     <Grid>
-      <views:HomePage Name="HomePage" IsVisible="False">
+      <views:HomePage Name="HomePage" IsVisible="True">
         <i:Interaction.Behaviors>
           <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}"
               Value="{x:Static models:NavigationPageEnum.Home}">
             <ia:ChangePropertyAction PropertyName="IsVisible" Value="true" />
+          </ia:DataTriggerBehavior>
+          <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}"
+              Value="{x:Static models:NavigationPageEnum.Home}" ComparisonCondition="NotEqual">
+            <ia:ChangePropertyAction PropertyName="IsVisible" Value="false" />
           </ia:DataTriggerBehavior>
         </i:Interaction.Behaviors>
       </views:HomePage>
@@ -24,6 +28,10 @@
               Value="{x:Static models:NavigationPageEnum.Kanji}">
             <ia:ChangePropertyAction PropertyName="IsVisible" Value="true" />
           </ia:DataTriggerBehavior>
+          <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}"
+              Value="{x:Static models:NavigationPageEnum.Kanji}" ComparisonCondition="NotEqual">
+            <ia:ChangePropertyAction PropertyName="IsVisible" Value="false" />
+          </ia:DataTriggerBehavior>
         </i:Interaction.Behaviors>
       </views:KanjiPage>
       <views:VocabPage IsVisible="False">
@@ -31,6 +39,10 @@
           <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}"
               Value="{x:Static models:NavigationPageEnum.Vocab}">
             <ia:ChangePropertyAction PropertyName="IsVisible" Value="true" />
+          </ia:DataTriggerBehavior>
+          <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}"
+              Value="{x:Static models:NavigationPageEnum.Vocab}" ComparisonCondition="NotEqual">
+            <ia:ChangePropertyAction PropertyName="IsVisible" Value="false" />
           </ia:DataTriggerBehavior>
         </i:Interaction.Behaviors>
       </views:VocabPage>
@@ -40,6 +52,10 @@
               Value="{x:Static models:NavigationPageEnum.Srs}">
             <ia:ChangePropertyAction PropertyName="IsVisible" Value="true" />
           </ia:DataTriggerBehavior>
+          <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}"
+              Value="{x:Static models:NavigationPageEnum.Srs}" ComparisonCondition="NotEqual">
+            <ia:ChangePropertyAction PropertyName="IsVisible" Value="false" />
+          </ia:DataTriggerBehavior>
         </i:Interaction.Behaviors>
       </views:SrsPage>
       <views:SettingsPage IsVisible="False">
@@ -47,6 +63,10 @@
           <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}"
               Value="{x:Static models:NavigationPageEnum.Settings}">
             <ia:ChangePropertyAction PropertyName="IsVisible" Value="true" />
+          </ia:DataTriggerBehavior>
+          <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}"
+              Value="{x:Static models:NavigationPageEnum.Settings}" ComparisonCondition="NotEqual">
+            <ia:ChangePropertyAction PropertyName="IsVisible" Value="false" />
           </ia:DataTriggerBehavior>
         </i:Interaction.Behaviors>
       </views:SettingsPage>
