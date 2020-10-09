@@ -10,16 +10,14 @@
         <StackPanel Orientation="Horizontal" Margin="0 2 0 3">
             <NumericUpDown Value="{Binding QuickDelayHours}" Width="60"/>
             <TextBlock Margin="6 0 0 0" Foreground="Black" Classes="LegendText">
-                <TextBlock.Styles>
-                  <Style Selector="TextBlock">
-                    <i:Interaction.Behaviors>
-                      <ia:DataTriggerBehavior Binding="{Binding QuickDelayHours}" Value="1">
-                        <ia:ChangePropertyAction Value="hour" PropertyName="Text"/>
-                      </ia:DataTriggerBehavior>
-                    </i:Interaction.Behaviors>
-                    <Setter Property="Text" Value="hours"/>
-                  </Style>
-                </TextBlock.Styles>
+              <i:Interaction.Behaviors>
+                <ia:DataTriggerBehavior Binding="{Binding QuickDelayHours}" Value="1">
+                  <ia:ChangePropertyAction Value="hour" PropertyName="Text"/>
+                </ia:DataTriggerBehavior>
+                <ia:DataTriggerBehavior Binding="{Binding QuickDelayHours}" Value="1" ComparisonCondition="NotEqual">
+                  <ia:ChangePropertyAction Value="hours" PropertyName="Text"/>
+                </ia:DataTriggerBehavior>
+              </i:Interaction.Behaviors>
             </TextBlock>
         </StackPanel>
         <TextBlock Classes="LegendText" TextWrapping="Wrap">

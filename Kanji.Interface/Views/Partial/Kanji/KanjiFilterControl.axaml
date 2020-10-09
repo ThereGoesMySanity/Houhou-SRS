@@ -52,16 +52,7 @@
                 <ia:DataTriggerBehavior Binding="{Binding MainFilterMode, Mode=OneWay}" Value="{x:Static models:KanjiFilterModeEnum.Meaning}">
                   <ia:ChangePropertyAction Value="False" PropertyName="IsKanaInput"/>
                 </ia:DataTriggerBehavior>
-                <ia:DataTriggerBehavior Binding="{Binding MainFilterMode, Mode=OneWay}" Value="{x:Static models:KanjiFilterModeEnum.AnyReading}">
-                  <ia:ChangePropertyAction Value="True" PropertyName="IsKanaInput"/>
-                </ia:DataTriggerBehavior>
-                <ia:DataTriggerBehavior Binding="{Binding MainFilterMode, Mode=OneWay}" Value="{x:Static models:KanjiFilterModeEnum.KunYomi}">
-                  <ia:ChangePropertyAction Value="True" PropertyName="IsKanaInput"/>
-                </ia:DataTriggerBehavior>
-                <ia:DataTriggerBehavior Binding="{Binding MainFilterMode, Mode=OneWay}" Value="{x:Static models:KanjiFilterModeEnum.OnYomi}">
-                  <ia:ChangePropertyAction Value="True" PropertyName="IsKanaInput"/>
-                </ia:DataTriggerBehavior>
-                <ia:DataTriggerBehavior Binding="{Binding MainFilterMode, Mode=OneWay}" Value="{x:Static models:KanjiFilterModeEnum.Nanori}">
+                <ia:DataTriggerBehavior Binding="{Binding MainFilterMode, Mode=OneWay}" Value="{x:Static models:KanjiFilterModeEnum.Meaning}" ComparisonCondition="NotEqual">
                   <ia:ChangePropertyAction Value="True" PropertyName="IsKanaInput"/>
                 </ia:DataTriggerBehavior>
               </i:Interaction.Behaviors>
@@ -95,7 +86,8 @@
           <TextBlock Grid.Row="3" Grid.ColumnSpan="4" Text="containing the selected radicals:"/>
 
           <!-- 3. Radical list -->
-          <ListBox Name="RadicalList" Grid.Row="4" Grid.ColumnSpan="4" Classes="RadicalList" Margin="0 2" Items="{Binding Radicals, Mode=TwoWay}" SelectionMode="Multiple,Toggle"/>
+          <ListBox Name="RadicalList" Grid.Row="4" Grid.ColumnSpan="4" Classes="RadicalList" Margin="0 2"
+                   Items="{Binding Radicals, Mode=TwoWay}" SelectedItems="{Binding SelectedRadicals, Mode=TwoWay}" SelectionMode="Multiple,Toggle"/>
 
           <!-- 4. Radical filter -->
           <Grid Grid.Row="5" Grid.ColumnSpan="4" Margin="0 5">
@@ -123,12 +115,10 @@
                 <ia:DataTriggerBehavior Binding="{Binding RadicalSortMode}" Value="{x:Static models:RadicalSortModeEnum.Alphabetic}">
                   <ia:ChangePropertyAction Value="True" PropertyName="Tag"/>
                 </ia:DataTriggerBehavior>
+                <ia:DataTriggerBehavior Binding="{Binding RadicalSortMode}" Value="{x:Static models:RadicalSortModeEnum.Alphabetic}" ComparisonCondition="NotEqual">
+                  <ia:ChangePropertyAction Value="False" PropertyName="Tag"/>
+                </ia:DataTriggerBehavior>
               </i:Interaction.Behaviors>
-              <Button.Styles>
-                <Style Selector="Button">
-                  <Setter Property="Tag" Value="False"/>
-                </Style>
-              </Button.Styles>
             </Button>
             <Button Classes="ImageActionButton" Grid.Column="2" Content="pack://application:,,,/Data/UI/SortFrequencyIcon.png" ToolTip.Tip="Sort radicals by frequency"
                     Command="{Binding SetRadicalSortModeCommand}" CommandParameter="{x:Static models:RadicalSortModeEnum.Frequency}">
@@ -136,12 +126,10 @@
                 <ia:DataTriggerBehavior Binding="{Binding RadicalSortMode}" Value="{x:Static models:RadicalSortModeEnum.Frequency}">
                   <ia:ChangePropertyAction Value="True" PropertyName="Tag"/>
                 </ia:DataTriggerBehavior>
+                <ia:DataTriggerBehavior Binding="{Binding RadicalSortMode}" Value="{x:Static models:RadicalSortModeEnum.Frequency}" ComparisonCondition="NotEqual">
+                  <ia:ChangePropertyAction Value="False" PropertyName="Tag"/>
+                </ia:DataTriggerBehavior>
               </i:Interaction.Behaviors>
-              <Button.Styles>
-                <Style Selector="Button">
-                  <Setter Property="Tag" Value="False"/>
-                </Style>
-              </Button.Styles>
             </Button>
           </Grid>
         </Grid>

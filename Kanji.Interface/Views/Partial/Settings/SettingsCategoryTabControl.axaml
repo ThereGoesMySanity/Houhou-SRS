@@ -5,14 +5,15 @@
                     xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" x:Class="Kanji.Interface.Controls.SettingsCategoryTabControl" mc:Ignorable="d" d:DesignHeight="80" d:DesignWidth="300">
 
+        <i:Interaction.Behaviors>
+          <ia:DataTriggerBehavior Binding="{Binding $self.Tag}" ComparisonCondition="Equal" Value="{Binding CurrentCategory}">
+            <ia:ChangePropertyAction Value="0.8" PropertyName="Opacity"/>
+          </ia:DataTriggerBehavior>
+          <ia:DataTriggerBehavior Binding="{Binding $self.Tag}" ComparisonCondition="NotEqual" Value="{Binding CurrentCategory}">
+            <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
+          </ia:DataTriggerBehavior>
+        </i:Interaction.Behaviors>
     <UserControl.Styles>
-        <Style Selector="UserControl">
-            <i:Interaction.Behaviors>
-                <ia:DataTriggerBehavior Binding="{Binding $self.Tag}" ComparisonCondition="Equal" Value="{Binding CurrentCategory}">
-                    <ia:ChangePropertyAction Value="0.8" PropertyName="Opacity"/>
-                </ia:DataTriggerBehavior>
-            </i:Interaction.Behaviors>
-        </Style>
       <Style Selector="UserControl:pointerover">
         <Setter Property="Opacity" Value="0.8" />
       </Style>

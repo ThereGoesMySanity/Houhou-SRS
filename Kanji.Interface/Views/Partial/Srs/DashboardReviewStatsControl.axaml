@@ -40,15 +40,14 @@
 
                 <Viewbox Grid.Row="1">
                     <TextBlock Foreground="#99FFFFFF" TextAlignment="Center" Classes="LegendText">
-                        <TextBlock.Styles>
-                          <Style Selector="TextBlock">
-                            <Setter Property="Text" Value="reviews today"/>
-                          </Style>
-                        </TextBlock.Styles>
                       <i:Interaction.Behaviors>
                         <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TodayReviewsCount,
                                          Source={x:Static business:SrsBusiness.Instance}}" Value="1">
                           <ia:ChangePropertyAction Value="review today" PropertyName="Text"/>
+                        </ia:DataTriggerBehavior>
+                        <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TodayReviewsCount,
+                                         Source={x:Static business:SrsBusiness.Instance}}" Value="1" ComparisonCondition="NotEqual">
+                          <ia:ChangePropertyAction Value="reviews today" PropertyName="Text"/>
                         </ia:DataTriggerBehavior>
                       </i:Interaction.Behaviors>
                     </TextBlock>
@@ -58,43 +57,50 @@
 
         <!-- Total item count -->
         <Border Classes="StatBox">
-            <ToolTip.Tip>
-                <StackPanel>
-                    <TextBlock>
-                        <TextBlock.Styles>
-                            <Style Selector="TextBlock">
-                                <Setter Property="Text">
-                                    <Setter.Value>
-                                        <Binding Path="CurrentReviewInfo.KanjiItemsCount" Source="{x:Static business:SrsBusiness.Instance}" StringFormat="{}{0} kanji items"/>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </TextBlock.Styles>
-                                <i:Interaction.Behaviors>
-                                    <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.KanjiItemsCount,
+          <ToolTip.Tip>
+            <StackPanel>
+              <TextBlock>
+                <i:Interaction.Behaviors>
+                  <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.KanjiItemsCount,
                                          Source={x:Static business:SrsBusiness.Instance}}" Value="1">
-                                        <ia:ChangePropertyAction Value="1 kanji item" PropertyName="Text"/>
-                                    </ia:DataTriggerBehavior>
-                                </i:Interaction.Behaviors>
-                    </TextBlock>
-                    <TextBlock>
-                        <TextBlock.Styles>
-                            <Style Selector="TextBlock">
-                                <Setter Property="Text">
-                                    <Setter.Value>
-                                        <Binding Path="CurrentReviewInfo.VocabItemsCount" Source="{x:Static business:SrsBusiness.Instance}" StringFormat="{}{0} vocab items"/>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </TextBlock.Styles>
-                                <i:Interaction.Behaviors>
-                                    <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.VocabItemsCount,
+                    <ia:ChangePropertyAction Value="1 kanji item" PropertyName="Text"/>
+                  </ia:DataTriggerBehavior>
+                  <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.KanjiItemsCount,
+                                         Source={x:Static business:SrsBusiness.Instance}}" Value="1" ComparisonCondition="NotEqual">
+                    <ia:ChangePropertyAction PropertyName="Text">
+                      <ia:ChangePropertyAction.Value>
+                        <Binding Path="CurrentReviewInfo.KanjiItemsCount" Source="{x:Static business:SrsBusiness.Instance}" StringFormat="{}{0} kanji items"/>
+                      </ia:ChangePropertyAction.Value>
+                    </ia:ChangePropertyAction>
+                  </ia:DataTriggerBehavior>
+                </i:Interaction.Behaviors>
+              </TextBlock>
+              <TextBlock>
+                <TextBlock.Styles>
+                  <Style Selector="TextBlock">
+                    <Setter Property="Text">
+                      <Setter.Value>
+                        <Binding Path="CurrentReviewInfo.VocabItemsCount" Source="{x:Static business:SrsBusiness.Instance}" StringFormat="{}{0} vocab items"/>
+                      </Setter.Value>
+                    </Setter>
+                  </Style>
+                </TextBlock.Styles>
+                <i:Interaction.Behaviors>
+                  <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.VocabItemsCount,
                                          Source={x:Static business:SrsBusiness.Instance}}" Value="1">
-                                        <ia:ChangePropertyAction Value="1 vocab item" PropertyName="Text"/>
-                                    </ia:DataTriggerBehavior>
-                                </i:Interaction.Behaviors>
-                    </TextBlock>
-                </StackPanel>
+                    <ia:ChangePropertyAction Value="1 vocab item" PropertyName="Text"/>
+                  </ia:DataTriggerBehavior>
+                  <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.VocabItemsCount,
+                                         Source={x:Static business:SrsBusiness.Instance}}" Value="1" ComparisonCondition="NotEqual">
+                    <ia:ChangePropertyAction PropertyName="Text">
+                      <ia:ChangePropertyAction.Value>
+                        <Binding Path="CurrentReviewInfo.VocabItemsCount" Source="{x:Static business:SrsBusiness.Instance}" StringFormat="{}{0} vocab items"/>
+                      </ia:ChangePropertyAction.Value>
+                    </ia:ChangePropertyAction>
+                  </ia:DataTriggerBehavior>
+                </i:Interaction.Behaviors>
+              </TextBlock>
+            </StackPanel>
             </ToolTip.Tip>
             <Grid>
                 <Grid.RowDefinitions>
@@ -114,101 +120,97 @@
                          Source={x:Static business:SrsBusiness.Instance}}" FontWeight="SemiBold"/>
                 </Viewbox>
 
-                <Viewbox Grid.Row="1">
-                    <TextBlock Foreground="#99FFFFFF" Classes="LegendText">
-                        <TextBlock.Styles>
-                          <Style Selector="TextBlock">
-                            <Setter Property="Text" Value="total items"/>
-                          </Style>
-                        </TextBlock.Styles>
-                                <i:Interaction.Behaviors>
-                                    <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TotalItemsCount,
+              <Viewbox Grid.Row="1">
+                <TextBlock Foreground="#99FFFFFF" Classes="LegendText">
+                  <i:Interaction.Behaviors>
+                    <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TotalItemsCount,
                                          Source={x:Static business:SrsBusiness.Instance}}" Value="1">
-                                        <ia:ChangePropertyAction Value="total item" PropertyName="Text"/>
-                                    </ia:DataTriggerBehavior>
-                                </i:Interaction.Behaviors>
-                    </TextBlock>
-                </Viewbox>
+                      <ia:ChangePropertyAction Value="total item" PropertyName="Text"/>
+                    </ia:DataTriggerBehavior>
+                    <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TotalItemsCount,
+                                         Source={x:Static business:SrsBusiness.Instance}}" Value="1" ComparisonCondition="NotEqual">
+                      <ia:ChangePropertyAction Value="total items" PropertyName="Text"/>
+                    </ia:DataTriggerBehavior>
+                  </i:Interaction.Behaviors>
+                </TextBlock>
+              </Viewbox>
             </Grid>
         </Border>
 
         <!-- Total review count -->
-        <Border Classes="StatBox">
-            <ToolTip.Tip>
-                <StackPanel>
-                    <TextBlock>
-                        <TextBlock.Styles>
-                            <Style Selector="TextBlock">
-                                <Setter Property="Text">
-                                    <Setter.Value>
-                                        <Binding Path="CurrentReviewInfo.TotalSuccessCount" Source="{x:Static business:SrsBusiness.Instance}" StringFormat="{}{0} reviews succeeded"/>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </TextBlock.Styles>
-                                <i:Interaction.Behaviors>
-                                    <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TotalSuccessCount,
+      <Border Classes="StatBox">
+        <ToolTip.Tip>
+          <StackPanel>
+            <TextBlock>
+              <i:Interaction.Behaviors>
+                <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TotalSuccessCount,
                                          Source={x:Static business:SrsBusiness.Instance}}" Value="1">
-                                        <ia:ChangePropertyAction Value="1 review succeeded" PropertyName="Text"/>
-                                    </ia:DataTriggerBehavior>
-                                </i:Interaction.Behaviors>
-                    </TextBlock>
-                    <TextBlock>
-                        <TextBlock.Styles>
-                            <Style Selector="TextBlock">
-                                <Setter Property="Text">
-                                    <Setter.Value>
-                                        <Binding Path="CurrentReviewInfo.TotalFailureCount" Source="{x:Static business:SrsBusiness.Instance}" StringFormat="{}{0} reviews failed"/>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </TextBlock.Styles>
-                                <i:Interaction.Behaviors>
-                                    <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TotalFailureCount,
+                  <ia:ChangePropertyAction Value="1 review succeeded" PropertyName="Text"/>
+                </ia:DataTriggerBehavior>
+                <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TotalSuccessCount,
+                                         Source={x:Static business:SrsBusiness.Instance}}" Value="1" ComparisonCondition="NotEqual">
+                  <ia:ChangePropertyAction PropertyName="Text">
+                    <ia:ChangePropertyAction.Value>
+                      <Binding Path="CurrentReviewInfo.TotalSuccessCount" Source="{x:Static business:SrsBusiness.Instance}" StringFormat="{}{0} reviews succeeded"/>
+                    </ia:ChangePropertyAction.Value>
+                  </ia:ChangePropertyAction>
+                </ia:DataTriggerBehavior>
+              </i:Interaction.Behaviors>
+            </TextBlock>
+            <TextBlock>
+              <i:Interaction.Behaviors>
+                <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TotalFailureCount,
                                          Source={x:Static business:SrsBusiness.Instance}}" Value="1">
-                                        <ia:ChangePropertyAction Value="1 review failed" PropertyName="Text"/>
-                                    </ia:DataTriggerBehavior>
-                                </i:Interaction.Behaviors>
-                    </TextBlock>
-                </StackPanel>
-            </ToolTip.Tip>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="3*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+                  <ia:ChangePropertyAction Value="1 review failed" PropertyName="Text"/>
+                </ia:DataTriggerBehavior>
+                <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TotalFailureCount,
+                                         Source={x:Static business:SrsBusiness.Instance}}" Value="1" ComparisonCondition="NotEqual">
+                  <ia:ChangePropertyAction PropertyName="Text">
+                    <ia:ChangePropertyAction.Value>
+                      <Binding Path="CurrentReviewInfo.TotalFailureCount" Source="{x:Static business:SrsBusiness.Instance}" StringFormat="{}{0} reviews failed"/>
+                    </ia:ChangePropertyAction.Value>
+                  </ia:ChangePropertyAction>
+                </ia:DataTriggerBehavior>
+              </i:Interaction.Behaviors>
+            </TextBlock>
+          </StackPanel>
+        </ToolTip.Tip>
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
+          </Grid.RowDefinitions>
 
-                <Viewbox>
-                    <Viewbox.RenderTransform>
-                        <TranslateTransform X="-1" Y="-1"/>
-                    </Viewbox.RenderTransform>
-                    <TextBlock Foreground="Black" Text="{Binding CurrentReviewInfo.TotalReviewsCount,
+          <Viewbox>
+            <Viewbox.RenderTransform>
+              <TranslateTransform X="-1" Y="-1"/>
+            </Viewbox.RenderTransform>
+            <TextBlock Foreground="Black" Text="{Binding CurrentReviewInfo.TotalReviewsCount,
                          Source={x:Static business:SrsBusiness.Instance}}" FontWeight="SemiBold"/>
-                </Viewbox>
-                <Viewbox>
-                    <TextBlock Foreground="White" Text="{Binding CurrentReviewInfo.TotalReviewsCount,
+          </Viewbox>
+          <Viewbox>
+            <TextBlock Foreground="White" Text="{Binding CurrentReviewInfo.TotalReviewsCount,
                          Source={x:Static business:SrsBusiness.Instance}}" FontWeight="SemiBold"/>
-                </Viewbox>
+          </Viewbox>
 
-                <Viewbox Grid.Row="1">
-                    <TextBlock Foreground="#99FFFFFF" Classes="LegendText">
-                        <TextBlock.Styles>
-                          <Style Selector="TextBlock">
-                            <Setter Property="Text" Value="totalled reviews"/>
-                          </Style>
-                        </TextBlock.Styles>
-                      <i:Interaction.Behaviors>
-                        <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TotalReviewsCount,
+          <Viewbox Grid.Row="1">
+            <TextBlock Foreground="#99FFFFFF" Classes="LegendText">
+              <i:Interaction.Behaviors>
+                <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TotalReviewsCount,
                                          Source={x:Static business:SrsBusiness.Instance}}" Value="1">
-                          <ia:ChangePropertyAction Value="totalled review" PropertyName="Text"/>
-                        </ia:DataTriggerBehavior>
-                      </i:Interaction.Behaviors>
-                    </TextBlock>
-                </Viewbox>
-            </Grid>
-        </Border>
+                  <ia:ChangePropertyAction Value="totalled review" PropertyName="Text"/>
+                </ia:DataTriggerBehavior>
+                <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.TotalReviewsCount,
+                                         Source={x:Static business:SrsBusiness.Instance}}" Value="1" ComparisonCondition="NotEqual">
+                  <ia:ChangePropertyAction Value="totalled reviews" PropertyName="Text"/>
+                </ia:DataTriggerBehavior>
+              </i:Interaction.Behaviors>
+            </TextBlock>
+          </Viewbox>
+        </Grid>
+      </Border>
 
-        <!-- Average success ratio -->
+      <!-- Average success ratio -->
         <Border Classes="StatBox">
             <Grid>
                 <Grid.RowDefinitions>

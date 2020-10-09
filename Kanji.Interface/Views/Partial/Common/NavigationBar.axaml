@@ -38,15 +38,6 @@
             </Grid.ColumnDefinitions>
             <controls:Label Grid.Column="1" Classes="NavigationPanelTabTitle" Text="SRS"/>
             <TextBlock Grid.ColumnSpan="3" VerticalAlignment="Bottom" Margin="0 0 0 3" HorizontalAlignment="Center" Foreground="White" FontWeight="SemiBold">
-                <TextBlock.Styles>
-                    <Style Selector="TextBlock">
-                        <Setter Property="Text">
-                            <Setter.Value>
-                                <Binding Path="CurrentReviewInfo.AvailableReviewsCount" Source="{x:Static business:SrsBusiness.Instance}" StringFormat="{}{0} reviews"/>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </TextBlock.Styles>
               <i:Interaction.Behaviors>
                 <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.AvailableReviewsCount,
                                    Source={x:Static business:SrsBusiness.Instance}}" Value="0">
@@ -55,6 +46,16 @@
                 <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.AvailableReviewsCount,
                                    Source={x:Static business:SrsBusiness.Instance}}" Value="1">
                   <ia:ChangePropertyAction Value="1 review" PropertyName="Text"/>
+                  <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
+                </ia:DataTriggerBehavior>
+                <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.AvailableReviewsCount,
+                                   Source={x:Static business:SrsBusiness.Instance}}" Value="1" ComparisonCondition="GreaterThan">
+                  <ia:ChangePropertyAction PropertyName="Text">
+                    <ia:ChangePropertyAction.Value>
+                      <Binding Path="CurrentReviewInfo.AvailableReviewsCount" Source="{x:Static business:SrsBusiness.Instance}" StringFormat="{}{0} reviews"/>
+                    </ia:ChangePropertyAction.Value>
+                  </ia:ChangePropertyAction>
+                  <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
                 </ia:DataTriggerBehavior>
               </i:Interaction.Behaviors>
             </TextBlock>
@@ -96,6 +97,10 @@
                 <ia:DataTriggerBehavior Binding="{Binding CheckStatus,
                                    Source={x:Static business:VersionBusiness.Instance}}" Value="UpdateAvailable">
                   <ia:ChangePropertyAction Value="Update available!" PropertyName="Text"/>
+                </ia:DataTriggerBehavior>
+                <ia:DataTriggerBehavior Binding="{Binding CheckStatus,
+                                   Source={x:Static business:VersionBusiness.Instance}}" Value="UpdateAvailable" ComparisonCondition="NotEqual">
+                  <ia:ChangePropertyAction Value="" PropertyName="Text"/>
                 </ia:DataTriggerBehavior>
               </i:Interaction.Behaviors>
             </TextBlock>

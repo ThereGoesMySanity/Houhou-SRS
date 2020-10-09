@@ -54,18 +54,8 @@
                                   </ia:EventTriggerBehavior>
                                 </i:Interaction.Behaviors>
                               </ComboBox>
-                                <TextBox Margin="10 0 0 0" Text="{Binding SelectedEncoding, Mode=TwoWay}" Width="100">
-                                    <TextBox.Styles>
-                                        <Style Selector="TextBox">
-                                            <i:Interaction.Behaviors>
-                                                <ia:DataTriggerBehavior Binding="{Binding SelectedEncodingIndex}" Value="0">
-                                                    <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
-                                                </ia:DataTriggerBehavior>
-                                            </i:Interaction.Behaviors>
-                                            <Setter Property="IsVisible" Value="False"/>
-                                        </Style>
-                                    </TextBox.Styles>
-                                </TextBox>
+                                <TextBox Margin="10 0 0 0" Text="{Binding SelectedEncoding, Mode=TwoWay}" Width="100"
+                                         IsVisible="{Binding !SelectedEncodingIndex}"/>
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>

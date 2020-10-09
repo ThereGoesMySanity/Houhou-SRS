@@ -1,159 +1,145 @@
-<?xml version="1.0" ?><UserControl xmlns="https://github.com/avaloniaui"
+<?xml version="1.0" ?>
+<UserControl xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
                     xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
-                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" x:Class="Kanji.Interface.Controls.SrsEntrySelectionStatsControl" mc:Ignorable="d" d:DesignHeight="80" d:DesignWidth="400">
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" x:Class="Kanji.Interface.Controls.SrsEntrySelectionStatsControl" mc:Ignorable="d" d:DesignHeight="80" d:DesignWidth="400"
+             IsVisible="{Binding !!SelectedItems.Count}">
 
-    <UserControl.Styles>
-      <Style Selector="Border.StatBox" >
-        <Setter Property="BorderBrush" Value="{StaticResource FadedBorderBrush}"/>
-        <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="Padding" Value="5"/>
-        <Setter Property="Background" Value="#99000000"/>
-      </Style>
-    </UserControl.Styles>
+  <UserControl.Styles>
+    <Style Selector="Border.StatBox" >
+      <Setter Property="BorderBrush" Value="{StaticResource FadedBorderBrush}"/>
+      <Setter Property="BorderThickness" Value="1"/>
+      <Setter Property="Padding" Value="5"/>
+      <Setter Property="Background" Value="#99000000"/>
+    </Style>
+  </UserControl.Styles>
 
-    <UserControl.Styles>
-        <Style Selector="UserControl">
+  <UniformGrid Rows="1" Margin="0 0 0 5">
+    <!-- Total review count -->
+    <Border Classes="StatBox">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="3*"/>
+          <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Viewbox>
+          <Viewbox.RenderTransform>
+            <TranslateTransform X="-1" Y="-1"/>
+          </Viewbox.RenderTransform>
+          <TextBlock Foreground="Black" Text="{Binding SelectionTotalReviews}" FontWeight="SemiBold"/>
+        </Viewbox>
+        <Viewbox>
+          <TextBlock Foreground="White" Text="{Binding SelectionTotalReviews}" FontWeight="SemiBold"/>
+        </Viewbox>
+
+        <Viewbox Grid.Row="1">
+          <TextBlock Foreground="#99FFFFFF" Classes="LegendText">
             <i:Interaction.Behaviors>
-                <ia:DataTriggerBehavior Binding="{Binding SelectedItems.Count}" Value="0">
-                    <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
-                </ia:DataTriggerBehavior>
+              <ia:DataTriggerBehavior Binding="{Binding SelectionTotalReviews}" Value="1">
+                <ia:ChangePropertyAction Value="totalled review" PropertyName="Text"/>
+              </ia:DataTriggerBehavior>
+              <ia:DataTriggerBehavior Binding="{Binding SelectionTotalReviews}" Value="1" ComparisonCondition="NotEqual">
+                <ia:ChangePropertyAction Value="totalled reviews" PropertyName="Text"/>
+              </ia:DataTriggerBehavior>
             </i:Interaction.Behaviors>
-        </Style>
-    </UserControl.Styles>
-    
-    <UniformGrid Rows="1" Margin="0 0 0 5">
-        <!-- Total review count -->
-        <Border Classes="StatBox">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="3*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                
-                <Viewbox>
-                    <Viewbox.RenderTransform>
-                        <TranslateTransform X="-1" Y="-1"/>
-                    </Viewbox.RenderTransform>
-                    <TextBlock Foreground="Black" Text="{Binding SelectionTotalReviews}" FontWeight="SemiBold"/>
-                </Viewbox>
-                <Viewbox>
-                    <TextBlock Foreground="White" Text="{Binding SelectionTotalReviews}" FontWeight="SemiBold"/>
-                </Viewbox>
-                
-                <Viewbox Grid.Row="1">
-                    <TextBlock Foreground="#99FFFFFF" Classes="LegendText">
-                                <i:Interaction.Behaviors>
-                                    <ia:DataTriggerBehavior Binding="{Binding SelectionTotalReviews}" Value="1">
-                                        <ia:ChangePropertyAction Value="totalled review" PropertyName="Text"/>
-                                    </ia:DataTriggerBehavior>
-                                </i:Interaction.Behaviors>
-                        <TextBlock.Styles>
-                          <Style Selector="TextBlock">
-                            <Setter Property="Text" Value="totalled reviews"/>
-                          </Style>
-                        </TextBlock.Styles>
-                    </TextBlock>
-                </Viewbox>
-            </Grid>
-        </Border>
-        
-        <!-- Total success count -->
-        <Border Classes="StatBox">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="3*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+          </TextBlock>
+        </Viewbox>
+      </Grid>
+    </Border>
 
-                <Viewbox>
-                    <Viewbox.RenderTransform>
-                        <TranslateTransform X="-1" Y="-1"/>
-                    </Viewbox.RenderTransform>
-                    <TextBlock Foreground="Black" Text="{Binding SelectionTotalSuccesses}" FontWeight="SemiBold"/>
-                </Viewbox>
-                <Viewbox>
-                    <TextBlock Foreground="White" Text="{Binding SelectionTotalSuccesses}" FontWeight="SemiBold"/>
-                </Viewbox>
+    <!-- Total success count -->
+    <Border Classes="StatBox">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="3*"/>
+          <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-                <Viewbox Grid.Row="1">
-                    <TextBlock Foreground="#99FFFFFF" Classes="LegendText">
-                                <i:Interaction.Behaviors>
-                                    <ia:DataTriggerBehavior Binding="{Binding SelectionTotalSuccesses}" Value="1">
-                                        <ia:ChangePropertyAction Value="totalled success" PropertyName="Text"/>
-                                    </ia:DataTriggerBehavior>
-                                </i:Interaction.Behaviors>
-                        <TextBlock.Styles>
-                          <Style Selector="TextBlock">
-                            <Setter Property="Text" Value="totalled successes"/>
-                          </Style>
-                        </TextBlock.Styles>
-                    </TextBlock>
-                </Viewbox>
-            </Grid>
-        </Border>
-        
-        <!-- Total failure count -->
-        <Border Classes="StatBox">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="3*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+        <Viewbox>
+          <Viewbox.RenderTransform>
+            <TranslateTransform X="-1" Y="-1"/>
+          </Viewbox.RenderTransform>
+          <TextBlock Foreground="Black" Text="{Binding SelectionTotalSuccesses}" FontWeight="SemiBold"/>
+        </Viewbox>
+        <Viewbox>
+          <TextBlock Foreground="White" Text="{Binding SelectionTotalSuccesses}" FontWeight="SemiBold"/>
+        </Viewbox>
 
-                <Viewbox>
-                    <Viewbox.RenderTransform>
-                        <TranslateTransform X="-1" Y="-1"/>
-                    </Viewbox.RenderTransform>
-                    <TextBlock Foreground="Black" Text="{Binding SelectionTotalFailures}" FontWeight="SemiBold"/>
-                </Viewbox>
-                <Viewbox>
-                    <TextBlock Foreground="White" Text="{Binding SelectionTotalFailures}" FontWeight="SemiBold"/>
-                </Viewbox>
+        <Viewbox Grid.Row="1">
+          <TextBlock Foreground="#99FFFFFF" Classes="LegendText">
+            <i:Interaction.Behaviors>
+              <ia:DataTriggerBehavior Binding="{Binding SelectionTotalSuccesses}" Value="1">
+                <ia:ChangePropertyAction Value="totalled success" PropertyName="Text"/>
+              </ia:DataTriggerBehavior>
+              <ia:DataTriggerBehavior Binding="{Binding SelectionTotalSuccesses}" Value="1" ComparisonCondition="NotEqual">
+                <ia:ChangePropertyAction Value="totalled successes" PropertyName="Text"/>
+              </ia:DataTriggerBehavior>
+            </i:Interaction.Behaviors>
+          </TextBlock>
+        </Viewbox>
+      </Grid>
+    </Border>
 
-                <Viewbox Grid.Row="1">
-                    <TextBlock Foreground="#99FFFFFF" Classes="LegendText">
-                                <i:Interaction.Behaviors>
-                                    <ia:DataTriggerBehavior Binding="{Binding SelectionTotalFailures}" Value="1">
-                                        <ia:ChangePropertyAction Value="totalled failure" PropertyName="Text"/>
-                                    </ia:DataTriggerBehavior>
-                                </i:Interaction.Behaviors>
-                        <TextBlock.Styles>
-                          <Style Selector="TextBlock">
-                            <Setter Property="Text" Value="totalled failures"/>
-                          </Style>
-                        </TextBlock.Styles>
-                    </TextBlock>
-                </Viewbox>
-            </Grid>
-        </Border>
-        
-        <!-- Average success ratio -->
-        <Border Classes="StatBox">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="3*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+    <!-- Total failure count -->
+    <Border Classes="StatBox">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="3*"/>
+          <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-                <Viewbox>
-                    <Viewbox.RenderTransform>
-                        <TranslateTransform X="-1" Y="-1"/>
-                    </Viewbox.RenderTransform>
-                    <TextBlock Foreground="Black" FontWeight="SemiBold" Text="{Binding SelectionSuccessRatio,
+        <Viewbox>
+          <Viewbox.RenderTransform>
+            <TranslateTransform X="-1" Y="-1"/>
+          </Viewbox.RenderTransform>
+          <TextBlock Foreground="Black" Text="{Binding SelectionTotalFailures}" FontWeight="SemiBold"/>
+        </Viewbox>
+        <Viewbox>
+          <TextBlock Foreground="White" Text="{Binding SelectionTotalFailures}" FontWeight="SemiBold"/>
+        </Viewbox>
+
+        <Viewbox Grid.Row="1">
+          <TextBlock Foreground="#99FFFFFF" Classes="LegendText">
+            <i:Interaction.Behaviors>
+              <ia:DataTriggerBehavior Binding="{Binding SelectionTotalFailures}" Value="1">
+                <ia:ChangePropertyAction Value="totalled failure" PropertyName="Text"/>
+              </ia:DataTriggerBehavior>
+              <ia:DataTriggerBehavior Binding="{Binding SelectionTotalFailures}" Value="1" ComparisonCondition="NotEqual">
+                <ia:ChangePropertyAction Value="totalled failures" PropertyName="Text"/>
+              </ia:DataTriggerBehavior>
+            </i:Interaction.Behaviors>
+          </TextBlock>
+        </Viewbox>
+      </Grid>
+    </Border>
+
+    <!-- Average success ratio -->
+    <Border Classes="StatBox">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="3*"/>
+          <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Viewbox>
+          <Viewbox.RenderTransform>
+            <TranslateTransform X="-1" Y="-1"/>
+          </Viewbox.RenderTransform>
+          <TextBlock Foreground="Black" FontWeight="SemiBold" Text="{Binding SelectionSuccessRatio,
                           Converter={StaticResource PercentageToStringConverter}}"/>
-                </Viewbox>
-                <Viewbox>
-                    <TextBlock Foreground="White" FontWeight="SemiBold" Text="{Binding SelectionSuccessRatio,
+        </Viewbox>
+        <Viewbox>
+          <TextBlock Foreground="White" FontWeight="SemiBold" Text="{Binding SelectionSuccessRatio,
                           Converter={StaticResource PercentageToStringConverter}}"/>
-                </Viewbox>
+        </Viewbox>
 
-                <Viewbox Grid.Row="1">
-                    <TextBlock Foreground="#99FFFFFF" Classes="LegendText" Text="average success"/>
-                </Viewbox>
-            </Grid>
-        </Border>
-    </UniformGrid>
+        <Viewbox Grid.Row="1">
+          <TextBlock Foreground="#99FFFFFF" Classes="LegendText" Text="average success"/>
+        </Viewbox>
+      </Grid>
+    </Border>
+  </UniformGrid>
 </UserControl>

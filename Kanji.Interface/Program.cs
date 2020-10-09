@@ -51,7 +51,7 @@ namespace Kanji.Interface
             RunMainWindow = (args.Any() ? ParsingHelper.ParseBool(args[0]) : null) ?? true;
 
             // Check the mutex.
-            if (RunOnceMutex.WaitOne(TimeSpan.Zero, true))
+            if (true || RunOnceMutex.WaitOne(TimeSpan.Zero, true))
             {
                 // The application is not already running. So let's start it.
                 Run();
@@ -112,8 +112,8 @@ namespace Kanji.Interface
             {
                 // Listen for incoming pipe messages, to allow other processes to
                 // communicate with this one.
-                PipeActor.Initialize(pipeHandler);
-                pipeHandler.StartListening();
+                //PipeActor.Initialize(pipeHandler);
+                //pipeHandler.StartListening();
 
                 AppDomain.CurrentDomain.UnhandledException += OnAppDomainUnhandledException;
                 //app.DispatcherUnhandledException += OnUnhandledException;
@@ -121,9 +121,8 @@ namespace Kanji.Interface
 
                 lifetime.MainWindow = new MainWindow();
                 NavigationActor.Instance.SetMainWindow((MainWindow)lifetime.MainWindow);
-                lifetime.MainWindow.Show();
 
-                app.Instance.Run(new CancellationTokenSource().Token);
+                app.Instance.Run(lifetime.MainWindow);
 
                 // The execution blocks here until the application exits.
             }
