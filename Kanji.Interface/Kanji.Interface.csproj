@@ -14,6 +14,8 @@
     <PackageReference Include="Avalonia" Version="0.10.0-preview5" />
     <PackageReference Include="Avalonia.Controls.DataGrid" Version="0.10.0-preview5" />
     <PackageReference Include="Avalonia.Desktop" Version="0.10.0-preview5" />
+    <PackageReference Include="Avalonia.Diagnostics" Version="0.10.0-preview5" />
+    <PackageReference Include="Avalonia.Native" Version="0.10.0-preview5" />
     <PackageReference Include="Avalonia.Xaml.Behaviors" Version="0.10.0-preview5" />
     <PackageReference Include="Avalonia.Xaml.Interactions" Version="0.10.0-preview5" />
     <PackageReference Include="Avalonia.Xaml.Interactivity" Version="0.10.0-preview5" />
@@ -40,18 +42,6 @@
     <None Remove="Data\Resources\HomePageHelp.xml" />
     <None Remove="Data\Resources\TrayIconAlert.ico" />
     <None Remove="Data\Resources\TrayIconIdle.ico" />
-    <None Remove="Data\UI\CsvIcon.png" />
-    <None Remove="Data\UI\DownIcon.png" />
-    <None Remove="Data\UI\EditIcon.png" />
-    <None Remove="Data\UI\icon.ico" />
-    <None Remove="Data\UI\loading.gif" />
-    <None Remove="Data\UI\PickDate.png" />
-    <None Remove="Data\UI\RefreshIcon.png" />
-    <None Remove="Data\UI\SortAlphabetIcon.png" />
-    <None Remove="Data\UI\SortFrequencyIcon.png" />
-    <None Remove="Data\UI\SortLengthIcon.png" />
-    <None Remove="Data\UI\TrayIconIdle.ico" />
-    <None Remove="Data\UI\WaniKaniIcon.png" />
     <None Remove="Data\UserContent\Radicals\Default\info.xml" />
     <None Remove="Data\UserContent\Radicals\Default\radicals.xml" />
     <None Remove="Data\UserContent\Radicals\Kangxi\info.xml" />
@@ -83,6 +73,11 @@
     <None Remove="Data\UserContent\SrsLevels\Default\levels.xml" />
     <None Remove="Data\UserContent\SrsLevels\WaniKani\info.xml" />
     <None Remove="Data\UserContent\SrsLevels\WaniKani\levels.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\Fonts\NotoSansCJKjp-Thin.otf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Data\KanjiDatabase.sqlite">

@@ -218,7 +218,7 @@ namespace Kanji.Interface.Utilities
             var list = MouseButtons.Split(' ');
             foreach (string s in list)
             {
-                if (Enum.Parse<MouseButton>(s) == button)
+                if (s.Length > 0 && Enum.Parse<MouseButton>(s) == button)
                 {
                     Interaction.ExecuteActions(_resolvedSource, Actions, eventArgs);
                     return;
