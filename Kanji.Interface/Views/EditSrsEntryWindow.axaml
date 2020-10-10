@@ -61,9 +61,9 @@
 
                     <TextBlock Grid.ColumnSpan="2" Classes="LegendText" Text="Kanji character:"/>
                     <TextBox Grid.Row="1" Classes="SrsKanjiInput" Text="{Binding AssociatedKanjiString, Mode=TwoWay}"/>
-                    <Button Grid.Column="1" Grid.Row="1" Margin="0 0 0 0" Content="pack://application:,,,/Data/UI/DownIcon.png"
-                            Command="{Binding ApplyAssociatedKanjiCommand}" ToolTip.Tip="Update fields" Classes="ImageActionButton"
-                            IsEnabled="{Binding AssociatedKanji, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                  <Button Grid.Column="1" Grid.Row="1" Margin="0 0 0 0"
+                          Command="{Binding ApplyAssociatedKanjiCommand}" ToolTip.Tip="Update fields" Classes="ImageActionButton"
+                          IsEnabled="{Binding AssociatedKanji, Converter={x:Static ObjectConverters.IsNotNull}}" Content="/Data/UI/DownIcon.png"/>
                 </Grid>
 
                 <!-- Associated vocab panel -->
@@ -80,8 +80,8 @@
 
                     <TextBlock Grid.ColumnSpan="2" Classes="LegendText" Text="Vocab writing:"/>
                     <TextBox Grid.Row="1" Classes="SrsVocabInput" Text="{Binding AssociatedVocabString, Mode=TwoWay}"/>
-                    <Button Classes="ImageActionButton" Grid.Column="1" Grid.Row="1" Margin="0 0 0 0" Content="pack://application:,,,/Data/UI/DownIcon.png" Command="{Binding ApplyAssociatedVocabCommand}" ToolTip.Tip="Update fields"
-                            IsEnabled="{Binding AssociatedVocab, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+                  <Button Classes="ImageActionButton" Grid.Column="1" Grid.Row="1" Margin="0 0 0 0" Command="{Binding ApplyAssociatedVocabCommand}" ToolTip.Tip="Update fields"
+                          IsEnabled="{Binding AssociatedVocab, Converter={x:Static ObjectConverters.IsNotNull}}" Content="/Data/UI/DownIcon.png"/>
                 </Grid>
 
                 <!-- Entry progress -->

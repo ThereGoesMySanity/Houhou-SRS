@@ -8,6 +8,6 @@ namespace Kanji.Interface.Helpers
 {
     static class UriHelper
     {
-        public static readonly string StyleResourceDictionaryUri = "pack://application:,,,/ViewResources/Style.xaml";
+        public static readonly string StyleResourceDictionaryUri = "/ViewResources/Style.xaml";
     }
 }
