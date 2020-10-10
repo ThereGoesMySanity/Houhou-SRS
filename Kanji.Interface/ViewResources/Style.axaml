@@ -635,7 +635,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border CornerRadius="3" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" Cursor="Hand">
-                        <Image Source="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}" />
+                      <Image Source="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -767,7 +767,7 @@
     <Setter Property="TextWrapping" Value="NoWrap"/>
     <Setter Property="TextAlignment" Value="Center"/>
     <Setter Property="FontSize" Value="64"/>
-    <Setter Property="FontFamily" Value="Noto Sans CJK JP Thin"/>
+    <Setter Property="FontFamily" Value="/Data/Fonts/NotoSansCJKjp-Thin.otf#Noto Sans CJK JP"/>
   </Style>
   <Style Selector="ListBox.MiniRadicalList">
     <i:Interaction.Behaviors>
@@ -887,7 +887,7 @@
                     <Setter Property="FontSize" Value="26"/>
                     <Setter Property="HorizontalAlignment" Value="Center"/>
                     <Setter Property="VerticalAlignment" Value="Center"/>
-                    <Setter Property="FontFamily" Value="Noto Sans CJK JP Thin"/>
+                    <Setter Property="FontFamily" Value="/Data/Fonts/NotoSansCJKjp-Thin.otf#Noto Sans CJK JP"/>
                   </Style>
                 </TextBlock.Styles>
               </TextBlock>
@@ -998,7 +998,7 @@
       <Setter Property="Template">
         <Setter.Value>
           <ControlTemplate TargetType="ListBoxItem">
-            <TextBox Text="{Binding Character}" FontFamily="Noto Sans CJK JP Thin" ToolTip.Tip="{Binding Kanji, Converter={StaticResource KanjiToStringConverter},
+            <TextBox Text="{Binding Character}" FontFamily="/Data/Fonts/NotoSansCJKjp-Thin.otf#Noto Sans CJK JP" ToolTip.Tip="{Binding Kanji, Converter={StaticResource KanjiToStringConverter},
                                             ConverterParameter={x:Static converters:KanjiToStringConversionType.Short}}" Classes="LabelBox">
               <i:Interaction.Behaviors>
                 <utility:ClickTriggerBehavior MouseButtons="Left" EventName="PointerReleased">

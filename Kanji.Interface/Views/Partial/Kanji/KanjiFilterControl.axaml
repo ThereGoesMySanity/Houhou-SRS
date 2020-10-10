@@ -109,8 +109,9 @@
                 </controls:WatermarkService.Watermark>
               </TextBox>
             </Decorator>
-            <Button Classes="ImageActionButton" Grid.Column="1" Margin="5 0" Content="pack://application:,,,/Data/UI/SortAlphabetIcon.png" ToolTip.Tip="Sort radicals by name" 
-                    Command="{Binding SetRadicalSortModeCommand}" CommandParameter="{x:Static models:RadicalSortModeEnum.Alphabetic}">
+            <Button Classes="ImageActionButton" Grid.Column="1" Margin="5 0" ToolTip.Tip="Sort radicals by name"
+                    Command="{Binding SetRadicalSortModeCommand}" CommandParameter="{x:Static models:RadicalSortModeEnum.Alphabetic}"
+                    Content="/Data/UI/SortAlphabetIcon.png">
               <i:Interaction.Behaviors>
                 <ia:DataTriggerBehavior Binding="{Binding RadicalSortMode}" Value="{x:Static models:RadicalSortModeEnum.Alphabetic}">
                   <ia:ChangePropertyAction Value="True" PropertyName="Tag"/>
@@ -120,8 +121,9 @@
                 </ia:DataTriggerBehavior>
               </i:Interaction.Behaviors>
             </Button>
-            <Button Classes="ImageActionButton" Grid.Column="2" Content="pack://application:,,,/Data/UI/SortFrequencyIcon.png" ToolTip.Tip="Sort radicals by frequency"
-                    Command="{Binding SetRadicalSortModeCommand}" CommandParameter="{x:Static models:RadicalSortModeEnum.Frequency}">
+            <Button Classes="ImageActionButton" Grid.Column="2" ToolTip.Tip="Sort radicals by frequency"
+                    Command="{Binding SetRadicalSortModeCommand}" CommandParameter="{x:Static models:RadicalSortModeEnum.Frequency}"
+                    Content="/Data/UI/SortFrequencyIcon.png">
               <i:Interaction.Behaviors>
                 <ia:DataTriggerBehavior Binding="{Binding RadicalSortMode}" Value="{x:Static models:RadicalSortModeEnum.Frequency}">
                   <ia:ChangePropertyAction Value="True" PropertyName="Tag"/>

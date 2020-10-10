@@ -70,6 +70,6 @@
           </ia:DataTriggerBehavior>
         </i:Interaction.Behaviors>
       </views:SettingsPage>
-      <!--<TextBlock FontFamily="./NotoSansCJKjp-Thin.otf#Noto Sans CJK JP Thin" FontSize="32" Foreground="Black" Text="Mahaoren 見ている" />-->
+      <!--<TextBlock FontFamily="/Data/Fonts/NotoSansCJKjp-Thin.otf#Noto Sans CJK JP" FontSize="32" Foreground="Black" Text="Mahaoren 見ている" />-->
     </Panel>
 </Window>
