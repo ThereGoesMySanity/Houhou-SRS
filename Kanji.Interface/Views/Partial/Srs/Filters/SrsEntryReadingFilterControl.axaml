@@ -17,11 +17,14 @@
                     <TextBlock Text="Containing the reading:" Classes="LegendText" VerticalAlignment="Center" Margin="0 0 5 0"/>
 
                     <Decorator Grid.Column="1">
-                        <controls:CommandTextBox Name="FilterTextBox" MaxLength="100" ToolTip.Tip="Enter the reading filter. (CTRL+R)" Text="{Binding ReadingFilter}" ValidationCommand="{Binding ValidateCommand}">
-                            <controls:WatermarkService.Watermark>
-                                <TextBlock HorizontalAlignment="Center">Reading filter</TextBlock>
-                            </controls:WatermarkService.Watermark>
-                        </controls:CommandTextBox>
+                      <controls:CommandTextBox Name="FilterTextBox" MaxLength="100" ToolTip.Tip="Enter the reading filter. (CTRL+R)" Text="{Binding ReadingFilter}" ValidationCommand="{Binding ValidateCommand}"
+                                               Watermark="Reading filter">
+                        <controls:CommandTextBox.Styles>
+                          <Style Selector="TextBlock[Name=watermark]">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                          </Style>
+                        </controls:CommandTextBox.Styles>
+                      </controls:CommandTextBox>
                     </Decorator>
                 </Grid>
             </ControlTemplate>
@@ -42,11 +45,14 @@
 
                             <StackPanel Grid.Row="1">
                                 <Decorator>
-                                    <controls:CommandTextBox Name="FilterTextBox" MaxLength="100" ToolTip.Tip="Enter the reading filter." Text="{Binding ReadingFilter}" ValidationCommand="{Binding ValidateCommand}">
-                                        <controls:WatermarkService.Watermark>
-                                            <TextBlock HorizontalAlignment="Center">Reading filter</TextBlock>
-                                        </controls:WatermarkService.Watermark>
-                                    </controls:CommandTextBox>
+                                  <controls:CommandTextBox Name="FilterTextBox" MaxLength="100" ToolTip.Tip="Enter the reading filter." Text="{Binding ReadingFilter}" ValidationCommand="{Binding ValidateCommand}"
+                                                           Watermark="Reading filter">
+                                    <controls:CommandTextBox.Styles>
+                                      <Style Selector="TextBlock[Name=watermark]">
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                      </Style>
+                                    </controls:CommandTextBox.Styles>
+                                  </controls:CommandTextBox>
                                 </Decorator>
 
                                 <CheckBox Content="Exact match" ToolTip.Tip="When checked, matches only items with this exact expression.

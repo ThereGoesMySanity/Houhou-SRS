@@ -54,7 +54,7 @@
                       <Binding Path="KanjiEntity.ShowStrokes" />
                     </MultiBinding>
                   </Border.IsVisible>
-                  <Grid>
+                  <Panel>
                         <Image HorizontalAlignment="Center" Cursor="Hand">
                             <i:Interaction.Behaviors>
                                 <ia:EventTriggerBehavior EventName="PointerReleased">
@@ -75,7 +75,7 @@
                                 </MultiBinding>
                             </TextBlock.Text>
                         </TextBlock>
-                    </Grid>
+                    </Panel>
                 </Border>
 
               <Border CornerRadius="4" Width="70" Height="60" BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="1" Margin="0 0 10 0"
@@ -206,14 +206,14 @@
                     <Binding Path="NextAnswerDate" Mode="OneWay" Converter="{StaticResource DateTimeToStringConverter}"
                                           ConverterParameter="{x:Static converters:DateTimeToStringConversionEnum.Relative}" StringFormat="{}Next review: {0}."/>
                   </ToolTip.Tip>
-                  <Grid>
+                  <Panel>
                     <TextBlock Foreground="Black" Text="{Binding Level.Name}" HorizontalAlignment="Center" VerticalAlignment="Center">
                       <TextBlock.RenderTransform>
                         <TranslateTransform X="-1" Y="-1"/>
                       </TextBlock.RenderTransform>
                     </TextBlock>
                     <TextBlock Foreground="White" Text="{Binding Level.Name}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                  </Grid>
+                  </Panel>
                 </Border>
               </Grid>
             </WrapPanel>

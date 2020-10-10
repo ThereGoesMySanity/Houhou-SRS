@@ -19,7 +19,7 @@
                             </Grid.RowDefinitions>
 
                             <Border BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="1" Background="{TemplateBinding Background}" Padding="5 0" Cursor="Hand">
-                                <Grid>
+                                <Panel>
                                     <TextBlock Text="{TemplateBinding Text}" Foreground="White" VerticalAlignment="Center" Margin="0 0 0 7"/>
                                     <ContentPresenter Content="{TemplateBinding HeaderContent}"/>
                                     <TextBlock Foreground="#1CFFFFFF" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="10" Tag="{TemplateBinding IsContentShown}">
@@ -33,7 +33,7 @@
                                         </TextBlock.Styles>
                                     </TextBlock>
                                     <Button Name="CommandButton" Click="OnCommandButtonClick" Opacity="0" Command="{TemplateBinding Command}" CommandParameter="{TemplateBinding CommandParameter}"/>
-                                </Grid>
+                                </Panel>
                             </Border>
                           <Border Grid.Row="1" Background="#11000000" BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="1 0 1 1" Padding="5" IsVisible="{TemplateBinding IsContentShown}">
                             <ContentPresenter Content="{TemplateBinding Content}"/>

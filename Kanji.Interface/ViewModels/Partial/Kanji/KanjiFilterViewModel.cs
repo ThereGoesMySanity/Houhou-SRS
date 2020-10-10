@@ -115,6 +115,7 @@ namespace Kanji.Interface.ViewModels
                 if (value != _selectedRadicals)
                 {
                     _selectedRadicals = value;
+                    SelectedRadicals.CollectionChanged += OnRadicalSelectionChanged;
                     RaisePropertyChanged();
                 }
             }
@@ -250,7 +251,6 @@ namespace Kanji.Interface.ViewModels
         public KanjiFilterViewModel()
             : this(new KanjiFilter())
         {
-            SelectedRadicals.CollectionChanged += OnRadicalSelectionChanged;
         }
 
         public KanjiFilterViewModel(KanjiFilter filter)
@@ -512,6 +512,8 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         private void FilterRadicals()
         {
+            if (Radicals == null)
+                return;
             bool filterIsNull = string.IsNullOrWhiteSpace(RadicalFilter);
             string filter = RadicalFilter != null ? RadicalFilter.ToLower() : string.Empty;
 
@@ -566,6 +568,8 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         private void OnRadicalSelectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            if (Radicals == null)
+                return;
             // Set the radicals inside the filter.
             _filter.Radicals = SelectedRadicals.ToArray();
 

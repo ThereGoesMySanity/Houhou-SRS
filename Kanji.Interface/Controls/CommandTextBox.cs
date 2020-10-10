@@ -88,6 +88,7 @@ namespace Kanji.Interface.Controls
         public CommandTextBox()
         {
             _lastValidatedValue = string.Empty;
+            this.GetObservable(TextProperty).Subscribe(OnTextChanged);
         }
 
         #endregion
@@ -177,13 +178,12 @@ namespace Kanji.Interface.Controls
         }
 
         //TODO: https://github.com/AvaloniaUI/Avalonia/issues/418
-        protected void OnTextChanged()
+        protected void OnTextChanged(string newText)
         {
-        //    if (!IsFocused)
-        //    {
-        //        ValidateInput();
-        //    }
-        //    base.OnTextChanged(e);
+            if (!IsFocused)
+            {
+                ValidateInput();
+            }
         }
 
         #endregion

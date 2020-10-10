@@ -43,14 +43,14 @@
                         <ia:ChangePropertyAction Value="{TemplateBinding Background}" PropertyName="Background"/>
                       </ia:DataTriggerBehavior>
                     </i:Interaction.Behaviors>
-                    <Grid>
+                    <Panel>
                       <TextBlock FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black" Text="{Binding Name}">
                         <TextBlock.RenderTransform>
                           <TranslateTransform X="-1" Y="-1"/>
                         </TextBlock.RenderTransform>
                       </TextBlock>
                       <TextBlock FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{TemplateBinding Foreground}" Text="{Binding Name}"/>
-                    </Grid>
+                    </Panel>
                   </Border>
                 </ControlTemplate>
               </Setter.Value>

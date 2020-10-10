@@ -28,8 +28,8 @@
                    TextAlignment="Center"/>
         <Slider Name="LevelSlider" Grid.Column="2" VerticalAlignment="Center"
                 Minimum="0" Maximum="6" Value="{Binding JlptLevel, Mode=TwoWay}"
-                SmallChange="1" MinWidth="50"
-                TickFrequency="NaN" IsSnapToTickEnabled="True" Foreground="Black"
+                TickFrequency="1" SmallChange="1" MinWidth="50"
+                IsSnapToTickEnabled="True" Foreground="Black"
                 ToolTip.Tip="Select the JLPT level to filter by (CTRL+J)">
             <Slider.KeyBindings>
                 <KeyBinding Command="{Binding FilterChangedCommand}" Gesture="Enter" />

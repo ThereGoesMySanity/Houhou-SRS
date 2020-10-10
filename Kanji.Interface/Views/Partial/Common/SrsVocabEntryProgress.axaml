@@ -18,7 +18,7 @@
                         ConverterParameter="{x:Static converters:DateTimeToStringConversionEnum.Relative}"
                         StringFormat="{}Next review: {0}." />
                 </ToolTip.Tip>
-                <Grid>
+                <Panel>
                     <TextBlock Foreground="Black" Text="{Binding Level.Name}"
                                HorizontalAlignment="Center" VerticalAlignment="Center">
                         <TextBlock.RenderTransform>
@@ -27,7 +27,7 @@
                     </TextBlock>
                     <TextBlock Foreground="White" Text="{Binding Level.Name}"
                         HorizontalAlignment="Center" VerticalAlignment="Center" />
-                </Grid>
+                </Panel>
             </Border>
 
             <Border Width="55" Height="{Binding ElementName=SrsLevelIndicator, Path=ActualHeight}" BorderThickness="0 1 0 1"
