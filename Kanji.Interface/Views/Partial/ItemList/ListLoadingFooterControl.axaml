@@ -9,14 +9,14 @@
         xmlns:gif="clr-namespace:AvaloniaGif;assembly=AvaloniaGif"
                     xmlns:controls="clr-namespace:Kanji.Interface.Controls" x:Class="Kanji.Interface.Controls.ListLoadingFooterControl" mc:Ignorable="d" d:DesignHeight="60" d:DesignWidth="500">
 
-    <Grid>
+    <Panel>
         <!-- "Load more" button grid -->
-        <Grid Name="LoadedPanel">
-            <Grid.Styles>
-                <Style Selector="Grid">
+        <Panel Name="LoadedPanel">
+            <Panel.Styles>
+                <Style Selector="Panel">
                     <Setter Property="IsVisible" Value="False"/>
                 </Style>
-            </Grid.Styles>
+            </Panel.Styles>
           <i:Interaction.Behaviors>
             <utility:MultiDataTriggerBehavior>
               <utility:MultiDataTriggerBehavior.Conditions>
@@ -46,7 +46,7 @@
                     </MultiBinding>
                 </Button.Content>
             </Button>
-        </Grid>
+        </Panel>
 
         <!-- "Loading items" label panel -->
         <StackPanel Name="LoadingPanel" Orientation="Horizontal" IsVisible="{Binding IsLoading}">
@@ -68,5 +68,5 @@
             <!--<Image gif:GifImage.SourceUriRaw="/Data/UI/loading.gif" Width="24" Height="24" gif:GifImage.AutoStart="True" Stretch="Fill"/>-->
             <TextBox Classes="LabelBox" VerticalAlignment="Center" FontSize="18" Margin="5,0,0,0" Text="Loading items..."/>
         </StackPanel>
-    </Grid>
+    </Panel>
 </UserControl>

@@ -21,11 +21,14 @@
                     <TextBlock Text="Containing the tag:" Classes="LegendText" VerticalAlignment="Center" Margin="0 0 5 0"/>
 
                     <Decorator Grid.Column="1">
-                        <controls:CommandTextBox Name="FilterTextBox" MaxLength="100" ToolTip.Tip="Enter the tag filter. (CTRL+T)" Text="{Binding TagFilter}" ValidationCommand="{Binding ValidateCommand}">
-                            <controls:WatermarkService.Watermark>
-                                <TextBlock HorizontalAlignment="Center">Tag filter</TextBlock>
-                            </controls:WatermarkService.Watermark>
-                        </controls:CommandTextBox>
+                      <controls:CommandTextBox Name="FilterTextBox" MaxLength="100" ToolTip.Tip="Enter the tag filter. (CTRL+T)" Text="{Binding TagFilter}" ValidationCommand="{Binding ValidateCommand}"
+                                               Watermark="Tag filter">
+                        <controls:CommandTextBox.Styles>
+                          <Style Selector="TextBlock[Name=watermark]">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                          </Style>
+                        </controls:CommandTextBox.Styles>
+                      </controls:CommandTextBox>
                     </Decorator>
                     
                     <Grid Grid.Row="1" Grid.ColumnSpan="2">
@@ -55,11 +58,14 @@
 
                             <StackPanel Grid.Row="1">
                                 <Decorator>
-                                    <controls:CommandTextBox Name="FilterTextBox" MaxLength="100" ToolTip.Tip="Enter the tag filter." Text="{Binding TagFilter}" ValidationCommand="{Binding ValidateCommand}">
-                                        <controls:WatermarkService.Watermark>
-                                            <TextBlock HorizontalAlignment="Center">Tag filter</TextBlock>
-                                        </controls:WatermarkService.Watermark>
-                                    </controls:CommandTextBox>
+                                  <controls:CommandTextBox Name="FilterTextBox" MaxLength="100" ToolTip.Tip="Enter the tag filter." Text="{Binding TagFilter}" ValidationCommand="{Binding ValidateCommand}"
+                                                           Watermark="Tag filter">
+                                    <controls:CommandTextBox.Styles>
+                                      <Style Selector="TextBlock[Name=watermark]">
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                      </Style>
+                                    </controls:CommandTextBox.Styles>
+                                  </controls:CommandTextBox>
                                 </Decorator>
                                 <CheckBox Content="Exact match" ToolTip.Tip="When checked, matches only items with this exact tag expression.
 When unchecked, matches any value containing this tag expression." IsChecked="{Binding IsExactMatch}" Command="{Binding ValidateCommand}" HorizontalAlignment="Center"/>

@@ -99,14 +99,14 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Border Background="{Binding LevelGroup.Color,  Converter={StaticResource ColorToBrushConverter}}" Padding="2 0" BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="2 0 2 0" Height="NaN">
-                                        <Grid>
+                                        <Panel>
                                             <TextBlock Foreground="Black" Text="{Binding Level.Name, }" HorizontalAlignment="Center" VerticalAlignment="Center">
                                                 <TextBlock.RenderTransform>
                                                     <TranslateTransform X="-1" Y="-1"/>
                                                 </TextBlock.RenderTransform>
                                             </TextBlock>
                                             <TextBlock Foreground="White" Text="{Binding Level.Name, }" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Grid>
+                                        </Panel>
                                     </Border>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>

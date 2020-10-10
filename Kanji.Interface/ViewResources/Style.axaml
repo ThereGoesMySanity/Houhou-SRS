@@ -142,54 +142,107 @@
             </Trigger>-->
       </ControlTemplate>
 
-      <DataTemplate x:Key="MiniRadicalInListImageTemplate">
-        <Border Height="26" Width="26" CornerRadius="3" BorderBrush="Black" Background="#86469B" BorderThickness="1" Padding="3" Margin="0 0 4 4">
-          <Image Source="{Binding ImageUri}" Stretch="Uniform"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+      <DataTemplate x:Key="MiniRadicalInListTemplate">
+        <Border Height="26" Width="26" CornerRadius="3" BorderBrush="Black" Background="#86469B" BorderThickness="1" Margin="0 0 4 4">
+            <Panel>
+              <i:Interaction.Behaviors>
+                <ia:DataTriggerBehavior Binding="{Binding HasImage}" Value="True">
+                  <ia:ChangePropertyAction PropertyName="Padding" Value="3"/>
+                  <ia:ChangePropertyAction TargetObject="RadicalText" PropertyName="IsVisible" Value="False"/>
+                  <ia:ChangePropertyAction TargetObject="RadicalImage" PropertyName="IsVisible" Value="True"/>
+                </ia:DataTriggerBehavior>
+                <ia:DataTriggerBehavior Binding="{Binding HasImage}" Value="False">
+                  <ia:ChangePropertyAction PropertyName="Padding" Value="6"/>
+                  <ia:ChangePropertyAction TargetObject="RadicalText" PropertyName="IsVisible" Value="True"/>
+                  <ia:ChangePropertyAction TargetObject="RadicalImage" PropertyName="IsVisible" Value="False"/>
+                </ia:DataTriggerBehavior>
+              </i:Interaction.Behaviors>
+              <TextBlock Name="RadicalText" HorizontalAlignment="Center" Foreground="White" FontSize="12" VerticalAlignment="Center" Text="{Binding Path=Character}"/>
+              <Image Name="RadicalImage" Source="{Binding ImageUri}" Stretch="Uniform"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Panel>
         </Border>
       </DataTemplate>
 
-      <DataTemplate x:Key="MiniRadicalInListTextTemplate">
-        <Border Height="26" Width="26" CornerRadius="3" BorderBrush="Black" Background="#86469B" BorderThickness="1" Padding="6" Margin="0 0 4 4">
-          <TextBlock HorizontalAlignment="Center" Foreground="White" FontSize="12" VerticalAlignment="Center" Text="{Binding Path=Character}"/>
-        </Border>
-      </DataTemplate>
-
-      <DataTemplate x:Key="RadicalInListTextTemplate">
-        <Border Classes="RadicalInListBorder" Background="{Binding $parent[ListBoxItem].Background}">
+      <DataTemplate x:Key="RadicalInListTemplate">
+        <Border Classes="RadicalInListBorder">
+          <i:Interaction.Behaviors>
+            <ia:DataTriggerBehavior Binding="{Binding IsRelevant}" Value="False">
+              <ia:ChangePropertyAction PropertyName="Background" Value="#333333"/>
+            </ia:DataTriggerBehavior>
+            <ia:DataTriggerBehavior Value="True">
+              <ia:DataTriggerBehavior.Binding>
+                <MultiBinding Converter="{x:Static BoolConverters.And}">
+                  <Binding Path="!IsRelevant"/>
+                  <Binding RelativeSource="{RelativeSource Self}" Path="!IsPointerOver"/>
+                </MultiBinding>
+              </ia:DataTriggerBehavior.Binding>
+              <ia:ChangePropertyAction PropertyName="Background" Value="#333333"/>
+            </ia:DataTriggerBehavior>
+            <ia:DataTriggerBehavior Binding="{Binding IsSelected}" Value="True">
+              <ia:ChangePropertyAction PropertyName="Background" Value="#FF2277CB"/>
+            </ia:DataTriggerBehavior>
+            <ia:DataTriggerBehavior Value="True">
+              <ia:DataTriggerBehavior.Binding>
+                <MultiBinding Converter="{x:Static BoolConverters.And}">
+                  <Binding RelativeSource="{RelativeSource Self}" Path="IsPointerOver"/>
+                  <Binding Path="!IsSelected"/>
+                </MultiBinding>
+              </ia:DataTriggerBehavior.Binding>
+              <ia:ChangePropertyAction PropertyName="Background" Value="#8646DD"/>
+            </ia:DataTriggerBehavior>
+            <ia:DataTriggerBehavior Value="True">
+              <ia:DataTriggerBehavior.Binding>
+                <MultiBinding Converter="{x:Static BoolConverters.And}">
+                  <Binding Path="IsRelevant"/>
+                  <Binding Path="!IsSelected"/>
+                  <Binding RelativeSource="{RelativeSource Self}" Path="!IsPointerOver"/>
+                </MultiBinding>
+              </ia:DataTriggerBehavior.Binding>
+              <ia:ChangePropertyAction PropertyName="Background" Value="#86469B"/>
+            </ia:DataTriggerBehavior>
+            <ia:DataTriggerBehavior Binding="{Binding IsAvailable}" Value="Hidden">
+              <ia:ChangePropertyAction PropertyName="IsVisible" Value="False"/>
+            </ia:DataTriggerBehavior>
+            <ia:DataTriggerBehavior Binding="{Binding IsAvailable}" Value="Hidden" ComparisonCondition="NotEqual">
+              <ia:ChangePropertyAction PropertyName="IsVisible" Value="True"/>
+            </ia:DataTriggerBehavior>
+            <ia:DataTriggerBehavior Binding="{Binding IsAvailable}" Value="SemiHidden">
+              <ia:ChangePropertyAction PropertyName="Opacity" Value="0.5"/>
+            </ia:DataTriggerBehavior>
+            <ia:DataTriggerBehavior Binding="{Binding IsAvailable}" Value="SemiHidden" ComparisonCondition="NotEqual">
+              <ia:ChangePropertyAction PropertyName="Opacity" Value="1"/>
+            </ia:DataTriggerBehavior>
+          </i:Interaction.Behaviors>
           <Grid>
             <Grid.RowDefinitions>
               <RowDefinition Height="*"/>
               <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-
-            <!-- Radical character shadow -->
-            <TextBlock HorizontalAlignment="Center" FontSize="32" Foreground="Black" Text="{Binding Reference.Character}">
+            <i:Interaction.Behaviors>
+              <ia:DataTriggerBehavior Binding="{Binding Reference.HasImage}" Value="True">
+                <ia:ChangePropertyAction TargetObject="RadicalTextShadow" PropertyName="IsVisible" Value="False"/>
+                <ia:ChangePropertyAction TargetObject="RadicalText" PropertyName="IsVisible" Value="False"/>
+                <ia:ChangePropertyAction TargetObject="RadicalImage" PropertyName="IsVisible" Value="True"/>
+              </ia:DataTriggerBehavior>
+              <ia:DataTriggerBehavior Binding="{Binding Reference.HasImage}" Value="False">
+                <ia:ChangePropertyAction TargetObject="RadicalTextShadow" PropertyName="IsVisible" Value="True"/>
+                <ia:ChangePropertyAction TargetObject="RadicalText" PropertyName="IsVisible" Value="True"/>
+                <ia:ChangePropertyAction TargetObject="RadicalImage" PropertyName="IsVisible" Value="False"/>
+              </ia:DataTriggerBehavior>
+            </i:Interaction.Behaviors>
+            <TextBlock Name="RadicalTextShadow" HorizontalAlignment="Center" FontSize="32" Foreground="Black" Text="{Binding Reference.Character}">
               <TextBlock.RenderTransform>
                 <TranslateTransform X="-1" Y="-1"/>
               </TextBlock.RenderTransform>
             </TextBlock>
             <!-- Radical character -->
-            <TextBlock HorizontalAlignment="Center" FontSize="32" Text="{Binding Reference.Character}"/>
-
-            <!-- Radical name -->
-            <TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="{Binding Reference.Name}" TextWrapping="Wrap" LineHeight="12"/>
-          </Grid>
-        </Border>
-      </DataTemplate>
-
-      <DataTemplate x:Key="RadicalInListImageTemplate">
-        <Border Classes="RadicalInListBorder" Background="{Binding $parent[ListBoxItem].Background}">
-          <Grid>
-            <Grid.RowDefinitions>
-              <RowDefinition Height="*"/>
-              <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+            <TextBlock Name="RadicalText" HorizontalAlignment="Center" FontSize="32" Text="{Binding Reference.Character}" Foreground="White"/>
 
             <!-- Radical image -->
-            <Image Source="{Binding Reference.ImageUri}" Stretch="None" />
+            <Image Name="RadicalImage" Source="{Binding Reference.ImageUri}" Stretch="None" />
 
             <!-- Radical name -->
-            <TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="{Binding Reference.Name}" TextWrapping="Wrap" LineHeight="12"/>
+            <TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="{Binding Reference.Name}" TextWrapping="Wrap" LineHeight="12" Foreground="White"/>
           </Grid>
         </Border>
       </DataTemplate>
@@ -325,6 +378,93 @@
     <Style Selector="TextBox.ErrorLabel[Text=]">
       <Setter Property="IsVisible" Value="false" />
     </Style>
+
+  <Style Selector="controls|CommandTextBox">
+    <Setter Property="CaretBrush" Value="{DynamicResource ThemeForegroundBrush}" />
+    <Setter Property="Background" Value="{DynamicResource ThemeBackgroundBrush}"/>
+    <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderMidBrush}"/>
+    <Setter Property="BorderThickness" Value="{DynamicResource ThemeBorderThickness}"/>
+    <Setter Property="SelectionBrush" Value="{DynamicResource HighlightBrush}"/>
+    <Setter Property="SelectionForegroundBrush" Value="{DynamicResource HighlightForegroundBrush}"/>
+    <Setter Property="Padding" Value="4"/>
+    <Setter Property="ContextMenu" Value="{StaticResource DefaultTextBoxContextMenu}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="border"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}">
+          <DockPanel Margin="{TemplateBinding Padding}"
+                     HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                     VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+
+            <TextBlock Name="floatingWatermark"
+                       Foreground="{DynamicResource ThemeAccentBrush}"
+                       FontSize="{DynamicResource FontSizeSmall}"
+                       Text="{TemplateBinding Watermark}"
+                       DockPanel.Dock="Top">
+              <TextBlock.IsVisible>
+                <MultiBinding Converter="{x:Static BoolConverters.And}">
+                  <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                           Path="UseFloatingWatermark"/>
+                  <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                           Path="Text"
+                           Converter="{x:Static StringConverters.IsNotNullOrEmpty}"/>
+                </MultiBinding>
+              </TextBlock.IsVisible>
+            </TextBlock>
+
+            <DataValidationErrors>
+
+              <Grid ColumnDefinitions="Auto,*,Auto">
+                <ContentPresenter Grid.Column="0" Grid.ColumnSpan="1" Content="{TemplateBinding InnerLeftContent}"/>
+                <ScrollViewer Grid.Column="1" Grid.ColumnSpan="1"
+                              HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+                              VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
+                  <Panel>
+                    <TextBlock Name="watermark"
+                              Opacity="0.5"
+                              Text="{TemplateBinding Watermark}"
+                              TextAlignment="{TemplateBinding TextAlignment}"
+                              TextWrapping="{TemplateBinding TextWrapping}"
+                              IsVisible="{TemplateBinding Text, Converter={x:Static StringConverters.IsNullOrEmpty}}"/>
+                    <TextPresenter Name="PART_TextPresenter"
+                                    Text="{TemplateBinding Text, Mode=TwoWay}"
+                                    CaretIndex="{TemplateBinding CaretIndex}"
+                                    SelectionStart="{TemplateBinding SelectionStart}"
+                                    SelectionEnd="{TemplateBinding SelectionEnd}"
+                                    TextAlignment="{TemplateBinding TextAlignment}"
+                                    TextWrapping="{TemplateBinding TextWrapping}"
+                                    PasswordChar="{TemplateBinding PasswordChar}"
+                                    RevealPassword="{TemplateBinding RevealPassword}"
+                                    SelectionBrush="{TemplateBinding SelectionBrush}"
+                                    SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
+                                    CaretBrush="{TemplateBinding CaretBrush}" />
+                  </Panel>
+                </ScrollViewer>
+                <ContentPresenter Grid.Column="2" Grid.ColumnSpan="1" Content="{TemplateBinding InnerRightContent}"/>             
+              </Grid>
+            </DataValidationErrors>
+          </DockPanel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+  <Style Selector="controls|CommandTextBox:pointerover /template/ Border#border">
+    <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderHighBrush}"/>
+  </Style>
+  <Style Selector="controls|CommandTextBox:focus /template/ Border#border">
+    <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderHighBrush}"/>
+  </Style>
+  <Style Selector="controls|CommandTextBox:error /template/ Border#border">
+    <Setter Property="BorderBrush" Value="{DynamicResource ErrorBrush}"/>
+  </Style>
+  <Style Selector="controls|CommandTextBox /template/ DockPanel">
+    <Setter Property="Cursor" Value="IBeam" />
+  </Style>
+  <Style Selector="controls|CommandTextBox:disabled /template/ Border#border">
+      <Setter Property="Opacity" Value="{DynamicResource ThemeDisabledOpacity}" />
+  </Style>
 
     <!-- KANJI READING COMPONENTS -->
   <Style Selector="TextBox.ReadingLabelTitle">
@@ -770,14 +910,7 @@
     <Setter Property="FontFamily" Value="/Data/Fonts/NotoSansCJKjp-Thin.otf#Noto Sans CJK JP"/>
   </Style>
   <Style Selector="ListBox.MiniRadicalList">
-    <i:Interaction.Behaviors>
-      <ia:DataTriggerBehavior Binding="{Binding HasImage}" Value="True">
-        <ia:ChangePropertyAction PropertyName="ItemTemplate" Value="{StaticResource MiniRadicalInListImageTemplate}"/>
-      </ia:DataTriggerBehavior>
-      <ia:DataTriggerBehavior Binding="{Binding HasImage}" Value="False">
-        <ia:ChangePropertyAction PropertyName="ItemTemplate" Value="{StaticResource MiniRadicalInListTextTemplate}"/>
-      </ia:DataTriggerBehavior>
-    </i:Interaction.Behaviors>
+    <Setter Property="ItemTemplate" Value="{StaticResource MiniRadicalInListTemplate}"/>
   </Style>
   <Style Selector="ListBox.MiniRadicalList ListBoxItem" >
     <Setter Property="ToolTip.Tip" Value="{Binding Path=Name}"/>
@@ -805,46 +938,10 @@
                 </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
-    <i:Interaction.Behaviors>
-      <ia:DataTriggerBehavior Binding="{Binding Reference.HasImage}" Value="True">
-        <ia:ChangePropertyAction PropertyName="ItemTemplate" Value="{StaticResource RadicalInListImageTemplate}"/>
-      </ia:DataTriggerBehavior>
-      <ia:DataTriggerBehavior Binding="{Binding Reference.HasImage}" Value="False">
-        <ia:ChangePropertyAction PropertyName="ItemTemplate" Value="{StaticResource RadicalInListTextTemplate}"/>
-      </ia:DataTriggerBehavior>
-    </i:Interaction.Behaviors>
+        <Setter Property="ItemTemplate" Value="{StaticResource RadicalInListTemplate}"/>
   </Style>
-  <Style Selector="ListBox.RadicalList ListBoxItem">
-    <Setter Property="Foreground" Value="White"/>
-    <Setter Property="Background" Value="#86469B"/>
-    <i:Interaction.Behaviors>
-      <ia:DataTriggerBehavior Binding="{Binding IsRelevant}" Value="False">
-        <ia:ChangePropertyAction PropertyName="Background" Value="#333333"/>
-      </ia:DataTriggerBehavior>
-      <ia:DataTriggerBehavior Binding="{Binding IsAvailable}" Value="Hidden">
-        <ia:ChangePropertyAction PropertyName="Background" Value="#333333"/>
-      </ia:DataTriggerBehavior>
-      <utility:MultiDataTriggerBehavior>
-        <utility:MultiDataTriggerBehavior.Conditions>
-          <utility:Condition Binding="{Binding IsAvailable}" Value="Hidden" ComparisonCondition="NotEqual"/>
-          <utility:Condition Binding="{Binding IsSelected}" Value="SemiHidden" ComparisonCondition="NotEqual"/>
-          <utility:Condition Binding="{Binding IsRelevant}" Value="True"/>
-        </utility:MultiDataTriggerBehavior.Conditions>
-        <ia:ChangePropertyAction PropertyName="Background" Value="#86469B"/>
-      </utility:MultiDataTriggerBehavior>
-      <ia:DataTriggerBehavior Binding="{Binding IsSelected}" Value="SemiHidden">
-        <ia:ChangePropertyAction PropertyName="Background" Value="#FF2277CB"/>
-      </ia:DataTriggerBehavior>
-      <ia:DataTriggerBehavior Binding="{Binding IsAvailable}" Value="SemiHidden">
-        <ia:ChangePropertyAction PropertyName="Opacity" Value="0.5"/>
-      </ia:DataTriggerBehavior>
-      <ia:DataTriggerBehavior Binding="{Binding IsAvailable}" Value="SemiHidden" ComparisonCondition="NotEqual">
-        <ia:ChangePropertyAction PropertyName="Opacity" Value="1"/>
-      </ia:DataTriggerBehavior>
-    </i:Interaction.Behaviors>
-  </Style>
-  <Style Selector="ListBox.RadicalList ListBoxItem:pointerover[IsSelected=false]">
-    <Setter Property="Background" Value="#8646DD" />
+  <Style Selector="ListBox.RadicalList ListBoxItem /template/ ContentPresenter">
+    <Setter Property="Background" Value="Transparent"/>
   </Style>
   <!--<Style Selector="ListBox.RadicalList :is(ILogicalScrollable)">
     <Setter Property="IsLogicalScrollEnabled" Value="False" />
@@ -2151,14 +2248,10 @@
       <Setter Property="FontWeight" Value="Bold"/>
       <Setter Property="Template">
         <ControlTemplate>
-          <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-            <LayoutTransformControl>
-              <TextBlock Classes="NavigationPanelTabTitleSubShadow NavigationPanelTabTitleSubCommon" Text="{TemplateBinding Text}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}"/>
-            </LayoutTransformControl>
-            <LayoutTransformControl>
-              <TextBlock Classes="NavigationPanelTabTitleSubCommon" Text="{TemplateBinding Text}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}"/>
-            </LayoutTransformControl>
-          </Grid>
+          <Panel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Classes="NavigationPanelTabTitleSubShadow NavigationPanelTabTitleSubCommon" Text="{TemplateBinding Text}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}"/>
+            <TextBlock Classes="NavigationPanelTabTitleSubCommon" Text="{TemplateBinding Text}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}"/>
+          </Panel>
         </ControlTemplate>
       </Setter>
     </Style>
@@ -2174,10 +2267,10 @@
   <Style Selector="controls|Label.NavigationPanelTabTitleKanji">
     <Setter Property="Template">
       <ControlTemplate>
-        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Panel HorizontalAlignment="Center" VerticalAlignment="Center">
           <TextBlock Classes="NavigationPanelTabTitleSubShadow NavigationPanelTabTitleSubCommon" Text="{TemplateBinding Text}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}"/>
           <TextBlock Classes="NavigationPanelTabTitleSubCommon" Text="{TemplateBinding Text}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}"/>
-        </Grid>
+        </Panel>
       </ControlTemplate>
     </Setter>
   </Style>

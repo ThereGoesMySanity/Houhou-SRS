@@ -20,7 +20,7 @@
     </UserControl.Styles>
     
     <Border BorderThickness="1" BorderBrush="#FF999999">
-        <Grid>
+        <Panel>
           <LayoutTransformControl>
             <TextBlock FontSize="18" FontWeight="SemiBold" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Tag, RelativeSource={RelativeSource AncestorType=UserControl},
                  Converter={StaticResource EnumDescriptionConverter}}"/>
@@ -30,6 +30,6 @@
           </LayoutTransformControl>
 
           <Button Opacity="0" Command="{Binding CategorySelectionCommand}" CommandParameter="{Binding Tag, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
-        </Grid>
+        </Panel>
     </Border>
 </UserControl>

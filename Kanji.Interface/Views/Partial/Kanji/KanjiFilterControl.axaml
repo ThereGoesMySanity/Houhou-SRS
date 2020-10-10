@@ -27,37 +27,43 @@
         
         <!-- 0. Multiline text filter -->
         <Decorator Grid.ColumnSpan="4">
-            <controls:CommandTextBox Name="TextFilter" TextWrapping="Wrap" AcceptsReturn="False" Height="45" Margin="0 0 0 5" Text="{Binding TextFilter, Mode=TwoWay}" ToolTip.Tip="Shortcut: (CTRL+T).">
-                <controls:WatermarkService.Watermark>
-                    <TextBlock TextAlignment="Center" VerticalAlignment="Center">
-                        Enter the kanji or a text containing kanji you are looking for.&#x0a;
-                        Example: &quot;今日も明日&quot; will give the kanji 今, 日 and 明.
-                    </TextBlock>
-                </controls:WatermarkService.Watermark>
-            </controls:CommandTextBox>
+          <controls:CommandTextBox Name="TextFilter" TextWrapping="Wrap" AcceptsReturn="False" Height="45" Margin="0 0 0 5" Text="{Binding TextFilter, Mode=TwoWay}" ToolTip.Tip="Shortcut: (CTRL+T).">
+            <controls:CommandTextBox.Styles>
+              <Style Selector="TextBlock[Name=watermark]">
+                <Setter Property="TextAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+              </Style>
+            </controls:CommandTextBox.Styles>
+            <controls:CommandTextBox.Watermark>
+              Enter the kanji or a text containing kanji you are looking for.
+              Example: &quot;今日も明日&quot; will give the kanji 今, 日 and 明.
+            </controls:CommandTextBox.Watermark>
+          </controls:CommandTextBox>
         </Decorator>
 
         <!-- 1. Reading/meaning filter -->
         <TextBlock Grid.Row="1" Text="with" Margin="0 0 5 0" VerticalAlignment="Center"/>
         <Decorator Grid.Row="1" Grid.Column="1">
-            <controls:CommandTextBox Name="Filter" Text="{Binding MainFilter, Mode=TwoWay}" ToolTip.Tip="Shortcut: (CTRL+F).">
-                <controls:WatermarkService.Watermark>
-                    <TextBlock TextAlignment="Center" VerticalAlignment="Center">
-                        <TextBlock.Text>
-                            <Binding StringFormat="Enter the filter for {0}." Path="MainFilterMode" Converter="{StaticResource EnumDescriptionConverter}" Mode="OneWay"/>
-                        </TextBlock.Text>
-                    </TextBlock>
-                </controls:WatermarkService.Watermark>
-              <i:Interaction.Behaviors>
-                <ia:DataTriggerBehavior Binding="{Binding MainFilterMode, Mode=OneWay}" Value="{x:Static models:KanjiFilterModeEnum.Meaning}">
-                  <ia:ChangePropertyAction Value="False" PropertyName="IsKanaInput"/>
-                </ia:DataTriggerBehavior>
-                <ia:DataTriggerBehavior Binding="{Binding MainFilterMode, Mode=OneWay}" Value="{x:Static models:KanjiFilterModeEnum.Meaning}" ComparisonCondition="NotEqual">
-                  <ia:ChangePropertyAction Value="True" PropertyName="IsKanaInput"/>
-                </ia:DataTriggerBehavior>
-              </i:Interaction.Behaviors>
-            </controls:CommandTextBox>
-          </Decorator>
+          <controls:CommandTextBox Name="Filter" Text="{Binding MainFilter, Mode=TwoWay}" ToolTip.Tip="Shortcut: (CTRL+F).">
+            <controls:CommandTextBox.Styles>
+              <Style Selector="TextBlock[Name=watermark]">
+                <Setter Property="TextAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+              </Style>
+            </controls:CommandTextBox.Styles>
+            <controls:CommandTextBox.Watermark>
+              <Binding StringFormat="Enter the filter for {0}." Path="MainFilterMode" Converter="{StaticResource EnumDescriptionConverter}" Mode="OneWay"/>
+            </controls:CommandTextBox.Watermark>
+            <i:Interaction.Behaviors>
+              <ia:DataTriggerBehavior Binding="{Binding MainFilterMode, Mode=OneWay}" Value="{x:Static models:KanjiFilterModeEnum.Meaning}">
+                <ia:ChangePropertyAction Value="False" PropertyName="IsKanaInput"/>
+              </ia:DataTriggerBehavior>
+              <ia:DataTriggerBehavior Binding="{Binding MainFilterMode, Mode=OneWay}" Value="{x:Static models:KanjiFilterModeEnum.Meaning}" ComparisonCondition="NotEqual">
+                <ia:ChangePropertyAction Value="True" PropertyName="IsKanaInput"/>
+              </ia:DataTriggerBehavior>
+            </i:Interaction.Behaviors>
+          </controls:CommandTextBox>
+        </Decorator>
           <TextBlock Grid.Row="1" Grid.Column="2" Text="as" VerticalAlignment="Center" Margin="5,0"/>
       <ComboBox Name="FilterModeCombobox" Grid.Row="1" Grid.Column="3" Items="{Binding Source={utility:EnumBindingSource {x:Type models:KanjiFilterModeEnum}}}" SelectedItem="{Binding MainFilterMode}" >
         <i:Interaction.Behaviors>
@@ -98,15 +104,17 @@
               <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Decorator>
-              <TextBox Name="RadicalNameFilter" Text="{Binding RadicalFilter, Mode=TwoWay}" ToolTip.Tip="Type the filter until one single result remains, then press Enter to select or deselect it (CTRL+R).">
+              <TextBox Name="RadicalNameFilter" Text="{Binding RadicalFilter, Mode=TwoWay}" ToolTip.Tip="Type the filter until one single result remains, then press Enter to select or deselect it (CTRL+R)."
+                       Watermark="Filter radicals by name">
                 <TextBox.KeyBindings>
                   <KeyBinding Command="{Binding SendRadicalFilterCommand}" Gesture="Enter"/>
                 </TextBox.KeyBindings>
-                <controls:WatermarkService.Watermark>
-                  <TextBlock TextAlignment="Center" VerticalAlignment="Center">
-                    Filter radicals by name
-                  </TextBlock>
-                </controls:WatermarkService.Watermark>
+                <TextBox.Styles>
+                  <Style Selector="TextBlock[Name=watermark]">
+                    <Setter Property="TextAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                  </Style>
+                </TextBox.Styles>
               </TextBox>
             </Decorator>
             <Button Classes="ImageActionButton" Grid.Column="1" Margin="5 0" ToolTip.Tip="Sort radicals by name"

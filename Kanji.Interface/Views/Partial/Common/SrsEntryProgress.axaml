@@ -25,7 +25,7 @@
             <!-- Level indicator -->
             <Border Grid.Column="1" Background="{Binding LevelGroup.Color, Converter={StaticResource ColorToBrushConverter}}"
                     Padding="5 0" BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="5 0 0 0">
-                <Grid>
+                <Panel>
                     <TextBlock Foreground="Black" Text="{Binding Level.Name}"
                                HorizontalAlignment="Center" VerticalAlignment="Center">
                         <TextBlock.RenderTransform>
@@ -34,7 +34,7 @@
                     </TextBlock>
                     <TextBlock Foreground="White" Text="{Binding Level.Name}"
                                HorizontalAlignment="Center" VerticalAlignment="Center" />
-                </Grid>
+                </Panel>
             </Border>
             <Grid Grid.Row="1" Grid.ColumnSpan="2">
                 <Grid.ColumnDefinitions>
