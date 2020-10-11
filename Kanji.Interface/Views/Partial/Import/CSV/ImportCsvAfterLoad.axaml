@@ -29,10 +29,10 @@
         </Grid.RowDefinitions>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
             <StackPanel>
-                <HeaderedContentControl BorderBrush="#666666" Padding="5">
-                    <HeaderedContentControl.Header>
+                <Expander IsExpanded="True" BorderBrush="#666666" Padding="5">
+                    <Expander.Header>
                         <TextBlock Text="Field configuration" Classes="SettingCategoryTitle" />
-                    </HeaderedContentControl.Header>
+                    </Expander.Header>
                     <StackPanel>
                         <TextBlock FontSize="14" TextWrapping="Wrap" Margin="0 0 0 3">
                             Please configure how fields are arranged in your CSV document.&#x0a;
@@ -130,7 +130,7 @@
                             </ComboBox.ItemTemplate>
                         </ComboBox>
                     </StackPanel>
-                </HeaderedContentControl>
+                </Expander>
 
                 <controls:ImportDuplicateBehaviorControl Margin="0 10 0 0" />
                 <controls:ImportTimingControl Margin="0 10 0 0" />

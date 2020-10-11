@@ -80,7 +80,7 @@ namespace Kanji.Interface.Controls
 
             AffectsMeasure<Label>(TextWrappingProperty, TextTrimmingProperty, TextProperty, LineHeightProperty, MaxLinesProperty);
 
-            Observable.Merge(TextProperty.Changed, ForegroundProperty.Changed,
+            Observable.Merge<AvaloniaPropertyChangedEventArgs>(TextProperty.Changed, ForegroundProperty.Changed,
                 TextAlignmentProperty.Changed, TextWrappingProperty.Changed,
                 TextTrimmingProperty.Changed, FontSizeProperty.Changed,
                 FontStyleProperty.Changed, FontWeightProperty.Changed,

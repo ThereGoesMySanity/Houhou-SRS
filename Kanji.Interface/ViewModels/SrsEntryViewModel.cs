@@ -687,15 +687,15 @@ namespace Kanji.Interface.ViewModels
         /// Command callback.
         /// Called to delete the SRS entry.
         /// </summary>
-        private void OnDelete()
+        private async void OnDelete()
         {
-            var result = MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
+            var result = await MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
             {
                 ContentTitle = "Delete the SRS item",
                 ContentMessage = "Do you really want to delete the SRS item?",
                 ButtonDefinitions = MessageBox.Avalonia.Enums.ButtonEnum.YesNo,
-            }).ShowDialog(NavigationActor.Instance.ActiveWindow);
-            if (result.Result == ButtonResult.Yes)
+            }).ShowDialog(NavigationActor.Instance.MainWindow);
+            if (result == ButtonResult.Yes)
             {
                 SendEntity(SrsEntryOperationEnum.Delete);
             }

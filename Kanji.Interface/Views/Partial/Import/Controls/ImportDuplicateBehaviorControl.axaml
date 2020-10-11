@@ -5,10 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <HeaderedContentControl BorderBrush="#666666" Padding="5" DataContext="{Binding ParentMode.DuplicateOptions}">
-        <HeaderedContentControl.Header>
+    <Expander IsExpanded="True" BorderBrush="#666666" Padding="5" DataContext="{Binding ParentMode.DuplicateOptions}">
+        <Expander.Header>
             <TextBlock Text="Duplicate case behavior" Classes="SettingCategoryTitle" />
-        </HeaderedContentControl.Header>
+        </Expander.Header>
         <StackPanel>
             <TextBlock Classes="LegendText" TextWrapping="Wrap" Margin="0 0 0 8">
                                 When an already existing item has the same kanji reading and item type...
@@ -29,5 +29,5 @@
                 <RadioButton GroupName="DuplicateOldBehavior" Content="Disable the existing item" IsChecked="{Binding DuplicateExistingItemAction, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Disable}" />
             </StackPanel>
         </StackPanel>
-    </HeaderedContentControl>
+    </Expander>
 </UserControl>

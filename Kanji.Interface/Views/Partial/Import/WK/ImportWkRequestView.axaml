@@ -51,10 +51,10 @@
             <TextBox Classes="ErrorLabel LabelBox" Text="{Binding Error, Mode=OneWay}"/>
 
             <Border IsVisible="{Binding IsComplete}">
-                    <HeaderedContentControl BorderBrush="#666666" Padding="5" Margin="0 5 0 0">
-                        <HeaderedContentControl.Header>
+                    <Expander IsExpanded="True" BorderBrush="#666666" Padding="5" Margin="0 5 0 0">
+                        <Expander.Header>
                             <TextBlock Text="Results" Classes="SettingCategoryTitle"/>
-                        </HeaderedContentControl.Header>
+                        </Expander.Header>
                         <StackPanel>
                             <TextBlock>
                                 <TextBlock.Text>
@@ -72,7 +72,7 @@
                                 </TextBlock.Text>
                             </TextBlock>
                         </StackPanel>
-                    </HeaderedContentControl>
+                    </Expander>
                 </Border>
             </StackPanel>
         </ScrollViewer>

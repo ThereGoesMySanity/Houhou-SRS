@@ -76,15 +76,6 @@
                 </i:Interaction.Behaviors>
               </TextBlock>
               <TextBlock>
-                <TextBlock.Styles>
-                  <Style Selector="TextBlock">
-                    <Setter Property="Text">
-                      <Setter.Value>
-                        <Binding Path="CurrentReviewInfo.VocabItemsCount" Source="{x:Static business:SrsBusiness.Instance}" StringFormat="{}{0} vocab items"/>
-                      </Setter.Value>
-                    </Setter>
-                  </Style>
-                </TextBlock.Styles>
                 <i:Interaction.Behaviors>
                   <ia:DataTriggerBehavior Binding="{Binding CurrentReviewInfo.VocabItemsCount,
                                          Source={x:Static business:SrsBusiness.Instance}}" Value="1">

@@ -30,10 +30,10 @@
                 </StackPanel>
         
                 <!-- Header parameter -->
-                <HeaderedContentControl BorderBrush="#666666" Padding="5" Margin="0 5 0 0">
-                    <HeaderedContentControl.Header>
+                <Expander IsExpanded="True" BorderBrush="#666666" Padding="5" Margin="0 5 0 0">
+                    <Expander.Header>
                         <TextBlock Text="CSV parsing configuration" Classes="SettingCategoryTitle"/>
-                    </HeaderedContentControl.Header>
+                    </Expander.Header>
                     <StackPanel>
                         <CheckBox Margin="0 10 0 0" Content="First line is a header" IsChecked="{Binding CsvHasHeader}" ToolTip.Tip="Check to specify that the first row of the CSV file is a Header row, i.e. specifies the name of the columns."/>
                         <StackPanel Margin="0 10 0 0">
@@ -59,7 +59,7 @@
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
-                </HeaderedContentControl>
+                </Expander>
             </StackPanel>
         </ScrollViewer>
 

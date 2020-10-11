@@ -23,10 +23,10 @@ namespace Kanji.Interface.ViewModels
             return Properties.Settings.Default.SrsLevelSetName;
         }
 
-        protected override bool CanChangeSet(UserResourceSetInfo setInfo)
+        protected override async Task<bool> CanChangeSet(UserResourceSetInfo setInfo)
         {
             // Show validation messagebox.
-            var result = MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
+            var result = await MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
             {
                 ContentTitle = "SRS level set change warning",
                 ContentMessage = "Please be aware that modifying the SRS level set may block "
@@ -35,8 +35,8 @@ namespace Kanji.Interface.ViewModels
                 + "scheduled review dates will not be affected.",
                 ButtonDefinitions = ButtonEnum.OkCancel,
                 Icon = Icon.Warning,
-            }).ShowDialog(NavigationActor.Instance.ActiveWindow);
-            return result.Result == ButtonResult.Ok;
+            }).ShowDialog(NavigationActor.Instance.MainWindow);
+            return result == ButtonResult.Ok;
         }
 
         public override bool IsSettingChanged()

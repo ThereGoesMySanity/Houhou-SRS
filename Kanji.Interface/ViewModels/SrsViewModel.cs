@@ -163,7 +163,7 @@ namespace Kanji.Interface.ViewModels
 
             // Show the modal entry edition window.
             EditSrsEntryWindow wnd = new EditSrsEntryWindow(entry);
-            wnd.ShowDialog(NavigationActor.Instance.ActiveWindow);
+            wnd.ShowDialog(NavigationActor.Instance.MainWindow);
 
             // When it is closed, get the result.
             ExtendedSrsEntry result = wnd.Result;

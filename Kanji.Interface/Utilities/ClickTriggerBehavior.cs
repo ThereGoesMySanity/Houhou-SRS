@@ -3,7 +3,6 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.VisualTree;
 using Avalonia.Xaml.Interactivity;
-using DynamicData.Kernel;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -27,17 +26,14 @@ namespace Kanji.Interface.Utilities
                     return;
                 }
 
-                var oldEventName = (string?)e.OldValue;
-                var newEventName = (string?)e.NewValue;
-
-                if (oldEventName != null)
+                if (e.OldValue.HasValue)
                 {
-                    behavior.UnregisterEvent(oldEventName);
+                    behavior.UnregisterEvent(e.OldValue.Value);
                 }
 
-                if (newEventName != null)
+                if (e.NewValue.HasValue)
                 {
-                    behavior.RegisterEvent(newEventName);
+                    behavior.RegisterEvent(e.NewValue.Value);
                 }
             });
 

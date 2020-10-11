@@ -121,7 +121,7 @@ namespace Kanji.Interface.ViewModels
             IsEditMode = true;
         }
 
-        private void OnSetDirectory()
+        private async void OnSetDirectory()
         {
             // Check that the directory exists.
             if (!Directory.Exists(_userDirectoryPath))
@@ -143,13 +143,13 @@ namespace Kanji.Interface.ViewModels
             }
 
             // Show dialog.
-            MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
+            await MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
             {
                 ButtonDefinitions = ButtonEnum.Ok,
                 ContentTitle = "User directory changed",
                 ContentMessage = $"Your user directory has been successfuly modified. Please restart Houhou completely now.{Environment.NewLine}Please note that for safety reasons, your old directory has not been deleted.",
                 Icon = Icon.Info,
-            }).ShowDialog(NavigationActor.Instance.ActiveWindow).Wait();
+            }).ShowDialog(NavigationActor.Instance.MainWindow);
 
             // Modify values.
             Properties.Settings.Default.UserDirectoryPath = _userDirectoryPath;
