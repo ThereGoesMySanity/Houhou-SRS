@@ -18,3 +18,5 @@ packages
 .nuget
 /Kanji.DatabaseMaker/Resources/JMdict
 .vs
+.vscode/launch.json
+.vscode/tasks.json

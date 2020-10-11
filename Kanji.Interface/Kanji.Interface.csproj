@@ -179,7 +179,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MessageBox.Avalonia" Version="0.10.0-prev2" />
-    <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 
@@ -192,6 +191,8 @@
     <ProjectReference Include="..\Kanji.Database\Kanji.Database.csproj" />
     <ProjectReference Include="..\..\AvaloniaBehaviors\src\Avalonia.Xaml.Behaviors\Avalonia.Xaml.Behaviors.csproj" />
     <ProjectReference Include="..\..\Avalonia\src\Avalonia.Desktop\Avalonia.Desktop.csproj" />
+    <ProjectReference Include="..\..\Avalonia\src\Avalonia.ReactiveUI.Events\Avalonia.ReactiveUI.Events.csproj" />
+    <ProjectReference Include="..\..\Avalonia\src\Avalonia.ReactiveUI\Avalonia.ReactiveUI.csproj" />
   </ItemGroup>
 
   <ItemGroup>
