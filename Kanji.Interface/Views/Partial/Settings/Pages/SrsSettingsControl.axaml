@@ -8,31 +8,31 @@
              d:DesignHeight="600" d:DesignWidth="600">
 
     <StackPanel>
-        <HeaderedContentControl BorderBrush="#666666">
-            <HeaderedContentControl.Header>
+        <Expander IsExpanded="True" BorderBrush="#666666">
+            <Expander.Header>
                 <TextBlock Text="SRS level configuration" Classes="SettingCategoryTitle" />
-            </HeaderedContentControl.Header>
+            </Expander.Header>
             <StackPanel Margin="6 10">
                 <controls:SettingSrsLevelSetControl DataContext="{Binding SrsLevelSetVm}" />
             </StackPanel>
-        </HeaderedContentControl>
-        <HeaderedContentControl BorderBrush="#666666" Margin="0 20 0 0">
-            <HeaderedContentControl.Header>
+        </Expander>
+        <Expander IsExpanded="True" BorderBrush="#666666" Margin="0 20 0 0">
+            <Expander.Header>
                 <TextBlock Text="Reviews" Classes="SettingCategoryTitle" />
-            </HeaderedContentControl.Header>
+            </Expander.Header>
             <StackPanel Margin="6 10">
                 <controls:SettingAutoSkipControl DataContext="{Binding AutoSkipVm}" />
                 <controls:SettingIgnoreAnswerShortcut DataContext="{Binding IgnoreAnswerShortcutVm}" Margin="0 10 0 0" />
             </StackPanel>
-        </HeaderedContentControl>
+        </Expander>
 
-        <HeaderedContentControl BorderBrush="#666666" Margin="0 20 0 0">
-            <HeaderedContentControl.Header>
+        <Expander IsExpanded="True" BorderBrush="#666666" Margin="0 20 0 0">
+            <Expander.Header>
                 <TextBlock Text="SRS items browsing" Classes="SettingCategoryTitle" />
-            </HeaderedContentControl.Header>
+            </Expander.Header>
             <StackPanel Margin="6 10">
                 <controls:SettingSrsEntriesPerPageControl DataContext="{Binding EntriesPerPageVm}" />
             </StackPanel>
-        </HeaderedContentControl>
+        </Expander>
     </StackPanel>
 </UserControl>

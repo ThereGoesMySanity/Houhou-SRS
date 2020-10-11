@@ -190,7 +190,7 @@ namespace Kanji.Interface.ViewModels
         /// Adds a positive or negative delay to the next review date of the SRS entry associated
         /// with the given vocab. The delay is determined by a user setting.
         /// </summary>
-        private void DelaySrsEntry(ExtendedVocab vocab, bool add)
+        private async void DelaySrsEntry(ExtendedVocab vocab, bool add)
         {
             try
             {
@@ -202,13 +202,13 @@ namespace Kanji.Interface.ViewModels
             }
             catch (Exception ex)
             {
-                MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
+                await MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
                 {
                     ContentTitle = "Quick delay error",
                     ContentMessage = $"An error occurred: {ex.Message}",
                     Icon = Icon.Error,
                     ButtonDefinitions = ButtonEnum.Ok,
-                }).ShowDialog(NavigationActor.Instance.ActiveWindow);
+                }).ShowDialog(NavigationActor.Instance.MainWindow);
 
                 LogHelper.GetLogger("Quick SRS delay").Error("An error occured during quick SRS delay.", ex);
             }
@@ -276,7 +276,7 @@ namespace Kanji.Interface.ViewModels
 
             // Show the modal entry edition window.
             EditSrsEntryWindow wnd = new EditSrsEntryWindow(entry);
-            wnd.ShowDialog(NavigationActor.Instance.ActiveWindow);
+            wnd.ShowDialog(NavigationActor.Instance.MainWindow);
 
             // When it is closed, get the result.
             ExtendedSrsEntry result = wnd.Result;
@@ -297,7 +297,7 @@ namespace Kanji.Interface.ViewModels
         /// Called to directly add the calling vocab to the SRS.
         /// </summary>
         /// <param name="vocab">Calling vocab.</param>
-        private void OnQuickAddToSrs(ExtendedVocab vocab)
+        private async void OnQuickAddToSrs(ExtendedVocab vocab)
         {
             SrsEntry entry = new SrsEntry();
             entry.LoadFromVocab(vocab.DbVocab);
@@ -320,13 +320,13 @@ namespace Kanji.Interface.ViewModels
             }
             catch (Exception ex)
             {
-                MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
+                await MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
                 {
                     ContentTitle = "Quick add error",
                     ContentMessage = $"An error occurred: {ex.Message}",
                     Icon = Icon.Error,
                     ButtonDefinitions = ButtonEnum.Ok,
-                }).ShowDialog(NavigationActor.Instance.ActiveWindow);
+                }).ShowDialog(NavigationActor.Instance.MainWindow);
 
                 LogHelper.GetLogger("Quick add").Error("An error occured during quick add.", ex);
             }
@@ -367,7 +367,7 @@ namespace Kanji.Interface.ViewModels
                 // Show the modal entry edition window.
                 EditSrsEntryWindow wnd = new EditSrsEntryWindow(
                     vocab.SrsEntry.Reference.Clone());
-                wnd.ShowDialog(NavigationActor.Instance.ActiveWindow);
+                wnd.ShowDialog(NavigationActor.Instance.MainWindow);
 
                 // When it is closed, get the result.
                 ExtendedSrsEntry result = wnd.Result;

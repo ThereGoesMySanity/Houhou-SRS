@@ -15,30 +15,30 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <HeaderedContentControl BorderBrush="#666666">
-            <HeaderedContentControl.Header>
+        <Expander IsExpanded="True" BorderBrush="#666666">
+            <Expander.Header>
                 <TextBlock Text="Update Settings" Classes="SettingCategoryTitle" />
-            </HeaderedContentControl.Header>
-            <StackPanel Margin="6 10">
+            </Expander.Header>
+              <StackPanel Margin="6 10">
                 <controls:SettingUpdateControl />
                 <controls:SettingDoUpdateCheckControl Margin="0 10 0 0" DataContext="{Binding DoUpdateCheckVm}" />
-            </StackPanel>
-        </HeaderedContentControl>
+              </StackPanel>
+        </Expander>
 
-        <HeaderedContentControl BorderBrush="#666666" Grid.Row="1" Margin="0 20 0 0">
-            <HeaderedContentControl.Header>
+        <Expander IsExpanded="True" BorderBrush="#666666" Grid.Row="1" Margin="0 20 0 0">
+            <Expander.Header>
                 <TextBlock Text="Main Window Settings" Classes="SettingCategoryTitle" />
-            </HeaderedContentControl.Header>
-            <StackPanel Margin="6 10">
+            </Expander.Header>
+              <StackPanel Margin="6 10">
                 <controls:SettingStartPageControl DataContext="{Binding StartPageVm}" />
                 <controls:SettingWindowCloseActionControl DataContext="{Binding WindowCloseActionVm}" Margin="0 10 0 0" />
-            </StackPanel>
-        </HeaderedContentControl>
+              </StackPanel>
+        </Expander>
 
-        <HeaderedContentControl Grid.Row="2" Margin="0 20 0 0" BorderBrush="#666666">
-            <HeaderedContentControl.Header>
+        <Expander IsExpanded="True" Grid.Row="2" Margin="0 20 0 0" BorderBrush="#666666">
+            <Expander.Header>
                 <TextBlock Text="SRS Tray Application Settings" Classes="SettingCategoryTitle" />
-            </HeaderedContentControl.Header>
+            </Expander.Header>
             <StackPanel Margin="6 5 6 10">
                 <TextBlock Margin="0 0 0 15" TextWrapping="Wrap" Classes="LegendText">
                     The SRS Tray Application is the little icon you can see in your notification bar.&#x0a;
@@ -49,12 +49,12 @@
                 <controls:SettingSrsTrayIntervalControl DataContext="{Binding SrsTrayIntervalVm}" Margin="0 0 0 15" />
                 <controls:SettingSrsTrayThresholdControl DataContext="{Binding SrsTrayThresholdVm}" />
             </StackPanel>
-        </HeaderedContentControl>
+        </Expander>
 
-        <HeaderedContentControl Grid.Row="3" Margin="0 20 0 0" BorderBrush="#666666">
-            <HeaderedContentControl.Header>
+        <Expander IsExpanded="True" Grid.Row="3" Margin="0 20 0 0" BorderBrush="#666666">
+            <Expander.Header>
                 <TextBlock Text="Configuration path" Classes="SettingCategoryTitle" />
-            </HeaderedContentControl.Header>
+            </Expander.Header>
             <StackPanel Margin="6 5 6 10">
                 <TextBlock Margin="0 0 0 15" TextWrapping="Wrap" Classes="LegendText">
                     The "User Directory" stores your SRS items and your radicals and SRS sets.&#x0a;
@@ -62,7 +62,7 @@
                 </TextBlock>
                 <controls:SettingUserDirectory DataContext="{Binding UserDirectoryVm}" />
             </StackPanel>
-        </HeaderedContentControl>
+        </Expander>
 
     </Grid>
 </UserControl>

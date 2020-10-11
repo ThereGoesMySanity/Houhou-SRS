@@ -17,6 +17,7 @@ using System.Diagnostics;
 using Avalonia.Controls;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Dialogs;
 
 namespace Kanji.Interface
 {
@@ -31,7 +32,7 @@ namespace Kanji.Interface
 
         #endregion
 
-        public static AppBuilder BuildAvaloniaApp() => AppBuilder.Configure<App>().UsePlatformDetect();
+        public static AppBuilder BuildAvaloniaApp() => AppBuilder.Configure<App>().UsePlatformDetect().UseManagedSystemDialogs();
 
         [STAThread]
         public static void Main(string[] args)
@@ -88,12 +89,6 @@ namespace Kanji.Interface
             // Load the navigation actor.
             NavigationActor.Instance = new NavigationActor();
 
-            var lifetime = new ClassicDesktopStyleApplicationLifetime
-            {
-                ShutdownMode = ShutdownMode.OnMainWindowClose
-            };
-            var app = BuildAvaloniaApp().SetupWithLifetime(lifetime);
-
             // Start loading user resources.
             RadicalStore.Instance.InitializeAsync();
             SrsLevelStore.Instance.InitializeAsync();
@@ -104,27 +99,21 @@ namespace Kanji.Interface
             // Start the version business.
             VersionBusiness.Initialize();
 
-            // Start the SRS business.
-            SrsBusiness.Initialize();
-
+            AppDomain.CurrentDomain.UnhandledException += OnAppDomainUnhandledException;
+            //app.DispatcherUnhandledException += OnUnhandledException;
+            TaskScheduler.UnobservedTaskException += OnUnobservedTaskException;
 
             using (NamedPipeHandler pipeHandler = new NamedPipeHandler(InstanceHelper.InterfaceApplicationGuid))
             {
                 // Listen for incoming pipe messages, to allow other processes to
                 // communicate with this one.
-                //PipeActor.Initialize(pipeHandler);
-                //pipeHandler.StartListening();
-
-                AppDomain.CurrentDomain.UnhandledException += OnAppDomainUnhandledException;
-                //app.DispatcherUnhandledException += OnUnhandledException;
-                TaskScheduler.UnobservedTaskException += OnUnobservedTaskException;
-
-                lifetime.MainWindow = new MainWindow();
-                NavigationActor.Instance.SetMainWindow((MainWindow)lifetime.MainWindow);
-
-                app.Instance.Run(lifetime.MainWindow);
-
-                // The execution blocks here until the application exits.
+                PipeActor.Initialize(pipeHandler);
+                pipeHandler.StartListening();
+                var app = BuildAvaloniaApp().AfterSetup((a) =>
+                {
+                    // Start the SRS business.
+                    SrsBusiness.Initialize();
+                }).StartWithClassicDesktopLifetime(new string[] { });
             }
         }
 

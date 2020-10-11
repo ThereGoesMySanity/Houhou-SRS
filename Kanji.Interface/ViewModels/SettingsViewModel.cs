@@ -185,7 +185,7 @@ namespace Kanji.Interface.ViewModels
         /// Called to navigate to a category.
         /// </summary>
         /// <param name="selectedCategory">Value selected.</param>
-        private void OnCategorySelection(SettingsCategoryEnum selectedCategory)
+        private async void OnCategorySelection(SettingsCategoryEnum selectedCategory)
         {
             if (selectedCategory == _currentCategory)
             {
@@ -194,15 +194,15 @@ namespace Kanji.Interface.ViewModels
 
             if (ContentViewModel.IsChangePending)
             {
-                var task = MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
+                var result = await MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
                 {
                     ContentTitle = "Pending changes",
                     ContentMessage = $"Some changes were not saved{Environment.NewLine}Do you want to save them?",
                     ButtonDefinitions = ButtonEnum.YesNoCancel,
                     Icon = Icon.Info,
-                }).ShowDialog(NavigationActor.Instance.ActiveWindow);
+                }).ShowDialog(NavigationActor.Instance.MainWindow);
 
-                switch (task.Result)
+                switch (result)
                 {
                     case ButtonResult.Yes:
                         OnSaveSettings();
@@ -219,7 +219,7 @@ namespace Kanji.Interface.ViewModels
         /// Command callback.
         /// Called to save current settings.
         /// </summary>
-        private void OnSaveSettings()
+        private async void OnSaveSettings()
         {
             bool needRestart = ContentViewModel.IsRestartNeeded();
 
@@ -228,13 +228,13 @@ namespace Kanji.Interface.ViewModels
 
             if (needRestart)
             {
-                MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
+                await MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
                 {
                     ButtonDefinitions = ButtonEnum.Ok,
                     ContentTitle = "Some settings need restart",
                     ContentMessage = "Some changes will not take effect until the application is restarted.",
                     Icon = Icon.Info,
-                }).ShowDialog(NavigationActor.Instance.ActiveWindow);
+                }).ShowDialog(NavigationActor.Instance.MainWindow);
             }
         }
 

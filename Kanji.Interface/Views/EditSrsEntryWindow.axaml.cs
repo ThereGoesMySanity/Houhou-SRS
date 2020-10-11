@@ -20,6 +20,7 @@ using Kanji.Database.Helpers;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Input;
+using Avalonia;
 
 namespace Kanji.Interface.Views
 {
@@ -60,6 +61,7 @@ namespace Kanji.Interface.Views
         {
             InitializeComponent();
             InitializeViewModel(entity);
+            this.AttachDevTools();
             NavigationActor.Instance.ActiveWindow = this;
             Owner = NavigationActor.Instance.MainWindow;
             WindowStartupLocation = WindowStartupLocation.CenterOwner;

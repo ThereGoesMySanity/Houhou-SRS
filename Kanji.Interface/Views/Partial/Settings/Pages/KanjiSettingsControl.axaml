@@ -9,32 +9,32 @@
 
     <StackPanel>
 
-        <HeaderedContentControl BorderBrush="#666666">
-            <HeaderedContentControl.Header>
+        <Expander IsExpanded="True" BorderBrush="#666666">
+            <Expander.Header>
                 <TextBlock Text="Radical configuration" Classes="SettingCategoryTitle" />
-            </HeaderedContentControl.Header>
+            </Expander.Header>
             <StackPanel Margin="6 10">
                 <controls:SettingRadicalSetControl DataContext="{Binding RadicalSetVm}" />
             </StackPanel>
-        </HeaderedContentControl>
+        </Expander>
 
-        <HeaderedContentControl BorderBrush="#666666" Margin="0 20 0 0">
-            <HeaderedContentControl.Header>
+        <Expander IsExpanded="True" BorderBrush="#666666" Margin="0 20 0 0">
+            <Expander.Header>
                 <TextBlock Text="Kanji list" Classes="SettingCategoryTitle" />
-            </HeaderedContentControl.Header>
+            </Expander.Header>
             <StackPanel Margin="6 10">
                 <controls:SettingKanjiPerPageControl DataContext="{Binding KanjiPerPageVm}" />
             </StackPanel>
-        </HeaderedContentControl>
+        </Expander>
 
-        <HeaderedContentControl BorderBrush="#666666" Margin="0 20 0 0">
-            <HeaderedContentControl.Header>
+        <Expander IsExpanded="True" BorderBrush="#666666" Margin="0 20 0 0">
+            <Expander.Header>
                 <TextBlock Text="Kanji details" Classes="SettingCategoryTitle" />
-            </HeaderedContentControl.Header>
+            </Expander.Header>
             <StackPanel Margin="6 10">
                 <controls:SettingKanjiInfoControl DataContext="{Binding KanjiInfoVm}" />
             </StackPanel>
-        </HeaderedContentControl>
+        </Expander>
 
     </StackPanel>
 </UserControl>

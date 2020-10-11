@@ -7,17 +7,19 @@
                      x:Class="Kanji.Interface.Views.EditSrsEntryWindow" Height="500" Width="500" KeyDown="OnKeyDown">
     <Window.Styles>
         <Style Selector="Window">
-            <i:Interaction.Behaviors>
-                <ia:DataTriggerBehavior Binding="{Binding IsNew}" Value="True">
-                    <ia:ChangePropertyAction Value="SRS item creation" PropertyName="Title"/>
-                </ia:DataTriggerBehavior>
-            </i:Interaction.Behaviors>
             <Setter Property="Background" Value="#E4FBD0"/>
-            <Setter Property="Title" Value="SRS item editing"/>
         </Style>
     </Window.Styles>
-    
-    <Border Padding="5">
+  <i:Interaction.Behaviors>
+    <ia:DataTriggerBehavior Binding="{Binding IsNew}" Value="True">
+      <ia:ChangePropertyAction Value="SRS item creation" PropertyName="Title"/>
+    </ia:DataTriggerBehavior>
+    <ia:DataTriggerBehavior Binding="{Binding IsNew}" Value="False">
+      <ia:ChangePropertyAction Value="SRS item editing" PropertyName="Title"/>
+    </ia:DataTriggerBehavior>
+  </i:Interaction.Behaviors>
+
+  <Border Padding="5">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/> <!-- Meaning column -->

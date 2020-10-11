@@ -389,7 +389,7 @@ namespace Kanji.Interface.ViewModels
                 {
                     DispatcherHelper.Invoke(() =>
                     {
-                        Radicals.OrderBy(x => x, _comparer);
+                        Radicals = Radicals.OrderBy(x => x, _comparer).ToList();
                     });
                 }
             }
@@ -485,6 +485,10 @@ namespace Kanji.Interface.ViewModels
                 RadicalSortMode = value;
                 _comparer.SortMode = value;
                 Kanji.Interface.Properties.Settings.Default.RadicalSortMode = value;
+                DispatcherHelper.InvokeAsync(() =>
+                {
+                    Radicals = Radicals.OrderBy(x => x, _comparer).ToList();
+                });
             }
         }
 

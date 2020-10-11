@@ -166,13 +166,11 @@
       <DataTemplate x:Key="RadicalInListTemplate">
         <Border Classes="RadicalInListBorder">
           <i:Interaction.Behaviors>
-            <ia:DataTriggerBehavior Binding="{Binding IsRelevant}" Value="False">
-              <ia:ChangePropertyAction PropertyName="Background" Value="#333333"/>
-            </ia:DataTriggerBehavior>
             <ia:DataTriggerBehavior Value="True">
               <ia:DataTriggerBehavior.Binding>
                 <MultiBinding Converter="{x:Static BoolConverters.And}">
                   <Binding Path="!IsRelevant"/>
+                  <Binding Path="!IsSelected"/>
                   <Binding RelativeSource="{RelativeSource Self}" Path="!IsPointerOver"/>
                 </MultiBinding>
               </ia:DataTriggerBehavior.Binding>
@@ -220,14 +218,14 @@
             </Grid.RowDefinitions>
             <i:Interaction.Behaviors>
               <ia:DataTriggerBehavior Binding="{Binding Reference.HasImage}" Value="True">
-                <ia:ChangePropertyAction TargetObject="RadicalTextShadow" PropertyName="IsVisible" Value="False"/>
-                <ia:ChangePropertyAction TargetObject="RadicalText" PropertyName="IsVisible" Value="False"/>
-                <ia:ChangePropertyAction TargetObject="RadicalImage" PropertyName="IsVisible" Value="True"/>
+                <ia:ChangePropertyAction TargetObject="{Binding #RadicalTextShadow}" PropertyName="IsVisible" Value="False"/>
+                <ia:ChangePropertyAction TargetObject="{Binding #RadicalText}" PropertyName="IsVisible" Value="False"/>
+                <ia:ChangePropertyAction TargetObject="{Binding #RadicalImage}" PropertyName="IsVisible" Value="True"/>
               </ia:DataTriggerBehavior>
               <ia:DataTriggerBehavior Binding="{Binding Reference.HasImage}" Value="False">
-                <ia:ChangePropertyAction TargetObject="RadicalTextShadow" PropertyName="IsVisible" Value="True"/>
-                <ia:ChangePropertyAction TargetObject="RadicalText" PropertyName="IsVisible" Value="True"/>
-                <ia:ChangePropertyAction TargetObject="RadicalImage" PropertyName="IsVisible" Value="False"/>
+                <ia:ChangePropertyAction TargetObject="{Binding #RadicalTextShadow}" PropertyName="IsVisible" Value="True"/>
+                <ia:ChangePropertyAction TargetObject="{Binding #RadicalText}" PropertyName="IsVisible" Value="True"/>
+                <ia:ChangePropertyAction TargetObject="{Binding #RadicalImage}" PropertyName="IsVisible" Value="False"/>
               </ia:DataTriggerBehavior>
             </i:Interaction.Behaviors>
             <TextBlock Name="RadicalTextShadow" HorizontalAlignment="Center" FontSize="32" Foreground="Black" Text="{Binding Reference.Character}">
@@ -303,6 +301,11 @@
     </ResourceDictionary>
   </Styles.Resources>
   <!-- STYLES -->
+  <Style Selector="RadioButton:unchecked[IsChecked=True]">
+    <Setter Property="IsChecked" Value="True"/>
+    <Setter Property="Background" Value="Red"/>
+  </Style>
+  
   <Style Selector="controls|Label">
     <Setter Property="Template">
       <ControlTemplate>
@@ -1096,7 +1099,7 @@
         <Setter.Value>
           <ControlTemplate TargetType="ListBoxItem">
             <TextBox Text="{Binding Character}" FontFamily="/Data/Fonts/NotoSansCJKjp-Thin.otf#Noto Sans CJK JP" ToolTip.Tip="{Binding Kanji, Converter={StaticResource KanjiToStringConverter},
-                                            ConverterParameter={x:Static converters:KanjiToStringConversionType.Short}}" Classes="LabelBox">
+                                            ConverterParameter={x:Static converters:KanjiToStringConversionType.Short}, Mode=OneWay}" Classes="LabelBox">
               <i:Interaction.Behaviors>
                 <utility:ClickTriggerBehavior MouseButtons="Left" EventName="PointerReleased">
                   <ia:InvokeCommandAction Command="{Binding DataContext.KanjiNavigationCommand,
@@ -2096,12 +2099,7 @@
     <Setter Property="Template">
         <Setter.Value>
           <ControlTemplate TargetType="ListBoxItem">
-            <Border BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="1" Margin="0 0 5 0" Padding="5 3" Width="200">
-              <Border.Styles>
-                <Style Selector="Border">
-                  <Setter Property="Background" Value="White"/>
-                </Style>
-              </Border.Styles>
+            <Border BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="1" Margin="0 0 5 0" Padding="5 3" Width="200" Tag="False" Background="White">
               <i:Interaction.Behaviors>
                 <ia:DataTriggerBehavior Value="True">
                   <ia:DataTriggerBehavior.Binding>
@@ -2112,6 +2110,16 @@
                   </ia:DataTriggerBehavior.Binding>
                   <ia:ChangePropertyAction Value="True" PropertyName="Tag"/>
                   <ia:ChangePropertyAction Value="#CFEFBE" PropertyName="Background"/>
+                </ia:DataTriggerBehavior>
+                <ia:DataTriggerBehavior Value="False">
+                  <ia:DataTriggerBehavior.Binding>
+                    <MultiBinding Converter="{StaticResource ComparablesToBooleanConverter}">
+                      <Binding Path="Name"/>
+                      <Binding Path="DataContext.SelectedSetName" RelativeSource="{RelativeSource AncestorType=UserControl}"/>
+                    </MultiBinding>
+                  </ia:DataTriggerBehavior.Binding>
+                  <ia:ChangePropertyAction Value="False" PropertyName="Tag"/>
+                  <ia:ChangePropertyAction Value="White" PropertyName="Background"/>
                 </ia:DataTriggerBehavior>
               </i:Interaction.Behaviors>
               <Grid>
@@ -2146,9 +2154,8 @@
                                                       RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding .}" Content="Browse" ToolTip.Tip="Open the set directory in the explorer." Margin="0 0 5 0"/>
                   <Button Classes="MiniActionButton ActionButton" Command="{Binding DataContext.SelectSetCommand,
                                                       RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding .}" Content="Use this set" ToolTip.Tip="Sets this set to be used from now on."
-                                           IsVisible="{Binding Tag, RelativeSource={RelativeSource AncestorType=Border},
-                                                      Converter={StaticResource NullValueToBoolConverter}}"/>
-                  <TextBlock Text="In use" VerticalAlignment="Center" HorizontalAlignment="Center" IsVisible="{Binding Tag, RelativeSource={RelativeSource AncestorType=Border}}" />
+                                           IsVisible="{Binding !$parent[Border].Tag}"/>
+                  <TextBlock Text="In use" VerticalAlignment="Center" HorizontalAlignment="Center" IsVisible="{Binding $parent[Border].Tag}"/>
                 </UniformGrid>
               </Grid>
             </Border>
@@ -2184,48 +2191,53 @@
 
 
   <Style Selector="Grid.NavigationPanelKanjiTab">
-    <i:Interaction.Behaviors>
+    <!--TODO-->
+    <!--<i:Interaction.Behaviors>
       <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}" Value="{x:Static models:NavigationPageEnum.Kanji}">
         <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
       </ia:DataTriggerBehavior>
-    </i:Interaction.Behaviors>
+    </i:Interaction.Behaviors>-->
     <Setter Property="Background" Value="{StaticResource KanjiTabGradient}"/>
   </Style>
 
 
   <Style Selector="Grid.NavigationPanelSrsTab">
-    <i:Interaction.Behaviors>
+    <!--TODO-->
+    <!--<i:Interaction.Behaviors>
       <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}" Value="{x:Static models:NavigationPageEnum.Srs}">
         <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
       </ia:DataTriggerBehavior>
-    </i:Interaction.Behaviors>
+    </i:Interaction.Behaviors>-->
     <Setter Property="Background" Value="{StaticResource SrsTabGradient}"/>
   </Style>
 
   <Style Selector="Grid.NavigationPanelVocabTab">
-    <i:Interaction.Behaviors>
+    <!--TODO-->
+    <!--<i:Interaction.Behaviors>
       <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}" Value="{x:Static models:NavigationPageEnum.Vocab}">
         <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
       </ia:DataTriggerBehavior>
-    </i:Interaction.Behaviors>
+    </i:Interaction.Behaviors>-->
     <Setter Property="Background" Value="{StaticResource VocabTabGradient}"/>
   </Style>
 
   <Style Selector="Grid.NavigationPanelSettingsTab">
-    <i:Interaction.Behaviors>
+    <!--TODO-->
+    <!--<i:Interaction.Behaviors>
       <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}" Value="{x:Static models:NavigationPageEnum.Settings}">
         <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
       </ia:DataTriggerBehavior>
-    </i:Interaction.Behaviors>
+    </i:Interaction.Behaviors>-->
     <Setter Property="Background" Value="{StaticResource SettingsTabGradient}"/>
   </Style>
 
   <Style Selector="Grid.NavigationPanelHomeTab">
-    <i:Interaction.Behaviors>
+    <!--TODO-->
+    <!--<i:Interaction.Behaviors>
       <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}" Value="{x:Static models:NavigationPageEnum.Home}">
         <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
       </ia:DataTriggerBehavior>
-    </i:Interaction.Behaviors>
+    </i:Interaction.Behaviors>-->
     <Setter Property="Background" Value="{StaticResource HomeTabGradient}"/>
   </Style>
 
@@ -2265,6 +2277,9 @@
   </Style>
 
   <Style Selector="controls|Label.NavigationPanelTabTitleKanji">
+    <Setter Property="Margin" Value="0 0 0 7"/>
+    <Setter Property="FontSize" Value="24"/>
+    <Setter Property="FontWeight" Value="Bold"/>
     <Setter Property="Template">
       <ControlTemplate>
         <Panel HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -2301,7 +2316,7 @@
     <!--<Style Selector="TextBox.NavigationPanelTabSubtitle" InheritanceParent="{StaticResource LabelBox}" > 
     </Style>-->
 
-    <Style Selector="HeaderedContentControl">
+    <Style Selector="Expander">
       <Setter Property="Template">
         <Setter.Value>
           <ControlTemplate>
@@ -2323,7 +2338,7 @@
       <Setter Property="BorderThickness" Value="1"/>
       <Setter Property="Template">
         <Setter.Value>
-          <ControlTemplate TargetType="{x:Type HeaderedContentControl}">
+          <ControlTemplate TargetType="{x:Type Expander}">
             <Grid UseLayoutRounding="true">
               <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="6"/>

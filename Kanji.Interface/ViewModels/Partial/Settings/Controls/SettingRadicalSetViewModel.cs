@@ -17,9 +17,9 @@ namespace Kanji.Interface.ViewModels
             return Properties.Settings.Default.RadicalSetName;
         }
 
-        protected override bool CanChangeSet(Models.UserResourceSetInfo setInfo)
+        protected override Task<bool> CanChangeSet(Models.UserResourceSetInfo setInfo)
         {
-            return true;
+            return Task.FromResult(true);
         }
 
         public override bool IsSettingChanged()

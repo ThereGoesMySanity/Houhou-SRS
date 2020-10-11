@@ -13,10 +13,10 @@
         </Grid.RowDefinitions>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Name="MainScrollView">
             <StackPanel>
-                <HeaderedContentControl BorderBrush="#666666" Padding="5" Margin="0 5 0 0">
-                    <HeaderedContentControl.Header>
+                <Expander IsExpanded="True" BorderBrush="#666666" Padding="5" Margin="0 5 0 0">
+                    <Expander.Header>
                         <TextBlock Text="WaniKani API key" Classes="SettingCategoryTitle" />
-                    </HeaderedContentControl.Header>
+                    </Expander.Header>
                     <StackPanel>
                         <TextBlock Classes="LegendText" TextWrapping="Wrap">
                             Please enter your WaniKani API key in the box below.&#x0a;
@@ -36,12 +36,12 @@
                           </TextBox>
                         </Decorator>
                     </StackPanel>
-                </HeaderedContentControl>
+                </Expander>
 
-                <HeaderedContentControl BorderBrush="#666666" Padding="5" Margin="0 10 0 0">
-                    <HeaderedContentControl.Header>
+                <Expander IsExpanded="True" BorderBrush="#666666" Padding="5" Margin="0 10 0 0">
+                    <Expander.Header>
                         <TextBlock Text="WaniKani import settings" Classes="SettingCategoryTitle" />
-                    </HeaderedContentControl.Header>
+                    </Expander.Header>
                     <StackPanel>
                         <TextBlock Classes="LegendText">
                             Import...
@@ -71,7 +71,7 @@
                         <TextBox Height="40" MaxLength="300" TextWrapping="Wrap" Text="{Binding ParentMode.Tags, Mode=TwoWay}"
                             ToolTip.Tip="Defines how the Tags field is filled. The special text '%level%' will be replaced by the WaniKani level of the item." />
                     </StackPanel>
-                </HeaderedContentControl>
+                </Expander>
 
                 <controls:ImportDuplicateBehaviorControl Margin="0 10 0 0" />
                 <controls:ImportTimingControl Margin="0 10 0 0" />

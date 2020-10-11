@@ -10,27 +10,27 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FE599D
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kanji.Common", "Kanji.Common\Kanji.Common.csproj", "{D9CC42D4-7281-4293-BBD1-FDF0FFCF8ABF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kanji.Common", "Kanji.Common\Kanji.Common.csproj", "{D9CC42D4-7281-4293-BBD1-FDF0FFCF8ABF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kanji.Database", "Kanji.Database\Kanji.Database.csproj", "{DCABD711-8FB0-4D2A-B312-CCD049F0BC90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kanji.Database", "Kanji.Database\Kanji.Database.csproj", "{DCABD711-8FB0-4D2A-B312-CCD049F0BC90}"
 	ProjectSection(ProjectDependencies) = postProject
 		{D9CC42D4-7281-4293-BBD1-FDF0FFCF8ABF} = {D9CC42D4-7281-4293-BBD1-FDF0FFCF8ABF}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kanji.DatabaseMaker", "Kanji.DatabaseMaker\Kanji.DatabaseMaker.csproj", "{58375F90-F472-49DF-A583-336D86AB678F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kanji.DatabaseMaker", "Kanji.DatabaseMaker\Kanji.DatabaseMaker.csproj", "{58375F90-F472-49DF-A583-336D86AB678F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{DCABD711-8FB0-4D2A-B312-CCD049F0BC90} = {DCABD711-8FB0-4D2A-B312-CCD049F0BC90}
 		{D9CC42D4-7281-4293-BBD1-FDF0FFCF8ABF} = {D9CC42D4-7281-4293-BBD1-FDF0FFCF8ABF}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kanji.DatabaseMaker.WaniKani", "Kanji.DatabaseMaker.WaniKani\Kanji.DatabaseMaker.WaniKani.csproj", "{796C2826-EF46-4270-BC7C-8E23C307FDC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kanji.DatabaseMaker.WaniKani", "Kanji.DatabaseMaker.WaniKani\Kanji.DatabaseMaker.WaniKani.csproj", "{796C2826-EF46-4270-BC7C-8E23C307FDC4}"
 	ProjectSection(ProjectDependencies) = postProject
 		{DCABD711-8FB0-4D2A-B312-CCD049F0BC90} = {DCABD711-8FB0-4D2A-B312-CCD049F0BC90}
 		{58375F90-F472-49DF-A583-336D86AB678F} = {58375F90-F472-49DF-A583-336D86AB678F}
 		{D9CC42D4-7281-4293-BBD1-FDF0FFCF8ABF} = {D9CC42D4-7281-4293-BBD1-FDF0FFCF8ABF}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kanji.Interface", "Kanji.Interface\Kanji.Interface.csproj", "{D0AD5C59-8C40-4DAA-8B74-89C6B0E4C67C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kanji.Interface", "Kanji.Interface\Kanji.Interface.csproj", "{D0AD5C59-8C40-4DAA-8B74-89C6B0E4C67C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{DCABD711-8FB0-4D2A-B312-CCD049F0BC90} = {DCABD711-8FB0-4D2A-B312-CCD049F0BC90}
 		{D9CC42D4-7281-4293-BBD1-FDF0FFCF8ABF} = {D9CC42D4-7281-4293-BBD1-FDF0FFCF8ABF}

@@ -37,7 +37,7 @@
           </i:Interaction.Behaviors>
           <Button Classes="BigActionButton ActionButton" HorizontalAlignment="Stretch" Command="{Binding LoadMoreCommand}">
                 <Button.Resources>
-                    <s:String x:Key="ButtonStringFormat" xml:space="preserve">Load more </s:String>
+                    <s:String x:Key="ButtonStringFormat" xml:space="preserve">Load more &#8203;</s:String>
                 </Button.Resources>
                 <Button.Content>
                     <MultiBinding Converter="{StaticResource StringAppendConverter}">

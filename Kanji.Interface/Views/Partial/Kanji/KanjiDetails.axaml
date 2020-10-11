@@ -43,7 +43,7 @@
             <!-- Meanings label -->
             <TextBox Name="MeaningsLabel" Classes="KanjiMeaningLabel LabelBox" Text="{Binding Path=KanjiEntity.DbKanji,
                   Converter={StaticResource KanjiToStringConverter},
-                  ConverterParameter={x:Static converters:KanjiToStringConversionType.Full}}"/>
+                  ConverterParameter={x:Static converters:KanjiToStringConversionType.Full}, Mode=OneWay}"/>
             
             <!-- Secondary information panel -->
             <WrapPanel Orientation="Horizontal">

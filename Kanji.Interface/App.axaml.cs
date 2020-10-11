@@ -17,5 +17,14 @@ namespace Kanji.Interface
         {
             AvaloniaXamlLoader.Load(this);
         }
+        public override void OnFrameworkInitializationCompleted()
+        {
+            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            {
+                NavigationActor.Instance.SetMainWindow(new MainWindow());
+                desktop.MainWindow = NavigationActor.Instance.MainWindow;
+            }
+            base.OnFrameworkInitializationCompleted();
+        }
     }
 }

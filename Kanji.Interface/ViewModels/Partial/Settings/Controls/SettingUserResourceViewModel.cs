@@ -75,7 +75,7 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         /// <param name="setInfo">Target set.</param>
         /// <returns>True if the change is confirmed. False otherwise.</returns>
-        protected abstract bool CanChangeSet(UserResourceSetInfo setInfo);
+        protected abstract Task<bool> CanChangeSet(UserResourceSetInfo setInfo);
 
         #region Override
 
@@ -118,9 +118,9 @@ namespace Kanji.Interface.ViewModels
         /// Called to select a given set.
         /// </summary>
         /// <param name="setInfo">Set to select.</param>
-        private void OnSelectSet(UserResourceSetInfo setInfo)
+        private async void OnSelectSet(UserResourceSetInfo setInfo)
         {
-            if (CanChangeSet(setInfo))
+            if (await CanChangeSet(setInfo))
             {
                 SelectedSetName = setInfo.Name;
                 RaiseSettingValueChanged();
