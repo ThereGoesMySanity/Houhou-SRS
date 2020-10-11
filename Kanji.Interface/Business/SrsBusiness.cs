@@ -204,7 +204,7 @@ namespace Kanji.Interface.Business
             {
                 if (!_updateTimer.IsEnabled)
                 {
-                    _updateTimer.Start();
+                    DispatcherHelper.Invoke(() => _updateTimer.Start());
                 }
             }
         }
