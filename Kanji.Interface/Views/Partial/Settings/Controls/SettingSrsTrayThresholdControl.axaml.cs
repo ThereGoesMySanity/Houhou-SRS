@@ -17,7 +17,7 @@ using Avalonia.Markup.Xaml;
 
 namespace Kanji.Interface.Controls
 {
-    public partial class SettingSrsTrayThresholdControl : UserControl
+    public partial class SettingSrsTrayThresholdControl : SettingControl
     {
         public SettingSrsTrayThresholdControl()
         {

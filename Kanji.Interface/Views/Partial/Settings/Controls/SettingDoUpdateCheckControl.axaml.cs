@@ -17,7 +17,7 @@ using Avalonia.Markup.Xaml;
 
 namespace Kanji.Interface.Controls
 {
-    public partial class SettingDoUpdateCheckControl : UserControl
+    public partial class SettingDoUpdateCheckControl : SettingControl
     {
         public SettingDoUpdateCheckControl()
         {

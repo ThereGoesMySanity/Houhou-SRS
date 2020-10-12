@@ -33,7 +33,7 @@ namespace Kanji.Interface.ViewModels
 
         #region Constructors
 
-        public SettingSrsQuickDelayViewModel()
+        public override void InitializeSettings()
         {
             QuickDelayHours = Kanji.Interface.Properties.Settings.Default.VocabSrsDelayHours;
         }

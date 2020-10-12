@@ -37,7 +37,7 @@ namespace Kanji.Interface.ViewModels
 
         #region Constructors
 
-        public SettingStartPageViewModel()
+        public override void InitializeSettings()
         {
             StartPage = Properties.Settings.Default.StartPage;
         }

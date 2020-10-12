@@ -387,10 +387,7 @@ namespace Kanji.Interface.ViewModels
                 // Sort if wanted.
                 if (_comparer.SortByRelevance)
                 {
-                    DispatcherHelper.Invoke(() =>
-                    {
-                        Radicals = Radicals.OrderBy(x => x, _comparer).ToList();
-                    });
+                    Radicals = Radicals.OrderBy(x => x, _comparer).ToList();
                 }
             }
         }
@@ -478,17 +475,14 @@ namespace Kanji.Interface.ViewModels
         /// Called when the sort mode is changed.
         /// </summary>
         /// <param name="value">New sort mode value.</param>
-        private void OnSetRadicalSortMode(RadicalSortModeEnum value)
+        private async void OnSetRadicalSortMode(RadicalSortModeEnum value)
         {
             if (RadicalSortMode != value)
             {
                 RadicalSortMode = value;
                 _comparer.SortMode = value;
                 Kanji.Interface.Properties.Settings.Default.RadicalSortMode = value;
-                DispatcherHelper.InvokeAsync(() =>
-                {
-                    Radicals = Radicals.OrderBy(x => x, _comparer).ToList();
-                });
+                Radicals = await Task.Run(() => Radicals.OrderBy(x => x, _comparer).ToList());
             }
         }
 

@@ -17,7 +17,7 @@ using Avalonia.Markup.Xaml;
 
 namespace Kanji.Interface.Controls
 {
-    public partial class SettingSrsLevelSetControl : UserControl
+    public partial class SettingSrsLevelSetControl : SettingControl
     {
         public SettingSrsLevelSetControl()
         {

@@ -54,7 +54,7 @@ namespace Kanji.Interface.ViewModels
 
         #region Constructors
 
-        public SettingUserResourceViewModel()
+        public override void InitializeSettings()
         {
             SelectedSetName = GetInitialSetName();
             BrowseSetCommand = new RelayCommand<UserResourceSetInfo>(OnBrowseSet);

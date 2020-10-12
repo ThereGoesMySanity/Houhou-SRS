@@ -38,7 +38,7 @@ namespace Kanji.Interface.ViewModels
 
         #region Constructors
 
-        public SettingTrayAutoStartViewModel()
+        public override void InitializeSettings()
         {
             IsAutoStart = AutostartBusiness.Instance.AutoStart;
         }

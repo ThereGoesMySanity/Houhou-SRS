@@ -18,7 +18,7 @@ using Avalonia.Markup.Xaml;
 
 namespace Kanji.Interface.Controls
 {
-    public partial class SettingSrsTrayAutostartControl : UserControl
+    public partial class SettingSrsTrayAutostartControl : SettingControl
     {
         public SettingSrsTrayAutostartControl()
         {

@@ -27,6 +27,7 @@ namespace Kanji.Interface.ViewModels
             {
                 if (_interval != value)
                 {
+                    Console.WriteLine(_interval);
                     _interval = value;
                     RaisePropertyChanged();
                     RaiseSettingValueChanged();
@@ -38,9 +39,9 @@ namespace Kanji.Interface.ViewModels
 
         #region Constructors
 
-        public SettingTrayIntervalViewModel()
+        public override void InitializeSettings()
         {
-            _interval = Math.Max(1, (int)Properties.Settings.Default.TrayCheckInterval.TotalMinutes);
+            Interval = Math.Max(1, (int)Properties.Settings.Default.TrayCheckInterval.TotalMinutes);
         }
 
         #endregion

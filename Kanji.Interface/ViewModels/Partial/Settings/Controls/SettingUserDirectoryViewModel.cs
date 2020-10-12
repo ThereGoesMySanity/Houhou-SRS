@@ -93,7 +93,7 @@ namespace Kanji.Interface.ViewModels
 
         #region Constructors
 
-        public SettingUserDirectoryViewModel()
+        public override void InitializeSettings()
         {
             UserDirectoryPath = Properties.Settings.Default.UserDirectoryPath;
             EnterEditModeCommand = new RelayCommand(OnEnterEditMode);

@@ -17,7 +17,7 @@ using Avalonia.Markup.Xaml;
 
 namespace Kanji.Interface.Controls
 {
-    public partial class SettingSrsTrayIntervalControl : UserControl
+    public partial class SettingSrsTrayIntervalControl : SettingControl
     {
         public SettingSrsTrayIntervalControl()
         {

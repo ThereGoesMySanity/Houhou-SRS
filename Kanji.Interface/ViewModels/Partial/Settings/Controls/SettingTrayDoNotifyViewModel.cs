@@ -36,7 +36,7 @@ namespace Kanji.Interface.ViewModels
 
         #region Constructors
 
-        public SettingTrayDoNotifyViewModel()
+        public override void InitializeSettings()
         {
             DoNotify = Properties.Settings.Default.TrayShowNotifications;
         }

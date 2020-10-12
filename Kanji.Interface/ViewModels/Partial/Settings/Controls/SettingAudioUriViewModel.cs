@@ -36,7 +36,7 @@ namespace Kanji.Interface.ViewModels
 
         #region Constructors
 
-        public SettingAudioUriViewModel()
+        public override void InitializeSettings()
         {
             AudioUri = Properties.Settings.Default.AudioUri;
         }

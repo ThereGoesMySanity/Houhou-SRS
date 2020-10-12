@@ -17,7 +17,7 @@ using Avalonia.Markup.Xaml;
 
 namespace Kanji.Interface.Controls
 {
-    public partial class SettingAutoSkipControl : UserControl
+    public partial class SettingAutoSkipControl : SettingControl
     {
         public SettingAutoSkipControl()
         {

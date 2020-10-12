@@ -37,9 +37,9 @@ namespace Kanji.Interface.ViewModels
 
         #region Constructors
 
-        public SettingTrayNotifyThresholdViewModel()
+        public override void InitializeSettings()
         {
-            _threshold = Math.Max(0, Properties.Settings.Default.TrayNotificationCountThreshold);
+            Threshold = Math.Max(0, Properties.Settings.Default.TrayNotificationCountThreshold);
         }
 
         #endregion
@@ -55,7 +55,7 @@ namespace Kanji.Interface.ViewModels
 
         public override bool IsSettingChanged()
         {
-            return Threshold != Math.Max(1, (int)Properties.Settings.Default.TrayCheckInterval.TotalMinutes);
+            return Threshold != Math.Max(1, (int)Properties.Settings.Default.TrayNotificationCountThreshold);
         }
 
         #endregion

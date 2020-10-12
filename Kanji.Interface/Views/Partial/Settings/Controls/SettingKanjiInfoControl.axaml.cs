@@ -17,7 +17,7 @@ using Avalonia.Markup.Xaml;
 
 namespace Kanji.Interface.Controls
 {
-    public partial class SettingKanjiInfoControl : UserControl
+    public partial class SettingKanjiInfoControl : SettingControl
     {
         public SettingKanjiInfoControl()
         {

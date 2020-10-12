@@ -36,7 +36,7 @@ namespace Kanji.Interface.ViewModels
 
         #region Constructors
 
-        public SettingAudioVolumeViewModel()
+        public override void InitializeSettings()
         {
             AudioVolume = (int)Properties.Settings.Default.AudioVolume;
         }

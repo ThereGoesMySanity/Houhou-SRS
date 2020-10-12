@@ -40,6 +40,12 @@ namespace Kanji.Interface.ViewModels
         #region Methods
 
         /// <summary>
+        /// Called when the Control finishes initialization. 
+        /// Set any setting-related properties in here.
+        /// </summary>
+        public abstract void InitializeSettings();
+
+        /// <summary>
         /// Returns false.
         /// Implemented in a subclass, gets a boolean value
         /// indicating if the application needs to be restarted

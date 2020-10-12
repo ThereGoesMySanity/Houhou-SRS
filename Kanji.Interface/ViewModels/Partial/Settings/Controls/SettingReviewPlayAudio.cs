@@ -37,7 +37,7 @@ namespace Kanji.Interface.ViewModels
 
         #region Constructors
 
-        public SettingReviewPlayAudio()
+        public override void InitializeSettings()
         {
             AutoPlayMode = Properties.Settings.Default.AudioAutoplayMode;
         }

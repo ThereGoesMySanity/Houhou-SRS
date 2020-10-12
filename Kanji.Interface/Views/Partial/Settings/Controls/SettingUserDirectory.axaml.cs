@@ -17,7 +17,7 @@ using Avalonia.Markup.Xaml;
 
 namespace Kanji.Interface.Controls
 {
-    public partial class SettingUserDirectory : UserControl
+    public partial class SettingUserDirectory : SettingControl
     {
         public SettingUserDirectory()
         {

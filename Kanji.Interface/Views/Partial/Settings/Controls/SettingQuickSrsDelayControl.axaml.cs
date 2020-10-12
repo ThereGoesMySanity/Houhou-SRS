@@ -17,7 +17,7 @@ using Avalonia.Markup.Xaml;
 
 namespace Kanji.Interface.Controls
 {
-    public partial class SettingQuickSrsDelayControl : UserControl
+    public partial class SettingQuickSrsDelayControl : SettingControl
     {
         public SettingQuickSrsDelayControl()
         {
