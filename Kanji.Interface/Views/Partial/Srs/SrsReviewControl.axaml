@@ -189,18 +189,18 @@
       <TextBox.KeyBindings>
         <KeyBinding Gesture="Enter" Command="{Binding SubmitCommand}"/>
       </TextBox.KeyBindings>
+      <i:Interaction.Behaviors>
+        <ia:DataTriggerBehavior Binding="{Binding ReviewState}" Value="Success">
+          <ia:ChangePropertyAction Value="#FF38BF38" PropertyName="Background"/>
+          <ia:ChangePropertyAction Value="True" PropertyName="IsReadOnly"/>
+        </ia:DataTriggerBehavior>
+        <ia:DataTriggerBehavior Binding="{Binding ReviewState}" Value="Failure">
+          <ia:ChangePropertyAction Value="#FFD82626" PropertyName="Background"/>
+          <ia:ChangePropertyAction Value="True" PropertyName="IsReadOnly"/>
+        </ia:DataTriggerBehavior>
+      </i:Interaction.Behaviors>
       <TextBox.Styles>
         <Style Selector="TextBox">
-          <i:Interaction.Behaviors>
-            <ia:DataTriggerBehavior Binding="{Binding ReviewState}" Value="Success">
-              <ia:ChangePropertyAction Value="#FF38BF38" PropertyName="Background"/>
-              <ia:ChangePropertyAction Value="True" PropertyName="IsReadOnly"/>
-            </ia:DataTriggerBehavior>
-            <ia:DataTriggerBehavior Binding="{Binding ReviewState}" Value="Failure">
-              <ia:ChangePropertyAction Value="#FFD82626" PropertyName="Background"/>
-              <ia:ChangePropertyAction Value="True" PropertyName="IsReadOnly"/>
-            </ia:DataTriggerBehavior>
-          </i:Interaction.Behaviors>
           <Setter Property="HorizontalContentAlignment" Value="Center"/>
         </Style>
       </TextBox.Styles>
@@ -232,8 +232,7 @@
           <TextBlock Text="{Binding CurrentQuestion.AcceptedAnswers, Mode=OneWay}" Margin="0 0 5 0" FontSize="16" TextWrapping="Wrap"/>
         </StackPanel>
       </Border>
-
-      <!-- Meaning/reading notes -->
+<!-- Meaning/reading notes -->
       <Border Grid.Row="1" Margin="0 5 0 5">
         <i:Interaction.Behaviors>
           <ia:DataTriggerBehavior Binding="{Binding CurrentQuestion.Question}" Value="Meaning">
@@ -258,8 +257,58 @@
           </ia:DataTriggerBehavior>
         </i:Interaction.Behaviors>
         <StackPanel Orientation="Vertical">
-          <Button Classes="VocabAudioButton MiniActionButton ActionButton" Width="120" HorizontalAlignment="Left" BorderBrush="Black"
-                  DataContext="{Binding CurrentQuestion.ParentGroup.Audio}" IsVisible="{Binding CurrentQuestion.ParentGroup.IsVocab}"/>
+          <Button Classes="VocabAudioButton MiniActionButton ActionButton" Width="120" HorizontalAlignment="Left" 
+                  BorderBrush="Black" DataContext="{Binding CurrentQuestion.ParentGroup.Audio}" IsVisible="{Binding CurrentQuestion.ParentGroup.IsVocab}">
+                  <!--TODO: move back into style-->
+            <i:Interaction.Behaviors>
+              <ia:DataTriggerBehavior Binding="{Binding Audio.State}" Value="Loading">
+                <ia:ChangePropertyAction PropertyName="Content" Value="(Loading)"/>
+              </ia:DataTriggerBehavior>
+              <ia:DataTriggerBehavior Binding="{Binding Audio.State}" Value="Playing">
+                <ia:ChangePropertyAction PropertyName="Content" Value="(Playing)"/>
+              </ia:DataTriggerBehavior>
+              <ia:DataTriggerBehavior Binding="{Binding Audio.State}" Value="Failed">
+                <ia:ChangePropertyAction PropertyName="Content" Value="(Failed)"/>
+                <ia:ChangePropertyAction PropertyName="BorderBrush" Value="DarkRed"/>
+              </ia:DataTriggerBehavior>
+              <ia:DataTriggerBehavior Binding="{Binding Audio.State}" Value="Unavailable">
+                <ia:ChangePropertyAction PropertyName="Content" Value="(No audio)"/>
+                <ia:ChangePropertyAction PropertyName="BorderBrush" Value="DarkRed"/>
+              </ia:DataTriggerBehavior>
+              <utility:MultiDataTriggerBehavior>
+                <utility:MultiDataTriggerBehavior.Conditions>
+                  <utility:Condition Binding="{Binding IsBusy, Source={x:Static business:AudioBusiness.Instance}}" Value="False"/>
+                  <utility:Condition Binding="{Binding Audio.State}" Value="Unknown"/>
+                </utility:MultiDataTriggerBehavior.Conditions>
+                <ia:ChangePropertyAction PropertyName="IsEnabled" Value="True"/>
+              </utility:MultiDataTriggerBehavior>
+              <utility:MultiDataTriggerBehavior>
+                <utility:MultiDataTriggerBehavior.Conditions>
+                  <utility:Condition Binding="{Binding IsBusy, Source={x:Static business:AudioBusiness.Instance}}" Value="False"/>
+                  <utility:Condition Binding="{Binding Audio.State}" Value="Playable"/>
+                </utility:MultiDataTriggerBehavior.Conditions>
+                <ia:ChangePropertyAction PropertyName="IsEnabled" Value="True"/>
+              </utility:MultiDataTriggerBehavior>
+              <utility:MultiDataTriggerBehavior>
+                <utility:MultiDataTriggerBehavior.Conditions>
+                  <utility:Condition Binding="{Binding IsBusy, Source={x:Static business:AudioBusiness.Instance}}" Value="False"/>
+                  <utility:Condition Binding="{Binding Audio.State}" Value="Failed"/>
+                </utility:MultiDataTriggerBehavior.Conditions>
+                <ia:ChangePropertyAction PropertyName="IsEnabled" Value="True"/>
+              </utility:MultiDataTriggerBehavior>
+              <ia:DataTriggerBehavior Binding="{Binding IsBusy, Source={x:Static business:AudioBusiness.Instance}}" Value="True">
+                <ia:ChangePropertyAction PropertyName="IsEnabled" Value="False"/>
+              </ia:DataTriggerBehavior>
+              <utility:MultiDataTriggerBehavior>
+                <utility:MultiDataTriggerBehavior.Conditions>
+                  <utility:Condition Binding="{Binding Audio.State}" Value="Unknown" ComparisonCondition="NotEqual"/>
+                  <utility:Condition Binding="{Binding Audio.State}" Value="Playable" ComparisonCondition="NotEqual"/>
+                  <utility:Condition Binding="{Binding Audio.State}" Value="Failed" ComparisonCondition="NotEqual"/>
+                </utility:MultiDataTriggerBehavior.Conditions>
+                <ia:ChangePropertyAction PropertyName="IsEnabled" Value="False"/>
+              </utility:MultiDataTriggerBehavior>
+            </i:Interaction.Behaviors>
+          </Button>
           <TextBlock Classes="LegendText" Text="Reading notes:"/>
           <TextBlock Text="{Binding CurrentQuestion.ParentGroup.Reference.ReadingNote, Mode=OneWay}" TextWrapping="Wrap"/>
         </StackPanel>

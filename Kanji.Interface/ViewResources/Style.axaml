@@ -835,54 +835,6 @@
     <Setter Property="BorderBrush" Value="Transparent"/>
     <Setter Property="Command" Value="{Binding PlayVocabAudioCommand, Source={x:Static business:AudioBusiness.Instance}}"/>
     <Setter Property="CommandParameter" Value="{Binding Audio}"/>
-    <i:Interaction.Behaviors>
-      <ia:DataTriggerBehavior Binding="{Binding Audio.State}" Value="Loading">
-        <ia:ChangePropertyAction PropertyName="Content" Value="(Loading)"/>
-      </ia:DataTriggerBehavior>
-      <ia:DataTriggerBehavior Binding="{Binding Audio.State}" Value="Playing">
-        <ia:ChangePropertyAction PropertyName="Content" Value="(Playing)"/>
-      </ia:DataTriggerBehavior>
-      <ia:DataTriggerBehavior Binding="{Binding Audio.State}" Value="Failed">
-        <ia:ChangePropertyAction PropertyName="Content" Value="(Failed)"/>
-        <ia:ChangePropertyAction PropertyName="BorderBrush" Value="DarkRed"/>
-      </ia:DataTriggerBehavior>
-      <ia:DataTriggerBehavior Binding="{Binding Audio.State}" Value="Unavailable">
-        <ia:ChangePropertyAction PropertyName="Content" Value="(No audio)"/>
-        <ia:ChangePropertyAction PropertyName="BorderBrush" Value="DarkRed"/>
-      </ia:DataTriggerBehavior>
-      <utility:MultiDataTriggerBehavior>
-        <utility:MultiDataTriggerBehavior.Conditions>
-          <utility:Condition Binding="{Binding IsBusy, Source={x:Static business:AudioBusiness.Instance}}" Value="False"/>
-          <utility:Condition Binding="{Binding Audio.State}" Value="Unknown"/>
-        </utility:MultiDataTriggerBehavior.Conditions>
-        <ia:ChangePropertyAction PropertyName="IsEnabled" Value="True"/>
-      </utility:MultiDataTriggerBehavior>
-      <utility:MultiDataTriggerBehavior>
-        <utility:MultiDataTriggerBehavior.Conditions>
-          <utility:Condition Binding="{Binding IsBusy, Source={x:Static business:AudioBusiness.Instance}}" Value="False"/>
-          <utility:Condition Binding="{Binding Audio.State}" Value="Playable"/>
-        </utility:MultiDataTriggerBehavior.Conditions>
-        <ia:ChangePropertyAction PropertyName="IsEnabled" Value="True"/>
-      </utility:MultiDataTriggerBehavior>
-      <utility:MultiDataTriggerBehavior>
-        <utility:MultiDataTriggerBehavior.Conditions>
-          <utility:Condition Binding="{Binding IsBusy, Source={x:Static business:AudioBusiness.Instance}}" Value="False"/>
-          <utility:Condition Binding="{Binding Audio.State}" Value="Failed"/>
-        </utility:MultiDataTriggerBehavior.Conditions>
-        <ia:ChangePropertyAction PropertyName="IsEnabled" Value="True"/>
-      </utility:MultiDataTriggerBehavior>
-      <ia:DataTriggerBehavior Binding="{Binding IsBusy, Source={x:Static business:AudioBusiness.Instance}}" Value="True">
-        <ia:ChangePropertyAction PropertyName="IsEnabled" Value="False"/>
-      </ia:DataTriggerBehavior>
-      <utility:MultiDataTriggerBehavior>
-        <utility:MultiDataTriggerBehavior.Conditions>
-          <utility:Condition Binding="{Binding Audio.State}" Value="Unknown" ComparisonCondition="NotEqual"/>
-          <utility:Condition Binding="{Binding Audio.State}" Value="Playable" ComparisonCondition="NotEqual"/>
-          <utility:Condition Binding="{Binding Audio.State}" Value="Failed" ComparisonCondition="NotEqual"/>
-        </utility:MultiDataTriggerBehavior.Conditions>
-        <ia:ChangePropertyAction PropertyName="IsEnabled" Value="False"/>
-      </utility:MultiDataTriggerBehavior>
-    </i:Interaction.Behaviors>
   </Style>
   <Style Selector="Button.VocabAudioButton:pointerover">
     <Setter Property="Opacity" Value="1" />
@@ -961,15 +913,33 @@
         </ItemsPanelTemplate>
       </Setter.Value>
     </Setter>
-  </Style>
-  <!--<Style Selector="ListBox.KanjiList :is(ILogicalScrollable)">
-    <Setter Property="IsLogicalScrollEnabled" Value="False" />
-  </Style>-->
-  <Style Selector="ListBox.KanjiList ListBoxItem">
-    <Setter Property="Template">
+    <Setter Property="ItemTemplate">
       <Setter.Value>
-        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+        <DataTemplate>
           <Border BorderThickness="1,1,1,1" BorderBrush="Gray" Background="{TemplateBinding Background}">
+            <i:Interaction.Behaviors>
+              <utility:MultiDataTriggerBehavior>
+                <utility:MultiDataTriggerBehavior.Conditions>
+                  <utility:Condition Binding="{Binding DbKanji.MostUsedRank, Converter={x:Static ObjectConverters.IsNull}}" Value="True"/>
+                  <utility:Condition Binding="{Binding IsStyled}" Value="False"/>
+                </utility:MultiDataTriggerBehavior.Conditions>
+                <ia:ChangePropertyAction Value="LightGray" PropertyName="Background"/>
+              </utility:MultiDataTriggerBehavior>
+              <utility:MultiDataTriggerBehavior>
+                <utility:MultiDataTriggerBehavior.Conditions>
+                  <utility:Condition Binding="{Binding DbKanji.MostUsedRank, Converter={x:Static ObjectConverters.IsNull}}" Value="False"/>
+                  <utility:Condition Binding="{Binding IsStyled}" Value="False"/>
+                </utility:MultiDataTriggerBehavior.Conditions>
+                <ia:ChangePropertyAction Value="#000000FF" PropertyName="Background"/>
+              </utility:MultiDataTriggerBehavior>
+              <ia:DataTriggerBehavior Binding="{Binding IsStyled}" Value="True">
+                <ia:ChangePropertyAction Value="10,0,0,0" PropertyName="Margin"/>
+                <ia:ChangePropertyAction Value="#220000FF" PropertyName="Background"/>
+              </ia:DataTriggerBehavior>
+              <ia:DataTriggerBehavior Binding="{Binding IsStyled}" Value="False">
+                <ia:ChangePropertyAction Value="0,0,0,0" PropertyName="Margin"/>
+              </ia:DataTriggerBehavior>
+            </i:Interaction.Behaviors>
             <Grid>
               <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="45"/>
@@ -1020,30 +990,13 @@
               </TextBlock>
             </Grid>
           </Border>
-        </ControlTemplate>
+        </DataTemplate>
       </Setter.Value>
     </Setter>
-    <Setter Property="Background" Value="#000000FF"/>
-    <i:Interaction.Behaviors>
-      <ia:DataTriggerBehavior Binding="{Binding DbKanji.MostUsedRank, Converter={x:Static ObjectConverters.IsNull}}" Value="True">
-        <ia:ChangePropertyAction Value="LightGray" PropertyName="Background"/>
-      </ia:DataTriggerBehavior>
-      <utility:MultiDataTriggerBehavior>
-        <utility:MultiDataTriggerBehavior.Conditions>
-          <utility:Condition Binding="{Binding DbKanji.MostUsedRank, Converter={x:Static ObjectConverters.IsNull}}" Value="False"/>
-          <utility:Condition Binding="{Binding IsStyled}" Value="False"/>
-        </utility:MultiDataTriggerBehavior.Conditions>
-        <ia:ChangePropertyAction Value="#000000FF" PropertyName="Background"/>
-      </utility:MultiDataTriggerBehavior>
-      <ia:DataTriggerBehavior Binding="{Binding IsStyled}" Value="True">
-        <ia:ChangePropertyAction Value="10,0,0,0" PropertyName="Margin"/>
-        <ia:ChangePropertyAction Value="#220000FF" PropertyName="Background"/>
-      </ia:DataTriggerBehavior>
-      <ia:DataTriggerBehavior Binding="{Binding IsStyled}" Value="False">
-        <ia:ChangePropertyAction Value="0,0,0,0" PropertyName="Margin"/>
-      </ia:DataTriggerBehavior>
-    </i:Interaction.Behaviors>
   </Style>
+  <!--<Style Selector="ListBox.KanjiList :is(ILogicalScrollable)">
+    <Setter Property="IsLogicalScrollEnabled" Value="False" />
+  </Style>-->
   <Style Selector="ListBox.KanjiList ListBoxItem[IsSelected=true]">
     <Setter Property="Margin" Value="10,0,0,0" />
     <Setter Property="Background" Value="#220000FF" />
@@ -1206,16 +1159,6 @@
     <!-- VOCAB -->
 
   <Style Selector="TextBlock.VocabVariantText">
-    <i:Interaction.Behaviors>
-      <ia:DataTriggerBehavior Binding="{Binding Variant.IsMain}" Value="True">
-        <ia:ChangePropertyAction Value="SemiBold" PropertyName="FontWeight"/>
-        <ia:ChangePropertyAction Value="#AAAA0000" PropertyName="Foreground"/>
-      </ia:DataTriggerBehavior>
-      <ia:DataTriggerBehavior Binding="{Binding Variant.IsMain}" Value="False">
-        <ia:ChangePropertyAction Value="Regular" PropertyName="FontWeight"/>
-        <ia:ChangePropertyAction Value="#777777" PropertyName="Foreground"/>
-      </ia:DataTriggerBehavior>
-    </i:Interaction.Behaviors>
     <Setter Property="Foreground" Value="#777777" />
     <Setter Property="FontSize" Value="12" />
   </Style>
@@ -1255,9 +1198,9 @@
                       <ia:InvokeCommandAction Command="{Binding DataContext.SwitchVocabCommand,
                                                                   RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding .}"/>
                     </utility:ClickTriggerBehavior>
-                    <ia:DataTriggerBehavior Binding="{Binding Variant.IsMain}" Value="True">
-                      <!--<Setter Property="Background" Value="#6444FF55" />-->
-                    </ia:DataTriggerBehavior>
+                    <!-- TODO <ia:DataTriggerBehavior Binding="{Binding Variant.IsMain}" Value="True">
+                      <Setter Property="Background" Value="#6444FF55" />
+                    </ia:DataTriggerBehavior> -->
                   </i:Interaction.Behaviors>
                   <Border.Styles>
                     <Style Selector="Border">
@@ -1267,6 +1210,17 @@
 
                   <StackPanel Orientation="Horizontal">
                     <TextBlock Classes="VocabVariantText">
+                    <!--TODO: move back into style-->
+                      <i:Interaction.Behaviors>
+                        <ia:DataTriggerBehavior Binding="{Binding Variant.IsMain}" Value="True">
+                          <ia:ChangePropertyAction Value="SemiBold" PropertyName="FontWeight"/>
+                          <ia:ChangePropertyAction Value="#AAAA0000" PropertyName="Foreground"/>
+                        </ia:DataTriggerBehavior>
+                        <ia:DataTriggerBehavior Binding="{Binding Variant.IsMain}" Value="False">
+                          <ia:ChangePropertyAction Value="Regular" PropertyName="FontWeight"/>
+                          <ia:ChangePropertyAction Value="#777777" PropertyName="Foreground"/>
+                        </ia:DataTriggerBehavior>
+                      </i:Interaction.Behaviors>
                       <TextBlock.Text>
                         <MultiBinding StringFormat="{}{0} 【{1}】">
                           <MultiBinding.Bindings>
@@ -1316,20 +1270,18 @@
                   </Style>
                 </Border.Styles>
                 <Border BorderThickness="0,0,0,1" VerticalAlignment="Center" BorderBrush="#FF878787">
+                  <i:Interaction.Behaviors>
+                    <!-- When IsCommon -->
+                    <ia:DataTriggerBehavior Binding="{Binding DbVocab.IsCommon}" Value="True">
+                      <ia:ChangePropertyAction Value="#3F91EF5E" PropertyName="Background"/>
+                    </ia:DataTriggerBehavior>
+                    <!-- When IsObsolete -->
+                    <ia:DataTriggerBehavior Binding="{Binding IsObsolete}" Value="True">
+                      <ia:ChangePropertyAction Value="#22000000" PropertyName="Background"/>
+                      <ia:ChangePropertyAction Value="0.8" PropertyName="Opacity"/>
+                    </ia:DataTriggerBehavior>
+                  </i:Interaction.Behaviors>
                   <Border.Styles>
-                    <Style Selector="Border">
-                      <i:Interaction.Behaviors>
-                        <!-- When IsCommon -->
-                        <ia:DataTriggerBehavior Binding="{Binding DbVocab.IsCommon}" Value="True">
-                          <ia:ChangePropertyAction Value="#3F91EF5E" PropertyName="Background"/>
-                        </ia:DataTriggerBehavior>
-                        <!-- When IsObsolete -->
-                        <ia:DataTriggerBehavior Binding="{Binding IsObsolete}" Value="True">
-                          <ia:ChangePropertyAction Value="#22000000" PropertyName="Background"/>
-                          <ia:ChangePropertyAction Value="0.8" PropertyName="Opacity"/>
-                        </ia:DataTriggerBehavior>
-                      </i:Interaction.Behaviors>
-                    </Style>
                     <Style Selector="Border:pointerover">
                       <Setter Property="Opacity" Value="1" />
                     </Style>
@@ -1364,20 +1316,18 @@
                         <WrapPanel Orientation="Horizontal" Margin="0 2 0 2">
                           <Border Margin="5 0 0 0" BorderThickness="1" BorderBrush="#55000000" CornerRadius="2" HorizontalAlignment="Left" Padding="5 0 5 0" Width="93"
                                   IsVisible="{Binding ShowBookRanking}" Background="{Binding DbVocab.FrequencyRank, Converter={StaticResource VocabFrequencyToBrushConverter}}">
-                            <Border.Styles>
-                              <Style Selector="Border">
-                                <i:Interaction.Behaviors>
-                                  <ia:DataTriggerBehavior Binding="{Binding DbVocab.FrequencyRank}" Value="1">
-                                    <ia:ChangePropertyAction Value="Found 1 time in 7905 books." PropertyName="ToolTip.Tip"/>
-                                  </ia:DataTriggerBehavior>
-                                </i:Interaction.Behaviors>
-                                <Setter Property="ToolTip.Tip">
-                                  <Setter.Value>
+                            <i:Interaction.Behaviors>
+                              <ia:DataTriggerBehavior Binding="{Binding DbVocab.FrequencyRank}" Value="1">
+                                <ia:ChangePropertyAction Value="Found 1 time in 7905 books." PropertyName="ToolTip.Tip"/>
+                              </ia:DataTriggerBehavior>
+                              <ia:DataTriggerBehavior Binding="{Binding DbVocab.FrequencyRank}" Value="1" ComparisonCondition="NotEqual">
+                                <ia:ChangePropertyAction PropertyName="ToolTip.Tip">
+                                  <ia:ChangePropertyAction.Value>
                                     <Binding Path="DbVocab.FrequencyRank" StringFormat="{}Found {0} times in 7905 books."/>
-                                  </Setter.Value>
-                                </Setter>
-                              </Style>
-                            </Border.Styles>
+                                  </ia:ChangePropertyAction.Value>
+                                </ia:ChangePropertyAction>
+                              </ia:DataTriggerBehavior>
+                            </i:Interaction.Behaviors>
                             <DockPanel LastChildFill="True">
                               <TextBlock HorizontalAlignment="Left" FontSize="10" DockPanel.Dock="Left" FontWeight="SemiBold" Opacity="0.75">
                                 本
@@ -1473,15 +1423,14 @@
                           </Border>
 
                           <Border Margin="5 0 0 0" BorderThickness="1" BorderBrush="#55000000" CornerRadius="2" HorizontalAlignment="Left" Padding="5 0 5 0">
-                            <Border.Styles>
-                              <Style Selector="Border">
-                                <i:Interaction.Behaviors>
-                                  <ia:DataTriggerBehavior Binding="{Binding DbVocab.Categories.Count}" Value="0">
-                                    <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
-                                  </ia:DataTriggerBehavior>
-                                </i:Interaction.Behaviors>
-                              </Style>
-                            </Border.Styles>
+                            <i:Interaction.Behaviors>
+                              <ia:DataTriggerBehavior Binding="{Binding DbVocab.Categories.Count}" Value="0">
+                                <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
+                              </ia:DataTriggerBehavior>
+                              <ia:DataTriggerBehavior Binding="{Binding DbVocab.Categories.Count}" Value="0" ComparisonCondition="NotEqual">
+                                <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
+                              </ia:DataTriggerBehavior>
+                            </i:Interaction.Behaviors>
                             <TextBlock Text="{Binding DbVocab.Categories, Converter={StaticResource VocabCategoriesToStringConverter}}" FontSize="10"/>
                           </Border>
                         </WrapPanel>
@@ -1609,6 +1558,55 @@
                           <LayoutTransformControl>
                             <Button Content="Kana" HorizontalAlignment="Right" FontSize="6" ToolTip.Tip="Copy the kana writing to the clipboard." Command="{Binding DataContext.KanaCopyCommand,
                                                       RelativeSource={RelativeSource AncestorType=controls:VocabList}}" CommandParameter="{Binding .}" Classes="MiniActionButton ActionButton">
+                                                      <!--TODO: move back into style-->
+                              <i:Interaction.Behaviors>
+                                <ia:DataTriggerBehavior Binding="{Binding Audio.State}" Value="Loading">
+                                  <ia:ChangePropertyAction PropertyName="Content" Value="(Loading)"/>
+                                </ia:DataTriggerBehavior>
+                                <ia:DataTriggerBehavior Binding="{Binding Audio.State}" Value="Playing">
+                                  <ia:ChangePropertyAction PropertyName="Content" Value="(Playing)"/>
+                                </ia:DataTriggerBehavior>
+                                <ia:DataTriggerBehavior Binding="{Binding Audio.State}" Value="Failed">
+                                  <ia:ChangePropertyAction PropertyName="Content" Value="(Failed)"/>
+                                  <ia:ChangePropertyAction PropertyName="BorderBrush" Value="DarkRed"/>
+                                </ia:DataTriggerBehavior>
+                                <ia:DataTriggerBehavior Binding="{Binding Audio.State}" Value="Unavailable">
+                                  <ia:ChangePropertyAction PropertyName="Content" Value="(No audio)"/>
+                                  <ia:ChangePropertyAction PropertyName="BorderBrush" Value="DarkRed"/>
+                                </ia:DataTriggerBehavior>
+                                <utility:MultiDataTriggerBehavior>
+                                  <utility:MultiDataTriggerBehavior.Conditions>
+                                    <utility:Condition Binding="{Binding IsBusy, Source={x:Static business:AudioBusiness.Instance}}" Value="False"/>
+                                    <utility:Condition Binding="{Binding Audio.State}" Value="Unknown"/>
+                                  </utility:MultiDataTriggerBehavior.Conditions>
+                                  <ia:ChangePropertyAction PropertyName="IsEnabled" Value="True"/>
+                                </utility:MultiDataTriggerBehavior>
+                                <utility:MultiDataTriggerBehavior>
+                                  <utility:MultiDataTriggerBehavior.Conditions>
+                                    <utility:Condition Binding="{Binding IsBusy, Source={x:Static business:AudioBusiness.Instance}}" Value="False"/>
+                                    <utility:Condition Binding="{Binding Audio.State}" Value="Playable"/>
+                                  </utility:MultiDataTriggerBehavior.Conditions>
+                                  <ia:ChangePropertyAction PropertyName="IsEnabled" Value="True"/>
+                                </utility:MultiDataTriggerBehavior>
+                                <utility:MultiDataTriggerBehavior>
+                                  <utility:MultiDataTriggerBehavior.Conditions>
+                                    <utility:Condition Binding="{Binding IsBusy, Source={x:Static business:AudioBusiness.Instance}}" Value="False"/>
+                                    <utility:Condition Binding="{Binding Audio.State}" Value="Failed"/>
+                                  </utility:MultiDataTriggerBehavior.Conditions>
+                                  <ia:ChangePropertyAction PropertyName="IsEnabled" Value="True"/>
+                                </utility:MultiDataTriggerBehavior>
+                                <ia:DataTriggerBehavior Binding="{Binding IsBusy, Source={x:Static business:AudioBusiness.Instance}}" Value="True">
+                                  <ia:ChangePropertyAction PropertyName="IsEnabled" Value="False"/>
+                                </ia:DataTriggerBehavior>
+                                <utility:MultiDataTriggerBehavior>
+                                  <utility:MultiDataTriggerBehavior.Conditions>
+                                    <utility:Condition Binding="{Binding Audio.State}" Value="Unknown" ComparisonCondition="NotEqual"/>
+                                    <utility:Condition Binding="{Binding Audio.State}" Value="Playable" ComparisonCondition="NotEqual"/>
+                                    <utility:Condition Binding="{Binding Audio.State}" Value="Failed" ComparisonCondition="NotEqual"/>
+                                  </utility:MultiDataTriggerBehavior.Conditions>
+                                  <ia:ChangePropertyAction PropertyName="IsEnabled" Value="False"/>
+                                </utility:MultiDataTriggerBehavior>
+                              </i:Interaction.Behaviors>
                               <Button.Styles>
                                 <Style Selector="Button">
                                   <Setter Property="Opacity" Value="0.15" />
