@@ -192,8 +192,6 @@
     <ProjectReference Include="..\Kanji.Database\Kanji.Database.csproj" />
     <ProjectReference Include="..\..\AvaloniaBehaviors\src\Avalonia.Xaml.Behaviors\Avalonia.Xaml.Behaviors.csproj" />
     <ProjectReference Include="..\..\Avalonia\src\Avalonia.Desktop\Avalonia.Desktop.csproj" />
-    <ProjectReference Include="..\..\Avalonia\src\Avalonia.ReactiveUI.Events\Avalonia.ReactiveUI.Events.csproj" />
-    <ProjectReference Include="..\..\Avalonia\src\Avalonia.ReactiveUI\Avalonia.ReactiveUI.csproj" />
   </ItemGroup>
 
   <ItemGroup>
