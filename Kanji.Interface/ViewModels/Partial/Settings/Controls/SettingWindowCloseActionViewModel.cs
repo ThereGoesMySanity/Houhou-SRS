@@ -37,7 +37,7 @@ namespace Kanji.Interface.ViewModels
 
         #region Constructors
 
-        public SettingWindowCloseActionViewModel()
+        public override void InitializeSettings()
         {
             CloseAction = Properties.Settings.Default.WindowCloseAction;
         }

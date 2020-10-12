@@ -36,7 +36,7 @@ namespace Kanji.Interface.ViewModels
 
         #region Constructors
 
-        public SettingVocabPerPageViewModel()
+        public override void InitializeSettings()
         {
             EntriesPerPage = Properties.Settings.Default.VocabPerPage;
         }

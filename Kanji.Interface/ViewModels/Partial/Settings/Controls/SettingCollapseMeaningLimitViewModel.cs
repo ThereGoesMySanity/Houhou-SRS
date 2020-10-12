@@ -36,7 +36,7 @@ namespace Kanji.Interface.ViewModels
 
         #region Constructors
 
-        public SettingCollapseMeaningLimitViewModel()
+        public override void InitializeSettings()
         {
             CollapseMeaningLimit = Properties.Settings.Default.CollapseMeaningsLimit;
         }

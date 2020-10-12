@@ -37,7 +37,7 @@ namespace Kanji.Interface.ViewModels
 
         #region Constructors
 
-        public SettingIgnoreAnswerShortcutViewModel()
+        public override void InitializeSettings()
         {
             IsIgnoreAnswerShortcutEnabled = Properties.Settings.Default.IsIgnoreAnswerShortcutEnabled;
         }

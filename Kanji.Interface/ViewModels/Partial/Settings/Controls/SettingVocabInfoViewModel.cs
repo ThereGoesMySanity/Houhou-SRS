@@ -75,7 +75,7 @@ namespace Kanji.Interface.ViewModels
 
         #region Constructors
 
-        public SettingVocabInfoViewModel()
+        public override void InitializeSettings()
         {
             ShowBookRanking = Properties.Settings.Default.ShowVocabBookRanking;
             ShowWikipediaRank = Properties.Settings.Default.ShowVocabWikipediaRank;

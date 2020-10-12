@@ -19,12 +19,10 @@
                 </ItemsPanelTemplate>
               </Setter.Value>
             </Setter>
-          </Style>
-          <Style Selector="ListBox.SrsLevelSublist ListBoxItem">
-            <Setter Property="Template">
+            <Setter Property="ItemTemplate">
               <Setter.Value>
-                <ControlTemplate TargetType="ListBoxItem">
-                  <Border Background="{TemplateBinding Background}" Width="40" Height="30">
+                <DataTemplate>
+                  <Border Width="40" Height="30" Background="Teal">
                     <i:Interaction.Behaviors>
                       <utility:ClickTriggerBehavior MouseButtons="Left" EventName="PointerReleased">
                         <ia:InvokeCommandAction Command="{Binding DataContext.SelectSrsLevelCommand,
@@ -34,13 +32,14 @@
                                             with the Value of the level. If >=, remove the white background. -->
                       <ia:DataTriggerBehavior Binding="{Binding $parent[controls:SrsLevelPicker].DataContext.CurrentLevelValue}"
                                               ComparisonCondition="GreaterThanOrEqual" Value="{Binding Value}">
-                        <ia:ChangePropertyAction Value="{Binding $parent[ListBoxItem].DataContext.Color,
+                        <ia:ChangePropertyAction Value="{Binding $parent[ListBoxItem;1].DataContext.Color,
                                                          Converter={StaticResource ColorToBrushConverter}}" PropertyName="Background"/>
-                        <ia:ChangePropertyAction Value="White" PropertyName="Foreground"/>
+                        <ia:ChangePropertyAction TargetObject="{Binding #Name}" Value="White" PropertyName="Foreground"/>
                       </ia:DataTriggerBehavior>
                       <ia:DataTriggerBehavior Binding="{Binding $parent[controls:SrsLevelPicker].DataContext.CurrentLevelValue}"
                                               ComparisonCondition="LessThan" Value="{Binding Value}">
-                        <ia:ChangePropertyAction Value="{TemplateBinding Background}" PropertyName="Background"/>
+                        <ia:ChangePropertyAction Value="LightGray" PropertyName="Background"/>
+                        <ia:ChangePropertyAction TargetObject="{Binding #Name}" Value="Gray" PropertyName="Foreground"/>
                       </ia:DataTriggerBehavior>
                     </i:Interaction.Behaviors>
                     <Panel>
@@ -49,14 +48,12 @@
                           <TranslateTransform X="-1" Y="-1"/>
                         </TextBlock.RenderTransform>
                       </TextBlock>
-                      <TextBlock FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{TemplateBinding Foreground}" Text="{Binding Name}"/>
+                      <TextBlock Name="Name" FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{TemplateBinding Foreground}" Text="{Binding Name}"/>
                     </Panel>
                   </Border>
-                </ControlTemplate>
+                </DataTemplate>
               </Setter.Value>
             </Setter>
-            <Setter Property="Background" Value="LightGray"/>
-            <Setter Property="Foreground" Value="Gray"/>
           </Style>
           <Style Selector="ListBox.SrsLevelSublist ListBoxItem:pointerover">
             <Setter Property="Foreground" Value="White" />
@@ -74,15 +71,13 @@
                         </ItemsPanelTemplate>
                     </Setter.Value>
                 </Setter>
-            </Style>
-            <Style Selector="ListBox.SrsLevelSelectionList ListBoxItem">
-              <Setter Property="Template">
+              <Setter Property="ItemTemplate">
                 <Setter.Value>
-                  <ControlTemplate TargetType="ListBoxItem">
+                  <DataTemplate>
                     <Border BorderThickness="1" BorderBrush="#444444" Background="{Binding Color, Converter={StaticResource ColorToBrushConverter}}" Margin="0 0 2 0">
                       <ListBox Items="{Binding Levels}" Classes="SrsLevelSublist"/>
                     </Border>
-                  </ControlTemplate>
+                  </DataTemplate>
                 </Setter.Value>
               </Setter>
             </Style>

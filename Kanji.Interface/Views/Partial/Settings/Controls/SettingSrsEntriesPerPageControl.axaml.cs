@@ -17,7 +17,7 @@ using Avalonia.Markup.Xaml;
 
 namespace Kanji.Interface.Controls
 {
-    public partial class SettingSrsEntriesPerPageControl : UserControl
+    public partial class SettingSrsEntriesPerPageControl : SettingControl
     {
         public SettingSrsEntriesPerPageControl()
         {

@@ -17,7 +17,7 @@ using Avalonia.Markup.Xaml;
 
 namespace Kanji.Interface.Controls
 {
-    public partial class SettingAudioVolumeControl : UserControl
+    public partial class SettingAudioVolumeControl : SettingControl
     {
         public SettingAudioVolumeControl()
         {

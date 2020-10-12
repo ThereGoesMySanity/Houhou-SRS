@@ -17,7 +17,7 @@ using Avalonia.Markup.Xaml;
 
 namespace Kanji.Interface.Controls
 {
-    public partial class SettingStartPageControl : UserControl
+    public partial class SettingStartPageControl : SettingControl
     {
         public SettingStartPageControl()
         {

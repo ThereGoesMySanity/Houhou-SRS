@@ -1,4 +1,5 @@
 ﻿using Avalonia;
+using Avalonia.Data;
 using Avalonia.Data.Converters;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,8 @@ namespace Kanji.Interface.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
+            if (value is bool b && !b)
+                return BindingOperations.DoNothing;
             string parameterString = parameter as string;
             if (parameterString == null)
                 return AvaloniaProperty.UnsetValue;

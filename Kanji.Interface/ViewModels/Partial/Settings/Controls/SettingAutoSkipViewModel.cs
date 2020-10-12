@@ -36,7 +36,7 @@ namespace Kanji.Interface.ViewModels
 
         #region Constructors
 
-        public SettingAutoSkipViewModel()
+        public override void InitializeSettings()
         {
             AutoSkip = Properties.Settings.Default.AutoSkipReviews;
         }

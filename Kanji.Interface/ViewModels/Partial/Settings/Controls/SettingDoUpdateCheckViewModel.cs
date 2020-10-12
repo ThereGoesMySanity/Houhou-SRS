@@ -36,7 +36,7 @@ namespace Kanji.Interface.ViewModels
 
         #region Constructors
 
-        public SettingDoUpdateCheckViewModel()
+        public override void InitializeSettings()
         {
             DoUpdateCheck = Properties.Settings.Default.IsAutoUpdateCheckEnabled;
         }

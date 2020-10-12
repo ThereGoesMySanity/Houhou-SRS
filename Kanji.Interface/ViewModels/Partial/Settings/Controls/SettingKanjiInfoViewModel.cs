@@ -131,7 +131,7 @@ namespace Kanji.Interface.ViewModels
 
         #region Constructors
 
-        public SettingKanjiInfoViewModel()
+        public override void InitializeSettings()
         {
             ShowBookRanking = Kanji.Interface.Properties.Settings.Default.ShowKanjiBookRanking;
             ShowGrade = Kanji.Interface.Properties.Settings.Default.ShowKanjiGrade;
