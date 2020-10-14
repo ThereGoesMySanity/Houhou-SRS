@@ -144,21 +144,24 @@
 
       <DataTemplate x:Key="MiniRadicalInListTemplate">
         <Border Height="26" Width="26" CornerRadius="3" BorderBrush="Black" Background="#86469B" BorderThickness="1" Margin="0 0 4 4">
+            <i:Interaction.Behaviors>
+              <ia:DataTriggerBehavior Binding="{Binding HasImage}" Value="True">
+              <!--TODO-->
+                <!-- <ia:ChangePropertyAction PropertyName="Padding" Value="3"/> -->
+                <ia:ChangePropertyAction TargetObject="{Binding #RadicalText}" PropertyName="IsVisible" Value="False"/>
+                <ia:ChangePropertyAction TargetObject="{Binding #RadicalImage}" PropertyName="IsVisible" Value="True"/>
+              </ia:DataTriggerBehavior>
+              <ia:DataTriggerBehavior Binding="{Binding HasImage}" Value="False">
+              <!--TODO-->
+                <!-- <ia:ChangePropertyAction PropertyName="Padding" Value="6"/> -->
+                <ia:ChangePropertyAction TargetObject="{Binding #RadicalText}" PropertyName="IsVisible" Value="True"/>
+                <ia:ChangePropertyAction TargetObject="{Binding #RadicalImage}" PropertyName="IsVisible" Value="False"/>
+              </ia:DataTriggerBehavior>
+            </i:Interaction.Behaviors>
             <Panel>
-              <i:Interaction.Behaviors>
-                <ia:DataTriggerBehavior Binding="{Binding HasImage}" Value="True">
-                  <ia:ChangePropertyAction PropertyName="Padding" Value="3"/>
-                  <ia:ChangePropertyAction TargetObject="RadicalText" PropertyName="IsVisible" Value="False"/>
-                  <ia:ChangePropertyAction TargetObject="RadicalImage" PropertyName="IsVisible" Value="True"/>
-                </ia:DataTriggerBehavior>
-                <ia:DataTriggerBehavior Binding="{Binding HasImage}" Value="False">
-                  <ia:ChangePropertyAction PropertyName="Padding" Value="6"/>
-                  <ia:ChangePropertyAction TargetObject="RadicalText" PropertyName="IsVisible" Value="True"/>
-                  <ia:ChangePropertyAction TargetObject="RadicalImage" PropertyName="IsVisible" Value="False"/>
-                </ia:DataTriggerBehavior>
-              </i:Interaction.Behaviors>
               <TextBlock Name="RadicalText" HorizontalAlignment="Center" Foreground="White" FontSize="12" VerticalAlignment="Center" Text="{Binding Path=Character}"/>
-              <Image Name="RadicalImage" Source="{Binding ImageUri}" Stretch="Uniform"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+              <Image Name="RadicalImage" Source="{Binding ImageUri, Converter={x:Static converters:CustomAvaloniaConverters.BitmapConverter}}" 
+                     Stretch="Uniform"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Panel>
         </Border>
       </DataTemplate>
@@ -237,7 +240,7 @@
             <TextBlock Name="RadicalText" HorizontalAlignment="Center" FontSize="32" Text="{Binding Reference.Character}" Foreground="White"/>
 
             <!-- Radical image -->
-            <Image Name="RadicalImage" Source="{Binding Reference.ImageUri}" Stretch="None" />
+            <Image Name="RadicalImage" Source="{Binding Reference.ImageUri, Converter={x:Static converters:CustomAvaloniaConverters.BitmapConverter}}" Stretch="None" />
 
             <!-- Radical name -->
             <TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="{Binding Reference.Name}" TextWrapping="Wrap" LineHeight="12" Foreground="White"/>
@@ -778,7 +781,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border CornerRadius="3" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" Cursor="Hand">
-                      <Image Source="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}" />
+                      <Image Source="{Binding Content, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static converters:CustomAvaloniaConverters.BitmapConverter}}" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -1102,9 +1105,14 @@
       <Setter Property="BorderThickness" Value="0"/>
       <Setter Property="Template">
         <Setter.Value>
-          <ControlTemplate TargetType="ListBox">
+          <ControlTemplate>
             <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}">
-              <ItemsPresenter/>
+              <ItemsPresenter Name="PART_ItemsPresenter"
+                Items="{TemplateBinding Items}"
+                ItemsPanel="{TemplateBinding ItemsPanel}"
+                ItemTemplate="{TemplateBinding ItemTemplate}"
+                Margin="{TemplateBinding Padding}"
+                VirtualizationMode="{TemplateBinding VirtualizationMode}"/>
             </Border>
           </ControlTemplate>
         </Setter.Value>
@@ -1119,11 +1127,9 @@
         </Setter.Value>
       </Setter>
       <Setter Property="FontSize" Value="14"/>
-    </Style>
-  <Style Selector="ListBox.VocabWritingPartListbox ListBoxItem">
-    <Setter Property="Template">
+    <Setter Property="ItemTemplate">
       <Setter.Value>
-        <ControlTemplate TargetType="ListBoxItem">
+        <DataTemplate>
           <Grid>
             <Grid.RowDefinitions>
               <RowDefinition Height="18"/>
@@ -1134,11 +1140,13 @@
             <Border>
               <i:Interaction.Behaviors>
                 <ia:DataTriggerBehavior Binding="{Binding $parent[ListBox].DataContext.HasUndeterminedFurigana}" Value="True">
-                  <ia:ChangePropertyAction PropertyName="BorderThickness" Value="0 0 0 1" />
+                <!--TODO-->
+                  <!-- <ia:ChangePropertyAction PropertyName="BorderThickness" Value="0 0 0 1" /> -->
                   <ia:ChangePropertyAction PropertyName="BorderBrush" Value="#22000000" />
                 </ia:DataTriggerBehavior>
                 <ia:DataTriggerBehavior Binding="{Binding $parent[ListBox].DataContext.HasUndeterminedFurigana}" Value="False">
-                  <ia:ChangePropertyAction PropertyName="BorderThickness" Value="0 0 0 0" />
+                <!--TODO-->
+                  <!-- <ia:ChangePropertyAction PropertyName="BorderThickness" Value="0 0 0 0" /> -->
                   <ia:ChangePropertyAction PropertyName="BorderBrush" Value="#000000" />
                 </ia:DataTriggerBehavior>
               </i:Interaction.Behaviors>
@@ -1151,7 +1159,7 @@
               </Viewbox>
             </Border>
           </Grid>
-        </ControlTemplate>
+        </DataTemplate>
       </Setter.Value>
     </Setter>
   </Style>
@@ -1257,11 +1265,9 @@
                 </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
-  <Style Selector="ListBox.VocabList ListBoxItem">
-        <Setter Property="Template">
+        <Setter Property="ItemTemplate">
           <Setter.Value>
-            <ControlTemplate TargetType="ListBoxItem">
+            <DataTemplate>
               <Border>
                 <Border.Styles>
                   <!--the questionable nested doubly-styled border-->
@@ -1448,7 +1454,7 @@
                         <TextBox Name="MeaningRtb" Margin="0 0 0 5" Padding="0 0 0 0" Classes="VocabMeaningRichTextBox">
                           <TextBox.Styles>
                             <Style Selector="TextBox">
-                              <Setter Property="Text" Value="{Binding DbVocab, Mode=OneTime,  Converter={StaticResource VocabMeaningsToStringConverter}}"/>
+                              <Setter Property="Text" Value="{Binding DbVocab, Mode=OneTime, Converter={StaticResource VocabMeaningsToStringConverter}}"/>
                             </Style>
                           </TextBox.Styles>
                         </TextBox>
@@ -1456,7 +1462,7 @@
                         <Button Name="ExpandButton" Content="Show more meanings" Width="140" HorizontalAlignment="Left" Classes="MiniActionButton ActionButton" Margin="5 0 0 3" IsVisible="{Binding NeedsExpanding}">
                           <i:Interaction.Behaviors>
                             <ia:EventTriggerBehavior EventName="Click">
-                              <ia:ChangePropertyAction TargetObject="{Binding ElementName=MeaningRtb}" PropertyName="Document" Value="{Binding DbVocab, Mode=OneTime,  Converter={StaticResource VocabMeaningsToStringConverter}, ConverterParameter=Full}"/>
+                              <ia:ChangePropertyAction TargetObject="{Binding ElementName=MeaningRtb}" PropertyName="Text" Value="{Binding DbVocab, Mode=OneTime,  Converter={StaticResource VocabMeaningsToStringConverter}, ConverterParameter=Full}"/>
                               <ia:ChangePropertyAction PropertyName="IsVisible" Value="False"/>
                             </ia:EventTriggerBehavior>
                           </i:Interaction.Behaviors>
@@ -1633,7 +1639,7 @@
                   </Grid>
                 </Border>
               </Border>
-            </ControlTemplate>
+            </DataTemplate>
           </Setter.Value>
       </Setter>
   </Style>

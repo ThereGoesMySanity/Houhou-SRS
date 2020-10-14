@@ -24,7 +24,8 @@ namespace Kanji.Interface.Converters
                     VocabCategoriesToStringConverter categoriesConverter = new VocabCategoriesToStringConverter();
                     IEnumerable<VocabMeaning> meanings = ((VocabEntity)value).Meanings;
 
-                    TextBlock doc = new TextBlock();
+                    // TextBlock doc = new TextBlock();
+                    string text = "";
                     bool onlyOne = meanings.Count() == 1;
                     int count = 0;
                     int maxCount = Kanji.Interface.Properties.Settings.Default.CollapseMeaningsLimit;
@@ -37,7 +38,7 @@ namespace Kanji.Interface.Converters
                     {
                         if (!onlyOne)
                         {
-                            doc.Text += $"{++count}. \n";
+                            text += $"{++count}. \n";
                             //TODO
                             //meaningIndexRun.FontWeight = FontWeights.Bold;
                             //meaningParagraph.Inlines.Add(meaningIndexRun);
@@ -48,13 +49,13 @@ namespace Kanji.Interface.Converters
                             meaning.Categories, typeof(string), null, culture);
                         if (!string.IsNullOrEmpty(categoriesString))
                         {
-                            doc.Text += string.Format("[{0}] \n", categoriesString.ToLower());
+                            text += string.Format("[{0}] \n", categoriesString.ToLower());
                             //categoriesRun.Foreground = new SolidColorBrush(Colors.Gray);
                             //categoriesRun.FontSize = 10;
                             //meaningParagraph.Inlines.Add(categoriesRun);
                         }
 
-                        doc.Text += meaning.Meaning;
+                        text += meaning.Meaning;
                         //DispatcherHelper.Invoke(() =>
                         //{
                         //    meaningParagraph.Inlines.Add(new Run(meaning.Meaning));
@@ -67,7 +68,7 @@ namespace Kanji.Interface.Converters
                         }
                     }
 
-                    return doc;
+                    return text;
                 }
                 catch
                 {

@@ -63,15 +63,15 @@ namespace Kanji.Interface.ViewModels
             // Check the API key field.
             bool isApiOk = true;
             _parent.ApiKey = _parent.ApiKey.Trim().ToLower();
-            Regex apiRegex = new Regex("^[a-f0-9]{32}$");
+            Regex apiRegex = new Regex("^[a-f0-9-]{36}$");
             if (string.IsNullOrWhiteSpace(_parent.ApiKey))
             {
                 ApiKeyError = "Please enter your API key.";
                 isApiOk = false;
             }
-            else if (_parent.ApiKey.Length != 32)
+            else if (_parent.ApiKey.Length != 36)
             {
-                ApiKeyError = "The API key is incorrect (should be a 32 characters string).";
+                ApiKeyError = "The API key is incorrect (should be a 36 characters string).";
                 isApiOk = false;
             }
             else if (!apiRegex.IsMatch(_parent.ApiKey))

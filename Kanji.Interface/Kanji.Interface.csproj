@@ -192,6 +192,8 @@
     <ProjectReference Include="..\Kanji.Database\Kanji.Database.csproj" />
     <ProjectReference Include="..\..\AvaloniaBehaviors\src\Avalonia.Xaml.Behaviors\Avalonia.Xaml.Behaviors.csproj" />
     <ProjectReference Include="..\..\Avalonia\src\Avalonia.Desktop\Avalonia.Desktop.csproj" />
+    <ProjectReference Include="..\StatusIndicator\StatusIndicator.csproj" />
+    <ProjectReference Include="..\WaniKaniApi-net\src\WaniKaniApi\WaniKaniApi.csproj" />
   </ItemGroup>
 
   <ItemGroup>

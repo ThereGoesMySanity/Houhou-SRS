@@ -66,19 +66,15 @@
         </Button>
         <Button Classes="ActionButton" Margin="10 0 0 0" Width="150" Height="44" Command="{Binding UpdateCommand}">
             <Button.Content>
-                <Binding Path="LastUpdate.Name" Converter="{StaticResource StringFormatConverter}" ConverterParameter="Update to {0}"/>
+                <Binding Path="LastUpdate.Name" StringFormat="Update to {0}"/>
             </Button.Content>
             <ToolTip.Tip>
-                <TextBlock>
-                    <TextBlock.Text>
-                        <MultiBinding StringFormat="Version: {0} Description: {1}">
-                            <MultiBinding.Bindings>
-                                <Binding Path="LastUpdate.Version"/>
-                                <Binding Path="LastUpdate.Description"/>
-                            </MultiBinding.Bindings>
-                        </MultiBinding>
-                    </TextBlock.Text>
-                </TextBlock>
+              <MultiBinding StringFormat="Version: {0} Description: {1}">
+                  <MultiBinding.Bindings>
+                      <Binding Path="LastUpdate.Version"/>
+                      <Binding Path="LastUpdate.Description"/>
+                  </MultiBinding.Bindings>
+              </MultiBinding>
             </ToolTip.Tip>
           <i:Interaction.Behaviors>
             <ia:DataTriggerBehavior Binding="{Binding CheckStatus}" Value="UpdateAvailable">
