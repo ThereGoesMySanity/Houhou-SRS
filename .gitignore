@@ -12,6 +12,8 @@ Kanji.Interface/obj
 Kanji.Interface/bin
 NotifyIconWpf/obj
 NotifyIconWpf/bin
+**/obj
+**/bin
 *.suo
 UpgradeLog.htm
 packages

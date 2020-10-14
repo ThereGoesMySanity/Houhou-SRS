@@ -177,7 +177,7 @@ namespace Kanji.Interface.Controls
             base.OnPointerReleased(e);
         }
 
-        //TODO: https://github.com/AvaloniaUI/Avalonia/issues/418
+        //https://github.com/AvaloniaUI/Avalonia/issues/418
         protected void OnTextChanged(string newText)
         {
             if (!IsFocused)

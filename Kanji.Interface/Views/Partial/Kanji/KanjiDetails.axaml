@@ -62,7 +62,7 @@
                                 </ia:EventTriggerBehavior>
                             </i:Interaction.Behaviors>
                             <Image.Source>
-                                <DrawingImage Drawing="{Binding StrokesDrawingGroup, }"/>
+                                <DrawingImage Drawing="{Binding StrokesDrawingGroup}"/>
                             </Image.Source>
                         </Image>
                         <TextBlock Classes="LegendText" FontSize="8" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="2 0 0 0">
