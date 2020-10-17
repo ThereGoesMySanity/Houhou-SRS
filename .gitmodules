@@ -3,7 +3,7 @@
 	url = https://github.com/jmacato/AvaloniaGif
 [submodule "notify-sharp"]
 	path = notify-sharp
-	url = https://github.com/hyperair/notify-sharp
+	url = https://github.com/ThereGoesMySanity/notify-sharp
 [submodule "WaniKaniApi-net"]
 	path = WaniKaniApi-net
-	url = https://github.com/MartinZikmund/WaniKaniApi-net
+	url = https://github.com/ThereGoesMySanity/WaniKaniApi-net
