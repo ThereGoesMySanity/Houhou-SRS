@@ -38,16 +38,10 @@
           </Grid.IsVisible>
           <!-- BulkEditMode = None -->
             <ScrollViewer Margin="0 0 0 5" VerticalScrollBarVisibility="Auto">
-                <UniformGrid Columns="1" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                  <i:Interaction.Behaviors>
-                      <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="None">
-                          <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
-                      </ia:DataTriggerBehavior>
-                      <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="None">
-                          <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
-                      </ia:DataTriggerBehavior>
-                  </i:Interaction.Behaviors>
-
+                <UniformGrid Columns="1" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                             IsVisible="{Binding BulkEditMode,
+                                Converter={StaticResource ValueToBoolConverter},
+                                ConverterParameter=None}">
                   <Button Classes="ActionButton" Content="Bulk edit the meaning note" Margin="0 0 0 5" Command="{Binding BulkEditMeaningNoteCommand}" Height="NaN" MinHeight="20"/>
                   <Button Classes="ActionButton" Content="Bulk edit the reading note" Margin="0 0 0 5" Command="{Binding BulkEditReadingNoteCommand}" Height="NaN" MinHeight="20"/>
                   <Button Classes="ActionButton" Content="Bulk edit the tags" Margin="0 0 0 5" Command="{Binding BulkEditTagsCommand}" Height="NaN" MinHeight="20"/>
@@ -63,7 +57,7 @@
 
 
             <!-- BulkEditMode in (ReadingNote, MeaningNote, Tags) -->
-            <Grid>
+            <Grid IsVisible="False">
                 <i:Interaction.Behaviors>
                     <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="ReadingNote">
                         <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
