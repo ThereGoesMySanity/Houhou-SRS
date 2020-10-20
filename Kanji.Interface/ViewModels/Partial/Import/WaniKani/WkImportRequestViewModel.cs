@@ -209,7 +209,7 @@ namespace Kanji.Interface.ViewModels
                         Meanings = string.Join(',', t.s.Meanings.Where(m => m.AcceptedAnswer).Select(m => m.Text)),
                         NextReviewDate = t.a.AvailableAt?.UtcDateTime,
                         ReadingNote = (t.s as Vocabulary)?.ReadingMnemonic,
-                        Readings = (t.s is Vocabulary v)? string.Join(',', v.Readings.Select(r => r.AcceptedAnswer)) : null,
+                        Readings = (t.s is Vocabulary v)? string.Join(',', v.Readings.Where(r => r.AcceptedAnswer).Select(r => r.Text)) : null,
                         SrsLevel = (short)t.a.SrsStageId,
                         WkLevel = t.s.Level,
                     }).ToList();

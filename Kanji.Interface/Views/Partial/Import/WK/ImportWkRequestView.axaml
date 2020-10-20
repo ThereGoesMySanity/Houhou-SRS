@@ -48,7 +48,7 @@
                 </ia:DataTriggerBehavior>
               </i:Interaction.Behaviors>
             </ProgressBar>
-            <TextBox Classes="ErrorLabel LabelBox" Text="{Binding Error, Mode=OneWay}"/>
+            <TextBlock Classes="ErrorLabel LabelBox" Text="{Binding Error, Mode=OneWay}"/>
 
             <Border IsVisible="{Binding IsComplete}">
                     <Expander IsExpanded="True" BorderBrush="#666666" Padding="5" Margin="0 5 0 0">

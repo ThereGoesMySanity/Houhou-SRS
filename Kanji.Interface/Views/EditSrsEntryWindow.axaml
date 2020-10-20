@@ -35,7 +35,7 @@
             </Grid.RowDefinitions>
             
             <!-- Error message -->
-            <TextBox Grid.ColumnSpan="2" Margin="0 0 0 5" Text="{Binding ErrorMessage}" Classes="ErrorLabel LabelBox" IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+            <TextBlock Grid.ColumnSpan="2" Margin="0 0 0 5" Text="{Binding ErrorMessage}" Classes="ErrorLabel LabelBox" IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
             
             <!-- SRS progress and association -->
             <Grid Grid.ColumnSpan="2" Grid.Row="1">
@@ -109,7 +109,7 @@
                             </ia:DataTriggerBehavior>
                           </i:Interaction.Behaviors>
                         </TextBlock>
-                        <TextBox Grid.Column="1" Classes="NextReviewDateLabel LabelBox" Text="{Binding Entry.NextAnswerDate,
+                        <TextBlock Grid.Column="1" Classes="NextReviewDateLabel LabelBox" Text="{Binding Entry.NextAnswerDate,
                               Converter={StaticResource DateTimeToStringConverter},
                               ConverterParameter={x:Static converters:DateTimeToStringConversionEnum.Relative},
                               Mode=OneWay}" ToolTip.Tip="{Binding Entry.NextAnswerDate,

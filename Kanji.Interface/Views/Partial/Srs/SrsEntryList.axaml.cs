@@ -24,6 +24,7 @@ namespace Kanji.Interface.Controls
         public SrsEntryList()
         {
             InitializeComponent();
+            this.DataContextChanged += (object o, EventArgs args) => (DataContext as SrsEntryListViewModel).SelectedItems = SrsList.SelectedItems;
             SrsList.SelectionChanged += SrsList_SelectionChanged;
         }
         private void InitializeComponent()
@@ -38,7 +39,7 @@ namespace Kanji.Interface.Controls
         {
             e.Handled = true;
             SrsEntryListViewModel vm = (SrsEntryListViewModel)DataContext;
-            vm.SetSelection(SrsList.SelectedItems);
+            vm.SelectedItems = SrsList.SelectedItems;
             vm.RefreshSelection();
         }
     }

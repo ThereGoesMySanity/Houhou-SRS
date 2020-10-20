@@ -13,6 +13,7 @@
                     xmlns:cmodels="clr-namespace:Kanji.Common.Models;assembly=Kanji.Common">
   <StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml"/>
   <StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseLight.xaml"/>
+  <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Default.xaml"/>
   <Styles.Resources>
     <ResourceDictionary>
       <converters:KanjiToStringConverter x:Key="KanjiToStringConverter"/>
@@ -361,6 +362,7 @@
     </Style>
 
     <!-- Misc labels & textboxes -->
+    <!--TODO: Avalonia selectable TextBlock-->
     <Style Selector="TextBox.LabelBox" >
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Background" Value="{x:Null}"/>
@@ -543,7 +545,7 @@
                                                       RelativeSource={RelativeSource AncestorType={x:Type controls:KanjiDetails}}}" CommandParameter="{Binding HiraganaReading}"/>
               </ia:EventTriggerBehavior>
             </i:Interaction.Behaviors>-->
-            <TextBox Classes="ReadingLabel LabelBox" Text="{Binding ModifiedReading}"/>
+            <TextBlock Classes="ReadingLabel LabelBox" Text="{Binding ModifiedReading}"/>
           </Border>
         </ControlTemplate>
       </Setter.Value>
@@ -587,13 +589,13 @@
                 <RowDefinition Height="16*"/>
                 <RowDefinition Height="2*"/>
               </Grid.RowDefinitions><!--StretchDirection="UpOnly"-->
-              <Viewbox Grid.Column="1" Grid.Row="1" MaxHeight="30" MinHeight="15">
+              <Viewbox Grid.Column="1" Grid.Row="1" MaxHeight="30" MinHeight="15" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Viewbox.RenderTransform>
                   <TranslateTransform X="-1" Y="-1"/>
                 </Viewbox.RenderTransform>
                 <TextBlock Text="{TemplateBinding Content}" FontSize="{TemplateBinding FontSize}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black"/>
               </Viewbox><!--StretchDirection="UpOnly"-->
-              <Viewbox Grid.Column="1" Grid.Row="1"  MaxHeight="30" MinHeight="15">
+              <Viewbox Grid.Column="1" Grid.Row="1"  MaxHeight="30" MinHeight="15" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <TextBlock Text="{TemplateBinding Content}" FontSize="{TemplateBinding FontSize}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
               </Viewbox>
             </Grid>
@@ -1054,7 +1056,7 @@
       <Setter Property="Template">
         <Setter.Value>
           <ControlTemplate TargetType="ListBoxItem">
-            <TextBox Text="{Binding Character}" FontFamily="/Data/Fonts/NotoSansCJKjp-Thin.otf#Noto Sans CJK JP" ToolTip.Tip="{Binding Kanji, Converter={StaticResource KanjiToStringConverter},
+            <TextBlock Text="{Binding Character}" FontFamily="/Data/Fonts/NotoSansCJKjp-Thin.otf#Noto Sans CJK JP" ToolTip.Tip="{Binding Kanji, Converter={StaticResource KanjiToStringConverter},
                                             ConverterParameter={x:Static converters:KanjiToStringConversionType.Short}, Mode=OneWay}" Classes="LabelBox">
               <i:Interaction.Behaviors>
                 <utility:ClickTriggerBehavior MouseButtons="Left" EventName="PointerReleased">
@@ -1094,7 +1096,7 @@
                     <ia:ChangePropertyAction PropertyName="Tag" Value="False" />
                 </ia:DataTriggerBehavior>
               </i:Interaction.Behaviors>
-            </TextBox>
+            </TextBlock>
           </ControlTemplate>
         </Setter.Value>
       </Setter>
@@ -1151,11 +1153,11 @@
                 </ia:DataTriggerBehavior>
               </i:Interaction.Behaviors>
               <Viewbox MaxWidth="{Binding ElementName=KWListbox, Path=ActualWidth}">
-                <TextBox Text="{Binding Furigana, Mode=OneWay}" HorizontalContentAlignment="Center" Padding="0" Margin="0" Classes="LabelBox">
+                <TextBlock Text="{Binding Furigana, Mode=OneWay}" HorizontalAlignment="Center" Classes="LabelBox">
                   <ToolTip.Tip>
                     <TextBlock Text="{Binding Furigana}" FontSize="16"/>
                   </ToolTip.Tip>
-                </TextBox>
+                </TextBlock>
               </Viewbox>
             </Border>
           </Grid>
@@ -1698,7 +1700,7 @@
                                                                   RelativeSource={RelativeSource AncestorType={x:Type controls:KanjiDetails}}}" CommandParameter="{Binding HiraganaReading}"/>
                     </utility:ClickTriggerBehavior>
                   </i:Interaction.Behaviors>
-                  <TextBox Classes="ReadingLabel LabelBox" Text="{Binding ModifiedReading}"/>
+                  <TextBlock Classes="ReadingLabel LabelBox" Text="{Binding ModifiedReading}"/>
                 </Border>
               </DataTemplate>
               <DataTemplate DataType="{x:Type models:KanjiReadingLabel}">
