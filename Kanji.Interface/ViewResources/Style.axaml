@@ -485,7 +485,7 @@
     <Setter Property="VerticalContentAlignment" Value="Center"/>
   </Style>
 
-  <Style Selector="TextBox.ReadingLabel">
+  <Style Selector="TextBlock.ReadingLabel">
     <Setter Property="FontSize" Value="14"/>
     <!--<Setter Property="LayoutTransform">
             <Setter.Value>
@@ -842,20 +842,20 @@
     <Setter Property="BorderBrush" Value="#99042880" />
   </Style>
 
-  <Style Selector="TextBox.KanjiMeaningLabel">
-    <Setter Property="BorderThickness" Value="0 0 0 1"/>
+  <Style Selector="TextBlock.KanjiMeaningLabel">
+    <!-- <Setter Property="BorderThickness" Value="0 0 0 1"/>
     <Setter Property="BorderBrush" Value="Black"/>
-    <Setter Property="Margin" Value="0 0 0 5"/>
+    <Setter Property="Margin" Value="0 0 0 5"/> -->
     <Setter Property="FontSize" Value="16"/>
     <Setter Property="VerticalAlignment" Value="Center"/>
     <Setter Property="TextWrapping" Value="Wrap"/>
   </Style>
 
-  <Style Selector="TextBox.KanjiTitle">
-    <Setter Property="BorderThickness" Value="2"/>
-    <Setter Property="BorderBrush" Value="Black"/>
+  <Style Selector="TextBlock.KanjiTitle">
+    <!-- <Setter Property="BorderThickness" Value="2"/>
+    <Setter Property="BorderBrush" Value="Black"/> -->
     <Setter Property="Background" Value="White"/>
-    <Setter Property="Margin" Value="5 5 5 0"/>
+    <!-- <Setter Property="Margin" Value="5 5 5 0"/> -->
     <Setter Property="Width" Value="90"/>
     <Setter Property="Height" Value="87"/>
     <Setter Property="VerticalAlignment" Value="Top"/>
@@ -865,10 +865,15 @@
     <Setter Property="FontSize" Value="64"/>
     <Setter Property="FontFamily" Value="/Data/Fonts/NotoSansCJKjp-Thin.otf#Noto Sans CJK JP"/>
   </Style>
-  <Style Selector="ListBox.MiniRadicalList">
+  <Style Selector="ItemsControl.MiniRadicalList">
     <Setter Property="ItemTemplate" Value="{StaticResource MiniRadicalInListTemplate}"/>
+    <Setter Property="ItemsPanel">
+      <ItemsPanelTemplate>
+          <WrapPanel/>
+      </ItemsPanelTemplate>
+    </Setter>
   </Style>
-  <Style Selector="ListBox.MiniRadicalList ListBoxItem" >
+  <Style Selector="ItemsControl.MiniRadicalList ContentPresenter" >
     <Setter Property="ToolTip.Tip" Value="{Binding Path=Name}"/>
   </Style>
 
@@ -1025,17 +1030,8 @@
     </Style>-->
 
     <!-- Kanji writing listbox -->
-    <Style Selector="ListBox.VocabKanjiWritingListbox" >
+    <Style Selector="ItemsControl.VocabKanjiWritingListbox" >
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="ListBox">
-                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}">
-                        <ItemsPresenter/>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
         <Setter Property="Padding" Value="4 0 4 0"/>
         <Setter Property="Margin" Value="0 0 4 0"/>
         <Setter Property="Background" Value="Transparent"/>
@@ -1047,74 +1043,56 @@
             </Setter.Value>
         </Setter>
       <Setter Property="FontSize" Value="26"/>
-    </Style>
-    <Style Selector="ListBox.VocabKanjiWritingListbox ListBoxItem">
-      <Setter Property="Template">
-        <Setter.Value>
-          <ControlTemplate TargetType="ListBoxItem">
-            <TextBlock Text="{Binding Character}" FontFamily="/Data/Fonts/NotoSansCJKjp-Thin.otf#Noto Sans CJK JP" ToolTip.Tip="{Binding Kanji, Converter={StaticResource KanjiToStringConverter},
-                                            ConverterParameter={x:Static converters:KanjiToStringConversionType.Short}, Mode=OneWay}" Classes="LabelBox">
-              <i:Interaction.Behaviors>
-                <utility:ClickTriggerBehavior MouseButtons="Left" EventName="PointerReleased">
-                  <ia:InvokeCommandAction Command="{Binding DataContext.KanjiNavigationCommand,
-                                                        RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding .}"/>
-                </utility:ClickTriggerBehavior>
-                <ia:DataTriggerBehavior Binding="{Binding IsMarginalReading}" Value="True">
-                  <ia:ChangePropertyAction PropertyName="Opacity" Value="0.33" />
-                </ia:DataTriggerBehavior>
-                <ia:DataTriggerBehavior Binding="{Binding IsMarginalReading}" Value="False">
-                  <ia:ChangePropertyAction PropertyName="Opacity" Value="1" />
-                </ia:DataTriggerBehavior>
-                <ia:DataTriggerBehavior Binding="{TemplateBinding Tag}" Value="True">
-                  <!--<ia:ChangePropertyAction PropertyName="TextDecorations" Value="Underline" />-->
-                  <ia:ChangePropertyAction Value="Hand" PropertyName="Cursor"/>
-                  <ia:ChangePropertyAction Value="Blue" PropertyName="Foreground"/>
-                  <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
-                </ia:DataTriggerBehavior>
-                <ia:DataTriggerBehavior Binding="{TemplateBinding Tag}" Value="False">
-                  <!--<ia:ChangePropertyAction PropertyName="TextDecorations" Value="Underline" />-->
-                  <ia:ChangePropertyAction Value="Arrow" PropertyName="Cursor"/>
-                  <ia:ChangePropertyAction Value="Transparent" PropertyName="Foreground"/>
-                </ia:DataTriggerBehavior>
-                <utility:MultiDataTriggerBehavior>
-                  <utility:MultiDataTriggerBehavior.Conditions>
-                    <utility:Condition Binding="{Binding HasKanji}" Value="True" />
-                    <utility:Condition Binding="{Binding $self.IsPointerOver}" Value="True" />
-                  </utility:MultiDataTriggerBehavior.Conditions>
-                  <utility:MultiDataTriggerBehavior.Actions>
-                    <ia:ChangePropertyAction PropertyName="Tag" Value="True" />
-                  </utility:MultiDataTriggerBehavior.Actions>
-                </utility:MultiDataTriggerBehavior>
-                <ia:DataTriggerBehavior Binding="{Binding HasKanji}" Value="False">
-                    <ia:ChangePropertyAction PropertyName="Tag" Value="False" />
-                </ia:DataTriggerBehavior>
-                <ia:DataTriggerBehavior Binding="{Binding $self.IsPointerOver}" Value="False">
-                    <ia:ChangePropertyAction PropertyName="Tag" Value="False" />
-                </ia:DataTriggerBehavior>
-              </i:Interaction.Behaviors>
-            </TextBlock>
-          </ControlTemplate>
-        </Setter.Value>
+      <Setter Property="ItemTemplate">
+        <DataTemplate>
+          <TextBlock Text="{Binding Character}" FontFamily="/Data/Fonts/NotoSansCJKjp-Thin.otf#Noto Sans CJK JP" ToolTip.Tip="{Binding Kanji, Converter={StaticResource KanjiToStringConverter},
+                                          ConverterParameter={x:Static converters:KanjiToStringConversionType.Short}, Mode=OneWay}" Classes="LabelBox">
+            <i:Interaction.Behaviors>
+              <utility:ClickTriggerBehavior MouseButtons="Left" EventName="PointerReleased">
+                <ia:InvokeCommandAction Command="{Binding DataContext.KanjiNavigationCommand,
+                                                      RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding .}"/>
+              </utility:ClickTriggerBehavior>
+              <ia:DataTriggerBehavior Binding="{Binding IsMarginalReading}" Value="True">
+                <ia:ChangePropertyAction PropertyName="Opacity" Value="0.33" />
+              </ia:DataTriggerBehavior>
+              <ia:DataTriggerBehavior Binding="{Binding IsMarginalReading}" Value="False">
+                <ia:ChangePropertyAction PropertyName="Opacity" Value="1" />
+              </ia:DataTriggerBehavior>
+              <ia:DataTriggerBehavior Binding="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
+                <!--<ia:ChangePropertyAction PropertyName="TextDecorations" Value="Underline" />-->
+                <ia:ChangePropertyAction Value="Hand" PropertyName="Cursor"/>
+                <ia:ChangePropertyAction Value="Blue" PropertyName="Foreground"/>
+                <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
+              </ia:DataTriggerBehavior>
+              <ia:DataTriggerBehavior Binding="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}" Value="False">
+                <!--<ia:ChangePropertyAction PropertyName="TextDecorations" Value="Underline" />-->
+                <ia:ChangePropertyAction Value="Arrow" PropertyName="Cursor"/>
+                <ia:ChangePropertyAction Value="Transparent" PropertyName="Foreground"/>
+              </ia:DataTriggerBehavior>
+              <utility:MultiDataTriggerBehavior>
+                <utility:MultiDataTriggerBehavior.Conditions>
+                  <utility:Condition Binding="{Binding HasKanji}" Value="True" />
+                  <utility:Condition Binding="{Binding $self.IsPointerOver}" Value="True" />
+                </utility:MultiDataTriggerBehavior.Conditions>
+                <utility:MultiDataTriggerBehavior.Actions>
+                  <ia:ChangePropertyAction PropertyName="Tag" Value="True" />
+                </utility:MultiDataTriggerBehavior.Actions>
+              </utility:MultiDataTriggerBehavior>
+              <ia:DataTriggerBehavior Binding="{Binding HasKanji}" Value="False">
+                  <ia:ChangePropertyAction PropertyName="Tag" Value="False" />
+              </ia:DataTriggerBehavior>
+              <ia:DataTriggerBehavior Binding="{Binding $self.IsPointerOver}" Value="False">
+                  <ia:ChangePropertyAction PropertyName="Tag" Value="False" />
+              </ia:DataTriggerBehavior>
+            </i:Interaction.Behaviors>
+          </TextBlock>
+        </DataTemplate>
       </Setter>
     </Style>
 
   <!-- Vocab writing part listbox -->
-    <Style Selector="ListBox.VocabWritingPartListbox" >
+    <Style Selector="ItemsControl.VocabWritingPartListbox" >
       <Setter Property="BorderThickness" Value="0"/>
-      <Setter Property="Template">
-        <Setter.Value>
-          <ControlTemplate>
-            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}">
-              <ItemsPresenter Name="PART_ItemsPresenter"
-                Items="{TemplateBinding Items}"
-                ItemsPanel="{TemplateBinding ItemsPanel}"
-                ItemTemplate="{TemplateBinding ItemTemplate}"
-                Margin="{TemplateBinding Padding}"
-                VirtualizationMode="{TemplateBinding VirtualizationMode}"/>
-            </Border>
-          </ControlTemplate>
-        </Setter.Value>
-      </Setter>
       <Setter Property="Padding" Value="3,0"/>
       <Setter Property="Background" Value="Transparent"/>
       <Setter Property="ItemsPanel">
@@ -1134,7 +1112,7 @@
               <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <ListBox Grid.Row="1" Classes="VocabKanjiWritingListbox" Items="{Binding Characters, Mode=OneWay}" Name="KWListbox"/>
+            <ItemsControl Grid.Row="1" Classes="VocabKanjiWritingListbox" Items="{Binding Characters, Mode=OneWay}" Name="KWListbox"/>
             <Border>
               <i:Interaction.Behaviors>
                 <ia:DataTriggerBehavior Binding="{Binding $parent[ListBox].DataContext.HasUndeterminedFurigana}" Value="True">
@@ -1172,14 +1150,7 @@
     <Setter Property="Foreground" Value="Black" />
   </Style>
 
-  <Style Selector="ListBox.VocabVariantList" >
-      <Setter Property="Template">
-        <Setter.Value>
-          <ControlTemplate>
-            <ItemsPresenter/>
-          </ControlTemplate>
-        </Setter.Value>
-      </Setter>
+  <Style Selector="ItemsControl.VocabVariantList" >
       <Setter Property="Background" Value="Transparent"/>
       <Setter Property="BorderThickness" Value="0"/>
       <Setter Property="Margin" Value="0 0 0 3"/>
@@ -1190,71 +1161,64 @@
           </ItemsPanelTemplate>
         </Setter.Value>
       </Setter>
-    </Style>
-  <Style Selector="ListBox.VocabVariantList ListBoxItem">
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="ListBoxItem">
-          <ContentControl Content="{Binding .}">
-            <ContentControl.DataTemplates>
-              <DataTemplate DataType="{x:Type models:VocabVariant}">
-                <Border Cursor="Hand" BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="1" Margin="5 2 0 0" Padding="4 0 4 0">
-                  <i:Interaction.Behaviors>
-                    <utility:ClickTriggerBehavior MouseButtons="Left" EventName="PointerReleased">
-                      <ia:InvokeCommandAction Command="{Binding DataContext.SwitchVocabCommand,
-                                                                  RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding .}"/>
-                    </utility:ClickTriggerBehavior>
-                    <!-- TODO <ia:DataTriggerBehavior Binding="{Binding Variant.IsMain}" Value="True">
-                      <Setter Property="Background" Value="#6444FF55" />
-                    </ia:DataTriggerBehavior> -->
-                  </i:Interaction.Behaviors>
-                  <Border.Styles>
-                    <Style Selector="Border">
-                      <Setter Property="Background" Value="#44FFFFFF"/>
-                    </Style>
-                  </Border.Styles>
-
-                  <StackPanel Orientation="Horizontal">
-                    <TextBlock Classes="VocabVariantText">
-                    <!--TODO: move back into style-->
-                      <i:Interaction.Behaviors>
-                        <ia:DataTriggerBehavior Binding="{Binding Variant.IsMain}" Value="True">
-                          <ia:ChangePropertyAction Value="SemiBold" PropertyName="FontWeight"/>
-                          <ia:ChangePropertyAction Value="#AAAA0000" PropertyName="Foreground"/>
-                        </ia:DataTriggerBehavior>
-                        <ia:DataTriggerBehavior Binding="{Binding Variant.IsMain}" Value="False">
-                          <ia:ChangePropertyAction Value="Regular" PropertyName="FontWeight"/>
-                          <ia:ChangePropertyAction Value="#777777" PropertyName="Foreground"/>
-                        </ia:DataTriggerBehavior>
-                      </i:Interaction.Behaviors>
-                      <TextBlock.Text>
-                        <MultiBinding StringFormat="{}{0} 【{1}】">
-                          <MultiBinding.Bindings>
-                            <Binding Path="Variant.KanjiWriting"/>
-                            <Binding Path="Variant.KanaWriting"/>
-                          </MultiBinding.Bindings>
-                        </MultiBinding>
-                      </TextBlock.Text>
-                    </TextBlock>
-                  </StackPanel>
-                </Border>
-              </DataTemplate>
-              <DataTemplate DataType="{x:Type sys:String}">
-                <Border BorderBrush="#CC000000" BorderThickness="1" Margin="5 2 0 0" Background="#AA777777" Padding="4 0 4 0">
-                  <TextBlock Classes="LegendText" Text="{Binding .}" Foreground="White"/>
-                </Border>
-              </DataTemplate>
-            </ContentControl.DataTemplates>
-          </ContentControl>
-        </ControlTemplate>
-      </Setter.Value>
+    <Setter Property="ItemTemplate">
+      <!--TODO: better way to have multiple datatemplates for one list?-->
+      <DataTemplate>
+        <ContentControl Content="{Binding .}">
+          <ContentControl.DataTemplates>
+            <DataTemplate DataType="{x:Type models:VocabVariant}">
+              <Border Cursor="Hand" BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="1" Margin="5 2 0 0" Padding="4 0 4 0">
+                <i:Interaction.Behaviors>
+                  <utility:ClickTriggerBehavior MouseButtons="Left" EventName="PointerReleased">
+                    <ia:InvokeCommandAction Command="{Binding DataContext.SwitchVocabCommand,
+                                                                RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding .}"/>
+                  </utility:ClickTriggerBehavior>
+                  <ia:DataTriggerBehavior Binding="{Binding Variant.IsMain}" Value="True">
+                    <ia:ChangePropertyAction PropertyName="Background" Value="#6444FF55" />
+                  </ia:DataTriggerBehavior>
+                  <ia:DataTriggerBehavior Binding="{Binding Variant.IsMain}" Value="False">
+                    <ia:ChangePropertyAction PropertyName="Background" Value="#44FFFFFF"/>
+                  </ia:DataTriggerBehavior>
+                </i:Interaction.Behaviors>
+                <StackPanel Orientation="Horizontal">
+                  <TextBlock Classes="VocabVariantText">
+                    <i:Interaction.Behaviors>
+                      <ia:DataTriggerBehavior Binding="{Binding Variant.IsMain}" Value="True">
+                        <ia:ChangePropertyAction Value="SemiBold" PropertyName="FontWeight"/>
+                        <ia:ChangePropertyAction Value="#AAAA0000" PropertyName="Foreground"/>
+                      </ia:DataTriggerBehavior>
+                      <ia:DataTriggerBehavior Binding="{Binding Variant.IsMain}" Value="False">
+                        <ia:ChangePropertyAction Value="Regular" PropertyName="FontWeight"/>
+                        <ia:ChangePropertyAction Value="#777777" PropertyName="Foreground"/>
+                      </ia:DataTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                    <TextBlock.Text>
+                      <MultiBinding StringFormat="{}{0} 【{1}】">
+                        <MultiBinding.Bindings>
+                          <Binding Path="Variant.KanjiWriting"/>
+                          <Binding Path="Variant.KanaWriting"/>
+                        </MultiBinding.Bindings>
+                      </MultiBinding>
+                    </TextBlock.Text>
+                  </TextBlock>
+                </StackPanel>
+              </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type sys:String}">
+              <Border BorderBrush="#CC000000" BorderThickness="1" Margin="5 2 0 0" Background="#AA777777" Padding="4 0 4 0">
+                <TextBlock Classes="LegendText" Text="{Binding .}" Foreground="White"/>
+              </Border>
+            </DataTemplate>
+          </ContentControl.DataTemplates>
+        </ContentControl>
+      </DataTemplate>
     </Setter>
   </Style>
 
-  <!--<Style Selector="ListBox.VocabList :is(ILogicalScrollable)">
+  <!--<Style Selector="ItemsControl.VocabList :is(ILogicalScrollable)">
     <Setter Property="IsLogicalScrollEnabled" Value="False" />
   </Style>-->
-    <Style Selector="ListBox.VocabList" >
+    <Style Selector="ItemsControl.VocabList" >
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
         <Setter Property="ItemsPanel">
             <Setter.Value>
@@ -1530,7 +1494,7 @@
                             <RowDefinition Height="*"/>
                           </Grid.RowDefinitions>
                           <StackPanel Grid.Row="1">
-                            <ListBox Classes="VocabWritingPartListbox" Items="{Binding DbVocab, Mode=OneWay,
+                            <ItemsControl Classes="VocabWritingPartListbox" Items="{Binding DbVocab, Mode=OneWay,
                                                        Converter={StaticResource KanjiWritingToCharactersConverter},
                                                        }"/>
                           </StackPanel>
@@ -1632,7 +1596,7 @@
                     </Border>
 
                     <Border Grid.Row="1" Grid.ColumnSpan="2" IsVisible="{Binding HasVariants}" BorderThickness="0 1 0 0" BorderBrush="#22000000" Padding="0 2 0 2">
-                      <ListBox Classes="VocabVariantList" Items="{Binding ., Mode=OneWay, Converter={StaticResource ExtendedVocabToVariantListConverter}}"/>
+                      <ItemsControl Classes="VocabVariantList" Items="{Binding ., Mode=OneWay, Converter={StaticResource ExtendedVocabToVariantListConverter}}"/>
                     </Border>
                   </Grid>
                 </Border>

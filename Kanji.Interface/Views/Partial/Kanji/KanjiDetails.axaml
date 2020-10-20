@@ -27,13 +27,7 @@
 
             <!-- Radical list -->
             <StackPanel Grid.Column="0" Grid.Row="1" Margin="5 3 5 0" IsVisible="{Binding ShowDetails}">
-                <ListBox Items="{Binding KanjiEntity.Radicals}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" Classes="MiniRadicalList" Width="100" Background="Transparent">
-                    <ListBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel/>
-                        </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
-                </ListBox>
+                <ItemsControl Items="{Binding KanjiEntity.Radicals}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" Classes="MiniRadicalList" Width="100" Background="Transparent"/>
             </StackPanel>
         </StackPanel>
         

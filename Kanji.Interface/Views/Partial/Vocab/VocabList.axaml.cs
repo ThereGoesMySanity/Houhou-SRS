@@ -27,8 +27,8 @@ namespace Kanji.Interface.Controls
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
-            VocabListBox = this.FindControl<ListBox>("VocabListBox");
+            VocabListBox = this.FindControl<ItemsControl>("VocabListBox");
         }
-        public ListBox VocabListBox { get; private set; }
+        public ItemsControl VocabListBox { get; private set; }
     }
 }

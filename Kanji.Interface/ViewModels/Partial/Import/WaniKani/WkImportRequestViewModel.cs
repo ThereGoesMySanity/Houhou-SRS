@@ -201,16 +201,20 @@ namespace Kanji.Interface.ViewModels
                     }
 
                     WkImportResult result = new WkImportResult();
-                    result.Items = results.Select(((Subject s, Assignment a) t) => new WkItem
+
+                    //TODO: Level 0 is "haven't completed the lesson" - what do with those?
+                    //TODO: Hint vs Mnemonic: Mnemonic is the one that comes up in lessons, hint comes up in reviews.
+                    //      Which does the user want?
+                    result.Items = results.Where(t => t.Item2.SrsStageId != 0).Select(((Subject s, Assignment a) t) => new WkItem
                     {
                         IsKanji = t.a.SubjectType == "kanji",
                         KanjiReading = (t.s as WaniKaniApi.Models.Kanji)?.Characters ?? (t.s as Vocabulary)?.Characters,
-                        MeaningNote = t.s.MeaningMnemonic,
+                        MeaningNote = t.s.MeaningHint,
+                        ReadingNote = t.s.ReadingHint,
                         Meanings = string.Join(',', t.s.Meanings.Where(m => m.AcceptedAnswer).Select(m => m.Text)),
                         NextReviewDate = t.a.AvailableAt?.UtcDateTime,
-                        ReadingNote = (t.s as Vocabulary)?.ReadingMnemonic,
-                        Readings = (t.s is Vocabulary v)? string.Join(',', v.Readings.Where(r => r.AcceptedAnswer).Select(r => r.Text)) : null,
-                        SrsLevel = (short)t.a.SrsStageId,
+                        Readings = string.Join(',', ((t.s as WaniKaniApi.Models.Kanji)?.Readings.Cast<ReadingBase>() ?? (t.s as Vocabulary)?.Readings).Where(r => r.AcceptedAnswer).Select(r => r.Text)),
+                        SrsLevel = (short)(t.a.SrsStageId - 1),
                         WkLevel = t.s.Level,
                     }).ToList();
 
