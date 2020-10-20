@@ -22,11 +22,8 @@ namespace Kanji.Interface.Converters
         public object Convert(object value, Type targetType,
                               object parameter, CultureInfo culture)
         {
-            //TODO
-            //AvaloniaObject item = (AvaloniaObject)value;
-            //ItemsControl ic = ItemsControl.ItemsControlFromItemContainer(item);
-
-            return (value as ItemContainerInfo).Index == 0;
+            var items = parameter as ItemsControl;
+            return items.Items.Cast<object>().TakeWhile(i => i != value).Count();
                 //== ic.Items.Count - 1;
         }
 

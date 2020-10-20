@@ -11,6 +11,7 @@
             <TextBlock.Text>
           <Binding Path="SelectedCount" StringFormat="{}{0} items selected"/>
             </TextBlock.Text>
+            <!--TODO-->
             <!-- <i:Interaction.Behaviors>
               <ia:DataTriggerBehavior Binding="{Binding SelectedCount}" Value="0">
                 <ia:ChangePropertyAction Value="No items selected" PropertyName="Text"/>

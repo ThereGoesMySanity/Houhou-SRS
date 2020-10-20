@@ -521,35 +521,31 @@
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="ItemsPanel">
-            <Setter.Value>
-                <ItemsPanelTemplate>
-                    <WrapPanel/>
-                </ItemsPanelTemplate>
-            </Setter.Value>
+          <ItemsPanelTemplate>
+              <WrapPanel/>
+          </ItemsPanelTemplate>
         </Setter>
-    </Style>
-  <Style Selector="ListBox.KanjiReadingListbox ListBoxItem">
     <!-- Style of the list box items in the reading listbox -->
-    <Setter Property="Background" Value="#FFFFFFFF"/>
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="ListBoxItem">
-          <Border BorderBrush="#CC000000" BorderThickness="1" Background="{TemplateBinding Background}" Padding="2">
-            <!--<i:Interaction.Behaviors>
-              <ia:DataTriggerBehavior Binding="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem}, Converter={StaticResource IsFirstItemInContainerConverter}}" Value="True">
-                --><!--First item in the list. Add a margin--><!--
-                <ia:ChangePropertyAction PropertyName="Margin" Value="60 0 5 1"/>
-              </ia:DataTriggerBehavior>
-              <ia:EventTriggerBehavior EventName="PointerLeftButtonUp">
-                <ia:InvokeCommandAction Command="{Binding DataContext.FilterReadingCommand,
-                                                      RelativeSource={RelativeSource AncestorType={x:Type controls:KanjiDetails}}}" CommandParameter="{Binding HiraganaReading}"/>
-              </ia:EventTriggerBehavior>
-            </i:Interaction.Behaviors>-->
-            <TextBlock Classes="ReadingLabel LabelBox" Text="{Binding ModifiedReading}"/>
-          </Border>
-        </ControlTemplate>
-      </Setter.Value>
+    <Setter Property="ItemTemplate">
+      <DataTemplate>
+        <Border BorderBrush="#CC000000" BorderThickness="1" Background="{TemplateBinding Background}" Padding="2">
+          <i:Interaction.Behaviors>
+            <ia:DataTriggerBehavior Binding="{Binding ., Converter={StaticResource IsFirstItemInContainerConverter}, ConverterParameter={Binding $parent[ListBox]}}" Value="True">
+             <!--First item in the list. Add a margin-->
+              <ia:ChangePropertyAction PropertyName="Margin" Value="60 0 5 1"/>
+            </ia:DataTriggerBehavior>
+            <ia:EventTriggerBehavior EventName="PointerLeftButtonUp">
+              <ia:InvokeCommandAction Command="{Binding DataContext.FilterReadingCommand,
+                                                    RelativeSource={RelativeSource AncestorType={x:Type controls:KanjiDetails}}}" CommandParameter="{Binding HiraganaReading}"/>
+            </ia:EventTriggerBehavior>
+          </i:Interaction.Behaviors>
+          <TextBlock Classes="ReadingLabel LabelBox" Text="{Binding ModifiedReading}"/>
+        </Border>
+      </DataTemplate>
     </Setter>
+  </Style>
+  <Style Selector="ListBox.KanjiReadingListbox ListBoxItem">
+    <Setter Property="Background" Value="#FFFFFFFF"/>
   </Style>
   <Style Selector="ListBox.KanjiReadingListbox ListBoxItem:pointerover">
     <Setter Property="Background" Value="#FFE0E0E0" />
