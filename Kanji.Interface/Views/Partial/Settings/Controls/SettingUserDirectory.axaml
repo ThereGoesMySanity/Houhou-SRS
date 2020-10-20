@@ -12,7 +12,7 @@
         <Button Classes="MiniActionButton ActionButton" Content="Modify" Width="100" Margin="0 5 0 0" HorizontalAlignment="Left" Command="{Binding EnterEditModeCommand}" />
       </StackPanel>
         <StackPanel IsVisible="{Binding IsEditMode}">
-            <TextBox FontSize="14" TextWrapping="Wrap" Classes="ErrorLabel LabelBox" Text="{Binding ErrorMessage, Mode=OneWay}" />
+            <TextBlock FontSize="14" TextWrapping="Wrap" Classes="ErrorLabel LabelBox" Text="{Binding ErrorMessage, Mode=OneWay}" />
             <TextBlock Classes="LegendText" Text="User directory path" />
             <TextBox Text="{Binding UserDirectoryPath,Mode=TwoWay}" />
             <Button Classes="MiniActionButton ActionButton" Content="Save this path" Width="100" Margin="0 5 0 0" HorizontalAlignment="Left" Command="{Binding SetDirectoryCommand}" />

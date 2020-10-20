@@ -88,31 +88,28 @@
                 </Grid.ColumnDefinitions>
                 
                 <!-- List -->
-                <DataGrid Name="SrsList" Items="{Binding LoadedItems,  Mode=OneWay}" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Extended" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                    <i:Interaction.Behaviors>
-                        <ia:EventTriggerBehavior EventName="SelectionChanged">
-                            <ia:InvokeCommandAction Command="{Binding RefreshSelectionCommand, Mode=OneWay}"/>
-                        </ia:EventTriggerBehavior>
-                    </i:Interaction.Behaviors>
+                <DataGrid Name="SrsList" Items="{Binding LoadedItems, Mode=OneWay}" IsReadOnly="True" AutoGenerateColumns="False"
+                          SelectionMode="Extended" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <DataGrid.Columns>
                         <DataGridTemplateColumn Width="33" CanUserResize="False" CanUserSort="False" CanUserReorder="False">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Border Background="{Binding LevelGroup.Color,  Converter={StaticResource ColorToBrushConverter}}" Padding="2 0" BorderBrush="Black" BorderThickness="1" CornerRadius="3" Margin="2 0 2 0" Height="NaN">
+                                    <Border Background="{Binding LevelGroup.Color,  Converter={StaticResource ColorToBrushConverter}}" Padding="2 0" BorderBrush="Black"
+                                            BorderThickness="1" CornerRadius="3" Margin="2 0 2 0" VerticalAlignment="Stretch">
                                         <Panel>
-                                            <TextBlock Foreground="Black" Text="{Binding Level.Name, }" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <TextBlock Foreground="Black" Text="{Binding Level.Name}" HorizontalAlignment="Center" VerticalAlignment="Center">
                                                 <TextBlock.RenderTransform>
                                                     <TranslateTransform X="-1" Y="-1"/>
                                                 </TextBlock.RenderTransform>
                                             </TextBlock>
-                                            <TextBlock Foreground="White" Text="{Binding Level.Name, }" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            <TextBlock Foreground="White" Text="{Binding Level.Name}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                         </Panel>
                                     </Border>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Binding="{Binding Representation}" Header="Item" Width="NaN" MaxWidth="80" FontSize="14"/>
-                        <DataGridTextColumn Binding="{Binding Readings}" Header="Readings" Width="NaN" MaxWidth="150" FontSize="14"/>
+                        <DataGridTextColumn Binding="{Binding Representation}" Header="Item" Width="Auto" MaxWidth="80" FontSize="14"/>
+                        <DataGridTextColumn Binding="{Binding Readings}" Header="Readings" Width="Auto" MaxWidth="150" FontSize="14"/>
                         <DataGridTextColumn Binding="{Binding Meanings}" Header="Meanings" Width="*" FontSize="14"/>
                         <DataGridTemplateColumn Width="33" CanUserResize="False" CanUserSort="False" CanUserReorder="False">
                             <DataGridTemplateColumn.CellTemplate>
@@ -128,7 +125,8 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Grid.Column="4" Classes="MiniActionButton ActionButton" Content="Edit" HorizontalAlignment="Stretch" 
-                                            Margin="2 0 2 0" Command="{Binding DataContext.EditSingleItemCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, }" CommandParameter="{Binding $self.DataContext}"/>
+                                            Margin="2 0 2 0" Command="{Binding DataContext.EditSingleItemCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                            CommandParameter="{Binding $self.DataContext}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

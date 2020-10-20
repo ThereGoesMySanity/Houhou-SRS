@@ -9,13 +9,14 @@
                     xmlns:controls="clr-namespace:Kanji.Interface.Controls" x:Class="Kanji.Interface.Controls.SrsEntrySelectionActionControl" mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
 
     <Grid>
+      <TextBlock Text="{Binding SelectedCount}"/>
         <!-- Nothing selected -->
-      <Grid Name="ZeroItemPanel" IsVisible="{Binding !SelectedItems.Count}">
+      <Grid Name="ZeroItemPanel" IsVisible="{Binding !SelectedCount}">
         <TextBlock Text="Select items in the list to view stats or perform bulk edition." TextWrapping="Wrap" TextAlignment="Center" Classes="LegendText"/>
       </Grid>
 
         <!-- 1 item selected -->
-        <Grid Name="OneItemPanel" IsVisible="{Binding SelectedItems.Count,
+        <Grid Name="OneItemPanel" IsVisible="{Binding SelectedCount,
                   Converter={StaticResource ValueToBoolConverter},
                   ConverterParameter=1}">
             <Grid.RowDefinitions>
@@ -38,42 +39,51 @@
           </Grid.IsVisible>
           <!-- BulkEditMode = None -->
             <ScrollViewer Margin="0 0 0 5" VerticalScrollBarVisibility="Auto">
-                <UniformGrid Columns="1" ScrollViewer.VerticalScrollBarVisibility="Auto" IsVisible="{Binding BulkEditMode}">
+                <UniformGrid Columns="1" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                  <i:Interaction.Behaviors>
+                      <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="None">
+                          <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
+                      </ia:DataTriggerBehavior>
+                      <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="None">
+                          <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
+                      </ia:DataTriggerBehavior>
+                  </i:Interaction.Behaviors>
+
                   <Button Classes="ActionButton" Content="Bulk edit the meaning note" Margin="0 0 0 5" Command="{Binding BulkEditMeaningNoteCommand}" Height="NaN" MinHeight="20"/>
                   <Button Classes="ActionButton" Content="Bulk edit the reading note" Margin="0 0 0 5" Command="{Binding BulkEditReadingNoteCommand}" Height="NaN" MinHeight="20"/>
-                    <Button Classes="ActionButton" Content="Bulk edit the tags" Margin="0 0 0 5" Command="{Binding BulkEditTagsCommand}" Height="NaN" MinHeight="20"/>
-                    <Button Classes="ActionButton" Content="Bulk edit the SRS level" Margin="0 0 0 5" Command="{Binding BulkEditLevelCommand}" Height="NaN" MinHeight="20"/>
-                    <Button Classes="ActionButton" Content="Bulk reschedule review dates" Margin="0 0 0 5" Command="{Binding BulkRescheduleCommand}" Height="NaN" MinHeight="20"/>
-                    <Button Classes="ActionButton" Content="Bulk delay review dates" Margin="0 0 0 5" Command="{Binding BulkDelayCommand}" Height="NaN" MinHeight="20"/>
-                    <Button Classes="ActionButton" Content="Suspend all selected items" Margin="0 0 0 5" Command="{Binding BulkSuspendCommand}" Height="NaN" MinHeight="20"/>
-                    <Button Classes="ActionButton" Content="Resume all selected items" Margin="0 0 0 5" Command="{Binding BulkResumeCommand}" Height="NaN" MinHeight="20"/>
-                    <Button Classes="ActionButton" Content="Delete all selected items" Margin="0 0 0 5" Command="{Binding BulkDeleteCommand}" Height="NaN" MinHeight="20"/>
-                    <Button Classes="ActionButton" Content="Export all selected items" Margin="0 0 0 5" Command="{Binding ExportCommand}" Height="NaN" MinHeight="20"/>
+                  <Button Classes="ActionButton" Content="Bulk edit the tags" Margin="0 0 0 5" Command="{Binding BulkEditTagsCommand}" Height="NaN" MinHeight="20"/>
+                  <Button Classes="ActionButton" Content="Bulk edit the SRS level" Margin="0 0 0 5" Command="{Binding BulkEditLevelCommand}" Height="NaN" MinHeight="20"/>
+                  <Button Classes="ActionButton" Content="Bulk reschedule review dates" Margin="0 0 0 5" Command="{Binding BulkRescheduleCommand}" Height="NaN" MinHeight="20"/>
+                  <Button Classes="ActionButton" Content="Bulk delay review dates" Margin="0 0 0 5" Command="{Binding BulkDelayCommand}" Height="NaN" MinHeight="20"/>
+                  <Button Classes="ActionButton" Content="Suspend all selected items" Margin="0 0 0 5" Command="{Binding BulkSuspendCommand}" Height="NaN" MinHeight="20"/>
+                  <Button Classes="ActionButton" Content="Resume all selected items" Margin="0 0 0 5" Command="{Binding BulkResumeCommand}" Height="NaN" MinHeight="20"/>
+                  <Button Classes="ActionButton" Content="Delete all selected items" Margin="0 0 0 5" Command="{Binding BulkDeleteCommand}" Height="NaN" MinHeight="20"/>
+                  <Button Classes="ActionButton" Content="Export all selected items" Margin="0 0 0 5" Command="{Binding ExportCommand}" Height="NaN" MinHeight="20"/>
                 </UniformGrid>
             </ScrollViewer>
 
 
             <!-- BulkEditMode in (ReadingNote, MeaningNote, Tags) -->
             <Grid>
-                        <i:Interaction.Behaviors>
-                            <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="ReadingNote">
-                                <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
-                            </ia:DataTriggerBehavior>
-                            <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="MeaningNote">
-                                <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
-                            </ia:DataTriggerBehavior>
-                            <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="Tags">
-                                <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
-                            </ia:DataTriggerBehavior>
-                          <utility:MultiDataTriggerBehavior>
-                            <utility:MultiDataTriggerBehavior.Conditions>
-                              <utility:Condition Binding="{Binding BulkEditMode}" Value="ReadingNote" ComparisonCondition="NotEqual"/>
-                              <utility:Condition Binding="{Binding BulkEditMode}" Value="MeaningNote" ComparisonCondition="NotEqual"/>
-                              <utility:Condition Binding="{Binding BulkEditMode}" Value="Tags" ComparisonCondition="NotEqual"/>
-                            </utility:MultiDataTriggerBehavior.Conditions>
-                            <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
-                          </utility:MultiDataTriggerBehavior>
-                        </i:Interaction.Behaviors>
+                <i:Interaction.Behaviors>
+                    <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="ReadingNote">
+                        <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
+                    </ia:DataTriggerBehavior>
+                    <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="MeaningNote">
+                        <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
+                    </ia:DataTriggerBehavior>
+                    <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="Tags">
+                        <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
+                    </ia:DataTriggerBehavior>
+                  <utility:MultiDataTriggerBehavior>
+                    <utility:MultiDataTriggerBehavior.Conditions>
+                      <utility:Condition Binding="{Binding BulkEditMode}" Value="ReadingNote" ComparisonCondition="NotEqual"/>
+                      <utility:Condition Binding="{Binding BulkEditMode}" Value="MeaningNote" ComparisonCondition="NotEqual"/>
+                      <utility:Condition Binding="{Binding BulkEditMode}" Value="Tags" ComparisonCondition="NotEqual"/>
+                    </utility:MultiDataTriggerBehavior.Conditions>
+                    <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
+                  </utility:MultiDataTriggerBehavior>
+                </i:Interaction.Behaviors>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>

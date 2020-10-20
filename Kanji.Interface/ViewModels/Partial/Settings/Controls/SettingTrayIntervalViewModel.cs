@@ -27,7 +27,6 @@ namespace Kanji.Interface.ViewModels
             {
                 if (_interval != value)
                 {
-                    Console.WriteLine(_interval);
                     _interval = value;
                     RaisePropertyChanged();
                     RaiseSettingValueChanged();

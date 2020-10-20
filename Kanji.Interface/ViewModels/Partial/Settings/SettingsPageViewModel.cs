@@ -103,7 +103,6 @@ namespace Kanji.Interface.ViewModels
             {
                 if (vm.IsSettingChanged())
                 {
-                    Console.WriteLine(vm.GetType());
                     // Set the IsChangePending value to true if at least
                     // one setting differs from its stored value.
                     isChangePending = true;

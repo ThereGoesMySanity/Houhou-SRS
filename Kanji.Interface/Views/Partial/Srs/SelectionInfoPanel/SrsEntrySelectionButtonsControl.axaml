@@ -13,13 +13,13 @@
             </Grid.ColumnDefinitions>
 
             <Button Margin="0 0 3 0" Content="Unselect" Command="{Binding UnselectCommand}" Classes="MiniActionButton ActionButton"
-                    IsVisible="{Binding !!SelectedItems.Count}"/>
+                    IsVisible="{Binding !!SelectedCount}"/>
             <Button Grid.Column="1" Margin="3 0 0 0" Content="Select all" Command="{Binding SelectAllCommand}" Classes="MiniActionButton ActionButton">
                     <!--<Style.Triggers>
                             <DataTrigger Value="True">
                                 <DataTrigger.Binding>
                                     <MultiBinding Converter="{StaticResource ComparablesToBooleanConverter}">
-                                        <Binding Path="SelectedItems.Count" />
+                                        <Binding Path="SelectedCount" />
                                         <Binding Path="LoadedItemCount" />
                                     </MultiBinding>
                                 </DataTrigger.Binding>

@@ -7,9 +7,9 @@
              d:DesignHeight="300" d:DesignWidth="500">
     <StackPanel>
         <TextBlock Classes="LegendText" Text="URL used by the audio system to pronounce words" TextWrapping="Wrap" />
-        <TextBox Classes="LabelBox" FontSize="10">
+        <TextBlock Classes="LabelBox" FontSize="10">
             Example: http://assets.languagepod101.com/dictionary/japanese/audiomp3.php?kanji=%kanji%&amp;kana=%kana%
-        </TextBox>
+        </TextBlock>
         <TextBox Grid.Row="1" Text="{Binding AudioUri, Mode=TwoWay}" HorizontalAlignment="Stretch" />
         <TextBlock Grid.Row="2" Classes="LegendText" TextWrapping="Wrap">
             In the above field, the audio system will replace %kana% with the kana reading of the vocab to play, and %kanji% with the kanji reading.&#x0a;

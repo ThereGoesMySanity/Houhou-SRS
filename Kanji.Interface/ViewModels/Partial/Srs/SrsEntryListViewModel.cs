@@ -18,6 +18,7 @@ using MessageBox.Avalonia;
 using MessageBox.Avalonia.DTO;
 using MessageBox.Avalonia.Enums;
 using Avalonia.Controls;
+using System.Collections;
 
 namespace Kanji.Interface.ViewModels
 {
@@ -56,8 +57,6 @@ namespace Kanji.Interface.ViewModels
 
         private SrsEntryDao _srsEntryDao;
 
-        private List<FilteringSrsEntry> _selectedItems;
-
         private bool _isFilterEmpty;
 
         private double _successRatio;
@@ -76,25 +75,34 @@ namespace Kanji.Interface.ViewModels
 
         private double _timingDelay;
 
+        private IList _selectedItems;
+
         #endregion
 
         #region Properties
 
+        private int _selectedCount;
+
+        public int SelectedCount { get => _selectedCount; set 
+        {
+            if (_selectedCount != value)
+            {
+                _selectedCount = value;
+                RaisePropertyChanged();
+            }
+        } }
+
         /// <summary>
         /// Gets or sets the selected items list.
         /// </summary>
-        public List<FilteringSrsEntry> SelectedItems
+        public IList SelectedItems { get => _selectedItems; set 
         {
-            get { return _selectedItems; }
-            set
+            if (_selectedItems != value)
             {
-                if (_selectedItems != value)
-                {
-                    _selectedItems = value;
-                    RaisePropertyChanged();
-                }
+                _selectedItems = value;
+                RaisePropertyChanged();
             }
-        }
+        } }
 
         /// <summary>
         /// Gets a value indicating if the filter is empty.
@@ -371,7 +379,6 @@ namespace Kanji.Interface.ViewModels
             : base(filter)
         {
             IsFilterEmpty = filter.IsEmpty();
-            SelectedItems = new List<FilteringSrsEntry>();
             _srsEntryDao = new SrsEntryDao();
 
             LevelPickerVm = new SrsLevelPickerViewModel();
@@ -415,7 +422,7 @@ namespace Kanji.Interface.ViewModels
             _isSetSelectionAllowed = false;
             foreach (FilteringSrsEntry item in LoadedItems)
             {
-                item.IsSelected = false;
+                SelectedItems.Clear();
             }
 
             RefreshSelection();
@@ -427,8 +434,12 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         public void RefreshSelection()
         {
-            SelectedItems = LoadedItems.Where(i => i.IsSelected).ToList();
+            foreach (FilteringSrsEntry item in SelectedItems.Cast<FilteringSrsEntry>())
+            {
+                item.IsSelected = true;
+            }
             ComputeSelectionStats();
+            SelectedCount = SelectedItems.Count;
         }
 
         /// <summary>
@@ -520,7 +531,6 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         public override void ReapplyFilter()
         {
-            SelectedItems = new List<FilteringSrsEntry>();
             IsFilterEmpty = _filter.IsEmpty();
             BulkEditMode = BulkEditModeEnum.None;
 
@@ -554,7 +564,7 @@ namespace Kanji.Interface.ViewModels
         {
             return new FilteringSrsEntry(item)
             {
-                
+
             };
         }
 
@@ -694,7 +704,7 @@ namespace Kanji.Interface.ViewModels
             _isSetSelectionAllowed = false;
             foreach (FilteringSrsEntry item in LoadedItems)
             {
-                item.IsSelected = true;
+                SelectedItems.Add(item);
             }
 
             RefreshSelection();
@@ -707,9 +717,9 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         private void OnEditSingleSelection()
         {
-            if (SelectedItems.Count == 1)
+            if (SelectedCount == 1)
             {
-                EditSingleItem(SelectedItems.First());
+                EditSingleItem((FilteringSrsEntry)SelectedItems[0]);
             }
         }
 
@@ -746,7 +756,7 @@ namespace Kanji.Interface.ViewModels
             string messageBoxContent = string.Format("Do you really want to apply "
                     + "this {2} to all {0} selected items?{1}Existing {2} values will be "
                     + "overwritten and lost forever.",
-                    SelectedItems.Count,
+                    SelectedCount,
                     Environment.NewLine,
                     BulkEditMode == BulkEditModeEnum.MeaningNote ? "meaning note" :
                     (BulkEditMode == BulkEditModeEnum.ReadingNote ? "reading note" :
@@ -767,7 +777,7 @@ namespace Kanji.Interface.ViewModels
                     : BulkEditTaskEnum.Tags);
 
                 BulkEdit(task,
-                    SelectedItems.Select(i => i.Reference).ToArray(),
+                    SelectedItems.Cast<FilteringSrsEntry>().Select(i => i.Reference).ToArray(),
                     BulkEditValue);
             }
         }
@@ -788,7 +798,7 @@ namespace Kanji.Interface.ViewModels
             var result = await MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
             {
                 ContentTitle = "Bulk edition confirmation",
-                ContentMessage = $"Do you really want to reset all {SelectedItems.Count} selected "
+                ContentMessage = $"Do you really want to reset all {SelectedCount} selected "
                     + $"items to this level?{Environment.NewLine}The current levels and next review "
                     + "dates will be permanently overwritten.",
                 ButtonDefinitions = ButtonEnum.YesNo,
@@ -797,7 +807,7 @@ namespace Kanji.Interface.ViewModels
             if (result == ButtonResult.Yes)
             {
                 BulkEdit(BulkEditTaskEnum.Level,
-                    SelectedItems.Select(i => i.Reference).ToArray(),
+                    SelectedItems.Cast<FilteringSrsEntry>().Select(i => i.Reference).ToArray(),
                     LevelPickerVm.CurrentLevelValue);
             }
         }
@@ -821,14 +831,14 @@ namespace Kanji.Interface.ViewModels
             var result = await MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
             {
                 ContentTitle = "Bulk suspension confirmation",
-                ContentMessage = $"Do you really want to suspend all {SelectedItems.Count} items?",
+                ContentMessage = $"Do you really want to suspend all {SelectedCount} items?",
                 ButtonDefinitions = ButtonEnum.YesNo,
             }).ShowDialog(NavigationActor.Instance.MainWindow);
 
             if (result == ButtonResult.Yes)
             {
                 BulkEdit(BulkEditTaskEnum.Suspend,
-                    SelectedItems.Select(i => i.Reference).ToArray());
+                    SelectedItems.Cast<FilteringSrsEntry>().Select(i => i.Reference).ToArray());
             }
         }
 
@@ -840,14 +850,14 @@ namespace Kanji.Interface.ViewModels
             var result = await MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
             {
                 ContentTitle = "Bulk resume confirmation",
-                ContentMessage = $"Do you really want to resume all {SelectedItems.Count} items?",
+                ContentMessage = $"Do you really want to resume all {SelectedCount} items?",
                 ButtonDefinitions = ButtonEnum.YesNo,
             }).ShowDialog(NavigationActor.Instance.MainWindow);
 
             if (result == ButtonResult.Yes)
             {
                 BulkEdit(BulkEditTaskEnum.Resume,
-                    SelectedItems.Select(i => i.Reference).ToArray());
+                    SelectedItems.Cast<FilteringSrsEntry>().Select(i => i.Reference).ToArray());
             }
         }
 
@@ -859,7 +869,7 @@ namespace Kanji.Interface.ViewModels
             var result = await MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
             {
                 ContentTitle = "Bulk deletion confirmation",
-                ContentMessage = $"Do you really want to delete all {SelectedItems.Count} items?{Environment.NewLine}"
+                ContentMessage = $"Do you really want to delete all {SelectedCount} items?{Environment.NewLine}"
                     + "These items will be lost FOREVER.",
                 ButtonDefinitions = ButtonEnum.YesNo,
             }).ShowDialog(NavigationActor.Instance.MainWindow);
@@ -867,7 +877,7 @@ namespace Kanji.Interface.ViewModels
             if (result == ButtonResult.Yes)
             {
                 BulkEdit(BulkEditTaskEnum.Delete,
-                    SelectedItems.Select(i => i.Reference).ToArray());
+                    SelectedItems.Cast<FilteringSrsEntry>().Select(i => i.Reference).ToArray());
             }
         }
 
@@ -887,7 +897,7 @@ namespace Kanji.Interface.ViewModels
             var result = await MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
             {
                 ContentTitle = "Bulk edition confirmation",
-                ContentMessage = $"Do you really want to reset the review date of all {SelectedItems.Count} selected "
+                ContentMessage = $"Do you really want to reset the review date of all {SelectedCount} selected "
                     + $"items to this level?{Environment.NewLine}This action is not reversible.",
                 ButtonDefinitions = ButtonEnum.YesNo,
             }).ShowDialog(NavigationActor.Instance.MainWindow);
@@ -895,11 +905,11 @@ namespace Kanji.Interface.ViewModels
             if (result == ButtonResult.Yes)
             {
                 // Apply the timing.
-                TimingVm.ApplyTiming(_selectedItems.Select(e => e.Reference).ToList());
+                TimingVm.ApplyTiming(SelectedItems.Cast<FilteringSrsEntry>().Cast<FilteringSrsEntry>().Select(e => e.Reference).ToList());
 
                 // Send to bulk edit.
                 BulkEdit(BulkEditTaskEnum.Timing,
-                    SelectedItems.Select(i => i.Reference).ToArray());
+                    SelectedItems.Cast<FilteringSrsEntry>().Cast<FilteringSrsEntry>().Select(i => i.Reference).ToArray());
             }
         }
 
@@ -911,14 +921,14 @@ namespace Kanji.Interface.ViewModels
             var result = await MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
             {
                 ContentTitle = "Bulk edition confirmation",
-                ContentMessage = $"Do you really want to delay the review date of all {SelectedItems.Count} selected items?",
+                ContentMessage = $"Do you really want to delay the review date of all {SelectedCount} selected items?",
                 ButtonDefinitions = ButtonEnum.YesNo,
             }).ShowDialog(NavigationActor.Instance.MainWindow);
 
             if (result == ButtonResult.Yes)
             {
                 // Apply the delay.
-                foreach (SrsEntry entry in _selectedItems.Select(e => e.Reference))
+                foreach (SrsEntry entry in SelectedItems.Cast<FilteringSrsEntry>().Select(e => e.Reference))
                 {
                     DateTime start = entry.NextAnswerDate.HasValue ? entry.NextAnswerDate.Value : DateTime.Now;
                     entry.NextAnswerDate = start + TimeSpan.FromHours(TimingDelay);
@@ -926,7 +936,7 @@ namespace Kanji.Interface.ViewModels
 
                 // Send to bulk edit.
                 BulkEdit(BulkEditTaskEnum.Timing,
-                    SelectedItems.Select(i => i.Reference).ToArray());
+                    SelectedItems.Cast<FilteringSrsEntry>().Select(i => i.Reference).ToArray());
             }
         }
 
@@ -960,7 +970,7 @@ namespace Kanji.Interface.ViewModels
                     using (CsvFileWriter csv = new CsvFileWriter(result))
                     {
                         csv.Delimiter = ';';
-                        
+
                         List<string> fields = new List<string>(12);
                         fields.Add("Item type");
                         fields.Add("Kanji reading");

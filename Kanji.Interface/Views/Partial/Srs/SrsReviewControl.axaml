@@ -89,7 +89,7 @@
 
         <!-- Text representation of the item -->
         <Viewbox Grid.Column="1" Grid.Row="1">
-          <TextBox Classes="LabelBox" Text="{Binding CurrentQuestion.ParentGroup.Item, Mode=OneWay}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+          <TextBlock Classes="LabelBox" Text="{Binding CurrentQuestion.ParentGroup.Item, Mode=OneWay}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Viewbox>
 
         <!-- Level up indicator -->
