@@ -35,7 +35,7 @@
                 <Button Classes="MiniActionButton ActionButton"
                     Content="Edit" VerticalContentAlignment="Center"
                     Command="{Binding DataContext.EditSrsEntryCommand, RelativeSource={RelativeSource AncestorType=controls:VocabList}}"
-                    CommandParameter="{Binding DataContext, RelativeSource={RelativeSource AncestorType=ListBoxItem}}"
+                    CommandParameter="{Binding $parent[ContentPresenter].DataContext}"
                     ToolTip.Tip="Edit the SRS item" Margin="0 0 0 0" BorderThickness="0 0 1 0" BorderBrush="#33000000" />
             </Border>
 
@@ -45,11 +45,11 @@
                     <Button DockPanel.Dock="Right" Classes="MiniActionButton ActionButton" Content="+" Width="15" BorderThickness="0"
                         ToolTip.Tip="Add a delay to the next review date."
                         Command="{Binding DataContext.AddSrsDelayCommand, RelativeSource={RelativeSource AncestorType=controls:VocabList}}"
-                        CommandParameter="{Binding DataContext, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" />
+                        CommandParameter="{Binding $parent[ContentPresenter].DataContext}"/>
                     <Button DockPanel.Dock="Right" Classes="MiniActionButton ActionButton" Content="−" Width="15" BorderThickness="0"
                         ToolTip.Tip="Subtracts a delay from the next review date."
                         Command="{Binding DataContext.SubtractSrsDelayCommand, RelativeSource={RelativeSource AncestorType=controls:VocabList}}"
-                        CommandParameter="{Binding DataContext, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" />
+                        CommandParameter="{Binding $parent[ContentPresenter].DataContext}"/>
                     <Viewbox DockPanel.Dock="Left" Height="14">
                         <ToolTip.Tip>
                             <Binding Path="NextAnswerDate" Mode="OneWay" Converter="{StaticResource DateTimeToStringConverter}"
