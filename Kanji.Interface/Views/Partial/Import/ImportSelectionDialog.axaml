@@ -2,7 +2,9 @@
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:business="clr-namespace:Kanji.Interface.Business"
+             xmlns:converters="clr-namespace:Kanji.Interface.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="700">
 
@@ -54,8 +56,33 @@
         </TextBlock>
         
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-            <StackPanel>
-                <!-- CSV -->
+          <ItemsControl Items="{Binding Path=Plugins, Source={x:Static business:PluginsBusiness.Instance}}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Border Classes="ImportChoiceBorder">
+                  <Grid>
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="Auto" />
+                      <ColumnDefinition Width="3*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                      <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Image Source="{Binding Image, Converter={x:Static converters:CustomAvaloniaConverters.BitmapConverter}}" Classes="ImportChoiceImage" />
+                    <StackPanel Classes="ImportStackPanel">
+                      <TextBlock Classes="ImportChoiceText" Text="{Binding Description}"/>
+                      <Button Classes="ImportChoiceButton ActionButton" Content="Select this option"
+                              Command="{Binding $parent[ItemsControl].DataContext.SelectImportCommand}"
+                              CommandParameter="{Binding ViewModelInstance}" />
+                    </StackPanel>
+                  </Grid>
+                </Border>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+              
+            <!--<StackPanel>
+                --><!-- CSV --><!--
                 <Border Classes="ImportChoiceBorder">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -78,7 +105,7 @@
                     </Grid>
                 </Border>
 
-                <!-- WaniKani -->
+                --><!-- WaniKani --><!--
                 <Border Classes="ImportChoiceBorder">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -100,7 +127,7 @@
                         </StackPanel>
                     </Grid>
                 </Border>
-            </StackPanel>
+            </StackPanel>-->
         </ScrollViewer>
         
         
