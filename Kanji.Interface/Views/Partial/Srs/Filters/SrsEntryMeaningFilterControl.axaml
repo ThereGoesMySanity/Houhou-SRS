@@ -35,7 +35,7 @@ When unchecked, matches any value containing this expression." IsChecked="{Bindi
           </ControlTemplate>
         </Setter>
       </Style>
-      <Style Selector="controls|SrsEntryMeaningControl[IsInline=True]">
+      <Style Selector="controls|SrsEntryMeaningFilterControl[IsInline=True]">
         <Setter Property="Template">
           <ControlTemplate>
             <Grid>

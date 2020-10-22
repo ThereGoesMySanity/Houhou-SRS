@@ -12,6 +12,7 @@
             <!-- Child level listbox style -->
           <Style Selector="ListBox.SrsLevelSublist" >
             <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
             <Setter Property="ItemsPanel">
               <Setter.Value>
                 <ItemsPanelTemplate>
