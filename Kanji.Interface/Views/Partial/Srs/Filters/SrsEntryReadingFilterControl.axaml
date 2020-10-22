@@ -5,66 +5,61 @@
                     xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
                     xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
                     xmlns:controls="clr-namespace:Kanji.Interface.Controls" x:Class="Kanji.Interface.Controls.SrsEntryReadingFilterControl" mc:Ignorable="d" d:DesignHeight="30" d:DesignWidth="500">
-
-    <controls:SrsEntryFilterControlBase.Resources>
-        <ResourceDictionary>
-            <ControlTemplate TargetType="UserControl" x:Key="InlineTemplate">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Containing the reading:" Classes="LegendText" VerticalAlignment="Center" Margin="0 0 5 0"/>
-
-                    <Decorator Grid.Column="1">
-                      <controls:CommandTextBox Name="FilterTextBox" MaxLength="100" ToolTip.Tip="Enter the reading filter. (CTRL+R)" Text="{Binding ReadingFilter}" ValidationCommand="{Binding ValidateCommand}"
-                                               Watermark="Reading filter">
-                        <controls:CommandTextBox.Styles>
-                          <Style Selector="TextBlock[Name=watermark]">
-                            <Setter Property="HorizontalAlignment" Value="Center"/>
-                          </Style>
-                        </controls:CommandTextBox.Styles>
-                      </controls:CommandTextBox>
-                    </Decorator>
-                </Grid>
-            </ControlTemplate>
-        </ResourceDictionary>
-    </controls:SrsEntryFilterControlBase.Resources>
-
     <controls:SrsEntryFilterControlBase.Styles>
-        <Style Selector="controls|SrsEntryFilterControlBase">
+        <Style Selector="controls|SrsEntryReadingFilterControl">
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="UserControl">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock Text="Containing the reading:" Classes="LegendText"/>
+                  <ControlTemplate>
+                    <Grid>
+                      <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                      </Grid.RowDefinitions>
+                      <TextBlock Text="Containing the reading:" Classes="LegendText"/>
 
-                            <StackPanel Grid.Row="1">
-                                <Decorator>
-                                  <controls:CommandTextBox Name="FilterTextBox" MaxLength="100" ToolTip.Tip="Enter the reading filter." Text="{Binding ReadingFilter}" ValidationCommand="{Binding ValidateCommand}"
-                                                           Watermark="Reading filter">
-                                    <controls:CommandTextBox.Styles>
-                                      <Style Selector="TextBlock[Name=watermark]">
-                                        <Setter Property="HorizontalAlignment" Value="Center"/>
-                                      </Style>
-                                    </controls:CommandTextBox.Styles>
-                                  </controls:CommandTextBox>
-                                </Decorator>
+                      <StackPanel Grid.Row="1">
+                        <Decorator>
+                          <controls:CommandTextBox Name="FilterTextBox" MaxLength="100" ToolTip.Tip="Enter the reading filter." Text="{Binding ReadingFilter}" ValidationCommand="{Binding ValidateCommand}"
+                                                   Watermark="Reading filter">
+                            <controls:CommandTextBox.Styles>
+                              <Style Selector="TextBlock[Name=watermark]">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                              </Style>
+                            </controls:CommandTextBox.Styles>
+                          </controls:CommandTextBox>
+                        </Decorator>
 
-                                <CheckBox Content="Exact match" ToolTip.Tip="When checked, matches only items with this exact expression.
+                        <CheckBox Content="Exact match" ToolTip.Tip="When checked, matches only items with this exact expression.
 When unchecked, matches any value containing this expression." IsChecked="{Binding IsExactMatch}" Command="{Binding ValidateCommand}" HorizontalAlignment="Center"/>
-                            </StackPanel>
-                        </Grid>
-                    </ControlTemplate>
+                      </StackPanel>
+                    </Grid>
+                  </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-      <Style Selector="controls|SrsEntryFilterControlBase[IsInline=True]">
-        <Setter Property="Template" Value="{StaticResource InlineTemplate}" />
+      <Style Selector="controls|SrsEntryReadingFilterControl[IsInline=True]">
+        <Setter Property="Template">
+          <ControlTemplate>
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+              </Grid.ColumnDefinitions>
+              <TextBlock Text="Containing the reading:" Classes="LegendText" VerticalAlignment="Center" Margin="0 0 5 0"/>
+
+              <Decorator Grid.Column="1">
+                <controls:CommandTextBox Name="FilterTextBox" MaxLength="100" ToolTip.Tip="Enter the reading filter. (CTRL+R)" Text="{Binding ReadingFilter}" ValidationCommand="{Binding ValidateCommand}"
+                                         Watermark="Reading filter">
+                  <controls:CommandTextBox.Styles>
+                    <Style Selector="TextBlock[Name=watermark]">
+                      <Setter Property="HorizontalAlignment" Value="Center"/>
+                    </Style>
+                  </controls:CommandTextBox.Styles>
+                </controls:CommandTextBox>
+              </Decorator>
+            </Grid>
+          </ControlTemplate>
+        </Setter>
       </Style>
     </controls:SrsEntryFilterControlBase.Styles>
 </controls:SrsEntryFilterControlBase>

@@ -5,66 +5,59 @@
                     xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
                     xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
                     xmlns:controls="clr-namespace:Kanji.Interface.Controls" x:Class="Kanji.Interface.Controls.SrsEntryMeaningFilterControl" mc:Ignorable="d" d:DesignHeight="30" d:DesignWidth="500">
-
-    <controls:SrsEntryFilterControlBase.Resources>
-        <ResourceDictionary>
-            <ControlTemplate TargetType="UserControl" x:Key="InlineTemplate">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Containing the meaning:" Classes="LegendText" VerticalAlignment="Center" Margin="0 0 5 0"/>
-
-                  <Decorator Grid.Column="1">
-                    <controls:CommandTextBox Name="FilterTextBox" MaxLength="100" ToolTip.Tip="Enter the meaning filter. (CTRL+M)" Text="{Binding MeaningFilter}" ValidationCommand="{Binding ValidateCommand}"
-                                             Watermark="Meaning filter">
-                      <controls:CommandTextBox.Styles>
-                        <Style Selector="TextBlock[Name=watermark]">
-                          <Setter Property="HorizontalAlignment" Value="Center"/>
-                        </Style>
-                      </controls:CommandTextBox.Styles>
-                    </controls:CommandTextBox>
-                  </Decorator>
-                </Grid>
-            </ControlTemplate>
-        </ResourceDictionary>
-    </controls:SrsEntryFilterControlBase.Resources>
-    
     <controls:SrsEntryFilterControlBase.Styles>
-        <Style Selector="controls|SrsEntryFilterControlBase">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="UserControl">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
+      <Style Selector="controls|SrsEntryMeaningFilterControl">
+        <Setter Property="Template">
+          <ControlTemplate>
+            <Grid>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+              </Grid.RowDefinitions>
 
-                            <TextBlock Text="Containing the meaning:" Classes="LegendText"/>
-                            <StackPanel Grid.Row="1">
-                                <Decorator>
-                                  <controls:CommandTextBox Name="FilterTextBox" MaxLength="100" ToolTip.Tip="Enter the meaning filter. (CTRL+M)" Text="{Binding MeaningFilter}" ValidationCommand="{Binding ValidateCommand}"
-                                                           Watermark="Meaning filter">
-                                    <controls:CommandTextBox.Styles>
-                                      <Style Selector="TextBlock[Name=watermark]">
-                                        <Setter Property="HorizontalAlignment" Value="Center"/>
-                                      </Style>
-                                    </controls:CommandTextBox.Styles>
-                                  </controls:CommandTextBox>
-                                </Decorator>
+              <TextBlock Text="Containing the meaning:" Classes="LegendText"/>
+              <StackPanel Grid.Row="1">
+                <Decorator>
+                  <controls:CommandTextBox Name="FilterTextBox" MaxLength="100" ToolTip.Tip="Enter the meaning filter. (CTRL+M)" Text="{Binding MeaningFilter}" ValidationCommand="{Binding ValidateCommand}"
+                                           Watermark="Meaning filter">
+                    <controls:CommandTextBox.Styles>
+                      <Style Selector="TextBlock[Name=watermark]">
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                      </Style>
+                    </controls:CommandTextBox.Styles>
+                  </controls:CommandTextBox>
+                </Decorator>
 
-                                <CheckBox Content="Exact match" ToolTip.Tip="When checked, matches only items with this exact expression.
+                <CheckBox Content="Exact match" ToolTip.Tip="When checked, matches only items with this exact expression.
 When unchecked, matches any value containing this expression." IsChecked="{Binding IsExactMatch}" Command="{Binding ValidateCommand}" HorizontalAlignment="Center"/>
-                            </StackPanel>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-      <Style Selector="controls|SrsEntryFilterControlBase[IsInline=True]">
-        <Setter Property="Template" Value="{StaticResource InlineTemplate}" />
+              </StackPanel>
+            </Grid>
+          </ControlTemplate>
+        </Setter>
+      </Style>
+      <Style Selector="controls|SrsEntryMeaningControl[IsInline=True]">
+        <Setter Property="Template">
+          <ControlTemplate>
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+              </Grid.ColumnDefinitions>
+              <TextBlock Text="Containing the meaning:" Classes="LegendText" VerticalAlignment="Center" Margin="0 0 5 0"/>
+
+              <Decorator Grid.Column="1">
+                <controls:CommandTextBox Name="FilterTextBox" MaxLength="100" ToolTip.Tip="Enter the meaning filter. (CTRL+M)" Text="{Binding MeaningFilter}" ValidationCommand="{Binding ValidateCommand}"
+                                         Watermark="Meaning filter">
+                  <controls:CommandTextBox.Styles>
+                    <Style Selector="TextBlock[Name=watermark]">
+                      <Setter Property="HorizontalAlignment" Value="Center"/>
+                    </Style>
+                  </controls:CommandTextBox.Styles>
+                </controls:CommandTextBox>
+              </Decorator>
+            </Grid>
+          </ControlTemplate>
+        </Setter>
       </Style>
     </controls:SrsEntryFilterControlBase.Styles>
 </controls:SrsEntryFilterControlBase>

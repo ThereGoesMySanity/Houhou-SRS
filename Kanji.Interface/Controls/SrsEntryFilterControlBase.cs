@@ -1,5 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Controls
 {
-    public class SrsEntryFilterControlBase : UserControl
+    public class SrsEntryFilterControlBase : TemplatedControl
     {
         #region Dependency properties
 
