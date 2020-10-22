@@ -124,25 +124,6 @@
       </LinearGradientBrush>
 
       <!-- TEMPLATES -->
-      <ControlTemplate x:Key="PaddinglessListbox" TargetType="{x:Type ListBox}">
-        <!-- The paddingless listbox is a listbox that does not have any padding.
-        The original listbox control has an unremovable padding so that's why this is required. -->
-        <Border Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="0" UseLayoutRounding="True">
-          <ScrollViewer Focusable="False" Padding="{TemplateBinding Padding}">
-            <ItemsPresenter UseLayoutRounding="{TemplateBinding UseLayoutRounding}"/>
-          </ScrollViewer>
-        </Border>
-        <!--TODO: Can't get controlbrushkey and IsGrouping doesn't exist in Avalonia-->
-        <!--<i:Interaction.Behaviors>
-        <ia:DataTriggerBehavior Binding="{Binding IsEnabled}" Value="False">
-          <ia:ChangePropertyAction TargetObject="{Binding #Bd}" PropertyName="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
-        </ia:DataTriggerBehavior>
-      </i:Interaction.Behaviors>-->
-        <!--<Trigger Property="IsGrouping" Value="True">
-                <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
-            </Trigger>-->
-      </ControlTemplate>
-
       <DataTemplate x:Key="MiniRadicalInListTemplate">
         <Border Height="26" Width="26" CornerRadius="3" BorderBrush="Black" Background="#86469B" BorderThickness="1" Margin="0 0 4 4">
             <i:Interaction.Behaviors>
@@ -1970,7 +1951,6 @@
     <Setter Property="BorderThickness" Value="0 1 0 0"/>
     <Setter Property="BorderBrush" Value="Transparent"/>
     <Setter Property="Padding" Value="0"/>
-    <Setter Property="Template" Value="{StaticResource PaddinglessListbox}"/>
     <Setter Property="ItemsPanel">
       <Setter.Value>
         <ItemsPanelTemplate>
