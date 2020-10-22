@@ -5,23 +5,20 @@
                     xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
                     xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
                     xmlns:controls="clr-namespace:Kanji.Interface.Controls" x:Class="Kanji.Interface.Controls.SrsEntryTagsFilterControl" mc:Ignorable="d" d:DesignHeight="30" d:DesignWidth="500">
-
-    <controls:SrsEntryFilterControlBase.Resources>
-        <ResourceDictionary>
-            <ControlTemplate TargetType="UserControl" x:Key="InlineTemplate">
+    <controls:SrsEntryFilterControlBase.Styles>
+        <Style Selector="controls|SrsEntryTagsFilterControl">
+            <Setter Property="Template">
+              <ControlTemplate>
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Text="Containing the tag:" Classes="LegendText" VerticalAlignment="Center" Margin="0 0 5 0"/>
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                  </Grid.RowDefinitions>
+                  <TextBlock Text="Containing the tag:" Classes="LegendText"/>
 
-                    <Decorator Grid.Column="1">
-                      <controls:CommandTextBox Name="FilterTextBox" MaxLength="100" ToolTip.Tip="Enter the tag filter. (CTRL+T)" Text="{Binding TagFilter}" ValidationCommand="{Binding ValidateCommand}"
+                  <StackPanel Grid.Row="1">
+                    <Decorator>
+                      <controls:CommandTextBox Name="FilterTextBox" MaxLength="100" ToolTip.Tip="Enter the tag filter." Text="{Binding TagFilter}" ValidationCommand="{Binding ValidateCommand}"
                                                Watermark="Tag filter">
                         <controls:CommandTextBox.Styles>
                           <Style Selector="TextBlock[Name=watermark]">
@@ -30,53 +27,49 @@
                         </controls:CommandTextBox.Styles>
                       </controls:CommandTextBox>
                     </Decorator>
-                    
-                    <Grid Grid.Row="1" Grid.ColumnSpan="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <RadioButton HorizontalAlignment="Center" GroupName="FilterType" Content="Match exact text" ToolTip.Tip="Match this exact expression." IsChecked="{Binding IsExactMatch}"/>
-                        <RadioButton Grid.Column="1" HorizontalAlignment="Center" GroupName="FilterType" Content="Match containing text" ToolTip.Tip="Match any value containing this expression." IsChecked="{Binding IsExactMatch, Converter={StaticResource BooleanInverterConverter}}"/>
-                    </Grid>
-                </Grid>
-            </ControlTemplate>
-        </ResourceDictionary>
-    </controls:SrsEntryFilterControlBase.Resources>
-
-    <controls:SrsEntryFilterControlBase.Styles>
-        <Style Selector="controls|SrsEntryFilterControlBase">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="UserControl">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock Text="Containing the tag:" Classes="LegendText"/>
-
-                            <StackPanel Grid.Row="1">
-                                <Decorator>
-                                  <controls:CommandTextBox Name="FilterTextBox" MaxLength="100" ToolTip.Tip="Enter the tag filter." Text="{Binding TagFilter}" ValidationCommand="{Binding ValidateCommand}"
-                                                           Watermark="Tag filter">
-                                    <controls:CommandTextBox.Styles>
-                                      <Style Selector="TextBlock[Name=watermark]">
-                                        <Setter Property="HorizontalAlignment" Value="Center"/>
-                                      </Style>
-                                    </controls:CommandTextBox.Styles>
-                                  </controls:CommandTextBox>
-                                </Decorator>
-                                <CheckBox Content="Exact match" ToolTip.Tip="When checked, matches only items with this exact tag expression.
+                    <CheckBox Content="Exact match" ToolTip.Tip="When checked, matches only items with this exact tag expression.
 When unchecked, matches any value containing this tag expression." IsChecked="{Binding IsExactMatch}" Command="{Binding ValidateCommand}" HorizontalAlignment="Center"/>
-                            </StackPanel>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
+                  </StackPanel>
+                </Grid>
+              </ControlTemplate>
             </Setter>
         </Style>
-      <Style Selector="controls|SrsEntryFilterControlBase[IsInline=True]">
-        <Setter Property="Template" Value="{StaticResource InlineTemplate}" />
+      <Style Selector="controls|SrsEntryTagsFilterControl[IsInline=True]">
+        <Setter Property="Template">
+          <ControlTemplate>
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+              </Grid.RowDefinitions>
+              <TextBlock Text="Containing the tag:" Classes="LegendText" VerticalAlignment="Center" Margin="0 0 5 0"/>
+
+              <Decorator Grid.Column="1">
+                <controls:CommandTextBox Name="FilterTextBox" MaxLength="100" ToolTip.Tip="Enter the tag filter. (CTRL+T)" Text="{Binding TagFilter}" ValidationCommand="{Binding ValidateCommand}"
+                                         Watermark="Tag filter">
+                  <controls:CommandTextBox.Styles>
+                    <Style Selector="TextBlock[Name=watermark]">
+                      <Setter Property="HorizontalAlignment" Value="Center"/>
+                    </Style>
+                  </controls:CommandTextBox.Styles>
+                </controls:CommandTextBox>
+              </Decorator>
+
+              <Grid Grid.Row="1" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <RadioButton HorizontalAlignment="Center" GroupName="FilterType" Content="Match exact text" ToolTip.Tip="Match this exact expression." IsChecked="{Binding IsExactMatch}"/>
+                <RadioButton Grid.Column="1" HorizontalAlignment="Center" GroupName="FilterType" Content="Match containing text" ToolTip.Tip="Match any value containing this expression." IsChecked="{Binding IsExactMatch, Converter={StaticResource BooleanInverterConverter}}"/>
+              </Grid>
+            </Grid>
+          </ControlTemplate>
+        </Setter>
       </Style>
     </controls:SrsEntryFilterControlBase.Styles>
 </controls:SrsEntryFilterControlBase>
