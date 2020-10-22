@@ -10,7 +10,7 @@ using Kanji.Interface.Business;
 
 namespace Kanji.Interface.ViewModels
 {
-    abstract class ImportModeViewModel : ViewModel
+    public abstract class ImportModeViewModel : ViewModel
     {
         #region Fields
 

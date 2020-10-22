@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:Kanji.Interface.ViewModels"
         xmlns:controls="clr-namespace:Kanji.Interface.Controls"
+        xmlns:business="clr-namespace:Kanji.Interface.Business"
         Title="SRS Item Import"
         Width="700" Height="440">
     <Window.Styles>
@@ -12,8 +13,9 @@
     </Window.Styles>
     
     <Border Margin="5">
-        <ContentControl Content="{Binding ActiveVm}">
-            <ContentControl.DataTemplates>
+      <ContentControl Name="ImportContent" Content="{Binding ActiveVm}">
+        <!--DataTemplates="{Binding Path=PluginTemplates, Source={x:Static business:PluginsBusiness.Instance}}">-->
+        <!--<ContentControl.DataTemplates>
                 <DataTemplate DataType="{x:Type vm:ImportViewModel}">
                     <controls:ImportSelectionDialog />
                 </DataTemplate>
@@ -35,7 +37,7 @@
                 <DataTemplate DataType="{x:Type vm:WkImportRequestViewModel}">
                     <controls:ImportWkRequestView />
                 </DataTemplate>
-            </ContentControl.DataTemplates>
-        </ContentControl>
+            </ContentControl.DataTemplates>-->
+      </ContentControl>
     </Border>
 </Window>

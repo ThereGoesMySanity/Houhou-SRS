@@ -7,7 +7,7 @@ using Kanji.Interface.Utilities;
 
 namespace Kanji.Interface.ViewModels
 {
-    class ViewModel : NotifyPropertyChanged, IDisposable
+    public class ViewModel : NotifyPropertyChanged, IDisposable
     {
         public virtual void Dispose()
         {
