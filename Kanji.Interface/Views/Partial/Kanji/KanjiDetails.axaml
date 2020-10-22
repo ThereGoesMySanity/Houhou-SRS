@@ -183,7 +183,7 @@
                 </Border>
                 <Button Classes="ActionButton" Content="  ✙ Add" FontSize="12" Width="70" Height="60" Margin="0 0 0 0" Command="{Binding AddToSrsCommand}" HorizontalContentAlignment="Center"
                         IsVisible="{Binding SrsEntry, Converter={x:Static ObjectConverters.IsNull}}"/>
-              <Grid Width="70" Height="60" DataContext="{Binding SrsEntry}" IsVisible="{Binding .}">
+              <Grid Width="70" Height="60" DataContext="{Binding SrsEntry}" IsVisible="{Binding $self.DataContext, Converter={x:Static ObjectConverters.IsNotNull}}">
                 <Button Classes="ActionButton" Content="In SRS " Width="70" Height="60" FontSize="12" Margin="0 0 0 0" BorderBrush="{StaticResource FadedBorderBrush}"
                         Command="{Binding DataContext.EditSrsEntryCommand, RelativeSource={RelativeSource AncestorType=controls:KanjiDetails}}" HorizontalContentAlignment="Center">
                   <Button.Background>

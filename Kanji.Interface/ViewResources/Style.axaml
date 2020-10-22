@@ -1201,6 +1201,7 @@
   </Style>-->
     <Style Selector="ItemsControl.VocabList" >
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+      <Setter Property="Background" Value="#FFFFFF"/>
         <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
@@ -1212,17 +1213,20 @@
           <Setter.Value>
             <DataTemplate>
               <Border>
-                <Border.Styles>
-                  <!--the questionable nested doubly-styled border-->
-                  <Style Selector="Border:pointerover">
-                    <Setter Property="Background" Value="#22000000" />
-                  </Style>
-                </Border.Styles>
+                <i:Interaction.Behaviors>
+                  <ia:DataTriggerBehavior Binding="{Binding $self.IsPointerOver}" Value="False">
+                    <ia:ChangePropertyAction Value="#00FFFFFF" PropertyName="Background"/>
+                  </ia:DataTriggerBehavior>
+                  <ia:DataTriggerBehavior Binding="{Binding $self.IsPointerOver}" Value="True">
+                    <ia:ChangePropertyAction Value="#22000000" PropertyName="Background"/>
+                  </ia:DataTriggerBehavior>
+                </i:Interaction.Behaviors>
                 <Border BorderThickness="0,0,0,1" VerticalAlignment="Center" BorderBrush="#FF878787">
                   <i:Interaction.Behaviors>
                     <!-- When IsCommon -->
                     <ia:DataTriggerBehavior Binding="{Binding DbVocab.IsCommon}" Value="True">
                       <ia:ChangePropertyAction Value="#3F91EF5E" PropertyName="Background"/>
+                      <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
                     </ia:DataTriggerBehavior>
                     <!-- When IsObsolete -->
                     <ia:DataTriggerBehavior Binding="{Binding IsObsolete}" Value="True">
@@ -1507,7 +1511,7 @@
                           <LayoutTransformControl>
                             <Button Content="Kana" HorizontalAlignment="Right" FontSize="6" ToolTip.Tip="Copy the kana writing to the clipboard." Command="{Binding DataContext.KanaCopyCommand,
                                                       RelativeSource={RelativeSource AncestorType=controls:VocabList}}" CommandParameter="{Binding .}" Classes="MiniActionButton ActionButton">
-                                                      <!--TODO: move back into style-->
+                              <!--TODO: move back into style-->
                               <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding Audio.State}" Value="Loading">
                                   <ia:ChangePropertyAction PropertyName="Content" Value="(Loading)"/>
