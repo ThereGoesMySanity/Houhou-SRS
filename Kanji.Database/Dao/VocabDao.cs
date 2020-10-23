@@ -377,13 +377,13 @@ namespace Kanji.Database.Dao
         /// If True, short readings come first. If False, long readings
         /// come first.</param>
         /// <returns>Vocab entities matching the filters.</returns>
-        public IEnumerable<VocabEntity> GetFilteredVocab(KanjiEntity kanji,
+        public IEnumerable<VocabEntity> GetFilteredVocab(KanjiEntity kanji, string[] vocab,
             string readingFilter, string meaningFilter, VocabCategory categoryFilter,
             int jlptLevel, int wkLevel,
 			bool isCommonFirst, bool isShortWritingFirst)
         {
             List<DaoParameter> parameters = new List<DaoParameter>();
-            string sqlFilterClauses = BuildVocabFilterClauses(parameters, kanji,
+            string sqlFilterClauses = BuildVocabFilterClauses(parameters, kanji, vocab,
                 readingFilter, meaningFilter, categoryFilter, jlptLevel, wkLevel);
 
             string sortClause = "ORDER BY ";
@@ -413,13 +413,13 @@ namespace Kanji.Database.Dao
                 VocabBuilder vocabBuilder = new VocabBuilder();
                 foreach (NameValueCollection nvcVocab in vocabs)
                 {
-                    VocabEntity vocab = vocabBuilder.BuildEntity(nvcVocab, null);
-                    IncludeCategories(connection, vocab);
-                    IncludeMeanings(connection, vocab);
-                    IncludeKanji(connection, srsConnection, vocab);
-                    IncludeSrsEntries(srsConnection, vocab);
-                    IncludeVariants(connection, vocab);
-                    yield return vocab;
+                    VocabEntity result = vocabBuilder.BuildEntity(nvcVocab, null);
+                    IncludeCategories(connection, result);
+                    IncludeMeanings(connection, result);
+                    IncludeKanji(connection, srsConnection, result);
+                    IncludeSrsEntries(srsConnection, result);
+                    IncludeVariants(connection, result);
+                    yield return result;
                 }
             }
             finally
@@ -435,11 +435,11 @@ namespace Kanji.Database.Dao
         /// See <see cref="Kanji.Database.Dao.VocabDao.GetFilteredVocab"/>.
         /// Returns the results count.
         /// </summary>
-        public long GetFilteredVocabCount(KanjiEntity kanji,
+        public long GetFilteredVocabCount(KanjiEntity kanji, string[] vocab,
 			string readingFilter, string meaningFilter, VocabCategory categoryFilter, int jlptLevel, int wkLevel)
         {
             List<DaoParameter> parameters = new List<DaoParameter>();
-            string sqlFilterClauses = BuildVocabFilterClauses(parameters, kanji,
+            string sqlFilterClauses = BuildVocabFilterClauses(parameters, kanji, vocab,
                 readingFilter, meaningFilter, categoryFilter, jlptLevel, wkLevel);
 
             using (DaoConnection connection
@@ -522,7 +522,7 @@ namespace Kanji.Database.Dao
         /// filters.
         /// </summary>
         internal string BuildVocabFilterClauses(List<DaoParameter> parameters, 
-            KanjiEntity kanji,
+            KanjiEntity kanji, string[] vocab,
 			string readingFilter, string meaningFilter, VocabCategory categoryFilter,
             int jlptLevel, int wkLevel)
         {
@@ -557,6 +557,15 @@ namespace Kanji.Database.Dao
             {
                 sqlWkFilter = string.Format("v.{0} IS NULL ",
                     SqlHelper.Field_Vocab_WaniKaniLevel);
+            }
+
+            string sqlVocabFilter = string.Empty;
+            if (vocab != null)
+            {
+                //WHERE v.KanjiWriting IN ( '漢字' , ... )
+                parameters.AddRange(vocab.Select((v, i) => new DaoParameter($"@vocab{i}", v)));
+                string list = $"( {string.Join(" , ", vocab.Select((v, i) => $"@vocab{i}"))} )";
+                sqlVocabFilter =$"(v.{SqlHelper.Field_Vocab_KanjiWriting} IN {list} OR (v.{SqlHelper.Field_Vocab_KanjiWriting} IS NULL AND v.{SqlHelper.Field_Vocab_KanaWriting} IN {list}))";
             }
 
             string sqlKanjiFilter = string.Empty;
@@ -667,6 +676,7 @@ namespace Kanji.Database.Dao
                 sqlJlptFilter,
                 sqlWkFilter,
                 sqlKanjiFilter,
+                sqlVocabFilter,
                 sqlReadingFilter,
                 sqlMeaningFilter,
                 sqlCategoryFilter
