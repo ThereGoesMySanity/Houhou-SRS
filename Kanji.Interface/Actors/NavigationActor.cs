@@ -14,7 +14,7 @@ using Avalonia.Controls;
 
 namespace Kanji.Interface.Actors
 {
-    class NavigationActor : NotifyPropertyChanged
+    public class NavigationActor : NotifyPropertyChanged
     {
         #region Singleton implementation
 
@@ -45,7 +45,7 @@ namespace Kanji.Interface.Actors
         /// <summary>
         /// Gets the currently active page.
         /// </summary>
-        public NavigationPageEnum CurrentPage
+        internal NavigationPageEnum CurrentPage
         {
             get { return _currentPage; }
             private set
@@ -62,19 +62,19 @@ namespace Kanji.Interface.Actors
         /// Gets or sets the reference to the kanji view model
         /// to enable kanji navigation.
         /// </summary>
-        public KanjiViewModel KanjiVm { get; set; }
+        internal KanjiViewModel KanjiVm { get; set; }
 
         /// <summary>
         /// Gets or sets the reference to the SRS view model
         /// to enable SRS module navigation.
         /// </summary>
-        public SrsViewModel SrsVm { get; set; }
+        internal SrsViewModel SrsVm { get; set; }
 
         /// <summary>
         /// Gets or sets the reference to the Settings view model
         /// to enable settings page navigation.
         /// </summary>
-        public SettingsViewModel SettingsVm { get; set; }
+        internal SettingsViewModel SettingsVm { get; set; }
 
         /// <summary>
         /// Gets or sets a reference to the main window.
@@ -106,7 +106,7 @@ namespace Kanji.Interface.Actors
         /// Navigates to the page referred by the given enum value.
         /// </summary>
         /// <param name="page">Page enum value.</param>
-        public void Navigate(NavigationPageEnum page)
+        internal void Navigate(NavigationPageEnum page)
         {
             lock (_mainWindowLock)
             {
