@@ -11,24 +11,18 @@
 
     <Panel>
         <!-- "Load more" button grid -->
-        <Panel Name="LoadedPanel">
-            <Panel.Styles>
-                <Style Selector="Panel">
-                    <Setter Property="IsVisible" Value="False"/>
-                </Style>
-            </Panel.Styles>
+        <Panel Name="LoadedPanel" IsVisible="False">
           <i:Interaction.Behaviors>
+            <ia:DataTriggerBehavior Binding="{Binding ElementName=LoadingPanel, Path=IsVisible}" Value="False">
+              <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
+            </ia:DataTriggerBehavior>
+            <ia:DataTriggerBehavior Binding="{Binding LoadedItemCount}" Value="{Binding TotalItemCount}" ComparisonCondition="NotEqual">
+              <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
+            </ia:DataTriggerBehavior>
             <utility:MultiDataTriggerBehavior>
               <utility:MultiDataTriggerBehavior.Conditions>
                 <utility:Condition Binding="{Binding ElementName=LoadingPanel, Path=IsVisible}" Value="False"/>
-                <utility:Condition Value="False">
-                  <utility:Condition.Binding>
-                    <MultiBinding Converter="{StaticResource DataTriggerValueBindingConverter}" ConverterParameter="{x:Type s:Int32}">
-                      <Binding Path="LoadedItemCount" Mode="OneWay"/>
-                      <Binding Path="TotalItemCount" Mode="OneWay"/>
-                    </MultiBinding>
-                  </utility:Condition.Binding>
-                </utility:Condition>
+                <utility:Condition Binding="{Binding LoadedItemCount}" Value="{Binding TotalItemCount}" ComparisonCondition="NotEqual"/>
               </utility:MultiDataTriggerBehavior.Conditions>
               <utility:MultiDataTriggerBehavior.Actions>
                 <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
