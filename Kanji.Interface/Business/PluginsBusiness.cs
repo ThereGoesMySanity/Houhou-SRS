@@ -29,13 +29,12 @@ namespace Kanji.Interface.Business
         public PluginsBusiness()
         {
             var pluginsDir = Path.Combine(ConfigurationHelper.CommonDataDirectoryPath, "Plugins");
-            IEnumerable<Assembly> assemblies = new[] { Assembly.GetExecutingAssembly() };
+            IEnumerable<Type> types = Assembly.GetExecutingAssembly().GetTypes();
             if (Directory.Exists(pluginsDir))
-                assemblies = assemblies.Concat(Directory.GetFiles(pluginsDir, "*.dll").Select(Assembly.LoadFrom));
+                types = types.Concat(Directory.GetFiles(pluginsDir, "*.dll").Select(Assembly.LoadFrom).SelectMany(a => a.GetExportedTypes()));
             
-            Plugins = assemblies.SelectMany(a => a.GetExportedTypes())
-                .Where(t => !t.IsAbstract && t.IsSubclassOf(typeof(Plugin)))
-                .Select(Activator.CreateInstance).Cast<Plugin>().ToList();
+            Plugins = types.Where(t => !t.IsAbstract && t.IsSubclassOf(typeof(Plugin)))
+                        .Select(Activator.CreateInstance).Cast<Plugin>().ToList();
         }
         public IEnumerable<FuncDataTemplate> PluginTemplates =>
             Plugins.SelectMany(p => p.Steps)
