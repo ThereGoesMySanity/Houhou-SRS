@@ -14,8 +14,6 @@ namespace Kanji.Interface.ViewModels
 
         private ImportModeViewModel _currentMode;
 
-        private ImportModeViewModel[] _importModes;
-
         private ViewModel _activeVm;
 
         #endregion

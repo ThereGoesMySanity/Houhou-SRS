@@ -14,7 +14,7 @@ using Kanji.Interface.Utilities;
 
 namespace Kanji.Interface.ViewModels
 {
-    abstract class ListViewModel<Tmodel, Tentity> : ViewModel
+    public abstract class ListViewModel<Tmodel, Tentity> : ViewModel
     {
         #region Fields
 
