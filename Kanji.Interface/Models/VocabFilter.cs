@@ -15,6 +15,8 @@ namespace Kanji.Interface.Models
     {
         #region Properties
 
+        public string[] Vocab { get; set; }
+
         /// <summary>
         /// Gets or sets the contained kanji filter.
         /// </summary>
@@ -76,6 +78,7 @@ namespace Kanji.Interface.Models
         public override bool IsEmpty()
         {
             return !Kanji.Any()
+                   && (Vocab == null || Vocab.Length == 0)
                    && string.IsNullOrWhiteSpace(ReadingString)
                    && string.IsNullOrWhiteSpace(MeaningString)
                    && Category == null
@@ -95,7 +98,8 @@ namespace Kanji.Interface.Models
                 ReadingString = this.ReadingString,
                 Category = this.Category,
                 JlptLevel = this.JlptLevel,
-                WkLevel = this.WkLevel
+                WkLevel = this.WkLevel,
+                Vocab = this.Vocab,
             };
         }
 
