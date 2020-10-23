@@ -42,7 +42,7 @@ namespace Kanji.Interface.Business
                 VocabFilter filter = (VocabFilter)_currentFilter;
 
                 foreach (VocabEntity vocab in _vocabDao.GetFilteredVocab(
-                    filter.Kanji.FirstOrDefault(),
+                    filter.Kanji.FirstOrDefault(), filter.Vocab,
                     filter.ReadingString, filter.MeaningString,
                     filter.Category, filter.JlptLevel, filter.WkLevel,
                     filter.IsCommonFirst, filter.IsShortReadingFirst))
@@ -60,7 +60,7 @@ namespace Kanji.Interface.Business
             {
                 VocabFilter filter = (VocabFilter)_currentFilter;
 
-                return (int)_vocabDao.GetFilteredVocabCount(filter.Kanji.FirstOrDefault(),
+                return (int)_vocabDao.GetFilteredVocabCount(filter.Kanji.FirstOrDefault(), filter.Vocab,
                     filter.ReadingString, filter.MeaningString,
                     filter.Category, filter.JlptLevel, filter.WkLevel);
             }
