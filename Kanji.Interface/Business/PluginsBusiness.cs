@@ -33,7 +33,7 @@ namespace Kanji.Interface.Business
             if (Directory.Exists(pluginsDir))
                 assemblies = assemblies.Concat(Directory.GetFiles(pluginsDir, "*.dll").Select(Assembly.LoadFrom));
             
-            Plugins = assemblies.SelectMany(a => a.GetTypes())
+            Plugins = assemblies.SelectMany(a => a.GetExportedTypes())
                 .Where(t => !t.IsAbstract && t.IsSubclassOf(typeof(Plugin)))
                 .Select(Activator.CreateInstance).Cast<Plugin>().ToList();
         }
