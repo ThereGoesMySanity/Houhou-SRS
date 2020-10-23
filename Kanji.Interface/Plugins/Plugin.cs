@@ -7,7 +7,7 @@ namespace Kanji.Interface.Plugins
 {
     public abstract class Plugin
     {
-        public abstract string Image { get; }
+        public virtual string Image => "/Data/UI/icon.ico";
         public abstract string Description { get; }
         public abstract Type ViewModel { get; }
         internal ImportModeViewModel ViewModelInstance { get; set; }
