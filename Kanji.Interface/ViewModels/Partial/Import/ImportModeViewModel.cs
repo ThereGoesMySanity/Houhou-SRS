@@ -161,14 +161,14 @@ namespace Kanji.Interface.ViewModels
         /// <summary>
         /// Goes forward to the next import step.
         /// </summary>
-        public void NextStep()
+        public async void NextStep()
         {
             if (!IsLastStep())
             {
                 if (CurrentStep.OnNextStep())
                 {
                     CurrentStep = _steps[GetStepIndex() + 1];
-                    CurrentStep.OnEnterStep();
+                    await CurrentStep.OnEnterStep();
                 }
             }
             else if (Finished != null)
@@ -180,7 +180,7 @@ namespace Kanji.Interface.ViewModels
         /// <summary>
         /// Goes back to the previous import step.
         /// </summary>
-        public void PreviousStep()
+        public async void PreviousStep()
         {
             CurrentStep.OnPreviousStep();
 
@@ -195,7 +195,7 @@ namespace Kanji.Interface.ViewModels
                     }
                 }
                 
-                CurrentStep.OnEnterStep();
+                await CurrentStep.OnEnterStep();
             }
             else if (Cancel != null)
             {

@@ -11,7 +11,8 @@
                     xmlns:behaviors="clr-namespace:Kanji.Interface.Behaviors" x:Class="Kanji.Interface.Controls.SrsReviewControl" mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="600"
                     IsVisible="{Binding $self.DataContext, Converter={x:Static ObjectConverters.IsNotNull}}">
   <UserControl.KeyBindings>
-    <KeyBinding Gesture="Back" Command="{Binding IgnoreAnswerShortcutCommand}"/>
+    <!--TODO-->
+    <!--<KeyBinding Gesture="Back" Command="{Binding IgnoreAnswerShortcutCommand}"/>-->
     <KeyBinding Gesture="OemPlus" Command="{Binding AddAnswerShortcutCommand}"/>
     <KeyBinding Gesture="Add" Command="{Binding AddAnswerShortcutCommand}"/>
     <KeyBinding Gesture="Ctrl+W" Command="{Binding WrapUpCommand}"/>
@@ -89,7 +90,7 @@
 
         <!-- Text representation of the item -->
         <Viewbox Grid.Column="1" Grid.Row="1">
-          <TextBlock Classes="LabelBox" Text="{Binding CurrentQuestion.ParentGroup.Item, Mode=OneWay}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+          <TextBox Classes="LabelBox" Text="{Binding CurrentQuestion.ParentGroup.Item, Mode=OneWay}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Viewbox>
 
         <!-- Level up indicator -->
@@ -186,7 +187,7 @@
     </Border>
 
     <!-- Input textbox -->
-    <TextBox Grid.Row="4" Text="{Binding CurrentAnswer, Mode=TwoWay}" FontSize="20">
+    <TextBox Grid.Row="4" Text="{Binding CurrentAnswer, Mode=TwoWay}" FontSize="20" IsReadOnly="False">
       <TextBox.KeyBindings>
         <KeyBinding Gesture="Enter" Command="{Binding SubmitCommand}"/>
       </TextBox.KeyBindings>
@@ -198,6 +199,10 @@
         <ia:DataTriggerBehavior Binding="{Binding ReviewState}" Value="Failure">
           <ia:ChangePropertyAction Value="#FFD82626" PropertyName="Background"/>
           <ia:ChangePropertyAction Value="True" PropertyName="IsReadOnly"/>
+        </ia:DataTriggerBehavior>
+        <ia:DataTriggerBehavior Binding="{Binding ReviewState}" Value="Input">
+          <ia:ChangePropertyAction PropertyName="Background" Value="#FFFFFFFF"/>
+          <ia:ChangePropertyAction PropertyName="IsReadOnly" Value="False"/>
         </ia:DataTriggerBehavior>
       </i:Interaction.Behaviors>
       <TextBox.Styles>

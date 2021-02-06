@@ -14,7 +14,7 @@
         <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <!-- Head text -->
-                <TextBlock FontSize="14" TextWrapping="Wrap" Classes="ErrorLabel LabelBox" Text="{Binding ErrorMessage, Mode=OneWay}"/>
+                <TextBox FontSize="14" TextWrapping="Wrap" Classes="ErrorLabel LabelBox" Text="{Binding ErrorMessage, Mode=OneWay}"/>
 
                 <!-- File path -->
                 <StackPanel>
