@@ -180,17 +180,16 @@
   <ItemGroup>
     <PackageReference Include="MvvmLightLibsStd10" Version="5.4.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Avalonia" Version="0.10.0"/>
+    <PackageReference Include="Avalonia.Desktop" Version="0.10.0"/>
+    <PackageReference Include="Avalonia.Diagnostics" Version="0.10.0"/>
+    <PackageReference Include="Avalonia.Controls.DataGrid" Version="0.10.0"/>
+    <PackageReference Include="Avalonia.Xaml.Behaviors" Version="0.10.0"/>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Avalonia\packages\Avalonia\Avalonia.csproj" />
-    <ProjectReference Include="..\..\Avalonia\src\Avalonia.Diagnostics\Avalonia.Diagnostics.csproj" />
-    <ProjectReference Include="..\..\Avalonia\src\Avalonia.Controls.DataGrid\Avalonia.Controls.DataGrid.csproj" />
-    <ProjectReference Include="..\AvaloniaGif\AvaloniaGif\AvaloniaGif.csproj" />
     <ProjectReference Include="..\Kanji.Common\Kanji.Common.csproj" />
     <ProjectReference Include="..\Kanji.Database\Kanji.Database.csproj" />
-    <ProjectReference Include="..\..\AvaloniaBehaviors\src\Avalonia.Xaml.Behaviors\Avalonia.Xaml.Behaviors.csproj" />
-    <ProjectReference Include="..\..\Avalonia\src\Avalonia.Desktop\Avalonia.Desktop.csproj" />
     <ProjectReference Include="..\StatusIndicator\StatusIndicator.csproj" />
     <ProjectReference Include="..\WaniKaniApi-net\src\WaniKaniApi\WaniKaniApi.csproj" />
     <ProjectReference Include="..\..\MessageBox.Avalonia\src\MessageBox.Avalonia\MessageBox.Avalonia.csproj" />
@@ -203,6 +202,4 @@
     <Resource Include="Data\Resources\TrayIconAlert.ico" />
     <Resource Include="Data\Resources\TrayIconIdle.ico" />
   </ItemGroup>
-  
-  <Import Project="..\..\Avalonia\build\BuildTargets.targets" />
 </Project>
