@@ -109,7 +109,7 @@ namespace Kanji.Interface.ViewModels
         /// <summary>
         /// When entering the step, start the import process.
         /// </summary>
-        public override void OnEnterStep()
+        public override async Task OnEnterStep()
         {
             // Perform pointless initalizations.
             ProgressCount = 0;
@@ -118,21 +118,23 @@ namespace Kanji.Interface.ViewModels
             IsFinished = false;
 
             // Start the process!
-            ImportToDatabase();
+            await ImportToDatabase();
         }
 
         #region ImportToDatabase
 
-        private void ImportToDatabase()
+        private async Task ImportToDatabase()
         {
+            await Task.Run(DoImportToDatabase);
+            DoneImportToDatabase();
             // Run the task in the background.
-            BackgroundWorker worker = new BackgroundWorker();
-            worker.DoWork += DoImportToDatabase;
-            worker.RunWorkerCompleted += DoneImportToDatabase;
-            worker.RunWorkerAsync();
+            //BackgroundWorker worker = new BackgroundWorker();
+            //worker.DoWork += DoImportToDatabase;
+            //worker.RunWorkerCompleted += DoneImportToDatabase;
+            //worker.RunWorkerAsync();
         }
 
-        private void DoImportToDatabase(object sender, DoWorkEventArgs e)
+        private void DoImportToDatabase()
         {
             foreach (SrsEntry entry in ParentMode.NewEntries)
             {
@@ -197,7 +199,7 @@ namespace Kanji.Interface.ViewModels
             }
         }
 
-        private void DoneImportToDatabase(object sender, RunWorkerCompletedEventArgs e)
+        private void DoneImportToDatabase()
         {
             IsFinished = true;
             DbImportLog += "*** IMPORT DONE ***";
