@@ -822,23 +822,24 @@
     <Setter Property="BorderBrush" Value="#99042880" />
   </Style>
 
-  <Style Selector="TextBlock.KanjiMeaningLabel">
-    <!-- <Setter Property="BorderThickness" Value="0 0 0 1"/>
+  <Style Selector="TextBox.KanjiMeaningLabel">
+    <Setter Property="BorderThickness" Value="0 0 0 1"/>
     <Setter Property="BorderBrush" Value="Black"/>
-    <Setter Property="Margin" Value="0 0 0 5"/> -->
+    <Setter Property="Margin" Value="0 0 0 5"/> 
     <Setter Property="FontSize" Value="16"/>
     <Setter Property="VerticalAlignment" Value="Center"/>
     <Setter Property="TextWrapping" Value="Wrap"/>
   </Style>
 
-  <Style Selector="TextBlock.KanjiTitle">
-    <!-- <Setter Property="BorderThickness" Value="2"/>
-    <Setter Property="BorderBrush" Value="Black"/> -->
+  <Style Selector="TextBox.KanjiTitle">
+    <Setter Property="BorderThickness" Value="2"/>
+    <Setter Property="BorderBrush" Value="Black"/> 
     <Setter Property="Background" Value="White"/>
-    <!-- <Setter Property="Margin" Value="5 5 5 0"/> -->
+    <Setter Property="Margin" Value="5 5 5 0"/>
     <Setter Property="Width" Value="90"/>
     <Setter Property="Height" Value="87"/>
     <Setter Property="VerticalAlignment" Value="Top"/>
+    <Setter Property="VerticalContentAlignment" Value="Center"/>
     <Setter Property="HorizontalAlignment" Value="Center"/>
     <Setter Property="TextWrapping" Value="NoWrap"/>
     <Setter Property="TextAlignment" Value="Center"/>
@@ -1592,7 +1593,7 @@
 
     <!-- SRS ENTRY WINDOW -->
 
-  <Style Selector="TextBlock.KanjiReadingLabel">
+  <Style Selector="TextBox.KanjiReadingLabel">
     <Setter Property="HorizontalAlignment" Value="Center"/>
     <Setter Property="Foreground" Value="White"/>
   </Style>
