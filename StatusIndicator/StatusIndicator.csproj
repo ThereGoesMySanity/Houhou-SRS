@@ -1,8 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <ProjectReference Include="..\..\Avalonia\packages\Avalonia\Avalonia.csproj" />
     <ProjectReference Include="..\notify-sharp\notify-sharp.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="0.10.0"/>
+  </ItemGroup>
+
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
