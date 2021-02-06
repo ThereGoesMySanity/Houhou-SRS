@@ -34,7 +34,6 @@ namespace Kanji.Interface.ViewModels
         private bool _isComplete;
         private bool _isError;
         private bool _isWorking;
-        private BackgroundWorker _worker;
         private WkImportResult _result;
 
         #endregion
@@ -142,13 +141,13 @@ namespace Kanji.Interface.ViewModels
         /// <summary>
         /// Starts a background task to perform the request in the background.
         /// </summary>
-        private void RequestApi()
+        private async Task RequestApi()
         {
-            // Check the worker
-            if (_worker != null)
-            {
-                _worker.Dispose();
-            }
+            //// Check the worker
+            //if (_worker != null)
+            //{
+                //_worker.Dispose();
+            //}
 
             // Initialize values
             IsComplete = false;
@@ -157,18 +156,22 @@ namespace Kanji.Interface.ViewModels
             Error = string.Empty;
             Result = null;
 
-            // Run the initialization in the background.
-            _worker = new BackgroundWorker();
-            _worker.DoWork += DoRequestApi;
-            _worker.RunWorkerCompleted += DoneRequestApi;
-            _worker.RunWorkerAsync();
+            await DoRequestApi();
+            IsWorking = false;
+            //// Run the initialization in the background.
+            //_worker = new BackgroundWorker();
+            //_worker.DoWork += DoRequestApi;
+            //_worker.RunWorkerCompleted += DoneRequestApi;
+            //_worker.RunWorkerAsync();
+            //((BackgroundWorker)sender).DoWork -= DoRequestApi;
+            //((BackgroundWorker)sender).RunWorkerCompleted -= DoneRequestApi;
         }
 
         /// <summary>
         /// Background task work method.
         /// Contacts the WaniKani API.
         /// </summary>
-        private void DoRequestApi(object sender, DoWorkEventArgs e)
+        private async Task DoRequestApi()
         {
             try
             {
@@ -190,13 +193,13 @@ namespace Kanji.Interface.ViewModels
                 if (filter != null)
                 {
                     List<(Subject, Assignment)> results = new List<(Subject, Assignment)>();
-                    var response = client.Assignments.GetAllAsync(filter).Result;
-                    var subRes = client.Subjects.GetAllAsync(new SubjectsFilter() { Ids = response.Data.Select(r => r.SubjectId).ToArray() }).Result;
+                    var response = await client.Assignments.GetAllAsync(filter);
+                    var subRes = await client.Subjects.GetAllAsync(new SubjectsFilter() { Ids = response.Data.Select(r => r.SubjectId).ToArray() });
                     results.AddRange(response.Data.Select(r => (subRes.Data.Where(s => s.Id == r.SubjectId).First(), r)));
                     while(response.NextPageUrl != null && results.Count < response.TotalCount)
                     {
-                        response = client.Assignments.GetAllAsync(response.NextPageUrl).Result;
-                        subRes = client.Subjects.GetAllAsync(new SubjectsFilter() { Ids = response.Data.Select(r => r.SubjectId).ToArray() }).Result;
+                        response = await client.Assignments.GetAllAsync(response.NextPageUrl);
+                        subRes = await client.Subjects.GetAllAsync(new SubjectsFilter() { Ids = response.Data.Select(r => r.SubjectId).ToArray() });
                         results.AddRange(response.Data.Select(r => (subRes.Data.Where(s => s.Id == r.SubjectId).First(), r)));
                     }
 
@@ -231,22 +234,11 @@ namespace Kanji.Interface.ViewModels
             }
         }
 
-        /// <summary>
-        /// Background task completed method. Unsubscribes to the events.
-        /// </summary>
-        private void DoneRequestApi(object sender, RunWorkerCompletedEventArgs e)
-        {
-            ((BackgroundWorker)sender).DoWork -= DoRequestApi;
-            ((BackgroundWorker)sender).RunWorkerCompleted -= DoneRequestApi;
-            IsWorking = false;
-        }
-
         #endregion
 
-        public override void OnEnterStep()
+        public override async Task OnEnterStep()
         {
-            base.OnEnterStep();
-            RequestApi();
+            await RequestApi();
         }
 
         public override bool OnNextStep()
