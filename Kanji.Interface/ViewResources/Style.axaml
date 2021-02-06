@@ -341,16 +341,16 @@
     </Style>
 
     <!-- Misc labels & textboxes -->
-    <!--TODO: Avalonia selectable TextBlock-->
     <Style Selector="TextBox.LabelBox" >
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Background" Value="{x:Null}"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="KeyboardNavigation.IsTabStop" Value="False"/>
         <Setter Property="IsReadOnly" Value="True"/>
+        <Setter Property="CaretBrush" Value="Transparent"/>
         <Setter Property="Margin" Value="0"/>
         <Setter Property="Padding" Value="0"/>
-        <Setter Property="FontFamily" Value="/Data/Fonts/NotoSansCJKjp-Thin.otf#Noto Sans CJK JP"/>
+        <Setter Property="UseLayoutRounding" Value="False"/>
     </Style>
 
     <Style Selector="TextBlock.LegendText" >
@@ -465,7 +465,9 @@
     <Setter Property="VerticalContentAlignment" Value="Center"/>
   </Style>
 
-  <Style Selector="TextBlock.ReadingLabel">
+  <Style Selector="TextBox.ReadingLabel">
+    <Setter Property="Padding" Value="2,0,0,0"/>
+    <Setter Property="TextWrapping" Value="NoWrap"/>
     <Setter Property="FontSize" Value="14"/>
     <!--<Setter Property="LayoutTransform">
             <Setter.Value>
@@ -1593,7 +1595,7 @@
 
     <!-- SRS ENTRY WINDOW -->
 
-  <Style Selector="TextBox.KanjiReadingLabel">
+  <Style Selector="TextBlock.KanjiReadingLabel">
     <Setter Property="HorizontalAlignment" Value="Center"/>
     <Setter Property="Foreground" Value="White"/>
   </Style>
@@ -1650,7 +1652,7 @@
               </DataTemplate>
               <DataTemplate DataType="{x:Type models:KanjiReadingLabel}">
                 <Border Classes="KanjiReadingLabelBorder">
-                  <TextBlock Classes="KanjiReadingLabel LegendText" Text="{Binding Label}"/>
+                  <TextBlock Classes="LegendText KanjiReadingLabel" Text="{Binding Label}"/>
                 </Border>
               </DataTemplate>
             </ContentControl.DataTemplates>
