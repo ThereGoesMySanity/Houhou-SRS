@@ -23,7 +23,7 @@
         <!-- Left panel -->
         <StackPanel>
             <!-- Big kanji character -->
-            <TextBlock Name="KanjiTitleLabel" Classes="KanjiTitle LabelBox" Text="{Binding KanjiEntity.DbKanji.Character}"/>
+            <TextBox Name="KanjiTitleLabel" Classes="KanjiTitle LabelBox" Text="{Binding KanjiEntity.DbKanji.Character}"/>
 
             <!-- Radical list -->
             <StackPanel Grid.Column="0" Grid.Row="1" Margin="5 3 5 0" IsVisible="{Binding ShowDetails}">
@@ -35,7 +35,7 @@
         <StackPanel Grid.Column="1" Margin="10 5 5 0">
             
             <!-- Meanings label -->
-            <TextBlock Name="MeaningsLabel" Classes="KanjiMeaningLabel LabelBox" Text="{Binding Path=KanjiEntity.DbKanji,
+            <TextBox Name="MeaningsLabel" Classes="KanjiMeaningLabel LabelBox" Text="{Binding Path=KanjiEntity.DbKanji,
                   Converter={StaticResource KanjiToStringConverter},
                   ConverterParameter={x:Static converters:KanjiToStringConversionType.Full}, Mode=OneWay}"/>
             

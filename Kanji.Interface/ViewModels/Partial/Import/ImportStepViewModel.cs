@@ -36,9 +36,9 @@ namespace Kanji.Interface.ViewModels
         /// <summary>
         /// Executes logic when entering this import step.
         /// </summary>
-        public virtual void OnEnterStep()
+        public virtual Task OnEnterStep()
         {
-
+            return Task.CompletedTask;
         }
 
         /// <summary>

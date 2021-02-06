@@ -244,7 +244,7 @@ namespace Kanji.Interface.ViewModels
         /// <summary>
         /// When entering the step, computes some fields.
         /// </summary>
-        public override void OnEnterStep()
+        public override Task OnEnterStep()
         {
             // Take required columns as stored in parent.
             RequiredColumns = _parent.CsvColumns;
@@ -256,6 +256,7 @@ namespace Kanji.Interface.ViewModels
                 optionalColumns.Add(col);
             }
             OptionalColumns = optionalColumns;
+            return base.OnEnterStep();
         }
 
         /// <summary>
