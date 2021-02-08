@@ -284,11 +284,6 @@
     </ResourceDictionary>
   </Styles.Resources>
   <!-- STYLES -->
-  <Style Selector="RadioButton:unchecked[IsChecked=True]">
-    <Setter Property="IsChecked" Value="True"/>
-    <Setter Property="Background" Value="Red"/>
-  </Style>
-  
   <Style Selector="controls|Label">
     <Setter Property="Template">
       <ControlTemplate>
