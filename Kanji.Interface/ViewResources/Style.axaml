@@ -284,6 +284,11 @@
     </ResourceDictionary>
   </Styles.Resources>
   <!-- STYLES -->
+  <!-- TODO TextBox doesn't support fallback fonts -->
+  <Style Selector="TextBox">
+    <Setter Property="FontFamily" Value="Source Han Sans JP"/>
+  </Style>
+
   <Style Selector="controls|Label">
     <Setter Property="Template">
       <ControlTemplate>
