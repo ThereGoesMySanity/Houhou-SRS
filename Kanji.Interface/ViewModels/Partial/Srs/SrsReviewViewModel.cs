@@ -16,6 +16,7 @@ using Kanji.Interface.Views;
 using Kanji.Interface.Extensions;
 using Kanji.Interface.Actors;
 using Avalonia.Threading;
+using Kanji.Interface.Helpers;
 
 namespace Kanji.Interface.ViewModels
 {
@@ -401,7 +402,9 @@ namespace Kanji.Interface.ViewModels
             {
                 SrsLevelStore.Instance.IssueWhenLoaded(
                     () => {
-                        PreviewNextLevel = GetUpdatedLevel(CurrentQuestionGroup);
+                        DispatcherHelper.Invoke(() => {
+                            PreviewNextLevel = GetUpdatedLevel(CurrentQuestionGroup);
+                        });
                     });
             }
         }
