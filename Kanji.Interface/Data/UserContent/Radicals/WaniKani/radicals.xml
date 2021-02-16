@@ -332,4 +332,197 @@
   <!-- <radical c="鬥" name="Broken gate" /> -->
   <!--<radical c="鬯" priority="-3">Herbs</radical>-->
   <!--<radical c="黹" priority="-3">Sewing</radical>-->
+  <!-- TODO 
+    Level 1
+  <radical c="𠂉" name="Gun" />
+  <radical c="TODO" name="Leaf" />
+  <radical c="七" name="Seven" />
+    Level 2
+  <radical c="本" name="Book" />
+  <radical c="中" name="Middle" />
+  <radical c="ナ" name="Narwhal" />
+  <radical c="丁" name="Street" />
+  <radical c="千" name="Thousand" />
+  <radical c="メ" name="Treasure" />
+    Level 3
+  <radical c="今" name="Now" />
+  <radical c="古" name="Old" />
+    Level 4
+  <radical c="与" name="Beggar" />
+  <radical c="主" name="Master" />
+  <radical c="不" name="Not" />
+  <radical c="兀" name="Pi" />
+  <radical c="TODO" name="Spikes" />
+  <radical c="礼" name="Umbrella" />
+    Level 5
+  <radical c="作" name="Key" />
+  <radical c="表" name="Kick" />
+  <radical c="开" name="Lantern" />
+  <radical c="可" name="Lip Ring" />
+  <radical c="会" name="Meet" />
+  <radical c="冋" name="Mustache" />
+  <radical c="学" name="Viking" />
+    Level 6
+  <radical c="ホ" name="Angel" />
+  <radical c="市" name="City" />
+  <radical c="占" name="Fortune" />
+  <radical c="未" name="Jet" />
+  <radical c="L" name="Lion" />
+    Level 7
+  <radical c="周" name="Circumference" />
+  <radical c="夫" name="Husband" />
+  <radical c="己" name="Oneself" />
+  <radical c="孝" name="Teacher" />
+  <radical c="寺" name="Temple" />
+  <radical c="且" name="Top Hat" />
+    Level 8
+  <radical c="幻" name="Cape" />
+  <radical c="云" name="Cloud" />
+  <radical c="易" name="Easy" />
+  <radical c="合" name="Suit" />
+    Level 9
+  <radical c="反" name="Anti" />
+  <radical c="采" name="Cleat" />
+  <radical c="咅" name="Clown" />
+  <radical c="正" name="Correct" />
+  <radical c="永" name="Eternity" />
+  <radical c="券" name="Gladiator" />
+  <radical c="重" name="Heavy" />
+  <radical c="覀" name="Helicopter" />
+  <radical c="史" name="History" />
+  <radical c="介" name="Jammed In" />
+  <radical c="台" name="Machine" />
+  <radical c="盾" name="Pope" />
+  <radical c="春" name="Spring" />
+  <radical c="険" name="Squid" />
+  <radical c="度" name="Yurt" />
+    Level 10
+  <radical c="束" name="Bundle" />
+  <radical c="漢" name="Chinese" />
+  <radical c="丙" name="Dynamite" />
+  <radical c="失" name="Fault" />
+  <radical c="各" name="Kiss" />
+  <radical c="曲" name="Music" />
+  <radical c="売" name="Sell" />
+  <radical c="圣" name="Tombstone" />
+    Level 11
+  <radical c="官" name="Bear" />
+  <radical c="TODO" name="Blackjack" />
+  <radical c="少" name="Few" />
+  <radical c="申" name="Humble" />
+  <radical c="兄" name="Older Brother" />
+  <radical c="令" name="Orders" />
+  <radical c="単" name="Simple" />
+  <radical c="育" name="Trash" />
+    Level 12
+  <radical c="亜" name="Asia" />
+  <radical c="予" name="Beforehand" />
+  <radical c="業" name="Business" />
+  <radical c="其" name="Crab" />
+  <radical c="早" name="Early" />
+  <radical c="直" name="Fix" />
+  <radical c="求" name="Request" />
+  <radical c="者" name="Someone" />
+  <radical c="旅" name="Tofu" />
+  <radical c="共" name="Together" />
+  <radical c="弟" name="Younger Brother" />
+    Level 13
+  <radical c="央" name="Center" />
+  <radical c="丸" name="Circle" />
+  <radical c="TODO" name="Creeper" />
+  <radical c="東" name="East" />
+  <radical c="象" name="Elephant" />
+  <radical c="果" name="Fruit" />
+  <radical c="良" name="Good" />
+  <radical c="百" name="Hundred" />
+  <radical c="意" name="Idea" />
+  <radical c="原" name="Original" />
+  <radical c="畐" name="Scarecrow" />
+  <radical c="尺" name="Shrimp" />
+  <radical c="坴" name="Womb" />
+    Level 14
+  <radical c="TODO" name="Bar" />
+  <radical c="才" name="Genius" />
+  <radical c="分" name="Part" />
+  <radical c="勺" name="Pool" />
+  <radical c="公" name="Public" />
+    Level 15
+  <radical c="TODO" name="Grass" />
+  <radical c="丈" name="Height" />
+  <radical c="男" name="Man" />
+  <radical c="句" name="Paragraph" />
+  <radical c="去" name="Past" />
+  <radical c="恐" name="Saw" />
+  <radical c="歩" name="Walk" />
+    Level 16
+  <radical c="付" name="Attach" />
+  <radical c="壴" name="Drum" />
+  <radical c="TODO" name="Zombie" />
+    Level 17
+  <radical c="楽" name="Comfort" />
+  <radical c="非" name="Criminal" />
+  <radical c="祭" name="Festival" />
+  <radical c="吉" name="Good luck" />
+  <radical c="兑" name="Guard" />
+  <radical c="苟" name="Poem" />
+    Level 18
+  <radical c="争" name="Conflict" />
+  <radical c="尭" name="Gambler" />
+  <radical c="幸" name="Happiness" />
+  <radical c="昔" name="Long Ago" />
+  <radical c="曽" name="Mask" />
+  <radical c="午" name="Noon" />
+  <radical c="先" name="Previous" />
+  <radical c="凶" name="Treasure Chest" />
+    Level 19
+  <radical c="成" name="Become" />
+  <radical c="复" name="Black Hole" />
+  <radical c="司" name="Director" />
+  <radical c="我" name="Ego" />
+  <radical c="感" name="Feeling" />
+  <radical c="由" name="Reason" /
+  <radical c="右" name="Right" />
+    Level 20
+  <radical c="TODO" name="Explosion" />
+  <radical c="兼" name="Mona Lisa" />
+  <radical c="義" name="Righteousness" />
+    Level 21
+  <radical c="刃" name="Blade" />
+  <radical c="半" name="Half" />
+  <radical c="次" name="Next" />
+  <radical c="番" name="Number" />
+  <radical c="平" name="Peace" />
+    Level 22
+  <radical c="能" name="Ability" />
+  <radical c="充" name="Allocate" />
+  <radical c="呂" name="Bathtub" />
+  <radical c="安" name="Cheap" />
+  <radical c="弗" name="Dollar" />
+  <radical c="爰" name="Football" />
+  <radical c="丬" name="Icicle" />
+    Level 23
+  <radical c="TODO" name="Morning" />
+  <radical c="亭" name="Restaurant" />
+  <radical c="道" name="Road" />
+  <radical c="丩" name="Vines" />
+    Level 24
+  <radical c="受" name="Accept" />
+  <radical c="制" name="Control" />
+  <radical c="旦" name="Dawn" />
+  <radical c="TODO" name="Death Star" />
+  <radical c="客" name="Guest" />
+  <radical c="然" name="Nature" />
+    Level 25
+  <radical c="両" name="Both" />
+  <radical c="京" name="Capital" />
+  <radical c="友" name="Friend" />
+  <radical c="莫" name="Greenhouse" />
+  <radical c="冓" name="Lifeguard" />
+  <radical c="交" name="Mix" />
+  <radical c="甫" name="Wedding" />
+    Level 26
+  <radical c="告" name="Announce" />
+  <radical c="章" name="Chapter" />
+  <radical c="TODO" name="Comb" />
+  -->
 </radicals>
