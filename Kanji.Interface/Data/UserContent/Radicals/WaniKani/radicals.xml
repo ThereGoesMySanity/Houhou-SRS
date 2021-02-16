@@ -47,9 +47,9 @@
 	</groups>
   </radical>
   <radical c="女" name="Woman" />
-  <radical c="土" name="Grave" />
+  <radical c="土" name="Dirt" />
   <radical c="亅" name="Barb" />
-  <radical src="Butcher.png" c="阡" name="Butcher">
+  <radical src="Butcher.png" c="阡" name="Building">
 	<groups>
 	  <group>
 	    <item radical="阡" />
@@ -71,10 +71,10 @@
     </groups>
   </radical>
   <radical c="矢" name="Arrow" />
-  <radical c="厶" name="Pile" />
-  <radical src="Nailbat.png" c="扎" name="Nailbat" />
+  <radical c="厶" name="Private" />
+  <radical src="Nailbat.png" c="扎" name="Fingers" />
   <radical src="Hat.png" c="个" name="Hat" />
-  <radical src="WaterSlide.png" c="込" name="Water slide" />
+  <radical src="WaterSlide.png" c="込" name="Scooter" />
   <radical c="二" name="Two" />
   <radical c="人" name="Person" />
   <radical c="大" name="Big" />
@@ -82,12 +82,12 @@
   <radical src="Flowers.png" c="艾" name="Flowers" />
   <radical c="ノ" name="Slide" />
   <radical c="西" name="West" />
-  <radical c="禾" name="Pine" />
+  <radical c="禾" name="Grain" />
   <radical c="亀" name="Turtle" />
   <radical c="乙" name="Nose" />
-  <radical c="勹" name="Enclosure" />
+  <radical c="勹" name="Prison" />
   <radical c="田" name="Rice paddy" />
-  <radical c="至" name="Boob grave" />
+  <radical c="至" name="Mole" />
   <radical c="尸" name="Flag" />
   <radical src="Tsunami.png" c="汁" name="Tsunami" />
   <radical c="日" name="Sun">
@@ -99,21 +99,21 @@
 	</groups>
   </radical>
   <radical c="九" name="Nine" />
-  <radical c="韋" name="Cow god" />
+  <radical c="韋" name="Korea" />
   <radical c="戸" name="Door" />
   <radical c="魚" name="Fish" />
   <radical c="彡" name="Hair" />
-  <radical src="FishTail.png" c="杰" name="Fish tail" />
+  <radical src="FishTail.png" c="杰" name="Boil" />
   <radical c="十" name="Cross" />
   <radical c="辛" name="Spicy" />
   <radical c="木" name="Tree" />
   <radical c="立" name="Stand" />
   <radical c="厂" name="Cliff" />
-  <radical c="斗" name="Chopsticks" />
+  <radical c="斗" name="Ladle" />
   <radical c="及" name="Escalator" />
   <radical c="夕" name="Evening" />
   <radical c="卩" name="Stamp" />
-  <radical c="宀" name="Helmet" />
+  <radical c="宀" name="Roof" />
   <radical c="目" name="Eye" />
   <radical c="虫" name="Insect" />
   <radical c="亡" name="Death" />
@@ -125,7 +125,7 @@
   <radical c="卜" name="Toe" />
   <radical c="戈" name="Drunkard" />
   <radical c="米" name="Rice" />
-  <radical src="Pelican.png" c="礼" name="Pelican">
+  <radical src="Pelican.png" c="礼" name="Spirit">
     <groups>
 	  <group>
 	    <item radical="初" />
@@ -133,7 +133,7 @@
 	  </group>
 	</groups>
   </radical>
-  <radical c="广" name="Mullet" />
+  <radical c="广" name="Canopy" />
   <radical c="音" name="Sound" />
   <radical c="門" name="Gate" />
   <radical c="革" name="Leather" />
@@ -141,19 +141,20 @@
   <radical c="ヨ" name="Wolverine" />
   <radical src="Leader.png" c="化" name="Leader" />
   <radical c="井" name="Well" />
-  <radical c="弓" name="Spring" />
+  <radical c="弓" name="Bow" />
   <radical c="示" name="Jackhammer" />
-  <radical c="寸" name="Measure" />
-  <radical src="FishStick.png" c="忙" name="Fish stick" />
+  <radical c="寸" name="Measurement" />
+  <radical src="FishStick.png" c="忙" name="Soul" />
   <radical c="隹" name="Turkey" />
   <radical c="勿" name="Wing" />
   <radical c="ハ" name="Fins" />
   <radical c="月" name="Moon" />
   <radical c="言" name="Say" />
-  <radical c="貝" name="Clam" />
+  <radical c="貝" name="Shellfish" />
   <radical c="匚" name="Cage" />
   <radical c="石" name="Stone" />
   <radical c="士" name="Samurai" />
+  <!--TODO: separate seven and spoon-->
   <radical c="匕" name="Spoon" />
   <radical c="皿" name="Plate" />
   <radical src="Triceratops.png" c="尚" name="Triceratops" />
@@ -161,7 +162,7 @@
   <radical c="免" name="Excuse" />
   <radical c="欠" name="Lack" />
   <radical c="冫" name="Ice" />
-  <radical c="干" name="Antennae" />
+  <radical c="干" name="Dry" />
   <radical c="王" name="King" />
   <radical c="元" name="Origin" />
   <radical c="鳥" name="Bird" />
@@ -169,15 +170,16 @@
   <radical c="雨" name="Rain" />
   <radical c="見" name="See" />
   <radical c="穴" name="Hole" />
-  <radical c="臼" name="Mortar" />
+  <!--TODO: comb-->
+  <radical c="臼" name="Comb" />
   <radical c="冂" name="Head" />
   <radical c="虍" name="Tiger" />
-  <radical c="艮" name="Good" />
-  <radical src="Sauron.png" c="買" name="Sauron" />
+  <radical c="艮" name="Root" />
+  <radical src="Sauron.png" c="買" name="Net" />
   <radical c="又" name="Stool" />
   <radical src="Coffin.png" c="老" name="Coffin" />
   <radical c="牙" name="Fang" />
-  <radical c="用" name="Elephant" />
+  <radical c="用" name="task" />
   <radical c="瓜" name="Melon" />
   <radical c="車" name="Car" />
   <radical c="耳" name="Ear" />
@@ -186,18 +188,25 @@
   <radical c="行" name="Go" />
   <radical c="彳" name="Loiter" />
   <radical c="金" name="Gold" />
-  <radical c="殳" name="Ikea" />
+  <radical c="殳" name="Weapon" />
   <radical src="Sick.png" c="疔" name="Sick" />
   <radical c="几" name="Table" />
   <radical c="馬" name="Horse" />
   <radical c="走" name="Run" />
   <radical c="自" name="Self" />
-  <radical c="犬" name="Dog" />
+  <radical c="犬" name="Dog">
+    <groups>
+	  <group>
+	    <item radical="犬" />
+		<item radical="尤" />
+	  </group>
+    </groups>
+  </radical>
   <radical c="奄" name="Cover" />
   <radical c="止" name="Stop" />
-  <radical c="廴" name="Big bird" />
+  <radical c="廴" name="Yoga" />
   <radical c="火" name="Fire" />
-  <radical c="爿" name="North" />
+  <radical c="爿" name="Icicle" />
   <radical src="Animal.png" c="犯" name="Animal" />
   <radical c="豕" name="Pig" />
   <radical c="色" name="Color" />
@@ -214,115 +223,113 @@
   <radical c="牛" name="Cow" />
   <radical c="刀" name="Sword" />
   <radical c="竹" name="Bamboo" />
-  <radical c="文" name="Doll" />
+  <radical c="文" name="Writing" />
   <radical c="手" name="Hand" />
   <radical c="臣" name="Servant" />
   <radical c="角" name="Angle" />
   <radical c="鬼" name="Demon" />
-  <radical c="母" name="Drawer" />
+  <!-- <radical c="母" name="Mother" /> -->
   <radical c="毋" name="Window" />
-  <radical c="已" name="Cobra" />
+  <radical c="已" name="Snake" />
   <radical c="白" name="White" />
   <radical c="比" name="Compare" />
-  <radical c="骨" name="Skeleton" />
-  <radical c="里" name="Sunflower" />
-  <radical c="香" name="Smell" />
-  <radical c="巾" name="Two face" />
+  <radical c="骨" name="Bone" />
+  <radical c="里" name="Village" />
+  <!-- <radical c="香" name="Fragrance" /> -->
+  <radical c="巾" name="Towel" />
   <radical c="斤" name="Axe" />
-  <radical src="Ribs.png" c="刈" name="Ribs" />
+  <radical src="Ribs.png" c="刈" name="Knife" />
   <radical c="聿" name="Brush" />
   <radical c="赤" name="Red" />
   <radical c="子" name="Child" />
   <radical c="父" name="Father" />
-  <radical c="鬲" name="Distance" />
+  <radical c="鬲" name="Bully" />
   <radical c="毛" name="Fur" />
   <radical c="舌" name="Tongue" />
   <radical c="歯" name="Tooth" />
-  <radical c="矛" name="Soldier" />
+  <radical c="矛" name="Spear" />
   <radical c="瓦" name="Tile" />
   <radical c="川" name="River" />
   <radical c="甘" name="Sweet" />
   <radical c="缶" name="Can" />
-  <radical c="舟" name="Sail" />
-  <radical c="品" name="Articles" />
-  <radical c="支" name="Frog" />
+  <radical c="舟" name="Boat" />
+  <radical c="品" name="Products" />
+  <radical c="支" name="Branch" />
   <radical c="气" name="Energy" />
   <radical c="羊" name="Sheep" />
-  <radical c="疋" name="Determine" />
-  <radical c="氏" name="Duck" />
-  <radical c="黍" name="Helicopter" />
-  <radical c="屮" name="Pitchfork" />
+  <radical c="疋" name="Coat Rack" />
+  <radical c="氏" name="Clan" />
+  <!-- <radical c="黍" name="Helicopter" /> -->
   <radical c="入" name="Enter" />
-  <radical c="久" name="Raptor cage" />
+  <!-- <radical c="久" name="Raptor cage" /> -->
   <radical c="乃" name="Stairs" />
-  <radical c="身" name="Someone" />
+  <radical c="身" name="Body" />
   <radical c="巨" name="Giant" />
   <radical c="足" name="Foot" />
-  <radical c="工" name="Industry" />
+  <radical c="工" name="Construction" />
   <radical c="耒" name="Acacia" />
-  <radical c="禹" name="Emperor" />
+  <radical c="禹" name="Mantis" />
   <radical c="舛" name="Dance" />
   <radical c="血" name="Blood" />
-  <radical c="鹵" name="Salt" />
-  <radical c="玄" name="Trash can" />
-  <radical c="鼓" name="Drum" />
+  <!-- <radical c="鹵" name="Salt" /> -->
+  <radical c="玄" name="Mysterious" />
   <radical c="五" name="Five" />
   <radical c="彑" name="Shuriken" />
   <radical c="酉" name="Alcohol" />
-  <radical c="隶" name="Slave" />
+  <!-- <radical c="隶" name="Slave" /> -->
   <radical c="高" name="Tall" />
   <radical c="麦" name="Wheat" />
   <radical c="黒" name="Black" />
   <radical c="鹿" name="Deer" />
   <radical c="豸" name="Badger" />
-  <radical c="斉" name="Stilts" />
-  <radical c="巛" name="Arrows" />
-  <radical c="非" name="Injustice" />
-  <radical c="冊" name="Books" />
-  <radical c="世" name="Generation" />
+  <radical c="斉" name="Simultaneous" />
+  <radical c="巛" name="Flood" />
+  <radical c="非" name="Criminal" />
+  <radical c="冊" name="Bookshelf" />
+  <radical c="世" name="World" />
   <radical c="青" name="Blue" />
-  <radical c="歹" name="Bad" />
+  <radical c="歹" name="Yakuza" />
   <radical c="也" name="Alligator" />
   <radical c="弋" name="Ceremony" />
-  <radical c="爻" name="Mix" />
+  <!-- <radical c="爻" name="Mix" /> -->
   <radical c="而" name="Rake" />
   <radical c="釆" name="Sickle" />
   <radical c="首" name="Neck" />
-  <radical c="尢" name="Lame">
+  <radical c="尢" name="Pirate" />
+  <radical c="屯" name="Barracks">
     <groups>
 	  <group>
-	    <item radical="尢" />
-		<item radical="尤" />
+	    <item radical="屯" />
+		<item radical="屮" />
 	  </group>
     </groups>
   </radical>
-  <radical c="屯" name="Thorn" />
   <radical c="巴" name="Bed" />
-  <radical c="辰" name="Superman" />
+  <radical c="辰" name="Landslide" />
   <radical c="皮" name="Skin" />
-  <radical c="鼠" name="Mouse" />
+  <!-- <radical c="鼠" name="Mouse" /> -->
   <radical c="谷" name="Valley" />
   <radical c="竜" name="Dragon" />
   <radical src="Mohawk.png" c="滴" name="Mohawk" />
   <radical c="長" name="Long" />
-  <radical c="片" name="Waiter" />
+  <radical c="片" name="One Sided" />
   <!--<radical c="鼎" priority="-4">Useless furniture</radical>-->
   <radical c="肉" name="Meat" />
-  <radical c="韭" name="Leek" />
-  <radical c="髟" name="Comb" />
+  <!-- <radical c="韭" name="Leek" /> -->
+  <!-- <radical c="髟" name="Comb" /> -->
   <radical c="飛" name="Fly" />
-  <radical c="鼻" name="Snout" />
+  <!-- <radical c="鼻" name="Nose" /> -->
   <radical c="無" name="Nothing" />
-  <radical c="風" name="Storm" />
-  <radical c="麻" name="Hemp" />
-  <radical c="面" name="Robot" />
-  <radical c="无" name="Heaven" />
-  <radical c="齊" name="Wisdom" />
+  <radical c="風" name="Wind" />
+  <!-- <radical c="麻" name="Hemp" /> -->
+  <radical c="面" name="Face" />
+  <radical c="天" name="Heaven" />
+  <!-- <radical c="齊" name="Wisdom" /> -->
   <radical c="ユ" name="Hook" />
   <!--<radical c="邑" name="Depression" />-->
-  <radical c="黽" name="Amphibian" />
-  <radical c="龠" name="Flute" />
-  <radical c="鬥" name="Broken gate" />
+  <!-- <radical c="黽" name="Amphibian" /> -->
+  <!-- <radical c="龠" name="Flute" /> -->
+  <!-- <radical c="鬥" name="Broken gate" /> -->
   <!--<radical c="鬯" priority="-3">Herbs</radical>-->
   <!--<radical c="黹" priority="-3">Sewing</radical>-->
 </radicals>
