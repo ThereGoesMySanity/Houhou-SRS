@@ -369,9 +369,9 @@ namespace Kanji.Interface.ViewModels
 
         #endregion
 
-        public override void OnEnterStep()
+        public override async Task OnEnterStep()
         {
-            base.OnEnterStep();
+            await base.OnEnterStep();
             RequestApi();
         }
 
