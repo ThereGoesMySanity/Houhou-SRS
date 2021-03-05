@@ -5,19 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Avalonia.Threading;
-
-using GalaSoft.MvvmLight.Command;
 using Kanji.Common.Helpers;
 using Kanji.Interface.Actors;
 using Kanji.Interface.Helpers;
 using Kanji.Interface.Models;
-using StatusIndicator;
 
 namespace Kanji.Interface.Business
 {
     class TrayBusiness
-    {
+    {/*
         #region Constants
 
         // Delay before the first check once the TrayBusiness instance is initialized.
@@ -31,8 +27,42 @@ namespace Kanji.Interface.Business
 
         #endregion
 
+        #region Static
+
+        // Stores icons.
+        private static Icon IdleIcon, AlertIcon;
+
+        /// <summary>
+        /// Gets the loaded instance.
+        /// </summary>
+        public static TrayBusiness Instance { get; private set; }
+
+        /// <summary>
+        /// Initializes the instance.
+        /// </summary>
+        public static void Initialize(TrayWindow window)
+        {
+            if (Instance == null)
+            {
+                IdleIcon = new Icon(ResourceHelper.GetResourceStream(ResourceHelper.TrayIconIdle),
+                    new System.Drawing.Size(new System.Drawing.Point(16, 16)));
+                AlertIcon = new Icon(ResourceHelper.GetResourceStream(ResourceHelper.TrayIconAlert),
+                    new System.Drawing.Size(new System.Drawing.Point(16, 16)));
+                Instance = new TrayBusiness(window);
+            }
+            else
+            {
+                throw new InvalidOperationException(
+                    "The instance is already loaded.");
+            }
+        }
+
+        #endregion
+
         #region Fields
 
+        // Stores the TrayWindow containing the TaskbarIcon.
+        private TrayWindow _window;
 
         // Timer. Triggers a check at each tick.
         private DispatcherTimer _checkTimer;
@@ -46,46 +76,41 @@ namespace Kanji.Interface.Business
         // Stores the type of the last notification issued to select an action when clicking the bubble.
         private TrayNotificationEnum _lastNotification;
 
-        private IStatusIndicator Indicator;
+        #endregion
+
+        #region Properties
 
         /// <summary>
-        /// Gets the loaded instance.
+        /// Gets the TaskbarIcon.
         /// </summary>
-        public static TrayBusiness Instance { get; private set; }
+        private TaskbarIcon Tray { get { return _window.Tray; } }
 
         #endregion
 
         #region Constructors
 
-        public static void Initialize()
+        private TrayBusiness(TrayWindow window)
         {
-            if (Instance == null)
-            {
-                Instance = new TrayBusiness();
-            }
-            else
-            {
-                throw new InvalidOperationException(
-                    "The instance is already loaded.");
-            }
-        }
+            _window = window;
 
-        private TrayBusiness()
-        {
             // Subscribe to the main window close event to show notification if needed.
             NavigationActor.Instance.MainWindowClose += OnMainWindowClosed;
 
-            Indicator = StatusIndicator.StatusIndicator.Get();
-            Indicator.NotificationClicked += OnTrayNotificationClicked;
-            Indicator.StatusClicked += OnTrayDoubleClick;
+            // Assign icon.
+            Tray.Icon = IdleIcon;
+
+            // Handle Tray events.
+            Tray.TrayBalloonTipClicked += OnTrayNotificationClicked;
+            Tray.TrayMouseDoubleClick += OnTrayDoubleClick;
+
+            // Run a first check.
+            Task.Run(() => { Thread.Sleep(BeforeFirstCheckDelay); Check(); });
 
             // Initialize the check timer.
             _checkTimer = new DispatcherTimer();
             _checkTimer.Interval = Properties.Settings.Default.TrayCheckInterval;
             _checkTimer.Tick += OnCheckTick;
             _checkTimer.Start();
-            // Run a first check.
-            Task.Run(() => { Thread.Sleep(BeforeFirstCheckDelay); Check(); });
         }
 
         #endregion
@@ -109,11 +134,11 @@ namespace Kanji.Interface.Business
 
             if (_lastCheckReviewsCount > 0)
             {
-                Indicator.Status = Status.ACTIVE;
+                Tray.Icon = AlertIcon;
             }
             else
             {
-                Indicator.Status = Status.IDLE;
+                Tray.Icon = IdleIcon;
             }
         }
 
@@ -152,7 +177,7 @@ namespace Kanji.Interface.Business
                 notificationMessage = "There are no reviews for now.";
             }
 
-            ShowNotification(TrayNotificationEnum.ReviewNotification, "Houhou", notificationMessage);
+            ShowNotification(TrayNotificationEnum.ReviewNotification, "Houhou", notificationMessage, BalloonIcon.Info);
         }
 
         /// <summary>
@@ -162,10 +187,10 @@ namespace Kanji.Interface.Business
         /// <param name="title">Title to show in the balloon tip.</param>
         /// <param name="message">Message to show in the balloon tip.</param>
         /// <param name="icon">Icon to show in the balloon tip.</param>
-        private void ShowNotification(TrayNotificationEnum notificationType, string title, string message)
+        private void ShowNotification(TrayNotificationEnum notificationType, string title, string message, BalloonIcon icon)
         {
             _lastNotification = notificationType;
-            Indicator.SendNotification(title, message);
+            Tray.ShowBalloonTip(title, message, icon);
         }
 
         /// <summary>
@@ -252,8 +277,10 @@ namespace Kanji.Interface.Business
         /// Event handler triggered when a tray balloon tip is clicked.
         /// Directs the user to the SRS review module.
         /// </summary>
-        private void OnTrayNotificationClicked(object sender, EventArgs e)
+        private void OnTrayNotificationClicked(object sender, RoutedEventArgs e)
         {
+            e.Handled = true;
+
             if (_lastNotification == TrayNotificationEnum.ReviewNotification)
             {
                 StartReviewing();
@@ -268,8 +295,9 @@ namespace Kanji.Interface.Business
         /// Event handler triggered when the user double-clicks the notification icon.
         /// Opens or focuses the main window.
         /// </summary>
-        private void OnTrayDoubleClick(object sender, EventArgs e)
+        private void OnTrayDoubleClick(object sender, RoutedEventArgs e)
         {
+            e.Handled = true;
             OpenOrFocusMainWindow();
         }
 
@@ -282,12 +310,14 @@ namespace Kanji.Interface.Business
             if (Properties.Settings.Default.WindowCloseAction == WindowCloseActionEnum.Warn)
             {
                 ShowNotification(TrayNotificationEnum.ExitNotification, "Houhou",
-                    string.Format("Houhou is still running in the background.{0}Click this bubble to shut it down.", Environment.NewLine));
+                    string.Format("Houhou is still running in the background.{0}Click this bubble to shut it down.", Environment.NewLine),
+                    BalloonIcon.Info);
             }
         }
 
         #endregion
 
         #endregion
+        */
     }
 }
