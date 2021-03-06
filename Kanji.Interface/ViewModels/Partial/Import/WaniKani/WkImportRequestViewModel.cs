@@ -184,19 +184,19 @@ namespace Kanji.Interface.ViewModels
                     }
                     else if (_parent.ImportMode == WkImportMode.All || _parent.ImportMode == WkImportMode.Vocab)
                     {
-                        subjectTypes.Add("vocab");
+                        subjectTypes.Add("vocabulary");
                     }
                     if (subjectTypes.Count > 0)
                     {
                         List<(JToken, JToken)> results = new List<(JToken, JToken)>();
                         JObject response = JObject.Parse(await client.GetStringAsync(baseUrl + $"assignments?subject_types={String.Join(",", subjectTypes)}"));
                         JObject subRes = JObject.Parse(await client.GetStringAsync(baseUrl + $"subjects?ids={String.Join(",", response["data"].Select(t => t["data"]["subject_id"]))}"));
-                        results.AddRange(response["data"].Select(r => (subRes["data"].First(s => s["id"] == r["data"]["subject_id"]["data"]), r["data"])));
+                        results.AddRange(response["data"].Select(r => (subRes["data"].First(s => (int)s["id"] == (int)r["data"]["subject_id"])["data"], r["data"])));
                         while (response["pages"]["next_url"] != null && results.Count < (int)response["total_count"])
                         {
                             response = JObject.Parse(await client.GetStringAsync((string)response["pages"]["next_url"]));
                             subRes = JObject.Parse(await client.GetStringAsync(baseUrl + $"subjects?ids={String.Join(",", response["data"].Select(t => t["data"]["subject_id"]))}"));
-                            results.AddRange(response["data"].Select(r => (subRes["data"].First(s => s["id"] == r["data"]["subject_id"])["data"], r["data"])));
+                            results.AddRange(response["data"].Select(r => (subRes["data"].First(s => (int)s["id"] == (int)r["data"]["subject_id"])["data"], r["data"])));
                         }
 
                         WkImportResult result = new WkImportResult();
@@ -204,14 +204,14 @@ namespace Kanji.Interface.ViewModels
                         //TODO: Level 0 is "haven't completed the lesson" - what do with those?
                         //TODO: Hint vs Mnemonic: Mnemonic is the one that comes up in lessons, hint comes up in reviews (and only exists for some objects?).
                         //      Which does the user want?
-                        result.Items = results.Where(t => (int)t.Item2["srs_state"] != 0).Select(((JToken s, JToken a) t) => new WkItem
+                        result.Items = results.Where(t => (int)t.Item2["srs_stage"] != 0).Select(((JToken s, JToken a) t) => new WkItem
                         {
                             IsKanji = (string)t.a["subject_type"] == "kanji",
                             KanjiReading = (string)t.s["characters"],
                             MeaningNote = (string)t.s["meaning_hint"] ?? (string)t.s["meaning_mnemonic"],
                             ReadingNote = (string)t.s["reading_hint"] ?? (string)t.s["reading_mnemonic"],
                             Meanings = string.Join(',', t.s["meanings"].Where(m => (bool)m["accepted_answer"]).Select(m => (string)m["meaning"])),
-                            NextReviewDate = (DateTime)t.a["available_at"],
+                            NextReviewDate = (DateTime?)t.a["available_at"],
                             Readings = string.Join(',', t.s["readings"].Where(r => (bool)r["accepted_answer"]).Select(r => (string)r["reading"])),
                             SrsLevel = (short)((short)t.a["srs_stage"] - 1),
                             WkLevel = (int)t.s["level"],
