@@ -191,8 +191,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Kanji.Common\Kanji.Common.csproj" />
     <ProjectReference Include="..\Kanji.Database\Kanji.Database.csproj" />
-    <ProjectReference Include="..\StatusIndicator\StatusIndicator.csproj" />
-    <ProjectReference Include="..\WaniKaniApi-net\src\WaniKaniApi\WaniKaniApi.csproj" />
   </ItemGroup>
 
   <ItemGroup>
