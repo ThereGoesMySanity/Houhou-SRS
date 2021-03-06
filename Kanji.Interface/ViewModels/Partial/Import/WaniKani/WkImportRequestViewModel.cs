@@ -10,11 +10,9 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using WaniKaniApi;
-using WaniKaniApi.Models;
-using WaniKaniApi.Models.Filters;
 
 namespace Kanji.Interface.ViewModels
 {
@@ -175,54 +173,53 @@ namespace Kanji.Interface.ViewModels
         {
             try
             {
-                var client = new WaniKaniClient(_parent.ApiKey);
-                AssignmentsFilter filter = null;
-
-                if (_parent.ImportMode == WkImportMode.All)
+                using (var client = new HttpClient())
                 {
-                    filter = new AssignmentsFilter() {SubjectTypes = new SubjectType[] {SubjectType.Kanji, SubjectType.Vocabulary}};
-                }
-                else if (_parent.ImportMode == WkImportMode.Kanji)
-                {
-                    filter = new AssignmentsFilter() { SubjectTypes = new SubjectType[] {SubjectType.Kanji}};
-                }
-                else if (_parent.ImportMode == WkImportMode.Vocab)
-                {
-                    filter = new AssignmentsFilter() { SubjectTypes = new SubjectType[] {SubjectType.Vocabulary}};
-                }
-                if (filter != null)
-                {
-                    List<(Subject, Assignment)> results = new List<(Subject, Assignment)>();
-                    var response = await client.Assignments.GetAllAsync(filter);
-                    var subRes = await client.Subjects.GetAllAsync(new SubjectsFilter() { Ids = response.Data.Select(r => r.SubjectId).ToArray() });
-                    results.AddRange(response.Data.Select(r => (subRes.Data.Where(s => s.Id == r.SubjectId).First(), r)));
-                    while(response.NextPageUrl != null && results.Count < response.TotalCount)
+                    var baseUrl = "https://api.wanikani.com/v2/";
+                    client.DefaultRequestHeaders.Add("Authorization", $"Bearer {_parent.ApiKey}");
+                    List<string> subjectTypes = new List<string>();
+                    if (_parent.ImportMode == WkImportMode.All || _parent.ImportMode == WkImportMode.Kanji)
                     {
-                        response = await client.Assignments.GetAllAsync(response.NextPageUrl);
-                        subRes = await client.Subjects.GetAllAsync(new SubjectsFilter() { Ids = response.Data.Select(r => r.SubjectId).ToArray() });
-                        results.AddRange(response.Data.Select(r => (subRes.Data.Where(s => s.Id == r.SubjectId).First(), r)));
+                        subjectTypes.Add("kanji");
                     }
-
-                    WkImportResult result = new WkImportResult();
-
-                    //TODO: Level 0 is "haven't completed the lesson" - what do with those?
-                    //TODO: Hint vs Mnemonic: Mnemonic is the one that comes up in lessons, hint comes up in reviews (and only exists for some objects?).
-                    //      Which does the user want?
-                    result.Items = results.Where(t => t.Item2.SrsStageId != 0).Select(((Subject s, Assignment a) t) => new WkItem
+                    else if (_parent.ImportMode == WkImportMode.All || _parent.ImportMode == WkImportMode.Vocab)
                     {
-                        IsKanji = t.a.SubjectType == "kanji",
-                        KanjiReading = (t.s as WaniKaniApi.Models.Kanji)?.Characters ?? (t.s as Vocabulary)?.Characters,
-                        MeaningNote = t.s.MeaningHint ?? t.s.MeaningMnemonic,
-                        ReadingNote = t.s.ReadingHint ?? t.s.ReadingMnemonic,
-                        Meanings = string.Join(',', t.s.Meanings.Where(m => m.AcceptedAnswer).Select(m => m.Text)),
-                        NextReviewDate = t.a.AvailableAt?.UtcDateTime,
-                        Readings = string.Join(',', ((t.s as WaniKaniApi.Models.Kanji)?.Readings.Cast<ReadingBase>() ?? (t.s as Vocabulary)?.Readings).Where(r => r.AcceptedAnswer).Select(r => r.Text)),
-                        SrsLevel = (short)(t.a.SrsStageId - 1),
-                        WkLevel = t.s.Level,
-                    }).ToList();
+                        subjectTypes.Add("vocab");
+                    }
+                    if (subjectTypes.Count > 0)
+                    {
+                        List<(JToken, JToken)> results = new List<(JToken, JToken)>();
+                        JObject response = JObject.Parse(await client.GetStringAsync(baseUrl + $"assignments?subject_types={String.Join(",", subjectTypes)}"));
+                        JObject subRes = JObject.Parse(await client.GetStringAsync(baseUrl + $"subjects?ids={String.Join(",", response["data"].Select(t => t["data"]["subject_id"]))}"));
+                        results.AddRange(response["data"].Select(r => (subRes["data"].First(s => s["id"] == r["data"]["subject_id"]["data"]), r["data"])));
+                        while (response["pages"]["next_url"] != null && results.Count < (int)response["total_count"])
+                        {
+                            response = JObject.Parse(await client.GetStringAsync((string)response["pages"]["next_url"]));
+                            subRes = JObject.Parse(await client.GetStringAsync(baseUrl + $"subjects?ids={String.Join(",", response["data"].Select(t => t["data"]["subject_id"]))}"));
+                            results.AddRange(response["data"].Select(r => (subRes["data"].First(s => s["id"] == r["data"]["subject_id"])["data"], r["data"])));
+                        }
 
-                    Result = result;
-                    IsComplete = true;
+                        WkImportResult result = new WkImportResult();
+
+                        //TODO: Level 0 is "haven't completed the lesson" - what do with those?
+                        //TODO: Hint vs Mnemonic: Mnemonic is the one that comes up in lessons, hint comes up in reviews (and only exists for some objects?).
+                        //      Which does the user want?
+                        result.Items = results.Where(t => (int)t.Item2["srs_state"] != 0).Select(((JToken s, JToken a) t) => new WkItem
+                        {
+                            IsKanji = (string)t.a["subject_type"] == "kanji",
+                            KanjiReading = (string)t.s["characters"],
+                            MeaningNote = (string)t.s["meaning_hint"] ?? (string)t.s["meaning_mnemonic"],
+                            ReadingNote = (string)t.s["reading_hint"] ?? (string)t.s["reading_mnemonic"],
+                            Meanings = string.Join(',', t.s["meanings"].Where(m => (bool)m["accepted_answer"]).Select(m => (string)m["meaning"])),
+                            NextReviewDate = (DateTime)t.a["available_at"],
+                            Readings = string.Join(',', t.s["readings"].Where(r => (bool)r["accepted_answer"]).Select(r => (string)r["reading"])),
+                            SrsLevel = (short)((short)t.a["srs_stage"] - 1),
+                            WkLevel = (int)t.s["level"],
+                        }).ToList();
+
+                        Result = result;
+                        IsComplete = true;
+                    }
                 }
             }
             catch (Exception ex)
