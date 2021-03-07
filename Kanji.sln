@@ -36,14 +36,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kanji.Interface", "Kanji.In
 		{D9CC42D4-7281-4293-BBD1-FDF0FFCF8ABF} = {D9CC42D4-7281-4293-BBD1-FDF0FFCF8ABF}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvaloniaGif", "AvaloniaGif\AvaloniaGif\AvaloniaGif.csproj", "{96C2EEF3-930E-41F6-82F2-895928A52671}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "notify-sharp", "notify-sharp\notify-sharp.csproj", "{DC9E19E6-55EE-4688-8D7C-B43EF27D7A08}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StatusIndicator", "StatusIndicator\StatusIndicator.csproj", "{EFD26AA5-6804-49E7-9954-5284D3ACCE7B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WaniKaniApi", "WaniKaniApi-net\src\WaniKaniApi\WaniKaniApi.csproj", "{771F3CC0-BF4B-4644-BDE3-00A892C0A611}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CD_ROM|Any CPU = CD_ROM|Any CPU
