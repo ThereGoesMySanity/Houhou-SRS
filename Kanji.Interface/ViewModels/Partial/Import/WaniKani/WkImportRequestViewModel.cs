@@ -182,7 +182,7 @@ namespace Kanji.Interface.ViewModels
                     {
                         subjectTypes.Add("kanji");
                     }
-                    else if (_parent.ImportMode == WkImportMode.All || _parent.ImportMode == WkImportMode.Vocab)
+                    if (_parent.ImportMode == WkImportMode.All || _parent.ImportMode == WkImportMode.Vocab)
                     {
                         subjectTypes.Add("vocabulary");
                     }
