@@ -18,6 +18,9 @@ namespace Kanji.DatabaseMaker
     {
         static void Main(string[] args)
         {
+            // Add extra codepages
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+
             // Initialize log4net.
             log4net.Config.XmlConfigurator.Configure();
 
