@@ -14,11 +14,17 @@
 
   <ItemGroup>
     <PackageReference Include="log4net" Version="2.0.11" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Kanji.Common\Kanji.Common.csproj" />
     <ProjectReference Include="..\Kanji.Database\Kanji.Database.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="KanjiDatabase.sqlite">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
