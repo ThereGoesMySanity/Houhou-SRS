@@ -73,6 +73,7 @@ namespace Kanji.Database.Helpers
         #region Vocab table
 
         public const string Field_Vocab_Id = "ID";
+        public const string Field_Vocab_Seq = "Seq";
         public const string Field_Vocab_KanjiWriting = "KanjiWriting";
         public const string Field_Vocab_KanaWriting = "KanaWriting";
         public const string Field_Vocab_IsCommon = "IsCommon";
