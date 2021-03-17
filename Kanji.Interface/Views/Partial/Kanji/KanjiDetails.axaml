@@ -42,23 +42,25 @@
             <!-- Secondary information panel -->
             <WrapPanel Orientation="Horizontal">
                 <Border Width="70" Height="60" BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="1" CornerRadius="4" Background="White" Margin="0 0 10 0">
-                  <Border.IsVisible>
-                    <MultiBinding Converter="{x:Static BoolConverters.And}">
-                      <Binding Path="StrokesDrawingGroup" Converter="{x:Static ObjectConverters.IsNotNull}"/>
-                      <Binding Path="KanjiEntity.ShowStrokes" />
-                    </MultiBinding>
-                  </Border.IsVisible>
-                  <Panel>
-                        <Image HorizontalAlignment="Center" Cursor="Hand">
-                            <i:Interaction.Behaviors>
-                                <ia:EventTriggerBehavior EventName="PointerReleased">
-                                    <ia:InvokeCommandAction Command="{Binding NextStrokeCommand}"/>
-                                </ia:EventTriggerBehavior>
-                            </i:Interaction.Behaviors>
-                            <Image.Source>
-                                <DrawingImage Drawing="{Binding StrokesDrawingGroup}"/>
-                            </Image.Source>
-                        </Image>
+                    <Border.IsVisible>
+                        <MultiBinding Converter="{x:Static BoolConverters.And}">
+                            <Binding Path="StrokesDrawingGroup" Converter="{x:Static ObjectConverters.IsNotNull}"/>
+                            <Binding Path="KanjiEntity.ShowStrokes" />
+                        </MultiBinding>
+                    </Border.IsVisible>
+                    <Panel>
+                        <Viewbox>
+                            <Canvas Width="{Binding StrokesRect.Bounds.Width}" Height="{Binding StrokesRect.Bounds.Height}">
+                                <Image HorizontalAlignment="Center" Cursor="Hand"
+                                        Source="{Binding StrokesImage}" Canvas.Left="{Binding StrokesRect.Bounds.Left}" Canvas.Top="{Binding StrokesRect.Bounds.Top}">
+                                    <i:Interaction.Behaviors>
+                                        <ia:EventTriggerBehavior EventName="PointerReleased">
+                                            <ia:InvokeCommandAction Command="{Binding NextStrokeCommand}"/>
+                                        </ia:EventTriggerBehavior>
+                                    </i:Interaction.Behaviors>
+                                </Image>
+                            </Canvas>
+                        </Viewbox>
                         <TextBlock Classes="LegendText" FontSize="8" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="2 0 0 0">
                             <TextBlock.Text>
                                 <MultiBinding StringFormat="{}{0} / {1}">

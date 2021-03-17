@@ -178,6 +178,7 @@
     <EmbeddedResource Include="Data\Resources\TrayIconIdle.ico" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Avalonia.Svg.Skia" Version="0.10.0" />
     <PackageReference Include="MessageBox.Avalonia" Version="1.0.5" />
     <PackageReference Include="MvvmLightLibsStd10" Version="5.4.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
@@ -186,6 +187,7 @@
     <PackageReference Include="Avalonia.Diagnostics" Version="0.10.0" />
     <PackageReference Include="Avalonia.Controls.DataGrid" Version="0.10.0" />
     <PackageReference Include="Avalonia.Xaml.Behaviors" Version="0.10.0" />
+    <PackageReference Include="Svg.Skia" Version="0.5.0" />
   </ItemGroup>
 
   <ItemGroup>
