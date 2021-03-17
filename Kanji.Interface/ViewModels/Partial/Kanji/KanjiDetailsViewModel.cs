@@ -24,6 +24,10 @@ using Avalonia.Media;
 using Avalonia;
 using Kanji.Interface.Actors;
 using Avalonia.Input;
+using Svg.Skia;
+using Avalonia.Svg.Skia;
+using Svg;
+using SvgImage = Avalonia.Svg.Skia.SvgImage;
 
 namespace Kanji.Interface.ViewModels
 {
@@ -45,7 +49,9 @@ namespace Kanji.Interface.ViewModels
 
         private object _updateLock = new object();
 
-        private DrawingGroup _strokesDrawingGroup;
+        private SvgImage _strokesImage;
+
+        private Rect _strokesRect;
 
         private int _strokesCount;
 
@@ -126,14 +132,27 @@ namespace Kanji.Interface.ViewModels
         /// Gets or sets the drawing group that represents the
         /// strokes diagram of the kanji.
         /// </summary>
-        public DrawingGroup StrokesDrawingGroup
+        public SvgImage StrokesImage
         {
-            get { return _strokesDrawingGroup; }
+            get { return _strokesImage; }
             set
             {
-                if (_strokesDrawingGroup != value)
+                if (_strokesImage != value)
                 {
-                    _strokesDrawingGroup = value;
+                    _strokesImage = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        public Rect StrokesRect
+        {
+            get { return _strokesRect; }
+            set
+            {
+                if (_strokesRect != value)
+                {
+                    _strokesRect = value;
                     RaisePropertyChanged();
                 }
             }
@@ -298,12 +317,10 @@ namespace Kanji.Interface.ViewModels
             // Careful: CurrentStroke starts at 1, not 0.
             CurrentStroke = value;
 
-            if (StrokesDrawingGroup != null)
+            if (StrokesImage != null)
             {
                 int startX = (CurrentStroke - 1) * StrokeSquareWidth;
-                //TODO
-                //StrokesDrawingGroup.ClipGeometry = new RectangleGeometry(
-                //    new Rect(startX, 0, StrokeSquareWidth, StrokesDrawingGroup.GetBounds().Height));
+                StrokesRect = new Rect(-startX, 0, StrokeSquareWidth, StrokesImage.Size.Height);
             }
         }
 
@@ -334,27 +351,17 @@ namespace Kanji.Interface.ViewModels
                 KanjiStrokes strokes = dao.GetKanjiStrokes(_kanjiEntity.DbKanji.ID);
                 if (strokes != null && strokes.FramesSvg.Length > 0)
                 {
-                    //TODO
                     // If the strokes was successfuly retrieved, we have to read the compressed SVG contained inside.
-                    //SharpVectors.Renderers.Wpf.WpfDrawingSettings settings = new SharpVectors.Renderers.Wpf.WpfDrawingSettings();
-                    //using (FileSvgReader r = new FileSvgReader(settings))
-                    //{
-                    //    // Unzip the stream and remove instances of "px" that are problematic for SharpVectors.
-                    //    string svgString = StringCompressionHelper.Unzip(strokes.FramesSvg);
-                    //    svgString = svgString.Replace("px", string.Empty);
-                    //    StrokesCount = Regex.Matches(svgString, "<circle").Count;
-                    //    using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(svgString)))
-                    //    {
-                    //        // Then read the stream to a DrawingGroup.
-                    //        // We are forced to do this operation on the UI thread because DrawingGroups must
-                    //        // be always manipulated by the same thread.
-                    //        DispatcherHelper.Invoke(() => 
-                    //            {
-                    //                StrokesDrawingGroup = r.Read(stream);
-                    //                SetCurrentStroke(1);
-                    //            });
-                    //    }
-                    //}
+                    string svgString = StringCompressionHelper.Unzip(strokes.FramesSvg);
+                    StrokesCount = Regex.Matches(svgString, "<circle").Count;
+                    DispatcherHelper.Invoke(() => 
+                        {
+                            StrokesImage = new Avalonia.Svg.Skia.SvgImage
+                            {
+                                Source = new SvgSource { Picture = new SKSvg().FromSvg(svgString) }
+                            };
+                            SetCurrentStroke(1);
+                        });
                 }
             }
         }
