@@ -50,9 +50,9 @@
                     </Border.IsVisible>
                     <Panel>
                         <Viewbox>
-                            <Canvas Width="{Binding StrokesRect.Bounds.Width}" Height="{Binding StrokesRect.Bounds.Height}">
+                            <Canvas Width="{Binding StrokesRect.Width}" Height="{Binding StrokesRect.Height}">
                                 <Image HorizontalAlignment="Center" Cursor="Hand"
-                                        Source="{Binding StrokesImage}" Canvas.Left="{Binding StrokesRect.Bounds.Left}" Canvas.Top="{Binding StrokesRect.Bounds.Top}">
+                                        Source="{Binding StrokesImage}" Canvas.Left="{Binding StrokesRect.Left}" Canvas.Top="{Binding StrokesRect.Top}">
                                     <i:Interaction.Behaviors>
                                         <ia:EventTriggerBehavior EventName="PointerReleased">
                                             <ia:InvokeCommandAction Command="{Binding NextStrokeCommand}"/>
