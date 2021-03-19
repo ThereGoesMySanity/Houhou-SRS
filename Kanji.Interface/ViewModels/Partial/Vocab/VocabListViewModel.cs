@@ -397,9 +397,9 @@ namespace Kanji.Interface.ViewModels
         /// Called to copy the kanji writing of the vocab to the clipboard.
         /// </summary>
         /// <param name="vocab">Vocab to copy.</param>
-        private void OnKanjiCopy(ExtendedVocab vocab)
+        private async void OnKanjiCopy(ExtendedVocab vocab)
         {
-            ClipboardHelper.SetText(vocab.DbVocab.KanjiWriting);
+            await ClipboardHelper.SetText(vocab.DbVocab.KanjiWriting);
         }
 
         /// <summary>
@@ -407,9 +407,9 @@ namespace Kanji.Interface.ViewModels
         /// Called to copy the kana writing of the vocab to the clipboard.
         /// </summary>
         /// <param name="vocab">Vocab to copy.</param>
-        private void OnKanaCopy(ExtendedVocab vocab)
+        private async void OnKanaCopy(ExtendedVocab vocab)
         {
-            ClipboardHelper.SetText(vocab.DbVocab.KanaWriting);
+            await ClipboardHelper.SetText(vocab.DbVocab.KanaWriting);
         }
 
         /// <summary>
