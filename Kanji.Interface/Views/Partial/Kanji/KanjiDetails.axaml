@@ -48,17 +48,16 @@
                             <Binding Path="KanjiEntity.ShowStrokes" />
                         </MultiBinding>
                     </Border.IsVisible>
+                    <i:Interaction.Behaviors>
+                      <ia:EventTriggerBehavior EventName="PointerReleased">
+                        <ia:InvokeCommandAction Command="{Binding NextStrokeCommand}"/>
+                      </ia:EventTriggerBehavior>
+                    </i:Interaction.Behaviors>
                     <Panel>
                         <Viewbox>
                             <Canvas Width="{Binding StrokesRect.Width}" Height="{Binding StrokesRect.Height}">
                                 <Image HorizontalAlignment="Center" Cursor="Hand"
-                                        Source="{Binding StrokesImage}" Canvas.Left="{Binding StrokesRect.Left}" Canvas.Top="{Binding StrokesRect.Top}">
-                                    <i:Interaction.Behaviors>
-                                        <ia:EventTriggerBehavior EventName="PointerReleased">
-                                            <ia:InvokeCommandAction Command="{Binding NextStrokeCommand}"/>
-                                        </ia:EventTriggerBehavior>
-                                    </i:Interaction.Behaviors>
-                                </Image>
+                                        Source="{Binding StrokesImage}" Canvas.Left="{Binding StrokesRect.Left}" Canvas.Top="{Binding StrokesRect.Top}"/>
                             </Canvas>
                         </Viewbox>
                         <TextBlock Classes="LegendText" FontSize="8" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="2 0 0 0">
