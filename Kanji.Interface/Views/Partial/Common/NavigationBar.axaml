@@ -6,6 +6,8 @@
                     xmlns:models="clr-namespace:Kanji.Interface.Models"
                     xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
                     xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
+                    xmlns:actors="clr-namespace:Kanji.Interface.Actors"
+                    xmlns:converters="clr-namespace:Kanji.Interface.Converters"
                     xmlns:business="clr-namespace:Kanji.Interface.Business" x:Class="Kanji.Interface.Controls.NavigationBar" mc:Ignorable="d" d:DesignHeight="100" d:DesignWidth="600">
     
     <Grid Classes="NavigationPanel">
@@ -19,27 +21,28 @@
         
         <!-- HOME tab -->
         <Grid Name="NavigationPanelToolbar" Classes="NavigationPanelTab NavigationPanelHomeTab">
+            <!--TODO: move interactions back-->
             <i:Interaction.Behaviors>
-              <ia:DataTriggerBehavior Value="True">
+              <ia:DataTriggerBehavior Value="False">
                 <ia:DataTriggerBehavior.Binding>
-                  <MultiBinding Converter="{x:Static BoolConverters.Or}">
-                    <MultiBinding Converter="{StaticResource ComparablesToBooleanConverter}">
+                  <MultiBinding Converter="{x:Static BoolConverters.And}">
+                    <MultiBinding Converter="{StaticResource ComparablesToBooleanConverter}" ConverterParameter="{x:Static converters:ComparablesToBooleanConversionEnum.Different}">
                       <Binding Source="{x:Static actors:NavigationActor.Instance}" Path="CurrentPage"/>
-                      <Binding Source="{x:Static models:NavigationPageEnum}" Path="Home"/>
+                      <Binding Source="{x:Static models:NavigationPageEnum.Home}"/>
                     </MultiBinding>
-                    <Binding Source="$self" Path="!IsPointerOver"/>
+                    <Binding RelativeSource="{RelativeSource Self}" Path="IsPointerOver"/>
                   </MultiBinding>
                 </ia:DataTriggerBehavior.Binding>
                 <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
               </ia:DataTriggerBehavior>
-              <ia:DataTriggerBehavior Value="False">
+              <ia:DataTriggerBehavior Value="True">
                 <ia:DataTriggerBehavior.Binding>
-                  <MultiBinding Converter="{x:Static BoolConverters.Or}">
-                    <MultiBinding Converter="{StaticResource ComparablesToBooleanConverter}">
+                  <MultiBinding Converter="{x:Static BoolConverters.And}">
+                    <MultiBinding Converter="{StaticResource ComparablesToBooleanConverter}" ConverterParameter="{x:Static converters:ComparablesToBooleanConversionEnum.Different}">
                       <Binding Source="{x:Static actors:NavigationActor.Instance}" Path="CurrentPage"/>
-                      <Binding Source="{x:Static models:NavigationPageEnum}" Path="Home"/>
+                      <Binding Source="{x:Static models:NavigationPageEnum.Home}"/>
                     </MultiBinding>
-                    <Binding Source="$self" Path="!IsPointerOver"/>
+                    <Binding RelativeSource="{RelativeSource Self}" Path="IsPointerOver"/>
                   </MultiBinding>
                 </ia:DataTriggerBehavior.Binding>
                 <ia:ChangePropertyAction Value="0.8" PropertyName="Opacity"/>
@@ -58,26 +61,26 @@
         <!-- SRS tab -->
         <Grid Name="SrsTab" Grid.Column="1" Classes="NavigationPanelTab NavigationPanelSrsTab">
             <i:Interaction.Behaviors>
-              <ia:DataTriggerBehavior Value="True">
+              <ia:DataTriggerBehavior Value="False">
                 <ia:DataTriggerBehavior.Binding>
-                  <MultiBinding Converter="{x:Static BoolConverters.Or}">
-                    <MultiBinding Converter="{StaticResource ComparablesToBooleanConverter}">
+                  <MultiBinding Converter="{x:Static BoolConverters.And}">
+                    <MultiBinding Converter="{StaticResource ComparablesToBooleanConverter}" ConverterParameter="{x:Static converters:ComparablesToBooleanConversionEnum.Different}">
                       <Binding Source="{x:Static actors:NavigationActor.Instance}" Path="CurrentPage"/>
-                      <Binding Source="{x:Static models:NavigationPageEnum}" Path="Srs"/>
+                      <Binding Source="{x:Static models:NavigationPageEnum.Srs}"/>
                     </MultiBinding>
-                    <Binding Source="$self" Path="!IsPointerOver"/>
+                    <Binding RelativeSource="{RelativeSource Self}" Path="IsPointerOver"/>
                   </MultiBinding>
                 </ia:DataTriggerBehavior.Binding>
                 <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
               </ia:DataTriggerBehavior>
-              <ia:DataTriggerBehavior Value="False">
+              <ia:DataTriggerBehavior Value="True">
                 <ia:DataTriggerBehavior.Binding>
-                  <MultiBinding Converter="{x:Static BoolConverters.Or}">
-                    <MultiBinding Converter="{StaticResource ComparablesToBooleanConverter}">
+                  <MultiBinding Converter="{x:Static BoolConverters.And}">
+                    <MultiBinding Converter="{StaticResource ComparablesToBooleanConverter}" ConverterParameter="{x:Static converters:ComparablesToBooleanConversionEnum.Different}">
                       <Binding Source="{x:Static actors:NavigationActor.Instance}" Path="CurrentPage"/>
-                      <Binding Source="{x:Static models:NavigationPageEnum}" Path="Srs"/>
+                      <Binding Source="{x:Static models:NavigationPageEnum.Srs}"/>
                     </MultiBinding>
-                    <Binding Source="$self" Path="!IsPointerOver"/>
+                    <Binding RelativeSource="{RelativeSource Self}" Path="IsPointerOver"/>
                   </MultiBinding>
                 </ia:DataTriggerBehavior.Binding>
                 <ia:ChangePropertyAction Value="0.8" PropertyName="Opacity"/>
@@ -117,26 +120,26 @@
         <!-- Kanji tab -->
         <Grid Name="KanjiTab" Grid.Column="2" Classes="NavigationPanelTab NavigationPanelKanjiTab">
             <i:Interaction.Behaviors>
-              <ia:DataTriggerBehavior Value="True">
+              <ia:DataTriggerBehavior Value="False">
                 <ia:DataTriggerBehavior.Binding>
-                  <MultiBinding Converter="{x:Static BoolConverters.Or}">
-                    <MultiBinding Converter="{StaticResource ComparablesToBooleanConverter}">
+                  <MultiBinding Converter="{x:Static BoolConverters.And}">
+                    <MultiBinding Converter="{StaticResource ComparablesToBooleanConverter}" ConverterParameter="{x:Static converters:ComparablesToBooleanConversionEnum.Different}">
                       <Binding Source="{x:Static actors:NavigationActor.Instance}" Path="CurrentPage"/>
-                      <Binding Source="{x:Static models:NavigationPageEnum}" Path="Kanji"/>
+                      <Binding Source="{x:Static models:NavigationPageEnum.Kanji}"/>
                     </MultiBinding>
-                    <Binding Source="$self" Path="!IsPointerOver"/>
+                    <Binding RelativeSource="{RelativeSource Self}" Path="IsPointerOver"/>
                   </MultiBinding>
                 </ia:DataTriggerBehavior.Binding>
                 <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
               </ia:DataTriggerBehavior>
-              <ia:DataTriggerBehavior Value="False">
+              <ia:DataTriggerBehavior Value="True">
                 <ia:DataTriggerBehavior.Binding>
-                  <MultiBinding Converter="{x:Static BoolConverters.Or}">
-                    <MultiBinding Converter="{StaticResource ComparablesToBooleanConverter}">
+                  <MultiBinding Converter="{x:Static BoolConverters.And}">
+                    <MultiBinding Converter="{StaticResource ComparablesToBooleanConverter}" ConverterParameter="{x:Static converters:ComparablesToBooleanConversionEnum.Different}">
                       <Binding Source="{x:Static actors:NavigationActor.Instance}" Path="CurrentPage"/>
-                      <Binding Source="{x:Static models:NavigationPageEnum}" Path="Kanji"/>
+                      <Binding Source="{x:Static models:NavigationPageEnum.Kanji}"/>
                     </MultiBinding>
-                    <Binding Source="$self" Path="!IsPointerOver"/>
+                    <Binding RelativeSource="{RelativeSource Self}" Path="IsPointerOver"/>
                   </MultiBinding>
                 </ia:DataTriggerBehavior.Binding>
                 <ia:ChangePropertyAction Value="0.8" PropertyName="Opacity"/>
@@ -154,26 +157,26 @@
         <!-- Vocab tab -->
         <Grid Name="VocabTab" Grid.Column="3" Classes="NavigationPanelTab NavigationPanelVocabTab">
             <i:Interaction.Behaviors>
-              <ia:DataTriggerBehavior Value="True">
+              <ia:DataTriggerBehavior Value="False">
                 <ia:DataTriggerBehavior.Binding>
-                  <MultiBinding Converter="{x:Static BoolConverters.Or}">
-                    <MultiBinding Converter="{StaticResource ComparablesToBooleanConverter}">
+                  <MultiBinding Converter="{x:Static BoolConverters.And}">
+                    <MultiBinding Converter="{StaticResource ComparablesToBooleanConverter}" ConverterParameter="{x:Static converters:ComparablesToBooleanConversionEnum.Different}">
                       <Binding Source="{x:Static actors:NavigationActor.Instance}" Path="CurrentPage"/>
-                      <Binding Source="{x:Static models:NavigationPageEnum}" Path="Vocab"/>
+                      <Binding Source="{x:Static models:NavigationPageEnum.Vocab}"/>
                     </MultiBinding>
-                    <Binding Source="$self" Path="!IsPointerOver"/>
+                    <Binding RelativeSource="{RelativeSource Self}" Path="IsPointerOver"/>
                   </MultiBinding>
                 </ia:DataTriggerBehavior.Binding>
                 <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
               </ia:DataTriggerBehavior>
-              <ia:DataTriggerBehavior Value="False">
+              <ia:DataTriggerBehavior Value="True">
                 <ia:DataTriggerBehavior.Binding>
-                  <MultiBinding Converter="{x:Static BoolConverters.Or}">
-                    <MultiBinding Converter="{StaticResource ComparablesToBooleanConverter}">
+                  <MultiBinding Converter="{x:Static BoolConverters.And}">
+                    <MultiBinding Converter="{StaticResource ComparablesToBooleanConverter}" ConverterParameter="{x:Static converters:ComparablesToBooleanConversionEnum.Different}">
                       <Binding Source="{x:Static actors:NavigationActor.Instance}" Path="CurrentPage"/>
-                      <Binding Source="{x:Static models:NavigationPageEnum}" Path="Vocab"/>
+                      <Binding Source="{x:Static models:NavigationPageEnum.Vocab}"/>
                     </MultiBinding>
-                    <Binding Source="$self" Path="!IsPointerOver"/>
+                    <Binding RelativeSource="{RelativeSource Self}" Path="IsPointerOver"/>
                   </MultiBinding>
                 </ia:DataTriggerBehavior.Binding>
                 <ia:ChangePropertyAction Value="0.8" PropertyName="Opacity"/>
@@ -191,26 +194,26 @@
         <!-- Settings tab -->
         <Grid Name="SettingsTab" Grid.Column="4" Classes="NavigationPanelTab NavigationPanelSettingsTab">
             <i:Interaction.Behaviors>
-              <ia:DataTriggerBehavior Value="True">
+              <ia:DataTriggerBehavior Value="False">
                 <ia:DataTriggerBehavior.Binding>
-                  <MultiBinding Converter="{x:Static BoolConverters.Or}">
-                    <MultiBinding Converter="{StaticResource ComparablesToBooleanConverter}">
+                  <MultiBinding Converter="{x:Static BoolConverters.And}">
+                    <MultiBinding Converter="{StaticResource ComparablesToBooleanConverter}" ConverterParameter="{x:Static converters:ComparablesToBooleanConversionEnum.Different}">
                       <Binding Source="{x:Static actors:NavigationActor.Instance}" Path="CurrentPage"/>
-                      <Binding Source="{x:Static models:NavigationPageEnum}" Path="Settings"/>
+                      <Binding Source="{x:Static models:NavigationPageEnum.Settings}"/>
                     </MultiBinding>
-                    <Binding Source="$self" Path="!IsPointerOver"/>
+                    <Binding RelativeSource="{RelativeSource Self}" Path="IsPointerOver"/>
                   </MultiBinding>
                 </ia:DataTriggerBehavior.Binding>
                 <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
               </ia:DataTriggerBehavior>
-              <ia:DataTriggerBehavior Value="False">
+              <ia:DataTriggerBehavior Value="True">
                 <ia:DataTriggerBehavior.Binding>
-                  <MultiBinding Converter="{x:Static BoolConverters.Or}">
-                    <MultiBinding Converter="{StaticResource ComparablesToBooleanConverter}">
+                  <MultiBinding Converter="{x:Static BoolConverters.And}">
+                    <MultiBinding Converter="{StaticResource ComparablesToBooleanConverter}" ConverterParameter="{x:Static converters:ComparablesToBooleanConversionEnum.Different}">
                       <Binding Source="{x:Static actors:NavigationActor.Instance}" Path="CurrentPage"/>
-                      <Binding Source="{x:Static models:NavigationPageEnum}" Path="Settings"/>
+                      <Binding Source="{x:Static models:NavigationPageEnum.Settings}"/>
                     </MultiBinding>
-                    <Binding Source="$self" Path="!IsPointerOver"/>
+                    <Binding RelativeSource="{RelativeSource Self}" Path="IsPointerOver"/>
                   </MultiBinding>
                 </ia:DataTriggerBehavior.Binding>
                 <ia:ChangePropertyAction Value="0.8" PropertyName="Opacity"/>
