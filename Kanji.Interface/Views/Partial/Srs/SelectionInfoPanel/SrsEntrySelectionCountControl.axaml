@@ -8,11 +8,7 @@
     <Border BorderBrush="{StaticResource FadedBorderBrush}" BorderThickness="0 0 0 1" Padding="0 0 0 5" Margin="0 0 0 5">
         <Viewbox>
           <TextBlock Foreground="{StaticResource LegendTextBrush}">
-            <TextBlock.Text>
-          <Binding Path="SelectedCount" StringFormat="{}{0} items selected"/>
-            </TextBlock.Text>
-            <!--TODO-->
-            <!-- <i:Interaction.Behaviors>
+            <i:Interaction.Behaviors>
               <ia:DataTriggerBehavior Binding="{Binding SelectedCount}" Value="0">
                 <ia:ChangePropertyAction Value="No items selected" PropertyName="Text"/>
               </ia:DataTriggerBehavior>
@@ -26,7 +22,7 @@
                   </ia:ChangePropertyAction.Value>
                 </ia:ChangePropertyAction>
               </ia:DataTriggerBehavior>
-            </i:Interaction.Behaviors> -->
+            </i:Interaction.Behaviors>
           </TextBlock>
         </Viewbox>
     </Border>
