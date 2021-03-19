@@ -56,8 +56,7 @@ namespace Kanji.Interface.Controls
         /// </summary>
         private void OnInvalidApiKeyChecked(EventArgs e, object sender)
         {
-            //TODO: might be impossible
-            //MainScrollView.ScrollToTop();
+            MainScrollView.ScrollToHome();
         }
     }
 }
