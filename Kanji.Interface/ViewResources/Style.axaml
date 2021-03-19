@@ -2134,62 +2134,33 @@
 
     </Style>
 
-    <Style Selector="Grid.NavigationPanelTab" >
+    <!--TODO: shared behavior for this?-->
+    <!-- <Style Selector="Grid.NavigationPanelTab" >
       <Setter Property="Opacity" Value="0.8"/>
     </Style>
   <Style Selector="Grid.NavigationPanelTab:not(:pointerover)">
     <Setter Property="Opacity" Value="1" />
-  </Style>
+  </Style> -->
 
 
   <Style Selector="Grid.NavigationPanelKanjiTab">
-    <!--TODO-->
-    <!--<i:Interaction.Behaviors>
-      <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}" Value="{x:Static models:NavigationPageEnum.Kanji}">
-        <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
-      </ia:DataTriggerBehavior>
-    </i:Interaction.Behaviors>-->
+    <!--TODO: move behaviors back from NavigationBar.axaml-->
     <Setter Property="Background" Value="{StaticResource KanjiTabGradient}"/>
   </Style>
 
-
   <Style Selector="Grid.NavigationPanelSrsTab">
-    <!--TODO-->
-    <!--<i:Interaction.Behaviors>
-      <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}" Value="{x:Static models:NavigationPageEnum.Srs}">
-        <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
-      </ia:DataTriggerBehavior>
-    </i:Interaction.Behaviors>-->
     <Setter Property="Background" Value="{StaticResource SrsTabGradient}"/>
   </Style>
 
   <Style Selector="Grid.NavigationPanelVocabTab">
-    <!--TODO-->
-    <!--<i:Interaction.Behaviors>
-      <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}" Value="{x:Static models:NavigationPageEnum.Vocab}">
-        <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
-      </ia:DataTriggerBehavior>
-    </i:Interaction.Behaviors>-->
     <Setter Property="Background" Value="{StaticResource VocabTabGradient}"/>
   </Style>
 
   <Style Selector="Grid.NavigationPanelSettingsTab">
-    <!--TODO-->
-    <!--<i:Interaction.Behaviors>
-      <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}" Value="{x:Static models:NavigationPageEnum.Settings}">
-        <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
-      </ia:DataTriggerBehavior>
-    </i:Interaction.Behaviors>-->
     <Setter Property="Background" Value="{StaticResource SettingsTabGradient}"/>
   </Style>
 
   <Style Selector="Grid.NavigationPanelHomeTab">
-    <!--TODO-->
-    <!--<i:Interaction.Behaviors>
-      <ia:DataTriggerBehavior Binding="{Binding Source={x:Static actors:NavigationActor.Instance}, Path=CurrentPage}" Value="{x:Static models:NavigationPageEnum.Home}">
-        <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
-      </ia:DataTriggerBehavior>
-    </i:Interaction.Behaviors>-->
     <Setter Property="Background" Value="{StaticResource HomeTabGradient}"/>
   </Style>
 
