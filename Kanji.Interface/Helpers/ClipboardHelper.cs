@@ -14,23 +14,10 @@ namespace Kanji.Interface.Helpers
         /// </summary>
         /// <param name="value">Value to copy to the clipboard.</param>
         /// <returns>True if the operation succeeded. False otherwise.</returns>
-        public static bool SetText(string value)
+        public static async Task<bool> SetText(string value)
         {
-            // This code is totally awful but if we don't do that, we'll run into an issue for some users.
-            // Thank you Robert Wagner (http://stackoverflow.com/questions/68666/clipbrd-e-cant-open-error-when-setting-the-clipboard-from-net).
-            //TODO: platform-specific
-            //for (int i = 0; i < 10; i++)
-            //{
-            //    try
-            //    {
-            //        System.Windows.Clipboard.SetText(value);
-            //        return true;
-            //    }
-            //    catch { }
-            //    System.Threading.Thread.Sleep(10);
-            //}
-
-            return false;
+            await Avalonia.Application.Current.Clipboard.SetTextAsync(value);
+            return true;
         }
     }
 }
