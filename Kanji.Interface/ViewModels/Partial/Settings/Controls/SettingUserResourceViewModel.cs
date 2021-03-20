@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Command;
 using Kanji.Common.Helpers;
+using Kanji.Interface.Helpers;
 using Kanji.Interface.Models;
 
 namespace Kanji.Interface.ViewModels
@@ -101,7 +102,7 @@ namespace Kanji.Interface.ViewModels
         {
             try
             {
-                Process.Start(setInfo.Path);
+                ProcessHelper.OpenUri(setInfo.Path);
             }
             catch (Exception ex)
             {
