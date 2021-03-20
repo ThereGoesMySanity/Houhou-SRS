@@ -206,7 +206,7 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         private void OnWebsite()
         {
-            Process.Start(WebsiteUrl);
+            ProcessHelper.OpenUri(WebsiteUrl);
         }
 
         /// <summary>
@@ -215,7 +215,7 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         private void OnContact()
         {
-            Process.Start(ContactAddress);
+            ProcessHelper.OpenUri(ContactAddress);
         }
 
         /// <summary>
@@ -224,7 +224,7 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         private void OnDonate()
         {
-            Process.Start(PaypalDonateUri);
+            ProcessHelper.OpenUri(PaypalDonateUri);
         }
 
         /// <summary>
@@ -233,7 +233,7 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         private void OnGitHub()
         {
-            Process.Start(GitHubUri);
+            ProcessHelper.OpenUri(GitHubUri);
         }
 
         #endregion

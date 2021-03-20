@@ -30,11 +30,11 @@ namespace Kanji.Interface.Views
 
         #region Methods
         
-        //TODO
-        //private void OnRequestNavigate(object sender, RequestNavigateEventArgs e)
-        //{
-        //    System.Diagnostics.Process.Start(e.Uri.ToString());
-        //}
+        //TODO: once hyperlinks are back
+        // private void OnRequestNavigate(object sender, RequestNavigateEventArgs e)
+        // {
+        //    ProcessHelper.OpenUrl(e.Uri.ToString());
+        // }
 
         /// <summary>
         /// Since a <see cref="GalaSoft.MvvmLight.Command.RelayCommand"/> does not accept keyboard shortcuts,

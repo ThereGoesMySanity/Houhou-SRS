@@ -533,7 +533,7 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         private void OnWaniKani()
         {
-            Process.Start("https://www.wanikani.com/kanji/" + _kanjiEntity.DbKanji.Character);
+            ProcessHelper.OpenUri("https://www.wanikani.com/kanji/" + _kanjiEntity.DbKanji.Character);
         }
 
         #endregion

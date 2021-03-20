@@ -192,7 +192,7 @@ namespace Kanji.Interface
                 {
                     try
                     {
-                        Process.Start(LogHelper.GetLogFilePath());
+                        ProcessHelper.OpenUri(LogHelper.GetLogFilePath());
                     }
                     catch (Exception ex2)
                     {

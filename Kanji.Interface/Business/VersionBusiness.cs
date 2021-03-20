@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 using GalaSoft.MvvmLight.Command;
 using Kanji.Common.Helpers;
+using Kanji.Interface.Helpers;
 using Kanji.Interface.Models;
 using Kanji.Interface.Utilities;
 
@@ -238,7 +239,7 @@ namespace Kanji.Interface.Business
             }
 
             // Call the URI.
-            Process.Start(_lastUpdate.Uri);
+            ProcessHelper.OpenUri(_lastUpdate.Uri);
         }
 
         /// <summary>
