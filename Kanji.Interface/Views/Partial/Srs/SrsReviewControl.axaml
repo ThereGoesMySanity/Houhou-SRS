@@ -104,17 +104,17 @@
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontWeight="Bold" Padding="0 0 0 5">
               <i:Interaction.Behaviors>
                 <ia:DataTriggerBehavior Binding="{Binding CurrentQuestion.ParentGroup.Reference.CurrentGrade}" ComparisonCondition="LessThan"
-                                        Value="{Binding Preview.NextLevel.Value}">
+                                        Value="{Binding PreviewNextLevel.Value}">
                   <ia:ChangePropertyAction Value="+" PropertyName="Text"/>
                   <ia:ChangePropertyAction Value="#CC00CC00" PropertyName="Foreground"/>
                 </ia:DataTriggerBehavior>
                 <ia:DataTriggerBehavior Binding="{Binding CurrentQuestion.ParentGroup.Reference.CurrentGrade}" ComparisonCondition="GreaterThan"
-                                        Value="{Binding Preview.NextLevel.Value}">
+                                        Value="{Binding PreviewNextLevel.Value}">
                   <ia:ChangePropertyAction Value="-" PropertyName="Text"/>
                   <ia:ChangePropertyAction Value="#CCFF6600" PropertyName="Foreground"/>
                 </ia:DataTriggerBehavior>
                 <ia:DataTriggerBehavior Binding="{Binding CurrentQuestion.ParentGroup.Reference.CurrentGrade}" ComparisonCondition="Equal"
-                                        Value="{Binding Preview.NextLevel.Value}">
+                                        Value="{Binding PreviewNextLevel.Value}">
                   <ia:ChangePropertyAction Value="=" PropertyName="Text"/>
                   <ia:ChangePropertyAction Value="#CC0066FF" PropertyName="Foreground"/>
                 </ia:DataTriggerBehavior>
