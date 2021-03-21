@@ -288,6 +288,9 @@
   <Style Selector="TextBox">
     <Setter Property="FontFamily" Value="Source Han Sans JP"/>
   </Style>
+  <Style Selector="controls|CommandTextBox">
+    <Setter Property="FontFamily" Value="Source Han Sans JP"/>
+  </Style>
 
   <Style Selector="controls|Label">
     <Setter Property="Template">
