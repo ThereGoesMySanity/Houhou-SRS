@@ -350,10 +350,10 @@ namespace Kanji.Interface.ViewModels
         /// Command callback.
         /// Opens a file browser to select the file path.
         /// </summary>
-        private void OnBrowse()
+        private async void OnBrowse()
         {
             // Create OpenFileDialog 
-            OpenFileDialog dlg = new OpenFileDialog();
+            OpenFileDialog dlg = new OpenFileDialog { Title = "Open file..." };
             dlg.AllowMultiple = false;
 
             // Set filter for file extension and default file extension 
@@ -364,8 +364,8 @@ namespace Kanji.Interface.ViewModels
                 new FileDialogFilter { Name = "All Files" },
             });
 
-            // Display OpenFileDialog by calling ShowDialog method 
-            var result = dlg.ShowAsync(NavigationActor.Instance.ActiveWindow).Result;
+            // Display OpenFileDialog by calling ShowDialog method
+            var result = await dlg.ShowAsync(NavigationActor.Instance.ActiveWindow);
             if (result.Length == 1)
             {
                 FilePath = result[0];
