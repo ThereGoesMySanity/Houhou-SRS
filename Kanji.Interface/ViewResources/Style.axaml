@@ -849,6 +849,7 @@
     <Setter Property="TextWrapping" Value="NoWrap"/>
     <Setter Property="TextAlignment" Value="Center"/>
     <Setter Property="FontSize" Value="64"/>
+    <Setter Property="FontWeight" Value="250"/>
     <Setter Property="FontFamily" Value="/Data/Fonts/NotoSansCJKjp-Thin.otf#Noto Sans CJK JP"/>
   </Style>
   <Style Selector="ItemsControl.MiniRadicalList">
@@ -949,6 +950,7 @@
                     <Setter Property="FontSize" Value="26"/>
                     <Setter Property="HorizontalAlignment" Value="Center"/>
                     <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="FontWeight" Value="250"/>
                     <Setter Property="FontFamily" Value="/Data/Fonts/NotoSansCJKjp-Thin.otf#Noto Sans CJK JP"/>
                   </Style>
                 </TextBlock.Styles>
@@ -1031,7 +1033,7 @@
       <Setter Property="FontSize" Value="26"/>
       <Setter Property="ItemTemplate">
         <DataTemplate>
-          <TextBox Text="{Binding Character}" FontFamily="/Data/Fonts/NotoSansCJKjp-Thin.otf#Noto Sans CJK JP" ToolTip.Tip="{Binding Kanji, Converter={StaticResource KanjiToStringConverter},
+          <TextBox Text="{Binding Character}" FontWeight="250" FontFamily="/Data/Fonts/NotoSansCJKjp-Thin.otf#Noto Sans CJK JP" ToolTip.Tip="{Binding Kanji, Converter={StaticResource KanjiToStringConverter},
                                           ConverterParameter={x:Static converters:KanjiToStringConversionType.Short}, Mode=OneWay}" Classes="LabelBox">
             <i:Interaction.Behaviors>
               <utility:ClickTriggerBehavior MouseButtons="Left" EventName="PointerReleased">
