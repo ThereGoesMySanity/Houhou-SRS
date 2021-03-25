@@ -143,12 +143,13 @@ namespace Kanji.Interface.ViewModels
                 int i = 0;
                 TimeSpan delay = TimeSpan.Zero;
                 List<SrsEntry> pickList = new List<SrsEntry>(entries);
-                HashSet<char> kanjiAdded = new HashSet<char>();
+                Dictionary<char, SrsEntry> kanjiAdded = new Dictionary<char, SrsEntry>();
+                HashSet<char> kanjiJustAdded = new HashSet<char>();
                 List<SrsEntry> kanjiToAdd = new List<SrsEntry>();
                 List<SrsEntry> vocabToAdd = new List<SrsEntry>();
                 List<SrsEntry> vocabNext = new List<SrsEntry>();
                 KanjiDao kanjiDao = new KanjiDao();
-                while (pickList.Any() || kanjiToAdd.Any() || vocabToAdd.Any())
+                while (pickList.Any() || kanjiToAdd.Any() || vocabToAdd.Any() || vocabNext.Any())
                 {
                     SrsEntry next = null;
                     if (kanjiToAdd.Any())
@@ -161,7 +162,7 @@ namespace Kanji.Interface.ViewModels
                         next = vocabToAdd[0];
                         vocabToAdd.RemoveAt(0);
                     }
-                    else
+                    else if (pickList.Any())
                     {
                         // Pick an item and remove it.
                         int nextIndex = SpreadMode == ImportSpreadTimingMode.ListOrder ? 0 : _random.Next(pickList.Count);
@@ -171,15 +172,15 @@ namespace Kanji.Interface.ViewModels
                         {
                             if (!string.IsNullOrEmpty(next.AssociatedVocab))
                             {
-                                bool needsDelay = false;
-                                foreach (var kanji in next.AssociatedVocab.Where(c => c > '\u4e00' && c < '\u9fff' && !kanjiAdded.Contains(c)))
+                                foreach (var kanji in next.AssociatedVocab.Where(c => c > '\u4e00' && c < '\u9fff' 
+                                    && !kanjiAdded.ContainsKey(c) && kanjiToAdd.All(k => k.AssociatedKanji[0] != c)))
                                 {
-                                    needsDelay = true;
-                                    var kEntry = new SrsEntry();
-                                    kEntry.LoadFromKanji(kanjiDao.GetFirstMatchingKanji(kanji.ToString()));
-                                    if (kanjiToAdd.All(k => k.AssociatedKanji[0] != kanji)) kanjiToAdd.Add(kEntry);
+                                    // skeleton entry -- this'll get 'replaced' later if/when it gets added naturally
+                                    var kEntry = new SrsEntry { AssociatedKanji = kanji.ToString() };
+                                    kanjiToAdd.Add(kEntry);
                                 }
-                                if (needsDelay)
+                                if (next.AssociatedVocab.Any(c => c > '\u4e00' && c < '\u9fff' 
+                                            && (!kanjiAdded.ContainsKey(c) || kanjiJustAdded.Contains(c))))
                                 {
                                     vocabNext.Add(next);
                                     continue;
@@ -188,37 +189,41 @@ namespace Kanji.Interface.ViewModels
                             else
                             {
                                 // oops! we auto-generated a kanji entry but the user had their own
-                                if (kanjiAdded.Contains(next.AssociatedKanji[0]))
+                                if (kanjiAdded.ContainsKey(next.AssociatedKanji[0]))
                                 {
-                                    var kIndex = entries.FindIndex(s => s.AssociatedKanji == next.AssociatedKanji);
+                                    var entry = kanjiAdded[next.AssociatedKanji[0]];
                                     // use the date we determined previously
-                                    next.NextAnswerDate = entries[kIndex].NextAnswerDate;
-                                    entries.RemoveAt(kIndex);
-                                    entries.Add(next);
+                                    next.NextAnswerDate = entry.NextAnswerDate;
                                     continue;
                                 }
                             }
                         }
                     }
 
-                    // add kanji to set
-                    if (!string.IsNullOrEmpty(next.AssociatedKanji))
+                    if (next != null)
                     {
-                        kanjiAdded.Add(next.AssociatedKanji[0]);
+                        // add kanji to set
+                        if (!string.IsNullOrEmpty(next.AssociatedKanji))
+                        {
+                            kanjiAdded.Add(next.AssociatedKanji[0], next);
+                            kanjiJustAdded.Add(next.AssociatedKanji[0]);
+                        }
+
+                        // Apply spread
+                        next.NextAnswerDate = DateTime.Now + delay;
+                        if (delay == TimeSpan.Zero) Console.WriteLine($"{SpreadAmountPerInterval} {i}|{next.AssociatedKanji} : {next.AssociatedVocab}");
                     }
 
-                    // Apply spread
-                    next.NextAnswerDate = DateTime.Now + delay;
-
                     // Increment i and add a day to the delay if i reaches the spread value.
-                    if (++i >= SpreadAmountPerInterval)
+                    if (++i >= SpreadAmountPerInterval || next == null)
                     {
                         i = 0;
                         delay += TimeSpan.FromDays(SpreadInterval);
 
+                        kanjiJustAdded.Clear();
                         // add vocab to queue once all kanji have been added
-                        vocabToAdd.AddRange(vocabNext.Where(v => !v.AssociatedVocab.Any(c => c > '\u4e00' && c < '\u9fff' && !kanjiAdded.Contains(c))));
-                        vocabNext.RemoveAll(v => !v.AssociatedVocab.Any(c => c > '\u4e00' && c < '\u9fff' && !kanjiAdded.Contains(c)));
+                        vocabToAdd.AddRange(vocabNext.Where(v => !v.AssociatedVocab.Any(c => c > '\u4e00' && c < '\u9fff' && !kanjiAdded.ContainsKey(c))));
+                        vocabNext.RemoveAll(v => !v.AssociatedVocab.Any(c => c > '\u4e00' && c < '\u9fff' && !kanjiAdded.ContainsKey(c)));
                     }
                 }
             }
