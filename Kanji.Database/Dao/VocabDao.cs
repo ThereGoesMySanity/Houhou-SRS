@@ -123,7 +123,9 @@ namespace Kanji.Database.Dao
 
                     if (vocabs.Count() == 1)
                     {
-                        yield return builder.BuildEntity(vocabs.First(), null);
+                        var result = builder.BuildEntity(vocabs.First(), null);
+                        IncludeMeanings(connection, result);
+                        yield return result;
                         yield break;
                     }
                 }
@@ -137,7 +139,9 @@ namespace Kanji.Database.Dao
 
                 foreach (NameValueCollection match in fullMatch)
                 {
-                    yield return builder.BuildEntity(match, null);
+                    var result = builder.BuildEntity(match, null);
+                    IncludeMeanings(connection, result);
+                    yield return result;
                 }
             }
             finally
