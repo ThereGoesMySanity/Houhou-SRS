@@ -1975,11 +1975,6 @@
 
   <Style Selector="ListBox.ItemsPerLevelGroupListbox" >
     <Setter Property="BorderThickness" Value="0"/>
-    <Setter Property="Items">
-      <Setter.Value>
-        <Binding Path="ItemsPerLevelGroup" Source="{x:Static business:SrsBusiness.Instance}"/>
-      </Setter.Value>
-    </Setter>
     <Setter Property="ItemsPanel">
       <Setter.Value>
         <ItemsPanelTemplate>
