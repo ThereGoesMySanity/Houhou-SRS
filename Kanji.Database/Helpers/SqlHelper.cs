@@ -82,7 +82,6 @@ namespace Kanji.Database.Helpers
         public const string Field_Vocab_JlptLevel = "JlptLevel";
         public const string Field_Vocab_WaniKaniLevel = "WkLevel";
         public const string Field_Vocab_WikipediaRank = "WikiRank";
-        public const string Field_Vocab_GroupId = "GroupId";
         public const string Field_Vocab_IsMain = "IsMain";
 
         #endregion
