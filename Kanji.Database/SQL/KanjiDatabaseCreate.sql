@@ -78,14 +78,13 @@ CREATE TABLE IF NOT EXISTS "VocabSet" (
 	"JlptLevel"	integer,
 	"WkLevel"	integer,
 	"WikiRank"	integer,
-	"GroupId"	integer NOT NULL,
 	"IsMain"	boolean NOT NULL,
 	PRIMARY KEY("ID" AUTOINCREMENT)
 );
 CREATE INDEX IF NOT EXISTS "Index_Vocab_KanaWriting" ON "VocabSet" (
 	"KanaWriting"
 );
-CREATE INDEX IF NOT EXISTS "Index_Vocab_GroupId" ON "VocabSet" (
-	"GroupId"
+CREATE INDEX IF NOT EXISTS "Index_Vocab_Seq" ON "VocabSet" (
+	"Seq"
 );
 COMMIT;

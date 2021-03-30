@@ -583,8 +583,6 @@ namespace Kanji.DatabaseMaker
         /// <returns>Vocab loaded from the file.</returns>
         private IEnumerable<VocabEntity> LoadVocabItems(XDocument xdoc)
         {
-            int groupId = 1;
-
             // Browse each vocab entry.
             foreach (XElement xentry in xdoc.Root.Elements(XmlNode_Entry))
             {
@@ -595,7 +593,7 @@ namespace Kanji.DatabaseMaker
                 foreach (XElement xkanjiElement in xentry.Elements(XmlNode_KanjiElement))
                 {
                     // Parse the kanji element. The list will be expanded with new elements.
-                    ParseKanji(xkanjiElement, vocabList, seq, groupId);
+                    ParseKanji(xkanjiElement, vocabList, seq);
                 }
 
                 // For each kanji reading node
@@ -611,7 +609,7 @@ namespace Kanji.DatabaseMaker
 
                     // Parse the reading. The list will be expanded and/or its elements filled with
                     // the available info.
-                    ParseReading(xreadingElement, vocabList, seq, groupId);
+                    ParseReading(xreadingElement, vocabList, seq);
                 }
 
                 // For each kanji meaning node
@@ -660,8 +658,6 @@ namespace Kanji.DatabaseMaker
                     // Return the vocab and continue to the next one.
                     yield return vocab;
                 }
-
-                groupId++;
             }
         }
 
@@ -672,13 +668,11 @@ namespace Kanji.DatabaseMaker
         /// <param name="xkanjiElement">Element to parse.</param>
         /// <param name="vocabList">Vocab list to be updated.</param>
         /// <param name="seq">Sequence number of corresponding vocab item</param>
-        /// <param name="groupId">Current group ID.</param>
-        private void ParseKanji(XElement xkanjiElement, List<VocabEntity> vocabList, long seq, int groupId)
+        private void ParseKanji(XElement xkanjiElement, List<VocabEntity> vocabList, long seq)
         {
             // Create a new vocab with the associated writing.
             VocabEntity vocab = new VocabEntity();
             vocab.Seq = seq;
-            vocab.GroupId = groupId;
             vocab.KanjiWriting = xkanjiElement.Element(XmlNode_KanjiReading).Value;
             vocab.IsCommon = IsCommonWord(xkanjiElement, XmlNode_KanjiVocabReference);
             
@@ -703,7 +697,7 @@ namespace Kanji.DatabaseMaker
         /// </summary>
         /// <param name="xreadingElement">Element to parse.</param>
         /// <param name="vocabList">Vocab list to be updated.</param>
-        private void ParseReading(XElement xreadingElement, List<VocabEntity> vocabList, long seq, int groupId)
+        private void ParseReading(XElement xreadingElement, List<VocabEntity> vocabList, long seq)
         {
             // First, we have to determine the target of the reading node.
             // Two possible cases:
@@ -719,7 +713,6 @@ namespace Kanji.DatabaseMaker
                 // Scenario 1. Create a new kanji reading, add it to the list, and set it as target.
                 VocabEntity newVocab = new VocabEntity();
                 newVocab.Seq = seq;
-                newVocab.GroupId = groupId;
                 vocabList.Add(newVocab);
                 targets = new VocabEntity[] { newVocab };
             }
@@ -771,8 +764,7 @@ namespace Kanji.DatabaseMaker
                     // If a target already has a kana reading, we need to create a new vocab.
                     VocabEntity newVocab = new VocabEntity()
                     {
-                        Seq = seq,
-                        GroupId = target.GroupId,
+                        Seq = target.Seq,
                         KanjiWriting = target.KanjiWriting, // Assign the old kanji reading,
                         IsCommon = target.IsCommon || isCommon, // combined common flag,
                         FrequencyRank = target.FrequencyRank, // same frequency rank,
