@@ -49,6 +49,26 @@ namespace Kanji.Database.Dao
             }
         }
 
+        public IEnumerable<NameValueCollection> CustomQuery(string query)
+        {
+            DaoConnection connection = null;
+            try
+            {
+                // Create and open synchronously the primary Kanji connection.
+                connection = DaoConnection.Open(DaoConnectionEnum.KanjiDatabase);
+
+                return connection.Query(query).ToList();
+            }
+            finally
+            {
+                if (connection != null)
+                {
+                    connection.Dispose();
+                }
+            }
+        }
+
+
         /// <summary>
         /// Gets the first kanji that matches the given character.
         /// </summary>
