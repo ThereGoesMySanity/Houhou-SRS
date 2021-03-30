@@ -143,7 +143,10 @@ namespace Kanji.Interface.ViewModels
                 int i = 0;
                 TimeSpan delay = TimeSpan.Zero;
                 List<SrsEntry> pickList = new List<SrsEntry>(entries);
-                Dictionary<char, SrsEntry> kanjiAdded = new Dictionary<char, SrsEntry>();
+                HashSet<char> countedKanji = entries.Select(e => e.AssociatedKanji)
+                        .Where(k => !string.IsNullOrEmpty(k))
+                        .Select(k => k[0]).ToHashSet();
+                HashSet<char> kanjiAdded = new HashSet<char>();
                 HashSet<char> kanjiJustAdded = new HashSet<char>();
                 List<SrsEntry> kanjiToAdd = new List<SrsEntry>();
                 List<SrsEntry> vocabToAdd = new List<SrsEntry>();
@@ -172,28 +175,30 @@ namespace Kanji.Interface.ViewModels
                         {
                             if (!string.IsNullOrEmpty(next.AssociatedVocab))
                             {
-                                foreach (var kanji in next.AssociatedVocab.Where(c => c > '\u4e00' && c < '\u9fff' 
-                                    && !kanjiAdded.ContainsKey(c) && kanjiToAdd.All(k => k.AssociatedKanji[0] != c)))
+                                bool skip = false;
+                                foreach (var kanji in next.AssociatedVocab.Where(c => c > '\u4e00' && c < '\u9fff' && !kanjiAdded.Contains(c)))
                                 {
-                                    // skeleton entry -- this'll get 'replaced' later if/when it gets added naturally
-                                    var kEntry = new SrsEntry { AssociatedKanji = kanji.ToString() };
-                                    kanjiToAdd.Add(kEntry);
+                                    if (!countedKanji.Contains(kanji))
+                                    {
+                                        kanjiAdded.Add(kanji);
+                                    }
+                                    else 
+                                    {
+                                        if (kanjiToAdd.All(k => k.AssociatedKanji[0] != kanji))
+                                        {
+                                            int index = pickList.FindIndex(k => !string.IsNullOrEmpty(k.AssociatedKanji) && k.AssociatedKanji[0] == kanji);
+                                            if (index >= 0)
+                                            {
+                                                kanjiToAdd.Add(pickList[index]);
+                                                pickList.RemoveAt(index);
+                                            }
+                                        }
+                                        skip = true;
+                                    }
                                 }
-                                if (next.AssociatedVocab.Any(c => c > '\u4e00' && c < '\u9fff' 
-                                            && (!kanjiAdded.ContainsKey(c) || kanjiJustAdded.Contains(c))))
+                                if (skip || next.AssociatedVocab.Any(c => c > '\u4e00' && c < '\u9fff' && kanjiJustAdded.Contains(c)))
                                 {
                                     vocabNext.Add(next);
-                                    continue;
-                                }
-                            }
-                            else
-                            {
-                                // oops! we auto-generated a kanji entry but the user had their own
-                                if (kanjiAdded.ContainsKey(next.AssociatedKanji[0]))
-                                {
-                                    var entry = kanjiAdded[next.AssociatedKanji[0]];
-                                    // use the date we determined previously
-                                    next.NextAnswerDate = entry.NextAnswerDate;
                                     continue;
                                 }
                             }
@@ -205,7 +210,7 @@ namespace Kanji.Interface.ViewModels
                         // add kanji to set
                         if (!string.IsNullOrEmpty(next.AssociatedKanji))
                         {
-                            kanjiAdded.Add(next.AssociatedKanji[0], next);
+                            kanjiAdded.Add(next.AssociatedKanji[0]);
                             kanjiJustAdded.Add(next.AssociatedKanji[0]);
                         }
 
@@ -219,10 +224,13 @@ namespace Kanji.Interface.ViewModels
                         i = 0;
                         delay += TimeSpan.FromDays(SpreadInterval);
 
-                        kanjiJustAdded.Clear();
-                        // add vocab to queue once all kanji have been added
-                        vocabToAdd.AddRange(vocabNext.Where(v => !v.AssociatedVocab.Any(c => c > '\u4e00' && c < '\u9fff' && !kanjiAdded.ContainsKey(c))));
-                        vocabNext.RemoveAll(v => !v.AssociatedVocab.Any(c => c > '\u4e00' && c < '\u9fff' && !kanjiAdded.ContainsKey(c)));
+                        if (KanjiOrdered)
+                        {
+                            kanjiJustAdded.Clear();
+                            // add vocab to queue once all kanji have been added
+                            vocabToAdd.AddRange(vocabNext.Where(v => !v.AssociatedVocab.Any(c => c > '\u4e00' && c < '\u9fff' && !kanjiAdded.Contains(c))));
+                            vocabNext.RemoveAll(v => !v.AssociatedVocab.Any(c => c > '\u4e00' && c < '\u9fff' && !kanjiAdded.Contains(c)));
+                        }
                     }
                 }
             }
