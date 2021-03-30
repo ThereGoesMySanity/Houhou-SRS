@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -726,11 +726,11 @@ namespace Kanji.Database.Dao
         private void IncludeVariants(DaoConnection connection, VocabEntity vocab)
         {
             IEnumerable<NameValueCollection> results = connection.Query(
-                string.Format("SELECT * FROM {0} WHERE {1}=@gid AND {2}!=@id",
+                string.Format("SELECT * FROM {0} WHERE {1}=@seq AND {2}!=@id",
                 SqlHelper.Table_Vocab,
-                SqlHelper.Field_Vocab_GroupId,
+                SqlHelper.Field_Vocab_Seq,
                 SqlHelper.Field_Vocab_Id),
-                new DaoParameter("@gid", vocab.GroupId),
+                new DaoParameter("@seq", vocab.Seq),
                 new DaoParameter("@id", vocab.ID));
 
             VocabBuilder builder = new VocabBuilder();
