@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,7 +32,6 @@ namespace Kanji.Interface.ViewModels
         private bool _isComplete;
         private bool _isError;
         private bool _isWorking;
-        private BackgroundWorker _worker;
         private WkImportResult _result;
 
         #endregion
@@ -139,13 +139,13 @@ namespace Kanji.Interface.ViewModels
         /// <summary>
         /// Starts a background task to perform the request in the background.
         /// </summary>
-        private void RequestApi()
+        private async Task RequestApi()
         {
-            // Check the worker
-            if (_worker != null)
-            {
-                _worker.Dispose();
-            }
+            //// Check the worker
+            //if (_worker != null)
+            //{
+                //_worker.Dispose();
+            //}
 
             // Initialize values
             IsComplete = false;
@@ -154,38 +154,72 @@ namespace Kanji.Interface.ViewModels
             Error = string.Empty;
             Result = null;
 
-            // Run the initialization in the background.
-            _worker = new BackgroundWorker();
-            _worker.DoWork += DoRequestApi;
-            _worker.RunWorkerCompleted += DoneRequestApi;
-            _worker.RunWorkerAsync();
+            await DoRequestApi();
+            IsWorking = false;
+            //// Run the initialization in the background.
+            //_worker = new BackgroundWorker();
+            //_worker.DoWork += DoRequestApi;
+            //_worker.RunWorkerCompleted += DoneRequestApi;
+            //_worker.RunWorkerAsync();
+            //((BackgroundWorker)sender).DoWork -= DoRequestApi;
+            //((BackgroundWorker)sender).RunWorkerCompleted -= DoneRequestApi;
         }
 
         /// <summary>
         /// Background task work method.
         /// Contacts the WaniKani API.
         /// </summary>
-        private void DoRequestApi(object sender, DoWorkEventArgs e)
+        private async Task DoRequestApi()
         {
-            string[] responses;
             try
             {
-                List<string> uri = new List<string>();
-                if (_parent.ImportMode == WkImportMode.All || _parent.ImportMode == WkImportMode.Kanji)
+                using (var client = new HttpClient())
                 {
-                    uri.Add(string.Format("https://www.wanikani.com/api/v1.2/user/{0}/kanji", _parent.ApiKey));
-                }
-                if (_parent.ImportMode == WkImportMode.All || _parent.ImportMode == WkImportMode.Vocab)
-                {
-                    string levels = "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60";
-                    uri.Add(string.Format("https://www.wanikani.com/api/v1.2/user/{0}/vocabulary/{1}", _parent.ApiKey, levels));
-                }   
+                    var baseUrl = "https://api.wanikani.com/v2/";
+                    client.DefaultRequestHeaders.Add("Authorization", $"Bearer {_parent.ApiKey}");
+                    List<string> subjectTypes = new List<string>();
+                    if (_parent.ImportMode == WkImportMode.All || _parent.ImportMode == WkImportMode.Kanji)
+                    {
+                        subjectTypes.Add("kanji");
+                    }
+                    if (_parent.ImportMode == WkImportMode.All || _parent.ImportMode == WkImportMode.Vocab)
+                    {
+                        subjectTypes.Add("vocabulary");
+                    }
+                    if (subjectTypes.Count > 0)
+                    {
+                        List<(JToken, JToken)> results = new List<(JToken, JToken)>();
+                        JObject response = JObject.Parse(await client.GetStringAsync(baseUrl + $"assignments?subject_types={String.Join(",", subjectTypes)}"));
+                        JObject subRes = JObject.Parse(await client.GetStringAsync(baseUrl + $"subjects?ids={String.Join(",", response["data"].Select(t => t["data"]["subject_id"]))}"));
+                        results.AddRange(response["data"].Select(r => (subRes["data"].First(s => (int)s["id"] == (int)r["data"]["subject_id"])["data"], r["data"])));
+                        while (response["pages"]["next_url"] != null && results.Count < (int)response["total_count"])
+                        {
+                            response = JObject.Parse(await client.GetStringAsync((string)response["pages"]["next_url"]));
+                            subRes = JObject.Parse(await client.GetStringAsync(baseUrl + $"subjects?ids={String.Join(",", response["data"].Select(t => t["data"]["subject_id"]))}"));
+                            results.AddRange(response["data"].Select(r => (subRes["data"].First(s => (int)s["id"] == (int)r["data"]["subject_id"])["data"], r["data"])));
+                        }
 
-                responses = new string[uri.Count];
+                        WkImportResult result = new WkImportResult();
 
-                for (int i = 0; i < uri.Count(); i++)
-                {
-                    responses[i] = Request(uri[i]);
+                        //TODO: Level 0 is "haven't completed the lesson" - what do with those?
+                        //TODO: Hint vs Mnemonic: Mnemonic is the one that comes up in lessons, hint comes up in reviews (and only exists for some objects?).
+                        //      Which does the user want?
+                        result.Items = results.Where(t => (int)t.Item2["srs_stage"] != 0).Select(((JToken s, JToken a) t) => new WkItem
+                        {
+                            IsKanji = (string)t.a["subject_type"] == "kanji",
+                            KanjiReading = (string)t.s["characters"],
+                            MeaningNote = (string)t.s["meaning_hint"] ?? (string)t.s["meaning_mnemonic"],
+                            ReadingNote = (string)t.s["reading_hint"] ?? (string)t.s["reading_mnemonic"],
+                            Meanings = string.Join(',', t.s["meanings"].Where(m => (bool)m["accepted_answer"]).Select(m => (string)m["meaning"])),
+                            NextReviewDate = (DateTime?)t.a["available_at"],
+                            Readings = string.Join(',', t.s["readings"].Where(r => (bool)r["accepted_answer"]).Select(r => (string)r["reading"])),
+                            SrsLevel = (short)((short)t.a["srs_stage"] - 1),
+                            WkLevel = (int)t.s["level"],
+                        }).ToList();
+
+                        Result = result;
+                        IsComplete = true;
+                    }
                 }
             }
             catch (Exception ex)
@@ -195,184 +229,13 @@ namespace Kanji.Interface.ViewModels
                 IsError = true;
                 return;
             }
-
-            // Now read that response!
-            try
-            {
-                JObject[] jroots = new JObject[responses.Count()];
-                bool isOk = true;
-                for (int i = 0; i < jroots.Count(); i++)
-                {
-                    jroots[i] = JObject.Parse(responses[i]);
-                    if (CheckError(jroots[i]))
-                    {
-                        isOk = false;
-                        break;
-                    }
-                }
-
-                if (isOk)
-                {
-                    // No error.
-                    WkImportResult result = new WkImportResult();
-                    result.Username = (string)jroots[0]["user_information"]["username"];
-                    List<WkItem> items = new List<WkItem>();
-
-                    for (int i = 0; i < jroots.Count(); i++)
-                    {
-                        foreach (WkItem item in ReadItems(jroots[i], i == 0 && (_parent.ImportMode == WkImportMode.All || _parent.ImportMode == WkImportMode.Kanji)))
-                        {
-                            items.Add(item);
-                        }
-                    }
-                    result.Items = items;
-
-                    Result = result;
-                    IsComplete = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                LogHelper.GetLogger("WkImport").Error("An error occured during the JSON parsing.", ex);
-                Error = "An error occured while trying to read the data. Please consult your log file for more details.";
-                IsError = true;
-                return;
-            }
-        }
-
-        private IEnumerable<WkItem> ReadItems(JObject root, bool isKanji)
-        {
-            JArray itemRoot = (JArray)root["requested_information"];
-            foreach (JObject jitem in itemRoot)
-            {
-                // Check if the item has a valid "user_specific" field (if not, it's not unlocked)
-                JObject juserSpec = jitem["user_specific"] as JObject;
-                if (juserSpec != null && juserSpec.HasValues && juserSpec.Children().Any())
-                {
-                    // Create a new item.
-                    WkItem item = new WkItem();
-
-                    // Get easy info.
-                    item.IsKanji = isKanji;
-                    item.WkLevel = int.Parse((string)jitem["level"]);
-                    item.KanjiReading = (string)jitem["character"];
-                    item.MeaningNote = (string)juserSpec["meaning_note"];
-                    item.ReadingNote = (string)juserSpec["reading_note"];
-                    
-                    // Get accepted readings.
-                    if (isKanji)
-                    {
-                        // Kanji. We need to figure out the reading WK uses and get this one.
-                        // Get the reading to obtain (either "onyomi" or "kunyomi")
-                        string readingKey = (string)jitem["important_reading"];
-                        item.Readings = (string)jitem[readingKey];
-                    }
-                    else
-                    {
-                        // Vocab. The reading is just in the "kana" field.
-                        item.Readings = (string)jitem["kana"];
-                    }
-
-                    // Get accepted meanings.
-                    string meaningsBase = (string)jitem["meaning"];
-                    JArray juserSynonyms = juserSpec["user_synonyms"] as JArray;
-                    if (juserSynonyms != null)
-                    {
-                        foreach (string syn in juserSynonyms)
-                        {
-                            meaningsBase += string.Format(",{0}", syn);
-                        }
-                    }
-                    item.Meanings = meaningsBase;
-
-                    // Get matching SRS level.
-                    bool isBurned = false;
-                    int groupIndex = 0;
-                    string wkSrsLevel = (string)juserSpec["srs"];
-                    if (wkSrsLevel == "guru") groupIndex = 1;
-                    else if (wkSrsLevel == "master") groupIndex = 2;
-                    else if (wkSrsLevel == "enlighten") groupIndex = 3;
-                    else if (wkSrsLevel == "burned")
-                    {
-                        groupIndex = 4;
-                        isBurned = true;
-                    }
-                    if (_parent.DoImportSrsLevel && SrsLevelStore.Instance.CurrentSet.Count() > groupIndex
-                        && SrsLevelStore.Instance.CurrentSet[groupIndex].Levels.Any())
-                    {
-                        item.SrsLevel = SrsLevelStore.Instance.CurrentSet[groupIndex].Levels.First().Value;
-                    }
-                    else
-                    {
-                        item.SrsLevel = 0;
-                    }
-                    
-                    // Get the next review date.
-                    if (_parent.DoImportReviewDate)
-                    {
-                        double availableDateTimestamp = -1;
-                        if (!isBurned && double.TryParse((string)juserSpec["available_date"], out availableDateTimestamp))
-                        {
-                            item.NextReviewDate = DateTimeHelper.UnixTimeStampToDateTime(availableDateTimestamp);
-                        }
-                    }
-
-                    yield return item;
-                }
-            }
-        }
-
-        private string Request(string uri)
-        {
-            string responseString = string.Empty;
-            WebRequest request = WebRequest.Create(uri);
-            using (WebResponse response = request.GetResponse())
-            {
-                using (StreamReader reader = new StreamReader(response.GetResponseStream()))
-                {
-                    responseString = reader.ReadToEnd();
-                }
-            }
-
-            return responseString;
-        }
-
-        private bool CheckError(JObject o)
-        {
-            JObject errorObject = o["error"] as JObject;
-            if (errorObject != null)
-            {
-                IsError = true;
-                string code = (string)errorObject["code"];
-                string message = (string)errorObject["message"];
-                Error = string.Format("WaniKani error '{0}': {1}", code, message);
-                if (Error.ToLower().Contains("level"))
-                {
-                    Error += Environment.NewLine + "Please check that you are currently on an active WaniKani subscription.";
-                }
-
-                return true;
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Background task completed method. Unsubscribes to the events.
-        /// </summary>
-        private void DoneRequestApi(object sender, RunWorkerCompletedEventArgs e)
-        {
-            ((BackgroundWorker)sender).DoWork -= DoRequestApi;
-            ((BackgroundWorker)sender).RunWorkerCompleted -= DoneRequestApi;
-            IsWorking = false;
         }
 
         #endregion
 
         public override async Task OnEnterStep()
         {
-            await base.OnEnterStep();
-            RequestApi();
+            await RequestApi();
         }
 
         public override bool OnNextStep()
