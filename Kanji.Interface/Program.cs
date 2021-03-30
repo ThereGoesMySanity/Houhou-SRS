@@ -18,6 +18,9 @@ using Avalonia.Controls;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Dialogs;
+using MessageBox.Avalonia;
+using MessageBox.Avalonia.DTO;
+using MessageBox.Avalonia.Enums;
 
 namespace Kanji.Interface
 {
@@ -175,20 +178,23 @@ namespace Kanji.Interface
             throw ex;
             #else
 
-            DispatcherHelper.Invoke(() =>
+            DispatcherHelper.Invoke(async () =>
             {
-                if (System.Windows.MessageBox.Show(
-                    string.Format("It appears that Houhou has been vanquished by an evil {0}.{1}"
-                    + "Houhou will now shutdown. Sorry for the inconvenience.{1}"
-                    + "Houhou's last words were: \"{2}\". Oh the pain it must have been.{1}{1}"
-                    + "Please send me a mail report along with your log file if you think I should fix the issue.{1}"
-                    + "Do you want to open the log?",
-                        ex.GetType().Name,
-                        Environment.NewLine,
-                        ex.Message),
-                    "Fatal error",
-                    System.Windows.MessageBoxButton.YesNoCancel,
-                    System.Windows.MessageBoxImage.Error) == System.Windows.MessageBoxResult.Yes)
+                if (await MessageBoxManager.GetMessageBoxStandardWindow(
+                    new MessageBoxStandardParams
+                    {
+                        ContentTitle = "Fatal error",
+                        ContentMessage = string.Format("It appears that Houhou has been vanquished by an evil {0}.{1}"
+                            + "Houhou will now shutdown. Sorry for the inconvenience.{1}"
+                            + "Houhou's last words were: \"{2}\". Oh the pain it must have been.{1}{1}"
+                            + "Please send me a mail report along with your log file if you think I should fix the issue.{1}"
+                            + "Do you want to open the log?",
+                                ex.GetType().Name,
+                                Environment.NewLine,
+                                ex.Message),
+                        ButtonDefinitions = ButtonEnum.YesNoCancel,
+                        Icon = Icon.Error
+                    }).ShowDialog(NavigationActor.Instance.ActiveWindow) == ButtonResult.Yes)
                 {
                     try
                     {
@@ -198,16 +204,19 @@ namespace Kanji.Interface
                     {
                         LogHelper.GetLogger("Main").Fatal("Failed to open the log after fatal exception. Double fatal shock.", ex2);
 
-                        System.Windows.MessageBox.Show(
-                            string.Format("Okay, so... the log file failed to open.{0}"
-                            + "Um... I'm sorry. Now that's embarrassing...{0}"
-                            + "Hey, listen, the log file should be there:{0}"
-                            + "\"C:/Users/<YourUserName>/AppData/Local/Houhou SRS/Logs\"{0}"
-                            + "If you still cannot get it, well just contact me without a log.{0}",
-                                Environment.NewLine),
-                            "Double fatal error shock",
-                            System.Windows.MessageBoxButton.OK,
-                            System.Windows.MessageBoxImage.Error);
+                        await MessageBoxManager.GetMessageBoxStandardWindow(
+                            new MessageBoxStandardParams
+                            {
+                                ContentMessage = string.Format("Okay, so... the log file failed to open.{0}"
+                                + "Um... I'm sorry. Now that's embarrassing...{0}"
+                                + "Hey, listen, the log file should be there:{0}"
+                                + "\"C:/Users/<YourUserName>/AppData/Local/Houhou SRS/Logs\"{0}"
+                                + "If you still cannot get it, well just contact me without a log.{0}",
+                                    Environment.NewLine),
+                                ContentTitle = "Double fatal error shock",
+                                ButtonDefinitions = ButtonEnum.Ok,
+                                Icon = Icon.Error
+                            }).ShowDialog(NavigationActor.Instance.ActiveWindow);
                     }
                 }
             });
