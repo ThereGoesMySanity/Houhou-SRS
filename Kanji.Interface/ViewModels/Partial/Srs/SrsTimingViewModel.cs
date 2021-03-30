@@ -211,7 +211,6 @@ namespace Kanji.Interface.ViewModels
 
                         // Apply spread
                         next.NextAnswerDate = DateTime.Now + delay;
-                        if (delay == TimeSpan.Zero) Console.WriteLine($"{SpreadAmountPerInterval} {i}|{next.AssociatedKanji} : {next.AssociatedVocab}");
                     }
 
                     // Increment i and add a day to the delay if i reaches the spread value.
