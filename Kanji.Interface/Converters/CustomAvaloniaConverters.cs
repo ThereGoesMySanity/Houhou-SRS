@@ -31,7 +31,7 @@ namespace Kanji.Interface.Converters
                 return new Bitmap(uri.LocalPath);
 
             var assets = AvaloniaLocator.Current.GetService<IAssetLoader>();
-            return new Bitmap(assets.Open(new Uri($"avares://Kanji.Interface{s}")));
+            return new Bitmap(assets.Open(new Uri($"avares://Houhou{s}")));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
