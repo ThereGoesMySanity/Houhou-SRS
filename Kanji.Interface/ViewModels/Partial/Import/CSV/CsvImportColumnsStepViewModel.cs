@@ -5,8 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Kanji.Common.Helpers;
+using Kanji.Database.Dao;
 using Kanji.Database.Entities;
 using Kanji.Interface.Business;
+using Kanji.Interface.Extensions;
 using Kanji.Interface.Models;
 
 namespace Kanji.Interface.ViewModels
@@ -24,8 +26,11 @@ namespace Kanji.Interface.ViewModels
         private int _tagsColumn;
         private int _startLevelColumn;
         private int _nextReviewDateColumn;
+        private int _sequenceNumberColumn;
         private List<string> _requiredColumns;
         private List<string> _optionalColumns;
+        private bool _readingAutofill;
+        private bool _meaningAutofill;
 
         private CsvImportNoTypeBehavior _noTypeBehavior;
         private CsvImportViewModel _parent;
@@ -179,6 +184,22 @@ namespace Kanji.Interface.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets the column index to use as a Sequence Number field.
+        /// </summary>
+        public int SequenceNumberColumn
+        {
+            get { return _sequenceNumberColumn; }
+            set
+            {
+                if (_sequenceNumberColumn != value)
+                {
+                    _sequenceNumberColumn = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the columns usable by required fields.
         /// </summary>
         public List<string> RequiredColumns
@@ -226,6 +247,34 @@ namespace Kanji.Interface.ViewModels
             }
         }
 
+        public bool ReadingAutofill
+        {
+            get { return _readingAutofill; }
+            set
+            {
+                if (_readingAutofill != value)
+                {
+                    _readingAutofill = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        public bool MeaningAutofill
+        {
+            get { return _meaningAutofill; }
+            set
+            {
+                if (_meaningAutofill != value)
+                {
+                    _meaningAutofill = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        
+
         #endregion
 
         #region Constructors
@@ -269,13 +318,16 @@ namespace Kanji.Interface.ViewModels
             StringBuilder log = new StringBuilder();
             log.AppendLine(string.Format("Starting import with {0} line(s).", _parent.CsvLines.Count));
             int i = 0;
+            var vocabDao = new VocabDao();
+            var kanjiDao = new KanjiDao();
+            vocabDao.OpenMassTransaction();
 
             // Browse CSV lines!
             foreach (List<string> row in _parent.CsvLines)
             {
                 log.AppendFormat("l{0}: ", ++i);
                 // Attempt to read the entry.
-                SrsEntry entry = ReadEntry(row, log);
+                SrsEntry entry = ReadEntry(row, vocabDao, kanjiDao, log);
                 log.AppendLine();
                 
                 // Add the entry to the parent's list if not null.
@@ -284,6 +336,8 @@ namespace Kanji.Interface.ViewModels
                     _parent.NewEntries.Add(entry);
                 }
             }
+
+            vocabDao.CloseMassTransaction();
 
             // All items have been added.
             // Apply the timing preferences for items that do not have a review date.
@@ -303,7 +357,7 @@ namespace Kanji.Interface.ViewModels
         /// <param name="row">Row to read.</param>
         /// <param name="log">Log under the form of a stringbuilder to inform the user about how everything goes.</param>
         /// <returns>The SRS item read if successful. A null value otherwise.</returns>
-        private SrsEntry ReadEntry(List<string> row, StringBuilder log)
+        private SrsEntry ReadEntry(List<string> row, VocabDao vocabDao, KanjiDao kanjiDao, StringBuilder log)
         {
             try
             {
@@ -328,24 +382,67 @@ namespace Kanji.Interface.ViewModels
                     // 3. Item is not specified and no type behavior is set to Auto and the length of kanjiReading is exactly 1.
                     entry.AssociatedKanji = kanjiReading;
                     log.AppendFormat("Kanji: \"{0}\". ", kanjiReading);
+                    itemType = CsvItemType.Kanji;
                 }
                 else
                 {
                     // All other cases will lead to vocab.
                     entry.AssociatedVocab = kanjiReading;
                     log.AppendFormat("Vocab: \"{0}\". ", kanjiReading);
+                    itemType = CsvItemType.Vocab;
+                }
+                
+                string readings = ReadAcceptedReadings(row);
+
+                long? sequenceNumber = ReadSequenceNumber(row);
+
+                if (ReadingAutofill || MeaningAutofill)
+                {
+                    switch (itemType)
+                    {
+                        case CsvItemType.Kanji:
+                            var kanji = kanjiDao.GetFirstMatchingKanji(kanjiReading);
+                            if (kanji == null)
+                            {
+                                log.Append("Can't find kanji in database. Skipping.");
+                                return null;
+                            }
+                            entry.LoadFromKanji(kanji);
+                            break;
+                        case CsvItemType.Vocab:
+                            var vocabs = string.IsNullOrEmpty(readings) ? vocabDao.GetMatchingVocab(kanjiReading)
+                                        : vocabDao.GetVocabByReadings(kanjiReading, readings);
+                            if (sequenceNumber.HasValue) vocabs = vocabs.Where(v => v.Seq == sequenceNumber);
+                            var vocab = vocabs.FirstOrDefault();
+                            if (vocab == null)
+                            {
+                                log.Append("Can't find vocab in database. Skipping.");
+                                return null;
+                            }
+                            entry.LoadFromVocab(vocab);
+                            entry.AssociatedVocab = kanjiReading;
+                            entry.Readings = default(string);
+                            break;
+                    }
                 }
 
                 // Find readings.
-                entry.Readings = ReadAcceptedReadings(row);
-                if (string.IsNullOrEmpty(entry.Readings))
+                if (!ReadingAutofill || !string.IsNullOrEmpty(readings))
+                {
+                    entry.Readings = readings;
+                }
+                if (itemType == CsvItemType.Kanji && string.IsNullOrEmpty(entry.Readings))
                 {
                     log.Append("Empty readings. Skipping.");
                     return null;
                 }
 
                 // Find meanings.
-                entry.Meanings = ReadAcceptedMeanings(row);
+                string meanings = ReadAcceptedMeanings(row);
+                if (!MeaningAutofill || !string.IsNullOrEmpty(meanings))
+                {
+                    entry.Meanings = meanings;
+                }
                 if (string.IsNullOrEmpty(entry.Meanings))
                 {
                     log.Append("Empty meanings. Skipping.");
@@ -418,9 +515,9 @@ namespace Kanji.Interface.ViewModels
         /// <param name="row">Row to read.</param>
         private string ReadAcceptedReadings(List<string> row)
         {
-            if (row.Count - 1 >= _acceptedReadingsColumn)
+            if (_acceptedReadingsColumn > 0 && row.Count >= _acceptedReadingsColumn)
             {
-                return row[_acceptedReadingsColumn];
+                return row[_acceptedReadingsColumn - 1];
             }
 
             return string.Empty;
@@ -432,9 +529,9 @@ namespace Kanji.Interface.ViewModels
         /// <param name="row">Row to read.</param>
         private string ReadAcceptedMeanings(List<string> row)
         {
-            if (row.Count - 1 >= _acceptedMeaningsColumn)
+            if (_acceptedMeaningsColumn > 0 && row.Count >= _acceptedMeaningsColumn)
             {
-                return row[_acceptedMeaningsColumn];
+                return row[_acceptedMeaningsColumn - 1];
             }
 
             return string.Empty;
@@ -507,13 +604,32 @@ namespace Kanji.Interface.ViewModels
         /// <param name="row">Row to read.</param>
         private DateTime? ReadNextReviewDate(List<string> row)
         {
-            if (_nextReviewDateColumn > 0 && row.Count >= _startLevelColumn)
+            if (_nextReviewDateColumn > 0 && row.Count >= _nextReviewDateColumn)
             {
                 string value = row[_nextReviewDateColumn - 1].Trim();
                 DateTime timeValue = new DateTime();
                 if (DateTime.TryParseExact(value, "yyyy-MM-dd H:mm:ss", ParsingHelper.DefaultCulture, DateTimeStyles.None, out timeValue))
                 {
                     return timeValue;
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Reads the sequence number field from the given row.
+        /// </summary>
+        /// <param name="row">Row to read.</param>
+        private long? ReadSequenceNumber(List<string> row)
+        {
+            if (_sequenceNumberColumn > 0 && row.Count >= _sequenceNumberColumn)
+            {
+                string value = row[_sequenceNumberColumn - 1].Trim();
+                long seq;
+                if (long.TryParse(value, out seq))
+                {
+                    return seq;
                 }
             }
 

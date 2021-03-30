@@ -68,6 +68,7 @@ namespace Kanji.Interface.Extensions
             if (string.IsNullOrEmpty(se.AssociatedVocab))
             {
                 se.AssociatedVocab = v.KanaWriting;
+                se.Readings = "";
             }
         }
 
