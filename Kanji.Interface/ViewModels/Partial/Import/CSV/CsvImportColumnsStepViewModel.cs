@@ -26,6 +26,7 @@ namespace Kanji.Interface.ViewModels
         private int _tagsColumn;
         private int _startLevelColumn;
         private int _nextReviewDateColumn;
+        private int _sequenceNumberColumn;
         private List<string> _requiredColumns;
         private List<string> _optionalColumns;
         private bool _readingAutofill;
@@ -177,6 +178,22 @@ namespace Kanji.Interface.ViewModels
                 if (_nextReviewDateColumn != value)
                 {
                     _nextReviewDateColumn = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the column index to use as a Sequence Number field.
+        /// </summary>
+        public int SequenceNumberColumn
+        {
+            get { return _sequenceNumberColumn; }
+            set
+            {
+                if (_sequenceNumberColumn != value)
+                {
+                    _sequenceNumberColumn = value;
                     RaisePropertyChanged();
                 }
             }
@@ -377,6 +394,8 @@ namespace Kanji.Interface.ViewModels
                 
                 string readings = ReadAcceptedReadings(row);
 
+                long? sequenceNumber = ReadSequenceNumber(row);
+
                 if (ReadingAutofill || MeaningAutofill)
                 {
                     switch (itemType)
@@ -391,14 +410,18 @@ namespace Kanji.Interface.ViewModels
                             entry.LoadFromKanji(kanji);
                             break;
                         case CsvItemType.Vocab:
-                            var vocab = string.IsNullOrEmpty(readings) ? vocabDao.GetMatchingVocab(kanjiReading).FirstOrDefault()
-                                        : vocabDao.GetVocabByReadings(kanjiReading, readings).FirstOrDefault();
+                            var vocabs = string.IsNullOrEmpty(readings) ? vocabDao.GetMatchingVocab(kanjiReading)
+                                        : vocabDao.GetVocabByReadings(kanjiReading, readings);
+                            if (sequenceNumber.HasValue) vocabs = vocabs.Where(v => v.Seq == sequenceNumber);
+                            var vocab = vocabs.FirstOrDefault();
                             if (vocab == null)
                             {
                                 log.Append("Can't find vocab in database. Skipping.");
                                 return null;
                             }
                             entry.LoadFromVocab(vocab);
+                            entry.AssociatedVocab = kanjiReading;
+                            entry.Readings = default(string);
                             break;
                     }
                 }
@@ -581,13 +604,32 @@ namespace Kanji.Interface.ViewModels
         /// <param name="row">Row to read.</param>
         private DateTime? ReadNextReviewDate(List<string> row)
         {
-            if (_nextReviewDateColumn > 0 && row.Count >= _startLevelColumn)
+            if (_nextReviewDateColumn > 0 && row.Count >= _nextReviewDateColumn)
             {
                 string value = row[_nextReviewDateColumn - 1].Trim();
                 DateTime timeValue = new DateTime();
                 if (DateTime.TryParseExact(value, "yyyy-MM-dd H:mm:ss", ParsingHelper.DefaultCulture, DateTimeStyles.None, out timeValue))
                 {
                     return timeValue;
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Reads the sequence number field from the given row.
+        /// </summary>
+        /// <param name="row">Row to read.</param>
+        private long? ReadSequenceNumber(List<string> row)
+        {
+            if (_sequenceNumberColumn > 0 && row.Count >= _sequenceNumberColumn)
+            {
+                string value = row[_sequenceNumberColumn - 1].Trim();
+                long seq;
+                if (long.TryParse(value, out seq))
+                {
+                    return seq;
                 }
             }
 

@@ -119,6 +119,13 @@
                                 </TextBlock>
                                 <ComboBox Classes="FieldComboBox" Items="{Binding OptionalColumns}" SelectedIndex="{Binding NextReviewDateColumn, Mode=TwoWay}" />
                             </StackPanel>
+
+                            <StackPanel Grid.Row="4" Grid.Column="1" Classes="FieldStackPanel">
+                                <TextBlock Classes="LegendText" ToolTip.Tip="If you exported from software using JMDict, this may be included.">
+                                    Sequence Number [?]
+                                </TextBlock>
+                                <ComboBox Classes="FieldComboBox" Items="{Binding OptionalColumns}" SelectedIndex="{Binding SequenceNumberColumn, Mode=TwoWay}" />
+                            </StackPanel>
                         </Grid>
                     
                         <Separator Margin="8" />
