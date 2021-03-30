@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Kanji.Interface.Controls.ImportCsvAfterLoad"
+﻿<?xml version="1.0" ?><UserControl x:Class="Kanji.Interface.Controls.ImportCsvAfterLoad"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -59,17 +59,23 @@
                             </StackPanel>
 
                             <StackPanel Grid.Column="1" Classes="FieldStackPanel">
-                                <TextBlock Classes="LegendText">
-                                    * Accepted readings
-                                </TextBlock>
-                                <ComboBox Classes="RequiredFieldComboBox FieldComboBox" Items="{Binding RequiredColumns}" SelectedIndex="{Binding AcceptedReadingsColumn, Mode=TwoWay}" />
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <TextBlock Classes="LegendText">
+                                        * Accepted readings
+                                    </TextBlock>
+                                    <CheckBox IsChecked="{Binding ReadingAutofill}" Grid.Column="1">Fill from dictionary if missing</CheckBox>
+                                </Grid>
+                                <ComboBox Classes="RequiredFieldComboBox FieldComboBox" Items="{Binding OptionalColumns}" SelectedIndex="{Binding AcceptedReadingsColumn, Mode=TwoWay}" />
                             </StackPanel>
 
                             <StackPanel Grid.Row="1" Classes="FieldStackPanel">
-                                <TextBlock Classes="LegendText">
-                                    * Accepted meanings
-                                </TextBlock>
-                                <ComboBox Classes="RequiredFieldComboBox FieldComboBox" Items="{Binding RequiredColumns}" SelectedIndex="{Binding AcceptedMeaningsColumn, Mode=TwoWay}" />
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <TextBlock Classes="LegendText">
+                                        * Accepted meanings
+                                    </TextBlock>
+                                    <CheckBox IsChecked="{Binding MeaningAutofill}" Grid.Column="1">Fill from dictionary if missing</CheckBox>
+                                </Grid>
+                                <ComboBox Classes="RequiredFieldComboBox FieldComboBox" Items="{Binding OptionalColumns}" SelectedIndex="{Binding AcceptedMeaningsColumn, Mode=TwoWay}" />
                             </StackPanel>
 
                             <StackPanel Grid.Row="1" Grid.Column="1" Classes="FieldStackPanel">
@@ -112,6 +118,13 @@
                                     Next review date [?]
                                 </TextBlock>
                                 <ComboBox Classes="FieldComboBox" Items="{Binding OptionalColumns}" SelectedIndex="{Binding NextReviewDateColumn, Mode=TwoWay}" />
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="4" Grid.Column="1" Classes="FieldStackPanel">
+                                <TextBlock Classes="LegendText" ToolTip.Tip="If you exported from software using JMDict, this may be included.">
+                                    Sequence Number [?]
+                                </TextBlock>
+                                <ComboBox Classes="FieldComboBox" Items="{Binding OptionalColumns}" SelectedIndex="{Binding SequenceNumberColumn, Mode=TwoWay}" />
                             </StackPanel>
                         </Grid>
                     

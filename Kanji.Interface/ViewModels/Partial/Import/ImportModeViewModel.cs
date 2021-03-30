@@ -7,6 +7,7 @@ using GalaSoft.MvvmLight.Command;
 using Kanji.Database.Entities;
 using Kanji.Interface.Models;
 using Kanji.Interface.Business;
+using Kanji.Database.Dao;
 
 namespace Kanji.Interface.ViewModels
 {
@@ -152,8 +153,11 @@ namespace Kanji.Interface.ViewModels
         {
             // Timing is applied only to entries that do not already have a next answer date
             // and that are not in a final SRS level.
+            var srsDao = new SrsEntryDao();
             List<SrsEntry> eligibleEntries = NewEntries.Where(e => !e.NextAnswerDate.HasValue
-                && !SrsLevelStore.Instance.IsFinalLevel(e.CurrentGrade, false)).ToList();
+                && !SrsLevelStore.Instance.IsFinalLevel(e.CurrentGrade, false)
+                && (DuplicateOptions.DuplicateNewItemAction != ImportDuplicateNewItemAction.Ignore || srsDao.GetSimilarItem(e) == null)
+                ).ToList();
 
             Timing.ApplyTiming(eligibleEntries);
         }

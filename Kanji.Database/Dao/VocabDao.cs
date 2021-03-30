@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -123,7 +123,9 @@ namespace Kanji.Database.Dao
 
                     if (vocabs.Count() == 1)
                     {
-                        yield return builder.BuildEntity(vocabs.First(), null);
+                        var result = builder.BuildEntity(vocabs.First(), null);
+                        IncludeMeanings(connection, result);
+                        yield return result;
                         yield break;
                     }
                 }
@@ -137,7 +139,9 @@ namespace Kanji.Database.Dao
 
                 foreach (NameValueCollection match in fullMatch)
                 {
-                    yield return builder.BuildEntity(match, null);
+                    var result = builder.BuildEntity(match, null);
+                    IncludeMeanings(connection, result);
+                    yield return result;
                 }
             }
             finally
@@ -722,11 +726,11 @@ namespace Kanji.Database.Dao
         private void IncludeVariants(DaoConnection connection, VocabEntity vocab)
         {
             IEnumerable<NameValueCollection> results = connection.Query(
-                string.Format("SELECT * FROM {0} WHERE {1}=@gid AND {2}!=@id",
+                string.Format("SELECT * FROM {0} WHERE {1}=@seq AND {2}!=@id",
                 SqlHelper.Table_Vocab,
-                SqlHelper.Field_Vocab_GroupId,
+                SqlHelper.Field_Vocab_Seq,
                 SqlHelper.Field_Vocab_Id),
-                new DaoParameter("@gid", vocab.GroupId),
+                new DaoParameter("@seq", vocab.Seq),
                 new DaoParameter("@id", vocab.ID));
 
             VocabBuilder builder = new VocabBuilder();

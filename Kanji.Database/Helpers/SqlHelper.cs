@@ -73,6 +73,7 @@ namespace Kanji.Database.Helpers
         #region Vocab table
 
         public const string Field_Vocab_Id = "ID";
+        public const string Field_Vocab_Seq = "Seq";
         public const string Field_Vocab_KanjiWriting = "KanjiWriting";
         public const string Field_Vocab_KanaWriting = "KanaWriting";
         public const string Field_Vocab_IsCommon = "IsCommon";
@@ -81,7 +82,6 @@ namespace Kanji.Database.Helpers
         public const string Field_Vocab_JlptLevel = "JlptLevel";
         public const string Field_Vocab_WaniKaniLevel = "WkLevel";
         public const string Field_Vocab_WikipediaRank = "WikiRank";
-        public const string Field_Vocab_GroupId = "GroupId";
         public const string Field_Vocab_IsMain = "IsMain";
 
         #endregion

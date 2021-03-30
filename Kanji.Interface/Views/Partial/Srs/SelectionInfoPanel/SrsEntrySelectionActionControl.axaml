@@ -182,10 +182,11 @@
                             <Border Margin="15 5 0 0" BorderThickness="2 0 0 0" BorderBrush="#666666" Padding="5 0 0 0">
                                 <StackPanel IsEnabled="{Binding ElementName=SpreadTimingRadio, Mode=OneWay, Path=IsChecked}">
                                     <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
-                                        <NumericUpDown Value="{Binding SpreadAmountPerDay}" Width="60" Minimum="1" Maximum="99999"/>
+                                        <NumericUpDown Value="{Binding SpreadAmountPerInterval}" Width="60" Minimum="1" Maximum="99999"/>
                                         <TextBlock Classes="LegendText" Margin="5 0 0 0">
-                                            new items per day
+                                            new items per 
                                         </TextBlock>
+                                        <NumericUpDown Value="{Binding SpreadInterval}" Width="60" Minimum="1" Maximum="100" Increment="1" FormatString="\{0\} day(s)"/>
                                     </StackPanel>
                                     <RadioButton GroupName="SpreadMode" Content="In random order" IsChecked="{Binding SpreadMode, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Random}"/>
                                     <RadioButton GroupName="SpreadMode" Content="In import source order" IsChecked="{Binding SpreadMode, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=ListOrder}"/>
