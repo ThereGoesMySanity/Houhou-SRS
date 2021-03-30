@@ -600,13 +600,6 @@ namespace Kanji.DatabaseMaker
                 var xreadingElements = xentry.Elements(XmlNode_ReadingElement);
                 foreach (XElement xreadingElement in xreadingElements)
                 {
-                    // Exclude the node if it contains the no kanji node, and is not the only reading.
-                    // This is a behavior that seems to be implemented in Jisho (example word: 台詞).
-                    if (xreadingElement.HasElement(XmlNode_NoKanji) && xreadingElements.Count() > 1)
-                    {
-                        continue;
-                    }
-
                     // Parse the reading. The list will be expanded and/or its elements filled with
                     // the available info.
                     ParseReading(xreadingElement, vocabList, groupId);
@@ -710,7 +703,7 @@ namespace Kanji.DatabaseMaker
             //   with the reading constraint nodes.
 
             VocabEntity[] targets;
-            if (!vocabList.Any())
+            if (!vocabList.Any() || xreadingElement.HasElement(XmlNode_NoKanji))
             {
                 // Scenario 1. Create a new kanji reading, add it to the list, and set it as target.
                 VocabEntity newVocab = new VocabEntity();
