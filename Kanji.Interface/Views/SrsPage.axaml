@@ -43,7 +43,11 @@
           <!-- Below that, the item count per level group listbox, visible only in Dashboard mode -->
           <ListBox Grid.Row="1" Classes="ItemsPerLevelGroupListbox" Margin="0 5 0 0" IsVisible="{Binding ControlMode,
                           Converter={StaticResource ValueToBoolConverter},
-                          ConverterParameter=Dashboard}"/>
+                          ConverterParameter=Dashboard}">
+            <ListBox.Items>
+              <Binding Path="ItemsPerLevelGroup" Source="{x:Static business:SrsBusiness.Instance}"/>
+            </ListBox.Items>
+          </ListBox>
 
           <!-- The filter panel, visible in SimpleFilter mode -->
           <Grid Grid.Row="0" Grid.RowSpan="3" IsVisible="{Binding ControlMode,
