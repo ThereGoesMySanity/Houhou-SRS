@@ -837,13 +837,13 @@ namespace Kanji.Interface.ViewModels
         /// Calls for the SRS item edition window to edit the SRS item
         /// referred by the current question.
         /// </summary>
-        private void OnEditSrsEntry()
+        private async void OnEditSrsEntry()
         {
             if (CurrentQuestion != null)
             {
                 // Show the modal entry edition window.
                 EditSrsEntryWindow wnd = new EditSrsEntryWindow(CurrentQuestionGroup.Reference.Clone());
-                wnd.ShowDialog(NavigationActor.Instance.MainWindow);
+                await wnd.ShowDialog(NavigationActor.Instance.MainWindow);
 
                 // When it is closed, get the result.
                 ExtendedSrsEntry result = wnd.Result;
