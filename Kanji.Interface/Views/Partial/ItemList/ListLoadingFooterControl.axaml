@@ -5,30 +5,23 @@
                     xmlns:s="clr-namespace:System;assembly=mscorlib"
                     xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
                     xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
-                    xmlns:utility="clr-namespace:Kanji.Interface.Utilities"
+                    xmlns:converters="clr-namespace:Kanji.Interface.Converters"
         xmlns:gif="clr-namespace:AvaloniaGif;assembly=AvaloniaGif"
                     xmlns:controls="clr-namespace:Kanji.Interface.Controls" x:Class="Kanji.Interface.Controls.ListLoadingFooterControl" mc:Ignorable="d" d:DesignHeight="60" d:DesignWidth="500">
 
     <Panel>
         <!-- "Load more" button grid -->
-        <Panel Name="LoadedPanel" IsVisible="False">
-          <i:Interaction.Behaviors>
-            <ia:DataTriggerBehavior Binding="{Binding ElementName=LoadingPanel, Path=IsVisible}" Value="False">
-              <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
-            </ia:DataTriggerBehavior>
-            <ia:DataTriggerBehavior Binding="{Binding LoadedItemCount}" Value="{Binding TotalItemCount}" ComparisonCondition="NotEqual">
-              <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
-            </ia:DataTriggerBehavior>
-            <utility:MultiDataTriggerBehavior>
-              <utility:MultiDataTriggerBehavior.Conditions>
-                <utility:Condition Binding="{Binding ElementName=LoadingPanel, Path=IsVisible}" Value="False"/>
-                <utility:Condition Binding="{Binding LoadedItemCount}" Value="{Binding TotalItemCount}" ComparisonCondition="NotEqual"/>
-              </utility:MultiDataTriggerBehavior.Conditions>
-              <utility:MultiDataTriggerBehavior.Actions>
-                <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
-              </utility:MultiDataTriggerBehavior.Actions>
-            </utility:MultiDataTriggerBehavior>
-          </i:Interaction.Behaviors>
+        <Panel Name="LoadedPanel">
+          <Panel.IsVisible>
+            <MultiBinding Converter="{x:Static BoolConverters.And}">
+              <Binding ElementName="LoadingPanel" Path="!IsVisible"/>
+              <MultiBinding Converter="{StaticResource ComparablesToBooleanConverter}" 
+                            ConverterParameter="{x:Static converters:ComparablesToBooleanConversionEnum.Different}">
+                <Binding Path="LoadedItemCount"/>
+                <Binding Path="TotalItemCount"/>
+              </MultiBinding>
+            </MultiBinding>
+          </Panel.IsVisible>
           <Button Classes="BigActionButton ActionButton" HorizontalAlignment="Stretch" Command="{Binding LoadMoreCommand}">
                 <Button.Resources>
                     <s:String x:Key="ButtonStringFormat" xml:space="preserve">Load more &#8203;</s:String>
