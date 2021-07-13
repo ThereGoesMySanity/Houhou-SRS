@@ -57,26 +57,14 @@
 
 
             <!-- BulkEditMode in (ReadingNote, MeaningNote, Tags) -->
-            <Grid IsVisible="False">
-                <i:Interaction.Behaviors>
-                    <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="ReadingNote">
-                        <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
-                    </ia:DataTriggerBehavior>
-                    <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="MeaningNote">
-                        <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
-                    </ia:DataTriggerBehavior>
-                    <ia:DataTriggerBehavior Binding="{Binding BulkEditMode}" Value="Tags">
-                        <ia:ChangePropertyAction Value="True" PropertyName="IsVisible"/>
-                    </ia:DataTriggerBehavior>
-                  <utility:MultiDataTriggerBehavior>
-                    <utility:MultiDataTriggerBehavior.Conditions>
-                      <utility:Condition Binding="{Binding BulkEditMode}" Value="ReadingNote" ComparisonCondition="NotEqual"/>
-                      <utility:Condition Binding="{Binding BulkEditMode}" Value="MeaningNote" ComparisonCondition="NotEqual"/>
-                      <utility:Condition Binding="{Binding BulkEditMode}" Value="Tags" ComparisonCondition="NotEqual"/>
-                    </utility:MultiDataTriggerBehavior.Conditions>
-                    <ia:ChangePropertyAction Value="False" PropertyName="IsVisible"/>
-                  </utility:MultiDataTriggerBehavior>
-                </i:Interaction.Behaviors>
+            <Grid>
+              <Grid.IsVisible>
+                <MultiBinding Converter="{x:Static BoolConverters.Or}">
+                  <Binding Path="BulkEditMode" Converter="{StaticResource EnumBooleanConverter}" ConverterParameter="ReadingNote"/>
+                  <Binding Path="BulkEditMode" Converter="{StaticResource EnumBooleanConverter}" ConverterParameter="MeaningNote"/>
+                  <Binding Path="BulkEditMode" Converter="{StaticResource EnumBooleanConverter}" ConverterParameter="Tags"/>
+                </MultiBinding>
+              </Grid.IsVisible>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
