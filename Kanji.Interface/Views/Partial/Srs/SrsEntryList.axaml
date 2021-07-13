@@ -39,40 +39,36 @@
                                   </ia:ChangePropertyAction.Value>
                                 </ia:ChangePropertyAction>
                               </ia:DataTriggerBehavior>
-                              <utility:MultiDataTriggerBehavior>
-                                <utility:MultiDataTriggerBehavior.Conditions>
-                                  <utility:Condition Binding="{Binding IsFilterEmpty}" Value="False"/>
-                                  <utility:Condition Binding="{Binding IsFiltering}" Value="False"/>
-                                  <utility:Condition Binding="{Binding IsLoading}" Value="False"/>
-                                </utility:MultiDataTriggerBehavior.Conditions>
+                              <ia:DataTriggerBehavior Value="True">
+                                <ia:DataTriggerBehavior.Binding>
+                                  <MultiBinding Converter="{x:Static BoolConverters.And}">
+                                    <Binding Path="!IsFilterEmpty"/>
+                                    <Binding Path="!IsFiltering"/>
+                                    <Binding Path="!IsLoading"/>
+                                  </MultiBinding>
+                                </ia:DataTriggerBehavior.Binding>
                                 <ia:ChangePropertyAction PropertyName="Text">
                                   <ia:ChangePropertyAction.Value>
                                     There are no SRS items matching these filters.
                                   </ia:ChangePropertyAction.Value>
                                 </ia:ChangePropertyAction>
-                              </utility:MultiDataTriggerBehavior>
-                              <utility:MultiDataTriggerBehavior>
-                                <utility:MultiDataTriggerBehavior.Conditions>
-                                  <utility:Condition Binding="{Binding IsFilterEmpty}" Value="False"/>
-                                  <utility:Condition Binding="{Binding IsFiltering}" Value="True"/>
-                                </utility:MultiDataTriggerBehavior.Conditions>
+                              </ia:DataTriggerBehavior>
+                              <ia:DataTriggerBehavior Value="True">
+                                <ia:DataTriggerBehavior.Binding>
+                                  <MultiBinding Converter="{x:Static BoolConverters.And}">
+                                    <Binding Path="!IsFilterEmpty"/>
+                                    <MultiBinding Converter="{x:Static BoolConverters.Or}">
+                                      <Binding Path="IsFiltering"/>
+                                      <Binding Path="IsLoading"/>
+                                    </MultiBinding>
+                                  </MultiBinding>
+                                </ia:DataTriggerBehavior.Binding>
                                 <ia:ChangePropertyAction PropertyName="Text">
                                   <ia:ChangePropertyAction.Value>
                                     Loading filters. Please wait...
                                   </ia:ChangePropertyAction.Value>
                                 </ia:ChangePropertyAction>
-                              </utility:MultiDataTriggerBehavior>
-                              <utility:MultiDataTriggerBehavior>
-                                <utility:MultiDataTriggerBehavior.Conditions>
-                                  <utility:Condition Binding="{Binding IsFilterEmpty}" Value="False"/>
-                                  <utility:Condition Binding="{Binding IsLoading}" Value="True"/>
-                                </utility:MultiDataTriggerBehavior.Conditions>
-                                <ia:ChangePropertyAction PropertyName="Text">
-                                  <ia:ChangePropertyAction.Value>
-                                    Loading filters. Please wait...
-                                  </ia:ChangePropertyAction.Value>
-                                </ia:ChangePropertyAction>
-                              </utility:MultiDataTriggerBehavior>
+                              </ia:DataTriggerBehavior>
                             </i:Interaction.Behaviors>
                           </TextBlock>
                         </Viewbox>
