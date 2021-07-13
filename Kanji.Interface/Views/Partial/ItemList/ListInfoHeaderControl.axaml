@@ -29,22 +29,26 @@
                         </ia:ChangePropertyAction>
                     </ia:DataTriggerBehavior>
                     <!-- Loaded but no results: display an appropriate message -->
-                    <utility:MultiDataTriggerBehavior>
-                        <utility:MultiDataTriggerBehavior.Conditions>
-                            <utility:Condition Binding="{Binding LoadedItems.Count}" Value="0"/>
-                            <utility:Condition Binding="{Binding TotalItemCount}" Value="0"/>
-                            <utility:Condition Binding="{Binding IsFiltering}" Value="True"/>
-                        </utility:MultiDataTriggerBehavior.Conditions>
+                    <ia:DataTriggerBehavior Value="True">
+                        <ia:DataTriggerBehavior.Binding>
+                            <MultiBinding Converter="{x:Static BoolConverters.And}">
+                                <Binding Path="!LoadedItems.Count"/>
+                                <Binding Path="!TotalItemCount"/>
+                                <Binding Path="IsFiltering"/>
+                            </MultiBinding>
+                        </ia:DataTriggerBehavior.Binding>
                         <ia:ChangePropertyAction Value="There are no results for this request." PropertyName="Text"/>
-                    </utility:MultiDataTriggerBehavior>
+                    </ia:DataTriggerBehavior>
                     <!-- Loaded with one single result: display an appropriate message -->
-                    <utility:MultiDataTriggerBehavior>
-                        <utility:MultiDataTriggerBehavior.Conditions>
-                            <utility:Condition Binding="{Binding LoadedItems.Count}" Value="1"/>
-                            <utility:Condition Binding="{Binding TotalItemCount}" Value="1"/>
-                        </utility:MultiDataTriggerBehavior.Conditions>
+                    <ia:DataTriggerBehavior Value="True">
+                        <ia:DataTriggerBehavior.Binding>
+                            <MultiBinding Converter="{x:Static BoolConverters.And}">
+                                <Binding Path="LoadedItems.Count" Converter="{StaticResource ValueToBoolConverter}" ConverterParameter="1"/>
+                                <Binding Path="TotalItemCount" Converter="{StaticResource ValueToBoolConverter}" ConverterParameter="1"/>
+                            </MultiBinding>
+                        </ia:DataTriggerBehavior.Binding>
                         <ia:ChangePropertyAction Value="Displaying the only result." PropertyName="Text"/>
-                    </utility:MultiDataTriggerBehavior>
+                    </ia:DataTriggerBehavior>
                     <!-- If loading: display loading indicator -->
                     <ia:DataTriggerBehavior Binding="{Binding IsLoading}" Value="True">
                         <ia:ChangePropertyAction Value="Loading items. Please wait." PropertyName="Text"/>
@@ -53,34 +57,32 @@
                         <ia:ChangePropertyAction Value="Loading filters. Please wait." PropertyName="Text"/>
                     </ia:DataTriggerBehavior>
                     <!-- Max priority: display the number of items being loaded. -->
-                    <utility:MultiDataTriggerBehavior>
-                        <utility:MultiDataTriggerBehavior.Conditions>
-                            <utility:Condition Binding="{Binding LoadedItems.Count}" Value="0"/>
-                            <utility:Condition Value="True">
-                                <utility:Condition.Binding>
-                                    <MultiBinding Converter="{StaticResource ComparablesToBooleanConverter}" ConverterParameter="{x:Static converters:ComparablesToBooleanConversionEnum.Greater}">
-                                        <Binding Path="TotalItemCount"/>
-                                        <Binding Source="{StaticResource IntegerTwo}"/>
-                                    </MultiBinding>
-                                </utility:Condition.Binding>
-                            </utility:Condition>
-                        </utility:MultiDataTriggerBehavior.Conditions>
+                    <ia:DataTriggerBehavior Value="True">
+                        <ia:DataTriggerBehavior.Binding>
+                            <MultiBinding Converter="{x:Static BoolConverters.And}">
+                                <Binding Path="!LoadedItems.Count"/>
+                                <MultiBinding Converter="{StaticResource ComparablesToBooleanConverter}" ConverterParameter="{x:Static converters:ComparablesToBooleanConversionEnum.Greater}">
+                                    <Binding Path="TotalItemCount"/>
+                                    <Binding Source="{StaticResource IntegerTwo}"/>
+                                </MultiBinding>
+                            </MultiBinding>
+                        </ia:DataTriggerBehavior.Binding>
                         <ia:ChangePropertyAction PropertyName="Text">
                             <ia:ChangePropertyAction.Value>
                                 <Binding Path="TotalItemCount" Mode="OneWay" StringFormat="{}Loading {0} results. Please wait."/>
                             </ia:ChangePropertyAction.Value>
                         </ia:ChangePropertyAction>
-                    </utility:MultiDataTriggerBehavior>
+                    </ia:DataTriggerBehavior>
                     <!-- (if loading one single result: display an appropriate message) -->
-                    <utility:MultiDataTriggerBehavior>
-                        <utility:MultiDataTriggerBehavior.Conditions>
-                            <utility:Condition Binding="{Binding LoadedItems.Count}" Value="0"/>
-                            <utility:Condition Binding="{Binding TotalItemCount}" Value="1"/>
-                        </utility:MultiDataTriggerBehavior.Conditions>
-                        <utility:MultiDataTriggerBehavior.Actions>
-                            <ia:ChangePropertyAction Value="Loading 1 result. Please wait." PropertyName="Text"/>
-                        </utility:MultiDataTriggerBehavior.Actions>
-                    </utility:MultiDataTriggerBehavior>
+                    <ia:DataTriggerBehavior Value="True">
+                        <ia:DataTriggerBehavior.Binding>
+                            <MultiBinding Converter="{x:Static BoolConverters.And}">
+                                <Binding Path="!LoadedItems.Count"/>
+                                <Binding Path="TotalItemCount" Converter="{StaticResource ValueToBoolConverter}" ConverterParameter="1"/>
+                            </MultiBinding>
+                        </ia:DataTriggerBehavior.Binding>
+                        <ia:ChangePropertyAction Value="Loading 1 result. Please wait." PropertyName="Text"/>
+                    </ia:DataTriggerBehavior>
                 </i:Interaction.Behaviors>
         <TextBlock.Styles>
             <Style Selector="TextBlock">

@@ -911,20 +911,24 @@
         <DataTemplate>
           <Border BorderThickness="1,1,1,1" BorderBrush="Gray" Background="{TemplateBinding Background}">
             <i:Interaction.Behaviors>
-              <utility:MultiDataTriggerBehavior>
-                <utility:MultiDataTriggerBehavior.Conditions>
-                  <utility:Condition Binding="{Binding DbKanji.MostUsedRank, Converter={x:Static ObjectConverters.IsNull}}" Value="True"/>
-                  <utility:Condition Binding="{Binding IsStyled}" Value="False"/>
-                </utility:MultiDataTriggerBehavior.Conditions>
+              <ia:DataTriggerBehavior Value="True">
+                <ia:DataTriggerBehavior.Binding>
+                  <MultiBinding Converter="{x:Static BoolConverters.And}">
+                    <Binding Path="DbKanji.MostUsedRank" Converter="{x:Static ObjectConverters.IsNull}"/>
+                    <Binding Path="!IsStyled"/>
+                  </MultiBinding>
+                </ia:DataTriggerBehavior.Binding>
                 <ia:ChangePropertyAction Value="LightGray" PropertyName="Background"/>
-              </utility:MultiDataTriggerBehavior>
-              <utility:MultiDataTriggerBehavior>
-                <utility:MultiDataTriggerBehavior.Conditions>
-                  <utility:Condition Binding="{Binding DbKanji.MostUsedRank, Converter={x:Static ObjectConverters.IsNull}}" Value="False"/>
-                  <utility:Condition Binding="{Binding IsStyled}" Value="False"/>
-                </utility:MultiDataTriggerBehavior.Conditions>
+              </ia:DataTriggerBehavior>
+              <ia:DataTriggerBehavior Value="True">
+                <ia:DataTriggerBehavior.Binding>
+                  <MultiBinding Converter="{x:Static BoolConverters.And}">
+                    <Binding Path="DbKanji.MostUsedRank" Converter="{x:Static ObjectConverters.IsNotNull}"/>
+                    <Binding Path="!IsStyled"/>
+                  </MultiBinding>
+                </ia:DataTriggerBehavior.Binding>
                 <ia:ChangePropertyAction Value="#000000FF" PropertyName="Background"/>
-              </utility:MultiDataTriggerBehavior>
+              </ia:DataTriggerBehavior>
               <ia:DataTriggerBehavior Binding="{Binding IsStyled}" Value="True">
                 <ia:ChangePropertyAction Value="10,0,0,0" PropertyName="Margin"/>
                 <ia:ChangePropertyAction Value="#220000FF" PropertyName="Background"/>
@@ -1040,39 +1044,42 @@
                 <ia:InvokeCommandAction Command="{Binding DataContext.KanjiNavigationCommand,
                                                       RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding .}"/>
               </utility:ClickTriggerBehavior>
-              <ia:DataTriggerBehavior Binding="{Binding IsMarginalReading}" Value="True">
+              <ia:DataTriggerBehavior Value="True">
+                <ia:DataTriggerBehavior.Binding>
+                  <MultiBinding Converter="{x:Static BoolConverters.And}">
+                    <Binding Path="IsMarginalReading"/>
+                    <Binding Path="!Tag" RelativeSource="{RelativeSource Self}"/>
+                  </MultiBinding>
+                </ia:DataTriggerBehavior.Binding>
                 <ia:ChangePropertyAction PropertyName="Opacity" Value="0.33" />
               </ia:DataTriggerBehavior>
-              <ia:DataTriggerBehavior Binding="{Binding IsMarginalReading}" Value="False">
+              <ia:DataTriggerBehavior Value="False">
+                <ia:DataTriggerBehavior.Binding>
+                  <MultiBinding Converter="{x:Static BoolConverters.And}">
+                    <Binding Path="IsMarginalReading"/>
+                    <Binding Path="!Tag" RelativeSource="{RelativeSource Self}"/>
+                  </MultiBinding>
+                </ia:DataTriggerBehavior.Binding>
                 <ia:ChangePropertyAction PropertyName="Opacity" Value="1" />
               </ia:DataTriggerBehavior>
-              <ia:DataTriggerBehavior Binding="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
+              <ia:DataTriggerBehavior Binding="{Binding Tag, RelativeSource={RelativeSource Self}}" Value="True">
                 <!--<ia:ChangePropertyAction PropertyName="TextDecorations" Value="Underline" />-->
+                <!--TODO: cursor doesn't change?-->
                 <ia:ChangePropertyAction Value="Hand" PropertyName="Cursor"/>
                 <ia:ChangePropertyAction Value="Blue" PropertyName="Foreground"/>
-                <ia:ChangePropertyAction Value="1" PropertyName="Opacity"/>
               </ia:DataTriggerBehavior>
-              <ia:DataTriggerBehavior Binding="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}" Value="False">
+              <ia:DataTriggerBehavior Binding="{Binding Tag, RelativeSource={RelativeSource Self}}" Value="False">
                 <!--<ia:ChangePropertyAction PropertyName="TextDecorations" Value="Underline" />-->
                 <ia:ChangePropertyAction Value="Arrow" PropertyName="Cursor"/>
-                <ia:ChangePropertyAction Value="Transparent" PropertyName="Foreground"/>
-              </ia:DataTriggerBehavior>
-              <utility:MultiDataTriggerBehavior>
-                <utility:MultiDataTriggerBehavior.Conditions>
-                  <utility:Condition Binding="{Binding HasKanji}" Value="True" />
-                  <utility:Condition Binding="{Binding $self.IsPointerOver}" Value="True" />
-                </utility:MultiDataTriggerBehavior.Conditions>
-                <utility:MultiDataTriggerBehavior.Actions>
-                  <ia:ChangePropertyAction PropertyName="Tag" Value="True" />
-                </utility:MultiDataTriggerBehavior.Actions>
-              </utility:MultiDataTriggerBehavior>
-              <ia:DataTriggerBehavior Binding="{Binding HasKanji}" Value="False">
-                  <ia:ChangePropertyAction PropertyName="Tag" Value="False" />
-              </ia:DataTriggerBehavior>
-              <ia:DataTriggerBehavior Binding="{Binding $self.IsPointerOver}" Value="False">
-                  <ia:ChangePropertyAction PropertyName="Tag" Value="False" />
+                <ia:ChangePropertyAction Value="Black" PropertyName="Foreground"/>
               </ia:DataTriggerBehavior>
             </i:Interaction.Behaviors>
+            <TextBox.Tag>
+              <MultiBinding Converter="{x:Static BoolConverters.And}">
+                <Binding Path="HasKanji"/>
+                <Binding RelativeSource="{RelativeSource Self}" Path="IsPointerOver"/>
+              </MultiBinding>
+            </TextBox.Tag>
           </TextBox>
         </DataTemplate>
       </Setter>
@@ -1534,39 +1541,17 @@
                                   <ia:ChangePropertyAction PropertyName="Content" Value="(No audio)"/>
                                   <ia:ChangePropertyAction PropertyName="BorderBrush" Value="DarkRed"/>
                                 </ia:DataTriggerBehavior>
-                                <utility:MultiDataTriggerBehavior>
-                                  <utility:MultiDataTriggerBehavior.Conditions>
-                                    <utility:Condition Binding="{Binding IsBusy, Source={x:Static business:AudioBusiness.Instance}}" Value="False"/>
-                                    <utility:Condition Binding="{Binding Audio.State}" Value="Unknown"/>
-                                  </utility:MultiDataTriggerBehavior.Conditions>
-                                  <ia:ChangePropertyAction PropertyName="IsEnabled" Value="True"/>
-                                </utility:MultiDataTriggerBehavior>
-                                <utility:MultiDataTriggerBehavior>
-                                  <utility:MultiDataTriggerBehavior.Conditions>
-                                    <utility:Condition Binding="{Binding IsBusy, Source={x:Static business:AudioBusiness.Instance}}" Value="False"/>
-                                    <utility:Condition Binding="{Binding Audio.State}" Value="Playable"/>
-                                  </utility:MultiDataTriggerBehavior.Conditions>
-                                  <ia:ChangePropertyAction PropertyName="IsEnabled" Value="True"/>
-                                </utility:MultiDataTriggerBehavior>
-                                <utility:MultiDataTriggerBehavior>
-                                  <utility:MultiDataTriggerBehavior.Conditions>
-                                    <utility:Condition Binding="{Binding IsBusy, Source={x:Static business:AudioBusiness.Instance}}" Value="False"/>
-                                    <utility:Condition Binding="{Binding Audio.State}" Value="Failed"/>
-                                  </utility:MultiDataTriggerBehavior.Conditions>
-                                  <ia:ChangePropertyAction PropertyName="IsEnabled" Value="True"/>
-                                </utility:MultiDataTriggerBehavior>
-                                <ia:DataTriggerBehavior Binding="{Binding IsBusy, Source={x:Static business:AudioBusiness.Instance}}" Value="True">
-                                  <ia:ChangePropertyAction PropertyName="IsEnabled" Value="False"/>
-                                </ia:DataTriggerBehavior>
-                                <utility:MultiDataTriggerBehavior>
-                                  <utility:MultiDataTriggerBehavior.Conditions>
-                                    <utility:Condition Binding="{Binding Audio.State}" Value="Unknown" ComparisonCondition="NotEqual"/>
-                                    <utility:Condition Binding="{Binding Audio.State}" Value="Playable" ComparisonCondition="NotEqual"/>
-                                    <utility:Condition Binding="{Binding Audio.State}" Value="Failed" ComparisonCondition="NotEqual"/>
-                                  </utility:MultiDataTriggerBehavior.Conditions>
-                                  <ia:ChangePropertyAction PropertyName="IsEnabled" Value="False"/>
-                                </utility:MultiDataTriggerBehavior>
                               </i:Interaction.Behaviors>
+                              <Button.IsEnabled>
+                                <MultiBinding Converter="{x:Static BoolConverters.And}">
+                                  <Binding Path="!IsBusy" Source="{x:Static business:AudioBusiness.Instance}"/>
+                                  <MultiBinding Converter="{x:Static BoolConverters.Or}">
+                                    <Binding Path="Audio.State" Converter="{StaticResource EnumBooleanConverter}" ConverterParameter="Unknown"/>
+                                    <Binding Path="Audio.State" Converter="{StaticResource EnumBooleanConverter}" ConverterParameter="Playable"/>
+                                    <Binding Path="Audio.State" Converter="{StaticResource EnumBooleanConverter}" ConverterParameter="Failed"/>
+                                  </MultiBinding>
+                                </MultiBinding>
+                              </Button.IsEnabled>
                               <Button.Styles>
                                 <Style Selector="Button">
                                   <Setter Property="Opacity" Value="0.15" />

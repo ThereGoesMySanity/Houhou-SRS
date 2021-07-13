@@ -148,34 +148,42 @@
       </i:Interaction.Behaviors>
       <TextBlock Grid.Row="2" FontSize="16" Margin="0 10 0 10" HorizontalAlignment="Center">
         <i:Interaction.Behaviors>
-          <utility:MultiDataTriggerBehavior>
-            <utility:MultiDataTriggerBehavior.Conditions>
-              <utility:Condition Binding="{Binding CurrentQuestion.ParentGroup.IsKanji}" Value="True"/>
-              <utility:Condition Binding="{Binding CurrentQuestion.Question}" Value="Meaning"/>
-            </utility:MultiDataTriggerBehavior.Conditions>
+          <ia:DataTriggerBehavior Value="True">
+            <ia:DataTriggerBehavior.Binding>
+              <MultiBinding Converter="{x:Static BoolConverters.And}">
+                <Binding Path="CurrentQuestion.ParentGroup.IsKanji"/>
+                <Binding Path="CurrentQuestion.Question" Converter="{StaticResource EnumBooleanConverter}" ConverterParameter="Meaning"/>
+              </MultiBinding>
+            </ia:DataTriggerBehavior.Binding>
             <ia:ChangePropertyAction Value="Enter the kanji meaning." PropertyName="Text"/>
-          </utility:MultiDataTriggerBehavior>
-          <utility:MultiDataTriggerBehavior>
-            <utility:MultiDataTriggerBehavior.Conditions>
-              <utility:Condition Binding="{Binding CurrentQuestion.ParentGroup.IsKanji}" Value="True"/>
-              <utility:Condition Binding="{Binding CurrentQuestion.Question}" Value="Reading"/>
-            </utility:MultiDataTriggerBehavior.Conditions>
+          </ia:DataTriggerBehavior>
+          <ia:DataTriggerBehavior Value="True">
+            <ia:DataTriggerBehavior.Binding>
+              <MultiBinding Converter="{x:Static BoolConverters.And}">
+                <Binding Path="CurrentQuestion.ParentGroup.IsKanji"/>
+                <Binding Path="CurrentQuestion.Question" Converter="{StaticResource EnumBooleanConverter}" ConverterParameter="Reading"/>
+              </MultiBinding>
+            </ia:DataTriggerBehavior.Binding>
             <ia:ChangePropertyAction Value="Enter the kanji reading." PropertyName="Text"/>
-          </utility:MultiDataTriggerBehavior>
-          <utility:MultiDataTriggerBehavior>
-            <utility:MultiDataTriggerBehavior.Conditions>
-              <utility:Condition Binding="{Binding CurrentQuestion.ParentGroup.IsKanji}" Value="False"/>
-              <utility:Condition Binding="{Binding CurrentQuestion.Question}" Value="Meaning"/>
-            </utility:MultiDataTriggerBehavior.Conditions>
+          </ia:DataTriggerBehavior>
+          <ia:DataTriggerBehavior Value="True">
+            <ia:DataTriggerBehavior.Binding>
+              <MultiBinding Converter="{x:Static BoolConverters.And}">
+                <Binding Path="!CurrentQuestion.ParentGroup.IsKanji"/>
+                <Binding Path="CurrentQuestion.Question" Converter="{StaticResource EnumBooleanConverter}" ConverterParameter="Meaning"/>
+              </MultiBinding>
+            </ia:DataTriggerBehavior.Binding>
             <ia:ChangePropertyAction Value="Enter the vocab meaning." PropertyName="Text"/>
-          </utility:MultiDataTriggerBehavior>
-          <utility:MultiDataTriggerBehavior>
-            <utility:MultiDataTriggerBehavior.Conditions>
-              <utility:Condition Binding="{Binding CurrentQuestion.ParentGroup.IsKanji}" Value="False"/>
-              <utility:Condition Binding="{Binding CurrentQuestion.Question}" Value="Reading"/>
-            </utility:MultiDataTriggerBehavior.Conditions>
+          </ia:DataTriggerBehavior>
+          <ia:DataTriggerBehavior Value="True">
+            <ia:DataTriggerBehavior.Binding>
+              <MultiBinding Converter="{x:Static BoolConverters.And}">
+                <Binding Path="!CurrentQuestion.ParentGroup.IsKanji"/>
+                <Binding Path="CurrentQuestion.Question" Converter="{StaticResource EnumBooleanConverter}" ConverterParameter="Reading"/>
+              </MultiBinding>
+            </ia:DataTriggerBehavior.Binding>
             <ia:ChangePropertyAction Value="Enter the vocab reading." PropertyName="Text"/>
-          </utility:MultiDataTriggerBehavior>
+          </ia:DataTriggerBehavior>
           <ia:DataTriggerBehavior Binding="{Binding CurrentQuestion.Question}" Value="Meaning">
             <ia:ChangePropertyAction Value="Black" PropertyName="Foreground"/>
           </ia:DataTriggerBehavior>
@@ -281,39 +289,17 @@
                 <ia:ChangePropertyAction PropertyName="Content" Value="(No audio)"/>
                 <ia:ChangePropertyAction PropertyName="BorderBrush" Value="DarkRed"/>
               </ia:DataTriggerBehavior>
-              <utility:MultiDataTriggerBehavior>
-                <utility:MultiDataTriggerBehavior.Conditions>
-                  <utility:Condition Binding="{Binding IsBusy, Source={x:Static business:AudioBusiness.Instance}}" Value="False"/>
-                  <utility:Condition Binding="{Binding Audio.State}" Value="Unknown"/>
-                </utility:MultiDataTriggerBehavior.Conditions>
-                <ia:ChangePropertyAction PropertyName="IsEnabled" Value="True"/>
-              </utility:MultiDataTriggerBehavior>
-              <utility:MultiDataTriggerBehavior>
-                <utility:MultiDataTriggerBehavior.Conditions>
-                  <utility:Condition Binding="{Binding IsBusy, Source={x:Static business:AudioBusiness.Instance}}" Value="False"/>
-                  <utility:Condition Binding="{Binding Audio.State}" Value="Playable"/>
-                </utility:MultiDataTriggerBehavior.Conditions>
-                <ia:ChangePropertyAction PropertyName="IsEnabled" Value="True"/>
-              </utility:MultiDataTriggerBehavior>
-              <utility:MultiDataTriggerBehavior>
-                <utility:MultiDataTriggerBehavior.Conditions>
-                  <utility:Condition Binding="{Binding IsBusy, Source={x:Static business:AudioBusiness.Instance}}" Value="False"/>
-                  <utility:Condition Binding="{Binding Audio.State}" Value="Failed"/>
-                </utility:MultiDataTriggerBehavior.Conditions>
-                <ia:ChangePropertyAction PropertyName="IsEnabled" Value="True"/>
-              </utility:MultiDataTriggerBehavior>
-              <ia:DataTriggerBehavior Binding="{Binding IsBusy, Source={x:Static business:AudioBusiness.Instance}}" Value="True">
-                <ia:ChangePropertyAction PropertyName="IsEnabled" Value="False"/>
-              </ia:DataTriggerBehavior>
-              <utility:MultiDataTriggerBehavior>
-                <utility:MultiDataTriggerBehavior.Conditions>
-                  <utility:Condition Binding="{Binding Audio.State}" Value="Unknown" ComparisonCondition="NotEqual"/>
-                  <utility:Condition Binding="{Binding Audio.State}" Value="Playable" ComparisonCondition="NotEqual"/>
-                  <utility:Condition Binding="{Binding Audio.State}" Value="Failed" ComparisonCondition="NotEqual"/>
-                </utility:MultiDataTriggerBehavior.Conditions>
-                <ia:ChangePropertyAction PropertyName="IsEnabled" Value="False"/>
-              </utility:MultiDataTriggerBehavior>
             </i:Interaction.Behaviors>
+            <Button.IsEnabled>
+              <MultiBinding Converter="{x:Static BoolConverters.And}">
+                <Binding Path="!IsBusy" Source="{x:Static business:AudioBusiness.Instance}"/>
+                <MultiBinding Converter="{x:Static BoolConverters.Or}">
+                  <Binding Path="Audio.State" Converter="{StaticResource EnumBooleanConverter}" ConverterParameter="Unknown"/>
+                  <Binding Path="Audio.State" Converter="{StaticResource EnumBooleanConverter}" ConverterParameter="Playable"/>
+                  <Binding Path="Audio.State" Converter="{StaticResource EnumBooleanConverter}" ConverterParameter="Failed"/>
+                </MultiBinding>
+              </MultiBinding>
+            </Button.IsEnabled>
           </Button>
           <TextBlock Classes="LegendText" Text="Reading notes:"/>
           <TextBlock Text="{Binding CurrentQuestion.ParentGroup.Reference.ReadingNote, Mode=OneWay}" TextWrapping="Wrap"/>
