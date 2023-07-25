@@ -5,8 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
-using WaniKaniApi;
-using WaniKaniApi.Models;
 
 namespace Kanji.DatabaseMaker.WaniKani
 {

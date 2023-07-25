@@ -12,6 +12,7 @@ using Kanji.Database.Entities;
 using Kanji.Database.Entities.Joins;
 using System.IO;
 using Kanji.Common.Helpers;
+using System.Xml;
 
 namespace Kanji.DatabaseMaker
 {
@@ -532,7 +533,10 @@ namespace Kanji.DatabaseMaker
         private IEnumerable<VocabEntity> ReadJmDict()
         {
             // Load the file.
-            XDocument xdoc = XDocument.Load(PathHelper.JmDictPath);
+            var settings = new XmlReaderSettings();
+            settings.DtdProcessing = DtdProcessing.Parse;
+            settings.MaxCharactersFromEntities = 0;
+            XDocument xdoc = XDocument.Load(XmlReader.Create(PathHelper.JmDictPath, settings));
 
             // Load vocab categories.
             _log.Info("Loading vocab categories");
