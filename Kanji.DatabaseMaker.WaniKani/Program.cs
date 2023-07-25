@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
-using WaniKaniApi;
-using WaniKaniApi.Models;
+using System.Net.Http;
+using Newtonsoft.Json.Linq;
 
 namespace Kanji.DatabaseMaker.WaniKani
 {
