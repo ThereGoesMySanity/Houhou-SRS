@@ -10,14 +10,13 @@ Kanji.DatabaseMaker.WaniKani/obj
 Kanji.DatabaseMaker.WaniKani/bin
 Kanji.Interface/obj
 Kanji.Interface/bin
-NotifyIconWpf/obj
-NotifyIconWpf/bin
 **/obj
 **/bin
 *.suo
 UpgradeLog.htm
-packages
 .nuget
-/Kanji.DatabaseMaker/Resources/JMdict
+/Kanji.DatabaseMaker/Resources/JMdict.xml
+/Kanji.DatabaseMaker/Resources/kanjidic2.xml
+/Kanji.Interface/Data/KanjiDatabase.sqlite
 .vs
 .vscode
