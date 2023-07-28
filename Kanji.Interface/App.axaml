@@ -2,8 +2,10 @@
 <Application
     x:Class="Kanji.Interface.App"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    RequestedThemeVariant="Light">
     <Application.Styles>
       <StyleInclude Source="/ViewResources/Style.axaml"/>
+      <SimpleTheme />
     </Application.Styles>
 </Application>

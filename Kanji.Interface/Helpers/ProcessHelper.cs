@@ -26,7 +26,7 @@ namespace Kanji.Interface.Helpers
                     Arguments = RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ? $"{uri}" : "",
                     CreateNoWindow = true,
                     UseShellExecute = RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
-                }));
+                })) {}
             }
         }
 

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,16 +10,10 @@ using Kanji.Common.Models;
 using Kanji.Interface.Actors;
 using Kanji.Interface.Business;
 using Kanji.Interface.Helpers;
-using Kanji.Interface.Models;
 using Kanji.Interface.Utilities;
-using System.Diagnostics;
-using Avalonia.Controls;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Dialogs;
-using MessageBox.Avalonia;
-using MessageBox.Avalonia.DTO;
-using MessageBox.Avalonia.Enums;
 
 namespace Kanji.Interface
 {
@@ -180,7 +173,7 @@ namespace Kanji.Interface
 
             DispatcherHelper.Invoke(async () =>
             {
-                if (await MessageBoxManager.GetMessageBoxStandardWindow(
+                if (await MessageBoxManager.GetMessageBoxStandard(
                     new MessageBoxStandardParams
                     {
                         ContentTitle = "Fatal error",
@@ -194,7 +187,7 @@ namespace Kanji.Interface
                                 ex.Message),
                         ButtonDefinitions = ButtonEnum.YesNoCancel,
                         Icon = Icon.Error
-                    }).ShowDialog(NavigationActor.Instance.ActiveWindow) == ButtonResult.Yes)
+                    }).ShowAsPopupAsync(NavigationActor.Instance.ActiveWindow) == ButtonResult.Yes)
                 {
                     try
                     {
@@ -204,7 +197,7 @@ namespace Kanji.Interface
                     {
                         LogHelper.GetLogger("Main").Fatal("Failed to open the log after fatal exception. Double fatal shock.", ex2);
 
-                        await MessageBoxManager.GetMessageBoxStandardWindow(
+                        await MessageBoxManager.GetMessageBoxStandard(
                             new MessageBoxStandardParams
                             {
                                 ContentMessage = string.Format("Okay, so... the log file failed to open.{0}"
@@ -216,7 +209,7 @@ namespace Kanji.Interface
                                 ContentTitle = "Double fatal error shock",
                                 ButtonDefinitions = ButtonEnum.Ok,
                                 Icon = Icon.Error
-                            }).ShowDialog(NavigationActor.Instance.ActiveWindow);
+                            }).ShowAsPopupAsync(NavigationActor.Instance.ActiveWindow);
                     }
                 }
             });

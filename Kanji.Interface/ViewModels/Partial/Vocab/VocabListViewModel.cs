@@ -1,29 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
 
 using GalaSoft.MvvmLight.Command;
 using Kanji.Common.Helpers;
 using Kanji.Database.Entities;
 using Kanji.Interface.Business;
-using Kanji.Interface.Converters;
 using Kanji.Interface.Helpers;
 using Kanji.Interface.Models;
-using Kanji.Interface.Utilities;
 using Kanji.Interface.Extensions;
 using Kanji.Interface.Views;
 using Kanji.Database.Dao;
 using Kanji.Interface.Actors;
-using MessageBox.Avalonia;
-using MessageBox.Avalonia.DTO;
-using MessageBox.Avalonia.Enums;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Dto;
+using MsBox.Avalonia.Enums;
 
 namespace Kanji.Interface.ViewModels
 {
@@ -202,13 +192,13 @@ namespace Kanji.Interface.ViewModels
             }
             catch (Exception ex)
             {
-                await MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
+                await MessageBoxManager.GetMessageBoxStandard(new MessageBoxStandardParams
                 {
                     ContentTitle = "Quick delay error",
                     ContentMessage = $"An error occurred: {ex.Message}",
                     Icon = Icon.Error,
                     ButtonDefinitions = ButtonEnum.Ok,
-                }).ShowDialog(NavigationActor.Instance.MainWindow);
+                }).ShowAsPopupAsync(NavigationActor.Instance.ActiveWindow);
 
                 LogHelper.GetLogger("Quick SRS delay").Error("An error occured during quick SRS delay.", ex);
             }
@@ -320,13 +310,13 @@ namespace Kanji.Interface.ViewModels
             }
             catch (Exception ex)
             {
-                await MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
+                await MessageBoxManager.GetMessageBoxStandard(new MessageBoxStandardParams
                 {
                     ContentTitle = "Quick add error",
                     ContentMessage = $"An error occurred: {ex.Message}",
                     Icon = Icon.Error,
                     ButtonDefinitions = ButtonEnum.Ok,
-                }).ShowDialog(NavigationActor.Instance.MainWindow);
+                }).ShowAsPopupAsync(NavigationActor.Instance.ActiveWindow);
 
                 LogHelper.GetLogger("Quick add").Error("An error occured during quick add.", ex);
             }

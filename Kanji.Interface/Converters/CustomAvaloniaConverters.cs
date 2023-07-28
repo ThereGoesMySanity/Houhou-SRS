@@ -30,8 +30,7 @@ namespace Kanji.Interface.Converters
             if(uri.IsAbsoluteUri && uri.IsFile)
                 return new Bitmap(uri.LocalPath);
 
-            var assets = AvaloniaLocator.Current.GetService<IAssetLoader>();
-            return new Bitmap(assets.Open(new Uri($"avares://Houhou{s}")));
+            return new Bitmap(AssetLoader.Open(new Uri($"avares://Houhou{s}")));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

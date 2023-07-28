@@ -40,7 +40,7 @@ namespace Kanji.Interface.Utilities
             {
                 propertyList = new List<AvaloniaProperty>();
 
-                while (type != null && type != typeof(IAvaloniaObject))
+                while (type != null && type != typeof(AvaloniaObject))
                 {
                     foreach (FieldInfo fieldInfo in type.GetRuntimeFields())
                     {
@@ -65,7 +65,7 @@ namespace Kanji.Interface.Utilities
             return propertyList;
         }
 
-        private static void RefreshBinding(IAvaloniaObject target, AvaloniaProperty property)
+        private static void RefreshBinding(AvaloniaObject target, AvaloniaProperty property)
         {
             if (target.GetValue(property) is IBinding binding)
             {

@@ -84,7 +84,7 @@
                 </Grid.ColumnDefinitions>
                 
                 <!-- List -->
-                <DataGrid Name="SrsList" Items="{Binding LoadedItems, Mode=OneWay}" IsReadOnly="True" AutoGenerateColumns="False"
+                <DataGrid Name="SrsList" ItemsSource="{Binding LoadedItems, Mode=OneWay}" IsReadOnly="True" AutoGenerateColumns="False"
                           SelectionMode="Extended" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <DataGrid.Columns>
                         <DataGridTemplateColumn Width="33" CanUserResize="False" CanUserSort="False" CanUserReorder="False">

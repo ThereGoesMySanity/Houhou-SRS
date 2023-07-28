@@ -2,16 +2,15 @@ using System;
 using Avalonia.Controls;
 using Kanji.Interface.ViewModels;
 
-namespace Kanji.Interface.Controls
+namespace Kanji.Interface.Controls;
+
+public abstract class SettingControl : UserControl
 {
-    public abstract class SettingControl : UserControl
+    protected override void OnDataContextChanged(EventArgs args)
     {
-        protected override void OnDataContextChanged(EventArgs args)
+        if (DataContext is SettingControlViewModel scvm)
         {
-            if (DataContext is SettingControlViewModel scvm)
-            {
-                scvm.InitializeSettings();
-            }
+            scvm.InitializeSettings();
         }
     }
 }

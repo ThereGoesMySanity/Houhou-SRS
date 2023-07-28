@@ -1,32 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 
 using GalaSoft.MvvmLight.Command;
 using Kanji.Database.Entities;
 using Kanji.Interface.Models;
-using Kanji.Interface.Utilities;
 using Kanji.Interface.Views;
 using Kanji.Interface.Extensions;
-using System.ComponentModel;
 using Kanji.Interface.Helpers;
 using Kanji.Database.Dao;
-using System.IO;
 using Kanji.Common.Helpers;
 
 using System.Text.RegularExpressions;
 
-using System.Diagnostics;
 using Avalonia.Threading;
-using Avalonia.Media;
 using Avalonia;
 using Kanji.Interface.Actors;
 using Avalonia.Input;
-using Svg.Skia;
 using Avalonia.Svg.Skia;
-using Svg;
 using SvgImage = Avalonia.Svg.Skia.SvgImage;
 
 namespace Kanji.Interface.ViewModels

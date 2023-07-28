@@ -1,31 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Avalonia.Controls;
 
+namespace Kanji.Interface.Controls;
 
-
-
-
-
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
-
-
-
-
-namespace Kanji.Interface.Controls
+public partial class ImportProgress : UserControl
 {
-    public partial class ImportProgress : UserControl
+    public ImportProgress()
     {
-        public ImportProgress()
-        {
-            InitializeComponent();
-        }
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
-        }
+        InitializeComponent();
     }
 }

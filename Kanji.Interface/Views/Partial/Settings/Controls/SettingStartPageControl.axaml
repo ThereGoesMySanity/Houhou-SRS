@@ -19,7 +19,7 @@
         
         <TextBlock Classes="SettingText" Text="When Houhou starts, show:" Margin="0 0 8 0" />
       <ComboBox Grid.Column="1"
-          Items="{Binding Source={utility:EnumBindingSource {x:Type models:StartPageEnum}}}"
+          ItemsSource="{Binding Source={utility:EnumBindingSource {x:Type models:StartPageEnum}}}"
           SelectedItem="{Binding StartPage}">
         <i:Interaction.Behaviors>
           <ia:EventTriggerBehavior EventName="SelectionChanged">

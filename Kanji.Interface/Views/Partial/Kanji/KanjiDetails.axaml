@@ -27,7 +27,7 @@
 
             <!-- Radical list -->
             <StackPanel Grid.Column="0" Grid.Row="1" Margin="5 3 5 0" IsVisible="{Binding ShowDetails}">
-                <ItemsControl Items="{Binding KanjiEntity.Radicals}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" Classes="MiniRadicalList" Width="100" Background="Transparent"/>
+                <ItemsControl ItemsSource="{Binding KanjiEntity.Radicals}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" Classes="MiniRadicalList" Width="100" Background="Transparent"/>
             </StackPanel>
         </StackPanel>
         
@@ -213,7 +213,7 @@
               </Grid>
             </WrapPanel>
 
-            <ListBox Classes="KanjiReadingsListbox" Margin="0 5 0 0" IsVisible="{Binding ShowDetails}" Items="{Binding KanjiEntity, Converter={StaticResource KanjiToReadingListConverter}}"/>
+            <ListBox Classes="KanjiReadingsListbox" Margin="0 5 0 0" IsVisible="{Binding ShowDetails}" ItemsSource="{Binding KanjiEntity, Converter={StaticResource KanjiToReadingListConverter}}"/>
 
         </StackPanel>
 

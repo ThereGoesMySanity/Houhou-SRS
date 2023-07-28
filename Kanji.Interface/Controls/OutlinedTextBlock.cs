@@ -51,12 +51,12 @@ namespace Kanji.Interface.Controls
             set { SetValue(StrokeThicknessProperty, value); }
         }
 
-        public override void Render(DrawingContext drawingContext)
-        {
-            base.Render(drawingContext);
+        //TODO: might be impossible
+        // public override void Render(DrawingContext drawingContext)
+        // {
+        //     base.Render(drawingContext);
 
-            //TODO: might be impossible
-            //drawingContext.DrawGeometry(this.Fill, new Pen(this.Stroke, this.StrokeThickness), FormattedText.Geometry);
-        }
+        //     //drawingContext.DrawGeometry(this.Fill, new Pen(this.Stroke, this.StrokeThickness), FormattedText.Geometry);
+        // }
     }
 }

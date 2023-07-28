@@ -18,7 +18,7 @@
         ToolTip.Tip="Select the category to filter by (CTRL+ALT+C)."
         FontSize="14"
         DataContext="{Binding CategoryFilterVm}"
-        Items="{Binding Categories, Mode=OneTime}" SelectedIndex="{Binding SelectedCategoryIndex, Mode=TwoWay}">
+        ItemsSource="{Binding Categories, Mode=OneTime}" SelectedIndex="{Binding SelectedCategoryIndex, Mode=TwoWay}">
       <i:Interaction.Behaviors>
         <ia:EventTriggerBehavior EventName="SelectionChanged">
           <ia:InvokeCommandAction Command="{Binding FilterChangedCommand}" />

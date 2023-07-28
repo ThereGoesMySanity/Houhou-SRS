@@ -1,37 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Avalonia.Interactivity;
 
+namespace Kanji.Interface.Controls;
 
-
-using Avalonia.Controls;
-using Avalonia.Interactivity;
-using Avalonia.Markup.Xaml;
-
-
-
-
-
-
-
-namespace Kanji.Interface.Controls
+public partial class SettingSrsTrayAutostartControl : SettingControl
 {
-    public partial class SettingSrsTrayAutostartControl : SettingControl
+    public SettingSrsTrayAutostartControl()
     {
-        public SettingSrsTrayAutostartControl()
-        {
-            InitializeComponent();
-        }
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
-        }
+        InitializeComponent();
+    }
+    private void RadioButton_Checked(object sender, RoutedEventArgs e)
+    {
 
-        private void RadioButton_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

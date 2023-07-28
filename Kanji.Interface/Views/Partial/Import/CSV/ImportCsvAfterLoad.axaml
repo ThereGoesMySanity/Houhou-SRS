@@ -55,7 +55,7 @@
                                 <TextBlock Classes="LegendText">
                                     * Kanji reading
                                 </TextBlock>
-                                <ComboBox Classes="RequiredFieldComboBox FieldComboBox" Items="{Binding RequiredColumns}" SelectedIndex="{Binding KanjiReadingColumn, Mode=TwoWay}" />
+                                <ComboBox Classes="RequiredFieldComboBox FieldComboBox" ItemsSource="{Binding RequiredColumns}" SelectedIndex="{Binding KanjiReadingColumn, Mode=TwoWay}" />
                             </StackPanel>
 
                             <StackPanel Grid.Column="1" Classes="FieldStackPanel">
@@ -65,7 +65,7 @@
                                     </TextBlock>
                                     <CheckBox IsChecked="{Binding ReadingAutofill}" Grid.Column="1">Fill from dictionary if missing</CheckBox>
                                 </Grid>
-                                <ComboBox Classes="RequiredFieldComboBox FieldComboBox" Items="{Binding OptionalColumns}" SelectedIndex="{Binding AcceptedReadingsColumn, Mode=TwoWay}" />
+                                <ComboBox Classes="RequiredFieldComboBox FieldComboBox" ItemsSource="{Binding OptionalColumns}" SelectedIndex="{Binding AcceptedReadingsColumn, Mode=TwoWay}" />
                             </StackPanel>
 
                             <StackPanel Grid.Row="1" Classes="FieldStackPanel">
@@ -75,56 +75,56 @@
                                     </TextBlock>
                                     <CheckBox IsChecked="{Binding MeaningAutofill}" Grid.Column="1">Fill from dictionary if missing</CheckBox>
                                 </Grid>
-                                <ComboBox Classes="RequiredFieldComboBox FieldComboBox" Items="{Binding OptionalColumns}" SelectedIndex="{Binding AcceptedMeaningsColumn, Mode=TwoWay}" />
+                                <ComboBox Classes="RequiredFieldComboBox FieldComboBox" ItemsSource="{Binding OptionalColumns}" SelectedIndex="{Binding AcceptedMeaningsColumn, Mode=TwoWay}" />
                             </StackPanel>
 
                             <StackPanel Grid.Row="1" Grid.Column="1" Classes="FieldStackPanel">
                                 <TextBlock Classes="LegendText" ToolTip.Tip="Expected values are 'K' for a kanji or 'V' for a vocab item.">
                                     Item type [?]
                                 </TextBlock>
-                                <ComboBox Classes="FieldComboBox" Items="{Binding OptionalColumns}" SelectedIndex="{Binding ItemTypeColumn, Mode=TwoWay}" />
+                                <ComboBox Classes="FieldComboBox" ItemsSource="{Binding OptionalColumns}" SelectedIndex="{Binding ItemTypeColumn, Mode=TwoWay}" />
                             </StackPanel>
 
                             <StackPanel Grid.Row="2" Grid.Column="0" Classes="FieldStackPanel">
                                 <TextBlock Classes="LegendText">
                                     Meaning notes
                                 </TextBlock>
-                                <ComboBox Classes="FieldComboBox" Items="{Binding OptionalColumns}" SelectedIndex="{Binding MeaningNotesColumn, Mode=TwoWay}" />
+                                <ComboBox Classes="FieldComboBox" ItemsSource="{Binding OptionalColumns}" SelectedIndex="{Binding MeaningNotesColumn, Mode=TwoWay}" />
                             </StackPanel>
 
                             <StackPanel Grid.Row="2" Grid.Column="1" Classes="FieldStackPanel">
                                 <TextBlock Classes="LegendText">
                                     Reading notes
                                 </TextBlock>
-                                <ComboBox Classes="FieldComboBox" Items="{Binding OptionalColumns}" SelectedIndex="{Binding ReadingNotesColumn, Mode=TwoWay}" />
+                                <ComboBox Classes="FieldComboBox" ItemsSource="{Binding OptionalColumns}" SelectedIndex="{Binding ReadingNotesColumn, Mode=TwoWay}" />
                             </StackPanel>
 
                             <StackPanel Grid.Row="3" Grid.Column="0" Classes="FieldStackPanel">
                                 <TextBlock Classes="LegendText">
                                     Tags
                                 </TextBlock>
-                                <ComboBox Classes="FieldComboBox" Items="{Binding OptionalColumns}" SelectedIndex="{Binding TagsColumn, Mode=TwoWay}" />
+                                <ComboBox Classes="FieldComboBox" ItemsSource="{Binding OptionalColumns}" SelectedIndex="{Binding TagsColumn, Mode=TwoWay}" />
                             </StackPanel>
 
                             <StackPanel Grid.Row="3" Grid.Column="1" Classes="FieldStackPanel">
                                 <TextBlock Classes="LegendText" ToolTip.Tip="Order number of the SRS level to set for the item. Starts at 0. Default is 0.">
                                     Start SRS level [?]
                                 </TextBlock>
-                                <ComboBox Classes="FieldComboBox" Items="{Binding OptionalColumns}" SelectedIndex="{Binding StartLevelColumn, Mode=TwoWay}" />
+                                <ComboBox Classes="FieldComboBox" ItemsSource="{Binding OptionalColumns}" SelectedIndex="{Binding StartLevelColumn, Mode=TwoWay}" />
                             </StackPanel>
 
                             <StackPanel Grid.Row="4" Grid.Column="0" Classes="FieldStackPanel">
                                 <TextBlock Classes="LegendText" ToolTip.Tip="Expected format is 'yyyy-MM-dd H:mm:ss'.&#x0a;Example: '2014-12-24 13:37:00'.&#x0a;Date is local.">
                                     Next review date [?]
                                 </TextBlock>
-                                <ComboBox Classes="FieldComboBox" Items="{Binding OptionalColumns}" SelectedIndex="{Binding NextReviewDateColumn, Mode=TwoWay}" />
+                                <ComboBox Classes="FieldComboBox" ItemsSource="{Binding OptionalColumns}" SelectedIndex="{Binding NextReviewDateColumn, Mode=TwoWay}" />
                             </StackPanel>
 
                             <StackPanel Grid.Row="4" Grid.Column="1" Classes="FieldStackPanel">
                                 <TextBlock Classes="LegendText" ToolTip.Tip="If you exported from software using JMDict, this may be included.">
                                     Sequence Number [?]
                                 </TextBlock>
-                                <ComboBox Classes="FieldComboBox" Items="{Binding OptionalColumns}" SelectedIndex="{Binding SequenceNumberColumn, Mode=TwoWay}" />
+                                <ComboBox Classes="FieldComboBox" ItemsSource="{Binding OptionalColumns}" SelectedIndex="{Binding SequenceNumberColumn, Mode=TwoWay}" />
                             </StackPanel>
                         </Grid>
                     
@@ -134,7 +134,7 @@
                             When "Item type" is not specified...
                         </TextBlock>
                         <ComboBox Name="NoTypeComboBox"
-                            Items="{Binding Source={utility:EnumBindingSource {x:Type models:CsvImportNoTypeBehavior}}}"
+                            ItemsSource="{Binding Source={utility:EnumBindingSource {x:Type models:CsvImportNoTypeBehavior}}}"
                             SelectedItem="{Binding NoTypeBehavior, Mode=TwoWay}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>

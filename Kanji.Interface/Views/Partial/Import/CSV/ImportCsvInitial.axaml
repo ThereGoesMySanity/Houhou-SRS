@@ -47,7 +47,7 @@
                         <StackPanel Margin="0 10 0 0">
                             <TextBlock Text="File encoding [?]" Classes="LegendText" VerticalAlignment="Center" ToolTip.Tip="Please try to change this if you get strange characters at the overview step."/>
                             <StackPanel Orientation="Horizontal">
-                              <ComboBox Items="{Binding Encodings, Mode=OneWay}" SelectedIndex="{Binding SelectedEncodingIndex, Mode=TwoWay}">
+                              <ComboBox ItemsSource="{Binding Encodings, Mode=OneWay}" SelectedIndex="{Binding SelectedEncodingIndex, Mode=TwoWay}">
                                 <i:Interaction.Behaviors>
                                   <ia:EventTriggerBehavior EventName="SelectionChanged">
                                     <ia:InvokeCommandAction Command="{Binding EncodingChangedCommand}" />
