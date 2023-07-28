@@ -11,9 +11,6 @@
                     xmlns:business="clr-namespace:Kanji.Interface.Business"
                     xmlns:utility="clr-namespace:Kanji.Interface.Utilities"
                     xmlns:cmodels="clr-namespace:Kanji.Common.Models;assembly=Kanji.Common">
-  <StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml"/>
-  <StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseLight.xaml"/>
-  <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Default.xaml"/>
   <Styles.Resources>
     <ResourceDictionary>
       <converters:KanjiToStringConverter x:Key="KanjiToStringConverter"/>
@@ -277,7 +274,7 @@
               </Viewbox>
             </Grid>
           </Border>
-          <ListBox HorizontalAlignment="Stretch" Grid.Row="1" Classes="ItemsPerLevelListbox" Items="{Binding Levels}"/>
+          <ListBox HorizontalAlignment="Stretch" Grid.Row="1" Classes="ItemsPerLevelListbox" ItemsSource="{Binding Levels}"/>
         </Grid>
       </DataTemplate>
 
@@ -378,7 +375,7 @@
     <Setter Property="SelectionBrush" Value="{DynamicResource HighlightBrush}"/>
     <Setter Property="SelectionForegroundBrush" Value="{DynamicResource HighlightForegroundBrush}"/>
     <Setter Property="Padding" Value="4"/>
-    <Setter Property="ContextMenu" Value="{StaticResource DefaultTextBoxContextMenu}" />
+    <!-- <Setter Property="ContextMenu" Value="{StaticResource DefaultTextBoxContextMenu}" /> -->
     <Setter Property="Template">
       <ControlTemplate>
         <Border Name="border"
@@ -1107,7 +1104,7 @@
               <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <ItemsControl Grid.Row="1" Classes="VocabKanjiWritingListbox" Items="{Binding Characters, Mode=OneWay}" Name="KWListbox"/>
+            <ItemsControl Grid.Row="1" Classes="VocabKanjiWritingListbox" ItemsSource="{Binding Characters, Mode=OneWay}" Name="KWListbox"/>
             <Border>
               <i:Interaction.Behaviors>
                 <ia:DataTriggerBehavior Binding="{Binding $parent[ListBox].DataContext.HasUndeterminedFurigana}" Value="True">
@@ -1493,7 +1490,7 @@
                             <RowDefinition Height="*"/>
                           </Grid.RowDefinitions>
                           <StackPanel Grid.Row="1">
-                            <ItemsControl Classes="VocabWritingPartListbox" Items="{Binding DbVocab, Mode=OneWay,
+                            <ItemsControl Classes="VocabWritingPartListbox" ItemsSource="{Binding DbVocab, Mode=OneWay,
                                                        Converter={StaticResource KanjiWritingToCharactersConverter},
                                                        }"/>
                           </StackPanel>
@@ -1573,7 +1570,7 @@
                     </Border>
 
                     <Border Grid.Row="1" Grid.ColumnSpan="2" IsVisible="{Binding HasVariants}" BorderThickness="0 1 0 0" BorderBrush="#22000000" Padding="0 2 0 2">
-                      <ItemsControl Classes="VocabVariantList" Items="{Binding ., Mode=OneWay, Converter={StaticResource ExtendedVocabToVariantListConverter}}"/>
+                      <ItemsControl Classes="VocabVariantList" ItemsSource="{Binding ., Mode=OneWay, Converter={StaticResource ExtendedVocabToVariantListConverter}}"/>
                     </Border>
                   </Grid>
                 </Border>
@@ -2225,7 +2222,7 @@
     </Style>-->
 
     <Style Selector="Expander">
-      <Setter Property="Template">
+      <!-- <Setter Property="Template">
         <Setter.Value>
           <ControlTemplate>
             <Border>
@@ -2241,7 +2238,7 @@
             </Border>
           </ControlTemplate>
         </Setter.Value>
-      </Setter>
+      </Setter> -->
       <Setter Property="BorderBrush" Value="#D5DFE5"/>
       <Setter Property="BorderThickness" Value="1"/>
       <Setter Property="Template">

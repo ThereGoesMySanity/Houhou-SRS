@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
-  <ListBox Items="{Binding .}" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+  <ListBox ItemsSource="{Binding .}" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
       ScrollViewer.VerticalScrollBarVisibility="Auto">
     <ListBox.ItemsPanel>
       <ItemsPanelTemplate>

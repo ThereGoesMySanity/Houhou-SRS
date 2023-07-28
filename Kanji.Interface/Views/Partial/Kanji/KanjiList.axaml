@@ -20,7 +20,7 @@
 
         <!-- Kanji list -->
         <ListBox Name="KanjiListBox" Grid.Row="1" Classes="KanjiList"
-                 Items="{Binding LoadedItems,  Mode=OneWay}"
+                 ItemsSource="{Binding LoadedItems,  Mode=OneWay}"
                  SelectedItem="{Binding SelectedKanji, Mode=TwoWay}"
                  SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" />
 

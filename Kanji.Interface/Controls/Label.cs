@@ -283,7 +283,7 @@ namespace Kanji.Interface.Controls
         /// <returns>A <see cref="TextLayout"/> object.</returns>
         protected virtual TextLayout CreateTextLayout(Size constraint, string text)
         {
-            if (constraint == Size.Empty)
+            if (constraint.Height == 0 && constraint.Width == 0)
             {
                 return null;
             }
@@ -297,6 +297,7 @@ namespace Kanji.Interface.Controls
                 TextWrapping,
                 TextTrimming,
                 TextDecorations,
+                FlowDirection.LeftToRight,
                 constraint.Width,
                 constraint.Height,
                 maxLines: MaxLines,
@@ -334,7 +335,7 @@ namespace Kanji.Interface.Controls
                 InvalidateTextLayout();
             }
 
-            var measuredSize = TextLayout?.Size ?? Size.Empty;
+            var measuredSize = TextLayout != null? new Size(TextLayout.Width, TextLayout.Height) : new Size(0,0);
 
             return measuredSize.Inflate(padding);
         }

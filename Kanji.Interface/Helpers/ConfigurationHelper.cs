@@ -154,7 +154,7 @@ namespace Kanji.Interface.Helpers
                     CreateDirectoryIfNotExist(Properties.Settings.Default.UserDirectoryPath);
                     UserContentDirectoryPath = Properties.Settings.Default.UserDirectoryPath;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     // Cannot use this directory. Leave the default path.
                 }

@@ -17,7 +17,7 @@
         <TextBlock Classes="SettingText" Text="Set of SRS levels to use:" />
 
         <ListBox Grid.Row="1" Classes="SettingUserResourceListBox"
-            Items="{Binding AvailableSets, Source={x:Static business:SrsLevelStore.Instance}, Mode=OneWay}" />
+            ItemsSource="{Binding AvailableSets, Source={x:Static business:SrsLevelStore.Instance}, Mode=OneWay}" />
 
     </Grid>
 </UserControl>

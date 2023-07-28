@@ -14,9 +14,9 @@ using Kanji.Interface.Internationalization;
 using Kanji.Interface.Models;
 using Kanji.Interface.Utilities;
 using Kanji.Database.Helpers;
-using MessageBox.Avalonia;
-using MessageBox.Avalonia.DTO;
-using MessageBox.Avalonia.Enums;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Dto;
+using MsBox.Avalonia.Enums;
 
 namespace Kanji.Interface.ViewModels
 {
@@ -689,12 +689,12 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         private async void OnDelete()
         {
-            var result = await MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
+            var result = await MessageBoxManager.GetMessageBoxStandard(new MessageBoxStandardParams
             {
                 ContentTitle = "Delete the SRS item",
                 ContentMessage = "Do you really want to delete the SRS item?",
-                ButtonDefinitions = MessageBox.Avalonia.Enums.ButtonEnum.YesNo,
-            }).ShowDialog(NavigationActor.Instance.MainWindow);
+                ButtonDefinitions = MsBox.Avalonia.Enums.ButtonEnum.YesNo,
+            }).ShowAsPopupAsync(NavigationActor.Instance.ActiveWindow);
             if (result == ButtonResult.Yes)
             {
                 SendEntity(SrsEntryOperationEnum.Delete);

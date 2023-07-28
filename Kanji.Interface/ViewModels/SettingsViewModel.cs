@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Command;
 using Kanji.Interface.Actors;
 using Kanji.Interface.Models;
-using MessageBox.Avalonia;
-using MessageBox.Avalonia.DTO;
-using MessageBox.Avalonia.Enums;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Dto;
+using MsBox.Avalonia.Enums;
 
 namespace Kanji.Interface.ViewModels
 {
@@ -194,13 +194,13 @@ namespace Kanji.Interface.ViewModels
 
             if (ContentViewModel.IsChangePending)
             {
-                var result = await MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
+                var result = await MessageBoxManager.GetMessageBoxStandard(new MessageBoxStandardParams
                 {
                     ContentTitle = "Pending changes",
                     ContentMessage = $"Some changes were not saved{Environment.NewLine}Do you want to save them?",
                     ButtonDefinitions = ButtonEnum.YesNoCancel,
                     Icon = Icon.Info,
-                }).ShowDialog(NavigationActor.Instance.MainWindow);
+                }).ShowAsPopupAsync(NavigationActor.Instance.ActiveWindow);
 
                 switch (result)
                 {
@@ -228,13 +228,13 @@ namespace Kanji.Interface.ViewModels
 
             if (needRestart)
             {
-                await MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
+                await MessageBoxManager.GetMessageBoxStandard(new MessageBoxStandardParams
                 {
                     ButtonDefinitions = ButtonEnum.Ok,
                     ContentTitle = "Some settings need restart",
                     ContentMessage = "Some changes will not take effect until the application is restarted.",
                     Icon = Icon.Info,
-                }).ShowDialog(NavigationActor.Instance.MainWindow);
+                }).ShowAsPopupAsync(NavigationActor.Instance.ActiveWindow);
             }
         }
 

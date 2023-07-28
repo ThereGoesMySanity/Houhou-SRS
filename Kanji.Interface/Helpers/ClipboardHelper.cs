@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using Avalonia;
+using Avalonia.Controls.ApplicationLifetimes;
+using Kanji.Interface.Actors;
 
 namespace Kanji.Interface.Helpers
 {
@@ -13,11 +13,9 @@ namespace Kanji.Interface.Helpers
         /// Returns a value indicating whether the operation succeeded or failed.
         /// </summary>
         /// <param name="value">Value to copy to the clipboard.</param>
-        /// <returns>True if the operation succeeded. False otherwise.</returns>
-        public static async Task<bool> SetText(string value)
+        public static async Task SetText(string value)
         {
-            await Avalonia.Application.Current.Clipboard.SetTextAsync(value);
-            return true;
+            await NavigationActor.Instance.MainWindow?.Clipboard.SetTextAsync(value);
         }
     }
 }

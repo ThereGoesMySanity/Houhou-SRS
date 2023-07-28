@@ -17,7 +17,7 @@
         <TextBlock Classes="SettingText" Text="Set of radicals to use in the kanji tab:" />
 
         <ListBox Grid.Row="1" Classes="SettingUserResourceListBox"
-            Items="{Binding AvailableSets, Source={x:Static business:RadicalStore.Instance}, Mode=OneWay}" />
+            ItemsSource="{Binding AvailableSets, Source={x:Static business:RadicalStore.Instance}, Mode=OneWay}" />
         
     </Grid>
 </UserControl>
