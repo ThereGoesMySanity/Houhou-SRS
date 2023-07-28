@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Command;
+using Kanji.Interface.Business;
 
 namespace Kanji.Interface.ViewModels
 {
@@ -12,8 +13,6 @@ namespace Kanji.Interface.ViewModels
         #region Fields
 
         private ImportModeViewModel _currentMode;
-
-        private ImportModeViewModel[] _importModes;
 
         private ViewModel _activeVm;
 
@@ -44,16 +43,6 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         public RelayCommand<ImportModeViewModel> SelectImportCommand { get; private set; }
 
-        /// <summary>
-        /// Gets the CSV import view model.
-        /// </summary>
-        public CsvImportViewModel CsvImportVm { get; private set; }
-
-        /// <summary>
-        /// Gets the WaniKani import view model.
-        /// </summary>
-        public WkImportViewModel WkImportVm { get; private set; }
-
         #endregion
 
         #region Events
@@ -74,15 +63,7 @@ namespace Kanji.Interface.ViewModels
             CancelCommand = new RelayCommand(OnCancel);
             SelectImportCommand = new RelayCommand<ImportModeViewModel>(OnSelectImport);
 
-            CsvImportVm = new CsvImportViewModel();
-            WkImportVm = new WkImportViewModel();
-            _importModes = new ImportModeViewModel[]
-            {
-                CsvImportVm,
-                WkImportVm
-            };
-
-            foreach (ImportModeViewModel vm in _importModes)
+            foreach (ImportModeViewModel vm in PluginsBusiness.Instance.Plugins.Select(p => p.InstantiateViewModel()))
             {
                 vm.StepChanged += OnCurrentModeStepChanged;
                 vm.Cancel += OnCurrentModeCanceled;

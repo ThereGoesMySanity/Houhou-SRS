@@ -92,6 +92,8 @@ namespace Kanji.Interface
             // Load the navigation actor.
             NavigationActor.Instance = new NavigationActor();
 
+            PluginsBusiness.Instance = new PluginsBusiness();
+
             // Start loading user resources.
             RadicalStore.Instance.InitializeAsync();
             SrsLevelStore.Instance.InitializeAsync();

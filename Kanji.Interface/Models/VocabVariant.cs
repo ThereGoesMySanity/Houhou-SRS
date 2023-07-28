@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Models
 {
-    class VocabVariant
+    public class VocabVariant
     {
         public ExtendedVocab Parent { get; set; }
 

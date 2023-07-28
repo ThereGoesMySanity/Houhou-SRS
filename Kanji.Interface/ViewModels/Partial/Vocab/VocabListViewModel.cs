@@ -27,7 +27,7 @@ using MessageBox.Avalonia.Enums;
 
 namespace Kanji.Interface.ViewModels
 {
-    class VocabListViewModel : ListViewModel<ExtendedVocab, VocabEntity>
+    public class VocabListViewModel : ListViewModel<ExtendedVocab, VocabEntity>
     {
         #region Properties
 

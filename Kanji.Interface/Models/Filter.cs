@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Models
 {
-    abstract class Filter<T>
+    public abstract class Filter<T>
     {
         #region Properties
 
