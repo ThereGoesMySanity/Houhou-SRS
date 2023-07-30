@@ -24,6 +24,12 @@ namespace Kanji.Interface
                 NavigationActor.Instance.SetMainWindow(new MainWindow());
                 desktop.MainWindow = NavigationActor.Instance.MainWindow;
             }
+            else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
+            {
+                NavigationActor.Instance.SetMainWindow(new MainView());
+                singleViewPlatform.MainView = NavigationActor.Instance.MainWindow;
+            }
+
             base.OnFrameworkInitializationCompleted();
         }
     }
