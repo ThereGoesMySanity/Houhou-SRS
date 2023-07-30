@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Models
 {
-    enum NavigationPageEnum
+    public enum NavigationPageEnum
     {
         Kanji = 0,
         Vocab = 1,

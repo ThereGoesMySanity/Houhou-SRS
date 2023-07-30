@@ -13,7 +13,7 @@ using MsBox.Avalonia.Enums;
 
 namespace Kanji.Interface.ViewModels
 {
-    class SettingsViewModel : NavigableViewModel
+    public class SettingsViewModel : NavigableViewModel
     {
         #region Constants
 

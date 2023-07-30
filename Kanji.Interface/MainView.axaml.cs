@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace Kanji.Views;
+namespace Kanji.Interface;
 
 public partial class MainView : UserControl
 {

@@ -8,7 +8,7 @@ using Kanji.Interface.Views;
 
 namespace Kanji.Interface.ViewModels
 {
-    class SrsViewModel : NavigableViewModel
+    public class SrsViewModel : NavigableViewModel
     {
         #region Internal enum
 

@@ -13,7 +13,7 @@ using Kanji.Interface.Models;
 
 namespace Kanji.Interface.ViewModels
 {
-    class HomeViewModel : NavigableViewModel
+    public class HomeViewModel : NavigableViewModel
     {
         #region Constants
 

@@ -8,7 +8,7 @@ using Kanji.Interface.Models;
 
 namespace Kanji.Interface.ViewModels
 {
-    class VocabViewModel : NavigableViewModel
+    public class VocabViewModel : NavigableViewModel
     {
         #region Fields
 
