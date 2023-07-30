@@ -1409,13 +1409,8 @@
                                                         </controls:BindableRichTextBox.Styles>
                                                     </controls:BindableRichTextBox>-->
 
-                        <TextBox Name="MeaningRtb" Margin="0 0 0 5" Padding="0 0 0 0" Classes="VocabMeaningRichTextBox">
-                          <TextBox.Styles>
-                            <Style Selector="TextBox">
-                              <Setter Property="Text" Value="{Binding DbVocab, Mode=OneTime, Converter={StaticResource VocabMeaningsToStringConverter}}"/>
-                            </Style>
-                          </TextBox.Styles>
-                        </TextBox>
+                        <TextBox Name="MeaningRtb" Margin="0 0 0 5" Padding="0 0 0 0" Classes="VocabMeaningRichTextBox" 
+                            Text="{Binding DbVocab, Mode=OneTime, Converter={StaticResource VocabMeaningsToStringConverter}}"/>
 
                         <Button Name="ExpandButton" Content="Show more meanings" Width="140" HorizontalAlignment="Left" Classes="MiniActionButton ActionButton" Margin="5 0 0 3" IsVisible="{Binding NeedsExpanding}">
                           <i:Interaction.Behaviors>

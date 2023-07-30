@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -14,6 +13,9 @@ using Kanji.Interface.Utilities;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Dialogs;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Dto;
+using MsBox.Avalonia.Enums;
 
 namespace Kanji.Interface
 {
@@ -28,7 +30,9 @@ namespace Kanji.Interface
 
         #endregion
 
-        public static AppBuilder BuildAvaloniaApp() => AppBuilder.Configure<App>().UsePlatformDetect().UseManagedSystemDialogs();
+        public static AppBuilder BuildAvaloniaApp() => AppBuilder.Configure<App>().UsePlatformDetect()
+            .With(new X11PlatformOptions { EnableIme = true })
+            .UseManagedSystemDialogs();
 
         [STAThread]
         public static void Main(string[] args)

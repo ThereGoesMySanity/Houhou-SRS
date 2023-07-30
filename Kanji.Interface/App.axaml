@@ -6,6 +6,7 @@
     RequestedThemeVariant="Light">
     <Application.Styles>
       <StyleInclude Source="/ViewResources/Style.axaml"/>
+      <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Simple.xaml"/>
       <SimpleTheme />
     </Application.Styles>
 </Application>

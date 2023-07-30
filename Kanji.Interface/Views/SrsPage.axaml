@@ -44,9 +44,9 @@
           <ListBox Grid.Row="1" Classes="ItemsPerLevelGroupListbox" Margin="0 5 0 0" IsVisible="{Binding ControlMode,
                           Converter={StaticResource ValueToBoolConverter},
                           ConverterParameter=Dashboard}">
-            <ListBox.Items>
+            <ListBox.ItemsSource>
               <Binding Path="ItemsPerLevelGroup" Source="{x:Static business:SrsBusiness.Instance}"/>
-            </ListBox.Items>
+            </ListBox.ItemsSource>
           </ListBox>
 
           <!-- The filter panel, visible in SimpleFilter mode -->
