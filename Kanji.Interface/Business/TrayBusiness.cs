@@ -12,7 +12,7 @@ using Kanji.Interface.Models;
 
 namespace Kanji.Interface.Business
 {
-    class TrayBusiness
+    public class TrayBusiness
     {/*
         #region Constants
 

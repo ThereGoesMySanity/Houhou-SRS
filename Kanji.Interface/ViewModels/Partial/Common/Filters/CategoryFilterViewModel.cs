@@ -8,7 +8,7 @@ using Kanji.Interface.Converters;
 
 namespace Kanji.Interface.ViewModels
 {
-    class CategoryFilterViewModel : FilterClauseViewModel
+    public class CategoryFilterViewModel : FilterClauseViewModel
     {
         #region Fields
 

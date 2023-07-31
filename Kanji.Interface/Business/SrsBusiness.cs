@@ -12,7 +12,7 @@ using Kanji.Interface.Utilities;
 
 namespace Kanji.Interface.Business
 {
-    class SrsBusiness : NotifyPropertyChanged
+    public class SrsBusiness : NotifyPropertyChanged
     {
         #region Constants
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.ViewModels
 {
-    class SettingSrsQuickDelayViewModel : SettingControlViewModel
+    public class SettingSrsQuickDelayViewModel : SettingControlViewModel
     {
         #region Fields
 

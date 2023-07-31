@@ -9,7 +9,7 @@ namespace Kanji.Interface.Utilities
     /// <summary>
     /// This component is designed to queue actions and execute them automatically in their queue order, one at a time.
     /// </summary>
-    class TaskQueue
+    public class TaskQueue
     {
         #region Fields
 

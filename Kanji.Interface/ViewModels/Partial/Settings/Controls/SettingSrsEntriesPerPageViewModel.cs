@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.ViewModels
 {
-    class SettingSrsEntriesPerPageViewModel : SettingControlViewModel
+    public class SettingSrsEntriesPerPageViewModel : SettingControlViewModel
     {
         #region Fields
 

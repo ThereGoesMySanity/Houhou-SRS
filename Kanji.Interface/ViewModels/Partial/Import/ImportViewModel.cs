@@ -7,7 +7,7 @@ using GalaSoft.MvvmLight.Command;
 
 namespace Kanji.Interface.ViewModels
 {
-    class ImportViewModel : ViewModel
+    public class ImportViewModel : ViewModel
     {
         #region Fields
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Models
 {
-    class KanjiReadingLabel
+    public class KanjiReadingLabel
     {
         public string Label { get; set; }
     }

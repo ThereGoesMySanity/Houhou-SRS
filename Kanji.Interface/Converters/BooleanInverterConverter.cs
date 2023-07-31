@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Converters
 {
-    class BooleanInverterConverter : IValueConverter
+    public class BooleanInverterConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {

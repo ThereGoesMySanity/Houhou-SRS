@@ -12,7 +12,7 @@ using Kanji.Interface.Helpers;
 
 namespace Kanji.Interface.Converters
 {
-    class VocabMeaningsToStringConverter : IValueConverter
+    public class VocabMeaningsToStringConverter : IValueConverter
     {
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

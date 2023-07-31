@@ -9,13 +9,13 @@ using Kanji.Database.Entities;
 
 namespace Kanji.Interface.Converters
 {
-    enum KanjiToStringConversionType
+    public enum KanjiToStringConversionType
     {
         Full = 0,
         Short = 1
     }
 
-    class KanjiToStringConverter : IValueConverter
+    public class KanjiToStringConverter : IValueConverter
     {
         private static readonly int MaxStringLength = 50;
 

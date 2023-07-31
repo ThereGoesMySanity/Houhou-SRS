@@ -8,7 +8,7 @@ using Kanji.Interface.Actors;
 
 namespace Kanji.Interface.ViewModels
 {
-    abstract class SettingsPageViewModel : ViewModel
+    public abstract class SettingsPageViewModel : ViewModel
     {
         #region Fields
 

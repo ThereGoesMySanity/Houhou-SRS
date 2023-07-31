@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.ViewModels
 {
-    class SettingIgnoreAnswerShortcutViewModel : SettingControlViewModel
+    public class SettingIgnoreAnswerShortcutViewModel : SettingControlViewModel
     {
         #region Fields
 

@@ -14,7 +14,7 @@ using Kanji.Interface.Helpers;
 
 namespace Kanji.Interface.Controls
 {
-    class CommandTextBox : TextBox
+    public class CommandTextBox : TextBox
     {
         #region Constants
 

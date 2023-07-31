@@ -7,7 +7,7 @@ using Kanji.Interface.Models;
 
 namespace Kanji.Interface.ViewModels
 {
-    class SettingStartPageViewModel : SettingControlViewModel
+    public class SettingStartPageViewModel : SettingControlViewModel
     {
         #region Fields
 

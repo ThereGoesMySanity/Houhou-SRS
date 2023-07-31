@@ -11,7 +11,7 @@ using Kanji.Interface.Utilities;
 
 namespace Kanji.Interface.Actors
 {
-    class PipeActor
+    public class PipeActor
     {
         #region Static
 

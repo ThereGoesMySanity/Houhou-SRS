@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Models
 {
-    class SrsItemPerLevelGroup
+    public class SrsItemPerLevelGroup
     {
         /// <summary>
         /// Gets or sets the group referred by this object.

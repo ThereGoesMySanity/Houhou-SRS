@@ -13,7 +13,7 @@ namespace Kanji.Interface.Converters
     /// Designed to convert a vocab to a list item background brush, depending on
     /// the common-ness of the vocab.
     /// </summary>
-    class VocabToColorConverter : IValueConverter
+    public class VocabToColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {

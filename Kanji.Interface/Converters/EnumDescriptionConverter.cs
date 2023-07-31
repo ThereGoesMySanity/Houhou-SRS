@@ -14,7 +14,7 @@ using Kanji.Interface.Models;
 
 namespace Kanji.Interface.Converters
 {
-    class EnumDescriptionConverter : IValueConverter
+    public class EnumDescriptionConverter : IValueConverter
     {
         private string GetEnumDescription(Enum enumObj)
         {

@@ -15,7 +15,7 @@ namespace Kanji.Interface.Converters
 
         public static readonly IValueConverter BitmapConverter = new BitmapConverter();
     }
-    class BitmapConverter : IValueConverter
+    public class BitmapConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

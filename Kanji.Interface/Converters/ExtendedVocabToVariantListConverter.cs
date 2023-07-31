@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Converters
 {
-    class ExtendedVocabToVariantListConverter : IValueConverter
+    public class ExtendedVocabToVariantListConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {

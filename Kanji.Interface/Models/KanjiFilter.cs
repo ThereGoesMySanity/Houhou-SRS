@@ -8,7 +8,7 @@ using Kanji.Database.Entities;
 
 namespace Kanji.Interface.Models
 {
-    class KanjiFilter : Filter<KanjiEntity>
+    public class KanjiFilter : Filter<KanjiEntity>
     {
         /// <summary>
         /// Gets or sets the main filter string.

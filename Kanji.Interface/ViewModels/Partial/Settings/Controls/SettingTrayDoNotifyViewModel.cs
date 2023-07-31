@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.ViewModels
 {
-    class SettingTrayDoNotifyViewModel : SettingControlViewModel
+    public class SettingTrayDoNotifyViewModel : SettingControlViewModel
     {
         #region Fields
 

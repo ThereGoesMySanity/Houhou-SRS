@@ -22,7 +22,7 @@ using SvgImage = Avalonia.Svg.Skia.SvgImage;
 
 namespace Kanji.Interface.ViewModels
 {
-    class KanjiDetailsViewModel : ViewModel
+    public class KanjiDetailsViewModel : ViewModel
     {
         #region Constants
 
@@ -393,24 +393,19 @@ namespace Kanji.Interface.ViewModels
         /// Called when the AddToSrsCommand is fired.
         /// Opens the SRS entry window.
         /// </summary>
-        private void OnAddToSrs()
+        private async void OnAddToSrs()
         {
             // Prepare the new entry.
             SrsEntry entry = new SrsEntry();
             entry.LoadFromKanji(_kanjiEntity.DbKanji);
 
-            // Show the modal entry edition window.
-            EditSrsEntryWindow wnd = new EditSrsEntryWindow(entry);
-            wnd.ShowDialog(NavigationActor.Instance.MainWindow);
-
-            // When it is closed, get the result.
-            ExtendedSrsEntry result = wnd.Result;
-            if (wnd.IsSaved && result != null
-                && result.AssociatedKanji == _kanjiEntity.DbKanji.Character)
+            SrsEntryEditedEventArgs e = await NavigationActor.Instance.OpenSrsEditWindow(entry);
+            if (e.IsSaved && e.SrsEntry != null
+                && e.SrsEntry.AssociatedKanji == _kanjiEntity.DbKanji.Character)
             {
                 // The result exists and is still associated with this kanji.
                 // We can use it in this ViewModel.
-                SrsEntry = result;
+                SrsEntry = e.SrsEntry;
             }
         }
 
@@ -418,24 +413,20 @@ namespace Kanji.Interface.ViewModels
         /// Called when the EditSrsEntryCommand is fired.
         /// Opens the SRS entry edition window.
         /// </summary>
-        private void OnEditSrsEntry()
+        private async void OnEditSrsEntry()
         {
             if (SrsEntry != null)
             {
                 // Show the modal entry edition window.
-                EditSrsEntryWindow wnd = new EditSrsEntryWindow(SrsEntry.Reference.Clone());
-                wnd.ShowDialog(NavigationActor.Instance.MainWindow);
-
-                // When it is closed, get the result.
-                ExtendedSrsEntry result = wnd.Result;
-                if (wnd.IsSaved)
+                SrsEntryEditedEventArgs e = await NavigationActor.Instance.OpenSrsEditWindow(SrsEntry.Reference);
+                if (e.IsSaved)
                 {
-                    if (result != null &&
-                        result.AssociatedKanji == _kanjiEntity.DbKanji.Character)
+                    if (e.SrsEntry != null &&
+                        e.SrsEntry.AssociatedKanji == _kanjiEntity.DbKanji.Character)
                     {
                         // The result exists and is still associated with this kanji.
                         // We can use it in this ViewModel.
-                        SrsEntry = result;
+                        SrsEntry = e.SrsEntry;
                     }
                     else
                     {

@@ -9,7 +9,7 @@ using Kanji.Interface.Models;
 
 namespace Kanji.Interface.Business
 {
-    class FilteredSrsEntryIterator : FilteredItemIterator<SrsEntry>
+    public class FilteredSrsEntryIterator : FilteredItemIterator<SrsEntry>
     {
         #region Fields
 

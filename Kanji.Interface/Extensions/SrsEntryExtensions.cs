@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Kanji.Database.Entities;
+﻿using Kanji.Database.Entities;
 using Kanji.Database.Helpers;
 
 namespace Kanji.Interface.Extensions
 {
-    static class SrsEntryExtensions
+    public static class SrsEntryExtensions
     {
         /// <summary>
         /// Loads properties from the given kanji entity.

@@ -8,7 +8,7 @@ using Kanji.Interface.Business;
 
 namespace Kanji.Interface.ViewModels
 {
-    class SettingTrayAutoStartViewModel : SettingControlViewModel
+    public class SettingTrayAutoStartViewModel : SettingControlViewModel
     {
         #region Fields
 

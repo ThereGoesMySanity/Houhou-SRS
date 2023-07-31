@@ -17,7 +17,7 @@ using Kanji.Interface.Utilities;
 
 namespace Kanji.Interface.Business
 {
-    class VersionBusiness : NotifyPropertyChanged
+    public class VersionBusiness : NotifyPropertyChanged
     {
         #region Constants
 

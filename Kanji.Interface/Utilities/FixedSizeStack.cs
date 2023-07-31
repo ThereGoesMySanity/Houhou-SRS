@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Utilities
 {
-    class FixedSizeStack<T>
+    public class FixedSizeStack<T>
     {
         #region Fields
 

@@ -7,7 +7,7 @@ using Kanji.Interface.Models;
 
 namespace Kanji.Interface.ViewModels
 {
-    class SettingReviewPlayAudio : SettingControlViewModel
+    public class SettingReviewPlayAudio : SettingControlViewModel
     {
         #region Fields
 

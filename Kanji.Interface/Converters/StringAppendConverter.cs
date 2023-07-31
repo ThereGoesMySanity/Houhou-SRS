@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Converters
 {
-    class StringAppendConverter : IMultiValueConverter
+    public class StringAppendConverter : IMultiValueConverter
     {
         public object Convert(IList<object> values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {

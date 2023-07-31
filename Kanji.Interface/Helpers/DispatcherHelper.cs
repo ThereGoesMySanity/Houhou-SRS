@@ -9,7 +9,7 @@ using Kanji.Common.Helpers;
 
 namespace Kanji.Interface.Helpers
 {
-    static class DispatcherHelper
+    public static class DispatcherHelper
     {
         private static readonly string LogName = "DispatcherHelper";
         private static readonly string LogEntryFormat =

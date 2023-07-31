@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Models.Import
 {
-    class WkImportResult
+    public class WkImportResult
     {
         #region Properties
 

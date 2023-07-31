@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Converters
 {
-    class ValueToBoolConverter : IValueConverter
+    public class ValueToBoolConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {

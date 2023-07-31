@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Models
 {
-    enum SrsQuestionEnum
+    public enum SrsQuestionEnum
     {
         Meaning = 0,
         Reading = 1

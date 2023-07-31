@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.ViewModels
 {
-    class SettingAudioVolumeViewModel : SettingControlViewModel
+    public class SettingAudioVolumeViewModel : SettingControlViewModel
     {
         #region Fields
 

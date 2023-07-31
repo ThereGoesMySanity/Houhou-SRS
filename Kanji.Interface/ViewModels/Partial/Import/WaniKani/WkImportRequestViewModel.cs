@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.ViewModels
 {
-    class WkImportRequestViewModel : ImportStepViewModel
+    public class WkImportRequestViewModel : ImportStepViewModel
     {
         #region Constants
 

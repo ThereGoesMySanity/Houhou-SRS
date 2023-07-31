@@ -14,7 +14,7 @@ using Avalonia.Media;
 
 namespace Kanji.Interface.Business
 {
-    class SrsLevelSetManager : UserResourceSetManager<SrsLevelGroup[]>
+    public class SrsLevelSetManager : UserResourceSetManager<SrsLevelGroup[]>
     {
         #region Constants
 

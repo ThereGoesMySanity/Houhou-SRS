@@ -10,7 +10,7 @@ using Kanji.Interface.Models;
 
 namespace Kanji.Interface.Business
 {
-    class RadicalBusiness
+    public class RadicalBusiness
     {
         #region Fields
 

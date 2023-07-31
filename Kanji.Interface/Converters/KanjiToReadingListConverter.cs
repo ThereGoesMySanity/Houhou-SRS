@@ -11,7 +11,7 @@ using Avalonia.Data.Converters;
 
 namespace Kanji.Interface.Converters
 {
-    class KanjiToReadingListConverter : IValueConverter
+    public class KanjiToReadingListConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {

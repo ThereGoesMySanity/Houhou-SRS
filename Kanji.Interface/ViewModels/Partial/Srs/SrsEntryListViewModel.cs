@@ -20,7 +20,7 @@ using System.Collections;
 
 namespace Kanji.Interface.ViewModels
 {
-    class SrsEntryListViewModel : ListViewModel<FilteringSrsEntry, SrsEntry>
+    public class SrsEntryListViewModel : ListViewModel<FilteringSrsEntry, SrsEntry>
     {
         #region Internal enums
 
@@ -471,22 +471,17 @@ namespace Kanji.Interface.ViewModels
         /// given item.
         /// </summary>
         /// <param name="item">Item to edit.</param>
-        private void EditSingleItem(FilteringSrsEntry item)
+        private async void EditSingleItem(FilteringSrsEntry item)
         {
             if (item != null)
             {
-                // Show the modal entry edition window.
-                EditSrsEntryWindow wnd = new EditSrsEntryWindow(item.Reference.Clone());
-                wnd.ShowDialog(NavigationActor.Instance.MainWindow);
-
-                // When it is closed, get the result.
-                ExtendedSrsEntry result = wnd.Result;
-                if (wnd.IsSaved)
+                SrsEntryEditedEventArgs e = await NavigationActor.Instance.OpenSrsEditWindow(item.Reference);
+                if (e.IsSaved)
                 {
-                    if (result != null)
+                    if (e.SrsEntry != null)
                     {
                         // Item edited.
-                        item = new FilteringSrsEntry(result.Reference)
+                        item = new FilteringSrsEntry(e.SrsEntry.Reference)
                         {
                             IsSelected = item.IsSelected
                         };
@@ -951,21 +946,20 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         private async void OnExport()
         {
-            // Create SaveFileDialog 
-            SaveFileDialog dlg = new SaveFileDialog();
-
-            // Set dialog parameters
-            dlg.DefaultExtension = "csv";
-            dlg.InitialFileName = "HouhouExport.csv";
-
             // Show SaveFileDialog and get its result
-            var result = dlg.ShowAsync(NavigationActor.Instance.ActiveWindow).Result;
+            var result = await TopLevel.GetTopLevel(NavigationActor.Instance.ActiveWindow)
+                .StorageProvider.SaveFilePickerAsync(new Avalonia.Platform.Storage.FilePickerSaveOptions
+                {
+                    DefaultExtension = "csv",
+                    SuggestedFileName = "HouhouExport.csv",
+                });
+
             if (result != null)
             {
                 // We have a result. Use it.
                 try
                 {
-                    using (CsvFileWriter csv = new CsvFileWriter(result))
+                    using (CsvFileWriter csv = new CsvFileWriter(await result.OpenWriteAsync()))
                     {
                         csv.Delimiter = ';';
 

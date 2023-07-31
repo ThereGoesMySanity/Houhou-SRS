@@ -9,7 +9,7 @@ using Kanji.Interface.Utilities;
 
 namespace Kanji.Interface.Models
 {
-    class SrsQuestionGroup : NotifyPropertyChanged
+    public class SrsQuestionGroup : NotifyPropertyChanged
     {
         #region Fields
 

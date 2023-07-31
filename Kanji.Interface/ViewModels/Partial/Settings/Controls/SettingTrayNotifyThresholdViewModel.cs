@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.ViewModels
 {
-    class SettingTrayNotifyThresholdViewModel : SettingControlViewModel
+    public class SettingTrayNotifyThresholdViewModel : SettingControlViewModel
     {
         #region Fields
 

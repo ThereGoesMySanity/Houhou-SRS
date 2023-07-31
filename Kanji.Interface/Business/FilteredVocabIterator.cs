@@ -11,7 +11,7 @@ using Kanji.Interface.Models;
 
 namespace Kanji.Interface.Business
 {
-    class FilteredVocabIterator : FilteredItemIterator<VocabEntity>
+    public class FilteredVocabIterator : FilteredItemIterator<VocabEntity>
     {
         #region Fields
 

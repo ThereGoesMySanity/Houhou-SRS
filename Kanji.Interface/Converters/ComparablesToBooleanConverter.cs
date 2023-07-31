@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Converters
 {
-    enum ComparablesToBooleanConversionEnum
+    public enum ComparablesToBooleanConversionEnum
     {
         Equal = 0,
         Different = 1,
@@ -18,7 +18,7 @@ namespace Kanji.Interface.Converters
         GreaterOrEqual = 5
     }
 
-    class ComparablesToBooleanConverter : IMultiValueConverter
+    public class ComparablesToBooleanConverter : IMultiValueConverter
     {
         public object Convert(IList<object> values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {

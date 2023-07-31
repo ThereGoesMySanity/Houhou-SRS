@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Controls
 {
-    class NavigableFrame //: Frame
+    public class NavigableFrame //: Frame
     {
         //TODO
         //public override bool ShouldSerializeContent()

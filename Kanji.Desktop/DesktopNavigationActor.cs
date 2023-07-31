@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 using Kanji.Interface.Helpers;
@@ -11,20 +8,12 @@ using Kanji.Interface.ViewModels;
 using Kanji.Interface.Views;
 using Kanji.Interface.Extensions;
 using Avalonia.Controls;
+using Kanji.Database.Entities;
 
 namespace Kanji.Interface.Actors
 {
-    class NavigationActor : NotifyPropertyChanged
+    class DesktopNavigationActor : NotifyPropertyChanged, INavigationActor
     {
-        #region Singleton implementation
-
-        /// <summary>
-        /// Gets or sets the singleton instance of this actor.
-        /// </summary>
-        public static NavigationActor Instance { get; set; }
-
-        #endregion
-
         #region Fields
 
         private NavigationPageEnum _currentPage;
@@ -79,18 +68,18 @@ namespace Kanji.Interface.Actors
         /// <summary>
         /// Gets or sets a reference to the main window.
         /// </summary>
-        public MainWindow MainWindow { get; private set; }
+        public ContentControl MainWindow { get; private set; }
 
         /// <summary>
         /// Gets or sets the current modal window.
         /// </summary>
-        public Window ActiveWindow { get; set; }
+        public ContentControl ActiveWindow { get; set; }
 
         #endregion
 
         #region Constructors
 
-        public NavigationActor()
+        public DesktopNavigationActor()
         {
             _mainWindowLock = new object();
             CurrentPage = NavigationPageEnum.Home;
@@ -169,6 +158,15 @@ namespace Kanji.Interface.Actors
             }
         }
 
+        public async Task<SrsEntryEditedEventArgs> OpenSrsEditWindow(SrsEntry entry)
+        {
+            EditSrsEntryWindow wnd = new EditSrsEntryWindow(entry.Clone());
+            await wnd.ShowDialog(MainWindow as Window);
+
+            // When it is closed, get the result.
+            return wnd.Result;
+        }
+
         /// <summary>
         /// Opens the Main Window.
         /// </summary>
@@ -186,6 +184,7 @@ namespace Kanji.Interface.Actors
         /// </summary>
         public void CloseMainWindow()
         {
+            var MainWindow = (this.MainWindow as MainWindow);
             lock (_mainWindowLock)
             {
                 if (MainWindow != null)
@@ -200,6 +199,7 @@ namespace Kanji.Interface.Actors
         /// </summary>
         public void OpenOrFocus()
         {
+            var MainWindow = (this.MainWindow as MainWindow);
             lock (_mainWindowLock)
             {
                 if (MainWindow == null)
@@ -259,17 +259,22 @@ namespace Kanji.Interface.Actors
         {
             DispatcherHelper.Invoke(() =>
             {
-                MainWindow = new MainWindow();
+                var window = new MainWindow();
+                MainWindow = window;
                 ActiveWindow = MainWindow;
-                MainWindow.Closed += OnMainWindowClosed;
-                MainWindow.Show();
+                window.Closed += OnMainWindowClosed;
+                window.Show();
             });
+        }
+        public void SetMainWindow(ContentControl window)
+        {
+            SetMainWindow(window as MainWindow);
         }
         public void SetMainWindow(MainWindow window)
         {
             MainWindow = window;
             ActiveWindow = MainWindow;
-            MainWindow.Closed += OnMainWindowClosed;
+            window.Closed += OnMainWindowClosed;
         }
 
         /// <summary>
@@ -280,7 +285,7 @@ namespace Kanji.Interface.Actors
             lock (_mainWindowLock)
             {
                 // Unsubscribe and release windows.
-                MainWindow.Closed -= OnMainWindowClosed;
+                (MainWindow as MainWindow).Closed -= OnMainWindowClosed;
                 MainWindow = null;
                 ActiveWindow = null;
 

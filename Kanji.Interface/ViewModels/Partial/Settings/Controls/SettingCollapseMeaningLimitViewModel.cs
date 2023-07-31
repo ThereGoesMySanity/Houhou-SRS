@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.ViewModels
 {
-    class SettingCollapseMeaningLimitViewModel : SettingControlViewModel
+    public class SettingCollapseMeaningLimitViewModel : SettingControlViewModel
     {
         #region Fields
 

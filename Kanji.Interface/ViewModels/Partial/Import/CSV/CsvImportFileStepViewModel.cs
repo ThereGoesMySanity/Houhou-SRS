@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Avalonia.Controls;
+using Avalonia.Platform.Storage;
 using GalaSoft.MvvmLight.Command;
 using Kanji.Common.Helpers;
 using Kanji.Common.Utility;
@@ -12,7 +13,7 @@ using Kanji.Interface.Actors;
 
 namespace Kanji.Interface.ViewModels
 {
-    class CsvImportFileStepViewModel : ImportStepViewModel
+    public class CsvImportFileStepViewModel : ImportStepViewModel
     {
         #region Fields
 
@@ -352,23 +353,22 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         private async void OnBrowse()
         {
-            // Create OpenFileDialog 
-            OpenFileDialog dlg = new OpenFileDialog { Title = "Open file..." };
-            dlg.AllowMultiple = false;
-
-            // Set filter for file extension and default file extension 
-            dlg.Filters.AddRange(new[]
+            // Display OpenFileDialog
+            var result = await TopLevel.GetTopLevel(NavigationActor.Instance.ActiveWindow)
+                .StorageProvider.OpenFilePickerAsync(new Avalonia.Platform.Storage.FilePickerOpenOptions
+                {
+                    Title = "Open file...",
+                    AllowMultiple = false,
+                    FileTypeFilter = new[]
+                    {
+                        new FilePickerFileType("CSV documents (.csv)") { MimeTypes = new []{ "text/csv" } },
+                        new FilePickerFileType("Text documents (.txt)") { MimeTypes = new []{ "text/plain" } },
+                        new FilePickerFileType("All files"),
+                    },
+                });
+            if (result.Count == 1)
             {
-                new FileDialogFilter { Name = "CSV documents (.csv)", Extensions = { "csv" } },
-                new FileDialogFilter { Name = "Text documents (.txt)", Extensions = { "txt" } },
-                new FileDialogFilter { Name = "All Files" },
-            });
-
-            // Display OpenFileDialog by calling ShowDialog method
-            var result = await dlg.ShowAsync(NavigationActor.Instance.ActiveWindow);
-            if (result.Length == 1)
-            {
-                FilePath = result[0];
+                FilePath = result[0].Path.AbsolutePath;
             }
         }
 

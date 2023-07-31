@@ -2,7 +2,7 @@ using Kanji.Database.Models;
 
 namespace Kanji.Interface.ViewModels
 {
-    class WkLevelFilterViewModel : FilterClauseViewModel
+    public class WkLevelFilterViewModel : FilterClauseViewModel
     {
         #region Constants
         

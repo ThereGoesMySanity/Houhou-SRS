@@ -10,7 +10,7 @@ using Kanji.Interface.Models;
 
 namespace Kanji.Interface.ViewModels
 {
-    class ImportProgressViewModel : ImportStepViewModel
+    public class ImportProgressViewModel : ImportStepViewModel
     {
         #region Fields
 

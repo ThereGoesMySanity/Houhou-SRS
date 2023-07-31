@@ -9,7 +9,7 @@ using Kanji.Database.Entities;
 
 namespace Kanji.Interface.Converters
 {
-    class KanjiToColorConverter : IValueConverter
+    public class KanjiToColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {

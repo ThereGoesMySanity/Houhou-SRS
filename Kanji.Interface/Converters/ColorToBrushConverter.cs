@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Converters
 {
-    class ColorToBrushConverter : IValueConverter
+    public class ColorToBrushConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {

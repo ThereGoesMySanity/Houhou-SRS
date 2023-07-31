@@ -12,7 +12,7 @@ namespace Kanji.Interface.Utilities
     /// <summary>
     /// Makes uses of named pipes to allow inter-process communication.
     /// </summary>
-    class NamedPipeHandler : IDisposable
+    public class NamedPipeHandler : IDisposable
     {
         #region Constants
 

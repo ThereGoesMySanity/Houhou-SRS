@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Models
 {
-    enum UpdateCheckStatusEnum
+    public enum UpdateCheckStatusEnum
     {
         NotYetChecked = 0,
         MostRecent = 1,

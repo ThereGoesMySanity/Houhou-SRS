@@ -15,7 +15,7 @@ using Kanji.Common.Helpers;
 
 namespace Kanji.Interface.Business
 {
-    abstract class UserResourceSetManager<T>
+    public abstract class UserResourceSetManager<T>
     {
         #region Constants
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Converters
 {
-    class IntegerToOrdinalStringConverter : IValueConverter
+    public class IntegerToOrdinalStringConverter : IValueConverter
     {
         public enum IntegerToOrdinalConversionType
         {

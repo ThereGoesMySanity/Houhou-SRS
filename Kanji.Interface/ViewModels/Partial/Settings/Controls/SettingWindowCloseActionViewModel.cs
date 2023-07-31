@@ -7,7 +7,7 @@ using Kanji.Interface.Models;
 
 namespace Kanji.Interface.ViewModels
 {
-    class SettingWindowCloseActionViewModel : SettingControlViewModel
+    public class SettingWindowCloseActionViewModel : SettingControlViewModel
     {
         #region Fields
 

@@ -7,7 +7,7 @@ using Kanji.Interface.ViewModels;
 
 namespace Kanji.Interface.Models
 {
-    class KanjiNavigationEntry : IDisposable
+    public class KanjiNavigationEntry : IDisposable
     {
         public KanjiDetailsViewModel KanjiDetailsVm { get; set; }
         public KanjiFilter KanjiFilter { get; set; }

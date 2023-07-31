@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.ViewModels
 {
-    class SettingDoUpdateCheckViewModel : SettingControlViewModel
+    public class SettingDoUpdateCheckViewModel : SettingControlViewModel
     {
         #region Fields
 

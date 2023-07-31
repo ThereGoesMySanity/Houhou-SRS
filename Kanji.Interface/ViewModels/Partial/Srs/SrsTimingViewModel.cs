@@ -9,7 +9,7 @@ using Kanji.Interface.Business;
 
 namespace Kanji.Interface.ViewModels
 {
-    class SrsTimingViewModel : ViewModel
+    public class SrsTimingViewModel : ViewModel
     {
         #region Fields
 
