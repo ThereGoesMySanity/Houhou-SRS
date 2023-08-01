@@ -1,6 +1,6 @@
 namespace Kanji.Interface.Actors;
 
-static class NavigationActor
+public static class NavigationActor
 {
     /// <summary>
     /// Gets or sets the singleton instance of this actor.

@@ -30,7 +30,7 @@ namespace Kanji.Interface.Converters
             if(uri.IsAbsoluteUri && uri.IsFile)
                 return new Bitmap(uri.LocalPath);
 
-            return new Bitmap(AssetLoader.Open(new Uri($"avares://Houhou{s}")));
+            return new Bitmap(AssetLoader.Open(new Uri($"avares://Kanji.Interface{s}")));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
