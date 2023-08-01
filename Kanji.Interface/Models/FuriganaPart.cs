@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Models
 {
-    class FuriganaPart
+    public class FuriganaPart
     {
         public string Value { get; set; }
         public int StartIndex { get; set; }

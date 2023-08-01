@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.ViewModels
 {
-    class WkImportViewModel : ImportModeViewModel
+    public class WkImportViewModel : ImportModeViewModel
     {
         #region Constants
 

@@ -11,7 +11,7 @@ using Kanji.Interface.Models;
 
 namespace Kanji.Interface.ViewModels
 {
-    abstract class SettingUserResourceViewModel : SettingControlViewModel
+    public abstract class SettingUserResourceViewModel : SettingControlViewModel
     {
         #region Fields
 

@@ -7,7 +7,7 @@ using Kanji.Database.Entities;
 
 namespace Kanji.Interface.Models
 {
-    class FilteringSrsEntry : ExtendedSrsEntry
+    public class FilteringSrsEntry : ExtendedSrsEntry
     {
         #region Fields
 

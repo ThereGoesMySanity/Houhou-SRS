@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Converters
 {
-    enum DateTimeToStringConversionEnum
+    public enum DateTimeToStringConversionEnum
     {
         Absolute = 0,
         Relative = 1
     }
 
-    class DateTimeToStringConverter : IValueConverter
+    public class DateTimeToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {

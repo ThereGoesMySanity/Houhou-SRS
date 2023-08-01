@@ -20,7 +20,7 @@ using MsBox.Avalonia.Enums;
 
 namespace Kanji.Interface.ViewModels
 {
-    class SrsEntryViewModel : ViewModel
+    public class SrsEntryViewModel : ViewModel
     {
         #region Internal enum
 

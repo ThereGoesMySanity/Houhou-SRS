@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Models
 {
-    class SrsEntryEditedEventArgs
+    public class SrsEntryEditedEventArgs
     {
         public ExtendedSrsEntry SrsEntry { get; set; }
 

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Utilities
 {
-    class ExtendedUserControl : UserControl
+    public class ExtendedUserControl : UserControl
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

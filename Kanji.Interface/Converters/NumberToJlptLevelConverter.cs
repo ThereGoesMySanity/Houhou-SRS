@@ -8,7 +8,7 @@ using Kanji.Common.Utility;
 
 namespace Kanji.Interface.Converters
 {
-    class NumberToJlptLevelConverter : IValueConverter
+    public class NumberToJlptLevelConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {

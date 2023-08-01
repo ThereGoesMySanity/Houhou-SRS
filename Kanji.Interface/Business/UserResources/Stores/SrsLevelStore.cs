@@ -9,7 +9,7 @@ using Kanji.Interface.Models;
 
 namespace Kanji.Interface.Business
 {
-    class SrsLevelStore : UserResourceStore<SrsLevelGroup[]>
+    public class SrsLevelStore : UserResourceStore<SrsLevelGroup[]>
     {
         #region Singleton implementation
 

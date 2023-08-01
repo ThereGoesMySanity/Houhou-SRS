@@ -20,7 +20,7 @@ using Kanji.Interface.Helpers;
 
 namespace Kanji.Interface.ViewModels
 {
-    class SrsReviewViewModel : ViewModel
+    public class SrsReviewViewModel : ViewModel
     {
         #region Constants
 
@@ -841,22 +841,17 @@ namespace Kanji.Interface.ViewModels
         {
             if (CurrentQuestion != null)
             {
-                // Show the modal entry edition window.
-                EditSrsEntryWindow wnd = new EditSrsEntryWindow(CurrentQuestionGroup.Reference.Clone());
-                await wnd.ShowDialog(NavigationActor.Instance.MainWindow);
-
-                // When it is closed, get the result.
-                ExtendedSrsEntry result = wnd.Result;
-                if (wnd.IsSaved)
+                SrsEntryEditedEventArgs e = await NavigationActor.Instance.OpenSrsEditWindow(CurrentQuestionGroup.Reference);
+                if (e.IsSaved)
                 {
-                    if (result != null
-                        && result.NextAnswerDate.HasValue
-                        && result.NextAnswerDate.Value.ToLocalTime() <= DateTime.Now
-                        && !result.SuspensionDate.HasValue)
+                    if (e.SrsEntry != null
+                        && e.SrsEntry.NextAnswerDate.HasValue
+                        && e.SrsEntry.NextAnswerDate.Value.ToLocalTime() <= DateTime.Now
+                        && !e.SrsEntry.SuspensionDate.HasValue)
                     {
                         // The result exists and is still due for review.
                         // Update the current group.
-                        CurrentQuestionGroup.Reference = result.Reference;
+                        CurrentQuestionGroup.Reference = e.SrsEntry.Reference;
                         RaisePropertyChanged("CurrentQuestion");
                     }
                     else

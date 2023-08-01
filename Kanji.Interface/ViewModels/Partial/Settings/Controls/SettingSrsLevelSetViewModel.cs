@@ -12,7 +12,7 @@ using MsBox.Avalonia.Enums;
 
 namespace Kanji.Interface.ViewModels
 {
-    class SettingSrsLevelSetViewModel : SettingUserResourceViewModel
+    public class SettingSrsLevelSetViewModel : SettingUserResourceViewModel
     {
         #region Methods
 

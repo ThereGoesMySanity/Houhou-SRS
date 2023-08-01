@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Models
 {
-    class NamedPipeMessageEventArgs
+    public class NamedPipeMessageEventArgs
     {
         /// <summary>
         /// Gets or sets the message.

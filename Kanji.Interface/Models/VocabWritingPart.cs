@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Models
 {
-    class VocabWritingPart
+    public class VocabWritingPart
     {
         public List<KanjiWritingCharacter> Characters { get; set; }
         public string Furigana { get; set; }

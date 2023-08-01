@@ -8,7 +8,7 @@ using Kanji.Interface.Views;
 
 namespace Kanji.Interface.ViewModels
 {
-    class SrsViewModel : NavigableViewModel
+    public class SrsViewModel : NavigableViewModel
     {
         #region Internal enum
 
@@ -144,7 +144,7 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         /// <param name="isKanji">True to add a kanji item.
         /// False to add a vocab item.</param>
-        private void AddSrsItem(bool isKanji)
+        private async void AddSrsItem(bool isKanji)
         {
             // Prepare the new entry.
             SrsEntry entry = new SrsEntry();
@@ -157,13 +157,8 @@ namespace Kanji.Interface.ViewModels
                 entry.AssociatedVocab = string.Empty;
             }
 
-            // Show the modal entry edition window.
-            EditSrsEntryWindow wnd = new EditSrsEntryWindow(entry);
-            wnd.ShowDialog(NavigationActor.Instance.MainWindow);
-
-            // When it is closed, get the result.
-            ExtendedSrsEntry result = wnd.Result;
-            if (wnd.IsSaved && result != null)
+            SrsEntryEditedEventArgs e = await NavigationActor.Instance.OpenSrsEditWindow(entry);
+            if (e.IsSaved && e.SrsEntry != null)
             {
                 // The new element was added.
                 // Refresh the dashboard.

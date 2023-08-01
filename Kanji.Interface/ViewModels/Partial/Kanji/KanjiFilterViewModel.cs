@@ -20,7 +20,7 @@ using Kanji.Interface.Utilities;
 
 namespace Kanji.Interface.ViewModels
 {
-    class KanjiFilterViewModel : ViewModel
+    public class KanjiFilterViewModel : ViewModel
     {
         #region Internal classes
 

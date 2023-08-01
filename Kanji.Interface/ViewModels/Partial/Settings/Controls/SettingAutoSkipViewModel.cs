@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.ViewModels
 {
-    class SettingAutoSkipViewModel : SettingControlViewModel
+    public class SettingAutoSkipViewModel : SettingControlViewModel
     {
         #region Fields
 

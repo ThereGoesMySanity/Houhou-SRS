@@ -7,7 +7,7 @@ using Kanji.Interface.Models;
 
 namespace Kanji.Interface.ViewModels
 {
-    class ImportDuplicateOptionsViewModel : ViewModel
+    public class ImportDuplicateOptionsViewModel : ViewModel
     {
         #region Fields
 

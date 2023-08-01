@@ -7,7 +7,7 @@ using Kanji.Database.Entities;
 
 namespace Kanji.Interface.Models
 {
-    class KanjiWritingCharacter
+    public class KanjiWritingCharacter
     {
         public char Character { get; set; }
         public KanjiEntity Kanji { get; set; }

@@ -87,7 +87,7 @@ namespace Kanji.Interface
             ConfigurationHelper.InitializeConfiguration();
 
             // Load the navigation actor.
-            NavigationActor.Instance = new NavigationActor();
+            NavigationActor.Instance = new DesktopNavigationActor();
 
             // Start loading user resources.
             RadicalStore.Instance.InitializeAsync();

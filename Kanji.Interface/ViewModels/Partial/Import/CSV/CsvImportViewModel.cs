@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.ViewModels
 {
-    class CsvImportViewModel : ImportModeViewModel
+    public class CsvImportViewModel : ImportModeViewModel
     {
         #region Fields
 

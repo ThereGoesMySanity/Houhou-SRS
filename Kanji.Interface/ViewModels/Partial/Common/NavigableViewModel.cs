@@ -12,7 +12,7 @@ using Kanji.Interface.Utilities;
 
 namespace Kanji.Interface.ViewModels
 {
-    class NavigableViewModel : ViewModel
+    public class NavigableViewModel : ViewModel
     {
         #region Fields
 

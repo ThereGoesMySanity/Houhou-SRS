@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Models
 {
-    class SrsItemPerLevel
+    public class SrsItemPerLevel
     {
         /// <summary>
         /// Gets or sets the level referred by this object.

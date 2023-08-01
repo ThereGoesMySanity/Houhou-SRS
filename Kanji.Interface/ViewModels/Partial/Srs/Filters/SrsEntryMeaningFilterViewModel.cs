@@ -8,7 +8,7 @@ using Kanji.Database.Models;
 
 namespace Kanji.Interface.ViewModels
 {
-    class SrsEntryMeaningFilterViewModel : FilterClauseViewModel
+    public class SrsEntryMeaningFilterViewModel : FilterClauseViewModel
     {
         #region Fields
 

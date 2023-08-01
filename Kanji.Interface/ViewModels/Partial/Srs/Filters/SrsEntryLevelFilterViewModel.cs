@@ -10,7 +10,7 @@ using Kanji.Interface.Models;
 
 namespace Kanji.Interface.ViewModels
 {
-    class SrsEntryLevelFilterViewModel : FilterClauseViewModel
+    public class SrsEntryLevelFilterViewModel : FilterClauseViewModel
     {
         #region Constants
 

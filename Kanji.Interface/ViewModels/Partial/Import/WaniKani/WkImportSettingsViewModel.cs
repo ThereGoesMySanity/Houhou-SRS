@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.ViewModels
 {
-    class WkImportSettingsViewModel : ImportStepViewModel
+    public class WkImportSettingsViewModel : ImportStepViewModel
     {
         #region Fields
 

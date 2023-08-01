@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.ViewModels
 {
-    class VocabSettingsViewModel : SettingsPageViewModel
+    public class VocabSettingsViewModel : SettingsPageViewModel
     {
         #region Properties
 

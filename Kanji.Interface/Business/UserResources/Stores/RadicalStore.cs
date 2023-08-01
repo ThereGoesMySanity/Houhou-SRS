@@ -15,7 +15,7 @@ using Kanji.Database.Models;
 
 namespace Kanji.Interface.Business
 {
-    class RadicalStore : UserResourceStore<ExtendedRadical[]>
+    public class RadicalStore : UserResourceStore<ExtendedRadical[]>
     {
         #region Singleton implementation
 

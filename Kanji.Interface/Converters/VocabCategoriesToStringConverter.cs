@@ -11,7 +11,7 @@ using Kanji.Interface.Internationalization;
 
 namespace Kanji.Interface.Converters
 {
-    class VocabCategoriesToStringConverter : IValueConverter
+    public class VocabCategoriesToStringConverter : IValueConverter
     {
         #region Static
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Models
 {
-    enum KanjiFilterModeEnum
+    public enum KanjiFilterModeEnum
     {
         [Description("a meaning")]
         Meaning = 0,

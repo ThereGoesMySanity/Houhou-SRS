@@ -9,7 +9,7 @@ using Kanji.Interface.Models;
 
 namespace Kanji.Interface.Business
 {
-    class KanjiBusiness
+    public class KanjiBusiness
     {
         #region Fields
 

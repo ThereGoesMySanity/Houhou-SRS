@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Models
 {
-    class KanjiReading
+    public class KanjiReading
     {
         /// <summary>
         /// Gets or sets the hiragana version of the reading.

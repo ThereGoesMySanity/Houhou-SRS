@@ -7,7 +7,7 @@ using Kanji.Database.Entities;
 
 namespace Kanji.Interface.Models
 {
-    class KanjiNavigatedEventArgs : EventArgs
+    public class KanjiNavigatedEventArgs : EventArgs
     {
         public KanjiWritingCharacter Character { get; set; }
 

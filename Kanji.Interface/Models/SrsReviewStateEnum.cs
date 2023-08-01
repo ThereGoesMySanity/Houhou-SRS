@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Models
 {
-    enum SrsReviewStateEnum
+    public enum SrsReviewStateEnum
     {
         Input = 0,
         Success = 1,

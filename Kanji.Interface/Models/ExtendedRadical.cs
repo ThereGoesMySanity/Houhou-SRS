@@ -7,7 +7,7 @@ using Kanji.Database.Models;
 
 namespace Kanji.Interface.Models
 {
-    class ExtendedRadical
+    public class ExtendedRadical
     {
         /// <summary>
         /// Groups of radical groups represented by this radical.

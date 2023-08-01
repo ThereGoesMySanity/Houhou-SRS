@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Models.Import
 {
-    class WkItem
+    public class WkItem
     {
         public bool IsKanji { get; set; }
 

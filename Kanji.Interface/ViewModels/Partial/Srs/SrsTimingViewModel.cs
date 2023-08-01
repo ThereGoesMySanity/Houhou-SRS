@@ -11,7 +11,7 @@ using Kanji.Interface.Extensions;
 
 namespace Kanji.Interface.ViewModels
 {
-    class SrsTimingViewModel : ViewModel
+    public class SrsTimingViewModel : ViewModel
     {
         #region Fields
 

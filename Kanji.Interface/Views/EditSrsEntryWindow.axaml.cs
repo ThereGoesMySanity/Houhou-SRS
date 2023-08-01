@@ -19,7 +19,7 @@ public partial class EditSrsEntryWindow : Window
     /// Gets the resulting SrsEntry.
     /// This property is set after the window is closed.
     /// </summary>
-    public ExtendedSrsEntry Result { get; private set; }
+    public SrsEntryEditedEventArgs Result { get; private set; }
 
     /// <summary>
     /// Gets a boolean indicating if the underlying SRS entry
@@ -50,7 +50,7 @@ public partial class EditSrsEntryWindow : Window
         InitializeViewModel(entity);
         this.AttachDevTools();
         NavigationActor.Instance.ActiveWindow = this;
-        Owner = NavigationActor.Instance.MainWindow;
+        Owner = NavigationActor.Instance.MainWindow as Window;
         WindowStartupLocation = WindowStartupLocation.CenterOwner;
     }
 
@@ -82,7 +82,7 @@ public partial class EditSrsEntryWindow : Window
     /// </summary>
     private void OnFinishedEditing(object sender, SrsEntryEditedEventArgs e)
     {
-        Result = e.SrsEntry;
+        Result = e;
 
         if (e.SrsEntry != null)
         {
@@ -91,7 +91,6 @@ public partial class EditSrsEntryWindow : Window
             e.SrsEntry.Tags = MultiValueFieldHelper.Trim(e.SrsEntry.Tags);
         }
 
-        IsSaved = e.IsSaved;
         DispatcherHelper.InvokeAsync(this.Close);
     }
 

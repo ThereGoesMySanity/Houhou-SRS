@@ -8,7 +8,7 @@ using Kanji.Database.Models;
 
 namespace Kanji.Interface.Models
 {
-    class SrsEntryFilter : Filter<SrsEntry>
+    public class SrsEntryFilter : Filter<SrsEntry>
     {
         #region Properties
 

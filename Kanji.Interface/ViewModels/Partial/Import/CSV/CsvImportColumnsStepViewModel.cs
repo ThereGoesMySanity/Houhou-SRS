@@ -13,7 +13,7 @@ using Kanji.Interface.Models;
 
 namespace Kanji.Interface.ViewModels
 {
-    class CsvImportColumnsStepViewModel : ImportStepViewModel
+    public class CsvImportColumnsStepViewModel : ImportStepViewModel
     {
         #region Fields
 

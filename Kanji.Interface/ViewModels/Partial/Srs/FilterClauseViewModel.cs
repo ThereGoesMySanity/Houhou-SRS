@@ -8,7 +8,7 @@ using Kanji.Database.Models;
 
 namespace Kanji.Interface.ViewModels
 {
-    abstract class FilterClauseViewModel : ViewModel
+    public abstract class FilterClauseViewModel : ViewModel
     {
         #region Events
 

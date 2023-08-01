@@ -9,7 +9,7 @@ using Kanji.Interface.Models;
 
 namespace Kanji.Interface.Converters
 {
-    class SrsEntryToStringConverter : IValueConverter
+    public class SrsEntryToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {

@@ -12,7 +12,7 @@ using Kanji.Interface.Utilities;
 
 namespace Kanji.Interface.ViewModels
 {
-    class KanjiListViewModel : ListViewModel<ExtendedKanji, KanjiEntity>
+    public class KanjiListViewModel : ListViewModel<ExtendedKanji, KanjiEntity>
     {
         #region Fields
 

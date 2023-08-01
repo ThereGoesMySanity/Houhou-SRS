@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Models
 {
-    class KanjiSelectedEventArgs : EventArgs
+    public class KanjiSelectedEventArgs : EventArgs
     {
         public ExtendedKanji SelectedKanji { get; set; }
 

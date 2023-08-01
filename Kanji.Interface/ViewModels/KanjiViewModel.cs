@@ -16,7 +16,7 @@ using Kanji.Interface.Views;
 
 namespace Kanji.Interface.ViewModels
 {
-    class KanjiViewModel : NavigableViewModel
+    public class KanjiViewModel : NavigableViewModel
     {
         #region Constants
 

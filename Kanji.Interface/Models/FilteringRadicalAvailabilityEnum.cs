@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Models
 {
-    enum FilteringRadicalAvailabilityEnum
+    public enum FilteringRadicalAvailabilityEnum
     {
         Available = 0,
         SemiHidden = 1,

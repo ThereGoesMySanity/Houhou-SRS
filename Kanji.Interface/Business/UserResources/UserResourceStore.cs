@@ -10,7 +10,7 @@ using Kanji.Interface.Utilities;
 
 namespace Kanji.Interface.Business
 {
-    abstract class UserResourceStore<T> : NotifyPropertyChanged
+    public abstract class UserResourceStore<T> : NotifyPropertyChanged
     {
         #region Constants
 

@@ -7,7 +7,7 @@ using Kanji.Interface.Models;
 
 namespace Kanji.Interface.Extensions
 {
-    static class StartPageEnumExtensions
+    public static class StartPageEnumExtensions
     {
         public static NavigationPageEnum ToNavigationPage(this StartPageEnum v)
         {

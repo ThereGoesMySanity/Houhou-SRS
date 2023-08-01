@@ -13,7 +13,7 @@ namespace Kanji.Interface.Converters
     /// Replaces the StringFormat binding property when it is being ignored because used on a
     /// non-string property (e.g. Button.Content).
     /// </summary>
-    class StringFormatConverter : IValueConverter
+    public class StringFormatConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {

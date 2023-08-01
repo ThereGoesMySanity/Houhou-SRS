@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Models
 {
-    enum TrayNotificationEnum
+    public enum TrayNotificationEnum
     {
         ReviewNotification,
         ExitNotification

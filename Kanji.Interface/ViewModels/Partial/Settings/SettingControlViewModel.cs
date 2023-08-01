@@ -7,7 +7,7 @@ using GalaSoft.MvvmLight.Command;
 
 namespace Kanji.Interface.ViewModels
 {
-    abstract class SettingControlViewModel : ViewModel
+    public abstract class SettingControlViewModel : ViewModel
     {
         #region Commands
 

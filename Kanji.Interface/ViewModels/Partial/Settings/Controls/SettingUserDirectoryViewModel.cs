@@ -9,7 +9,7 @@ using MsBox.Avalonia.Enums;
 
 namespace Kanji.Interface.ViewModels
 {
-    class SettingUserDirectoryViewModel : SettingControlViewModel
+    public class SettingUserDirectoryViewModel : SettingControlViewModel
     {
         #region Fields
 

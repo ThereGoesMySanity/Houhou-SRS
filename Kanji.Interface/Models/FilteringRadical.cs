@@ -19,7 +19,7 @@ namespace Kanji.Interface.Models
     /// This model has a boolean value that allows this kind of
     /// check.
     /// </summary>
-    class FilteringRadical : NotifyPropertyChanged
+    public class FilteringRadical : NotifyPropertyChanged
     {
         #region Fields
 

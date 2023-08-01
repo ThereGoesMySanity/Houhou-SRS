@@ -12,14 +12,14 @@ using Kanji.Interface.Models;
 
 namespace Kanji.Interface.Converters
 {
-    enum KanjiReadingToListConversionType
+    public enum KanjiReadingToListConversionType
     {
         OnYomi = 0,
         KunYomi = 1,
         Nanori = 2
     }
 
-    class KanjiReadingToListConverter : IValueConverter
+    public class KanjiReadingToListConverter : IValueConverter
     {
         private static readonly string DefaultString = "/";
 

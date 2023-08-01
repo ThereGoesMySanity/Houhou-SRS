@@ -10,7 +10,7 @@ using Kanji.Interface.Models;
 
 namespace Kanji.Interface.ViewModels
 {
-    class VocabFilterViewModel : ViewModel
+    public class VocabFilterViewModel : ViewModel
     {
         #region Fields
 

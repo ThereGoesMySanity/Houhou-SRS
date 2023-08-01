@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.ViewModels
 {
-    class SettingRadicalSetViewModel : SettingUserResourceViewModel
+    public class SettingRadicalSetViewModel : SettingUserResourceViewModel
     {
         #region Methods
 

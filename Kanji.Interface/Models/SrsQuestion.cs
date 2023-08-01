@@ -8,7 +8,7 @@ using Kanji.Database.Helpers;
 
 namespace Kanji.Interface.Models
 {
-    class SrsQuestion
+    public class SrsQuestion
     {
         /// <summary>
         /// Gets or sets the question type.

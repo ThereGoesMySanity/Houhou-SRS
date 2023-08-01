@@ -14,10 +14,11 @@ using Kanji.Interface.Actors;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Dto;
 using MsBox.Avalonia.Enums;
+using Xamarin.Essentials;
 
 namespace Kanji.Interface.ViewModels
 {
-    class VocabListViewModel : ListViewModel<ExtendedVocab, VocabEntity>
+    public class VocabListViewModel : ListViewModel<ExtendedVocab, VocabEntity>
     {
         #region Properties
 
@@ -258,27 +259,22 @@ namespace Kanji.Interface.ViewModels
         /// calling vocab to the SRS.
         /// </summary>
         /// <param name="vocab">Calling vocab.</param>
-        private void OnAddToSrs(ExtendedVocab vocab)
+        private async void OnAddToSrs(ExtendedVocab vocab)
         {
             // Prepare the new entry.
             SrsEntry entry = new SrsEntry();
             entry.LoadFromVocab(vocab.DbVocab);
 
-            // Show the modal entry edition window.
-            EditSrsEntryWindow wnd = new EditSrsEntryWindow(entry);
-            wnd.ShowDialog(NavigationActor.Instance.MainWindow);
-
-            // When it is closed, get the result.
-            ExtendedSrsEntry result = wnd.Result;
-            if (wnd.IsSaved && result != null
+            SrsEntryEditedEventArgs e = await NavigationActor.Instance.OpenSrsEditWindow(entry);
+            if (e.IsSaved && e.SrsEntry != null
                 && ((!string.IsNullOrEmpty(vocab.DbVocab.KanjiWriting) &&
-                result.AssociatedVocab == vocab.DbVocab.KanjiWriting)
+                e.SrsEntry.AssociatedVocab == vocab.DbVocab.KanjiWriting)
                 || (string.IsNullOrEmpty(vocab.DbVocab.KanjiWriting) &&
-                result.AssociatedVocab == vocab.DbVocab.KanaWriting)))
+                e.SrsEntry.AssociatedVocab == vocab.DbVocab.KanaWriting)))
             {
                 // The result exists and is still associated with this kanji.
                 // We can use it in this ViewModel.
-                vocab.SrsEntry = result;
+                vocab.SrsEntry = e.SrsEntry;
             }
         }
 
@@ -350,27 +346,21 @@ namespace Kanji.Interface.ViewModels
         /// SRS entry that matches the calling vocab.
         /// </summary>
         /// <param name="vocab">Calling vocab.</param>
-        private void OnEditSrsEntry(ExtendedVocab vocab)
+        private async void OnEditSrsEntry(ExtendedVocab vocab)
         {
             if (vocab.SrsEntry != null)
             {
-                // Show the modal entry edition window.
-                EditSrsEntryWindow wnd = new EditSrsEntryWindow(
-                    vocab.SrsEntry.Reference.Clone());
-                wnd.ShowDialog(NavigationActor.Instance.MainWindow);
-
-                // When it is closed, get the result.
-                ExtendedSrsEntry result = wnd.Result;
-                if (wnd.IsSaved)
+                SrsEntryEditedEventArgs e = await NavigationActor.Instance.OpenSrsEditWindow(vocab.SrsEntry.Reference);
+                if (e.IsSaved)
                 {
-                    if (result != null && ((!string.IsNullOrEmpty(vocab.DbVocab.KanjiWriting)
-                        && result.AssociatedVocab == vocab.DbVocab.KanjiWriting)
+                    if (e.SrsEntry != null && ((!string.IsNullOrEmpty(vocab.DbVocab.KanjiWriting)
+                        && e.SrsEntry.AssociatedVocab == vocab.DbVocab.KanjiWriting)
                         || (string.IsNullOrEmpty(vocab.DbVocab.KanjiWriting)
-                        && result.AssociatedVocab == vocab.DbVocab.KanaWriting)))
+                        && e.SrsEntry.AssociatedVocab == vocab.DbVocab.KanaWriting)))
                     {
                         // The result exists and is still associated with this kanji.
                         // We can use it in this ViewModel.
-                        vocab.SrsEntry = result;
+                        vocab.SrsEntry = e.SrsEntry;
                     }
                     else
                     {
@@ -389,7 +379,7 @@ namespace Kanji.Interface.ViewModels
         /// <param name="vocab">Vocab to copy.</param>
         private async void OnKanjiCopy(ExtendedVocab vocab)
         {
-            await ClipboardHelper.SetText(vocab.DbVocab.KanjiWriting);
+            await Clipboard.SetTextAsync(vocab.DbVocab.KanjiWriting);
         }
 
         /// <summary>
@@ -399,7 +389,7 @@ namespace Kanji.Interface.ViewModels
         /// <param name="vocab">Vocab to copy.</param>
         private async void OnKanaCopy(ExtendedVocab vocab)
         {
-            await ClipboardHelper.SetText(vocab.DbVocab.KanaWriting);
+            await Clipboard.SetTextAsync(vocab.DbVocab.KanaWriting);
         }
 
         /// <summary>

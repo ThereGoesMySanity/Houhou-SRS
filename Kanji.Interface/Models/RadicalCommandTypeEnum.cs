@@ -9,7 +9,7 @@ namespace Kanji.Interface.Models
     /// <summary>
     /// Contains the different types of commands that can be received using the speech recognition module.
     /// </summary>
-    enum RadicalCommandTypeEnum
+    public enum RadicalCommandTypeEnum
     {
         /// <summary>
         /// Command is meant to add a radical to the selection.

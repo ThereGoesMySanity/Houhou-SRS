@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Models
 {
-    class UserResourceSetInfo
+    public class UserResourceSetInfo
     {
         /// <summary>
         /// Gets or sets the path to the set directory.

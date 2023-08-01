@@ -9,7 +9,7 @@ using Kanji.Interface.Models;
 
 namespace Kanji.Interface.ViewModels
 {
-    class SrsLevelPickerViewModel : ViewModel
+    public class SrsLevelPickerViewModel : ViewModel
     {
         #region Fields
 

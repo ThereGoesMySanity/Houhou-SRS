@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +11,7 @@ namespace Kanji.Interface.Models
     /// <summary>
     /// Contains filtering element to target a set of vocab.
     /// </summary>
-    class VocabFilter : Filter<VocabEntity>
+    public class VocabFilter : Filter<VocabEntity>
     {
         #region Properties
 

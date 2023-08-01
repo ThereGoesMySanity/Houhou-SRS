@@ -1,4 +1,4 @@
-﻿using Kanji.Common.Helpers;
+using Kanji.Common.Helpers;
 using Kanji.Database.Entities;
 using Kanji.Interface.Business;
 using Kanji.Interface.Models;
@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.ViewModels
 {
-    class WkImportRequestViewModel : ImportStepViewModel
+    public class WkImportRequestViewModel : ImportStepViewModel
     {
         #region Constants
 

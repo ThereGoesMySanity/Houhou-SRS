@@ -14,7 +14,7 @@ using Kanji.Common.Extensions;
 
 namespace Kanji.Interface.Business
 {
-    class RadicalSetManager : UserResourceSetManager<ExtendedRadical[]>
+    public class RadicalSetManager : UserResourceSetManager<ExtendedRadical[]>
     {
         #region Constants
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.ViewModels
 {
-    abstract class ImportStepViewModel : ViewModel
+    public abstract class ImportStepViewModel : ViewModel
     {
         #region Properties
 

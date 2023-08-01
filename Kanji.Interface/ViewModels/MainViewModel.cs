@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.ViewModels
 {
-    class MainViewModel
+    public class MainViewModel
     {
         #region Constructor
 

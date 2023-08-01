@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kanji.Interface.Models
 {
-    class SrsLevelSelectedEventArgs : EventArgs
+    public class SrsLevelSelectedEventArgs : EventArgs
     {
         #region Properties
 

@@ -8,7 +8,7 @@ using Kanji.Interface.Models;
 
 namespace Kanji.Interface.Business
 {
-    abstract class FilteredItemIterator<T> : IDisposable
+    public abstract class FilteredItemIterator<T> : IDisposable
     {
         #region Fields
 
