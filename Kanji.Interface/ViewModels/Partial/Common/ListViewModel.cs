@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Avalonia.Threading;
 using GalaSoft.MvvmLight.Command;
 using Kanji.Interface.Business;
 using Kanji.Interface.Helpers;
 using Kanji.Interface.Models;
-using Kanji.Interface.Utilities;
 
 namespace Kanji.Interface.ViewModels
 {
@@ -193,16 +191,16 @@ namespace Kanji.Interface.ViewModels
         /// <summary>
         /// Executes the operation of retrieving and processing new items.
         /// </summary>
-        private void LoadMoreAction()
+        private async Task LoadMoreAction()
         {
             // Get the amount of items to load.
             int loadCount = GetItemsPerPage();
 
             // Get the next batch of items.
-            IEnumerable<Tentity> nextItems = _itemList.GetNext(loadCount);
+            IAsyncEnumerable<Tentity> nextItems = _itemList.GetNext(loadCount);
 
             // Browse  and process each retrieved item.
-            foreach (Tentity item in nextItems)
+            await foreach (Tentity item in nextItems)
             {
                 Tmodel model = ProcessItem(item);
 
@@ -227,42 +225,30 @@ namespace Kanji.Interface.ViewModels
             IsFiltering = true;
 
             // Run the initialization in the background.
-            BackgroundWorker initializationWorker = new BackgroundWorker();
-            initializationWorker.DoWork += DoInitialize;
-            initializationWorker.RunWorkerCompleted += DoneInitialize;
-            initializationWorker.RunWorkerAsync();
+            Dispatcher.UIThread.Post(DoInitialize);
         }
 
         /// <summary>
         /// Background task work method.
         /// Initializes the list.
         /// </summary>
-        private void DoInitialize(object sender, DoWorkEventArgs e)
+        private async void DoInitialize()
         {
             // Take the mutex.
             _loadMutex.WaitOne();
 
             // Apply filter.
             _itemList = GetFilteredIterator();
-            _itemList.ApplyFilter();
+            await _itemList.ApplyFilter();
             IsFiltering = false;
             RaisePropertyChanged("TotalItemCount");
 
             // Load the first batch of items.
-            LoadMoreAction();
+            await LoadMoreAction();
 
             // Release the mutex.
             IsLoading = false;
             _loadMutex.ReleaseMutex();
-        }
-
-        /// <summary>
-        /// Background task completed method. Unsubscribes to the events.
-        /// </summary>
-        private void DoneInitialize(object sender, RunWorkerCompletedEventArgs e)
-        {
-            ((BackgroundWorker)sender).DoWork -= DoInitialize;
-            ((BackgroundWorker)sender).RunWorkerCompleted -= DoneInitialize;
         }
 
         #endregion
@@ -285,7 +271,7 @@ namespace Kanji.Interface.ViewModels
         /// Background task work method.
         /// Retrieves the next bunch of items.
         /// </summary>
-        private void DoLoadMore(object sender, DoWorkEventArgs e)
+        private async void DoLoadMore(object sender, DoWorkEventArgs e)
         {
             if (TotalItemCount > _loadedItems.Count)
             {
@@ -294,7 +280,7 @@ namespace Kanji.Interface.ViewModels
                 IsLoading = true;
 
                 // Execute the operation.
-                LoadMoreAction();
+                await LoadMoreAction();
 
                 // Done - release the mutex.
                 IsLoading = false;
@@ -320,36 +306,29 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         public virtual void ReapplyFilter()
         {
-            BackgroundWorker reapplyFilterWorker = new BackgroundWorker();
-            reapplyFilterWorker.DoWork += DoReapplyFilter;
-            reapplyFilterWorker.RunWorkerCompleted += DoneReapplyFilter;
-            reapplyFilterWorker.RunWorkerAsync();
+            Dispatcher.UIThread.Post(DoReapplyFilter);
         }
 
         /// <summary>
         /// Background task work method.
         /// Clears the current items and reloads to match the new filters.
         /// </summary>
-        private void DoReapplyFilter(object sender, DoWorkEventArgs e)
+        private async void DoReapplyFilter()
         {
             // Take the mutex.
             _loadMutex.WaitOne();
             IsLoading = true;
             IsFiltering = true;
 
-            // Clear the items in the list using the dispatcher.
-            DispatcherHelper.Invoke(() =>
-            {
-                _loadedItems.Clear();
-            });
+            _loadedItems.Clear();
 
             // Reapply the filter.
             LoadedItemCount = 0;
-            _itemList.ApplyFilter();
+            await _itemList.ApplyFilter();
             RaisePropertyChanged("TotalItemCount");
 
             // Load the next batch of items.
-            LoadMoreAction();
+            await LoadMoreAction();
 
             // Done - Release the mutex.
             IsFiltering = false;
@@ -357,28 +336,19 @@ namespace Kanji.Interface.ViewModels
             _loadMutex.ReleaseMutex();
         }
 
-        /// <summary>
-        /// Background task completed method. Unsubscribes to the events.
-        /// </summary>
-        private void DoneReapplyFilter(object sender, RunWorkerCompletedEventArgs e)
-        {
-            ((BackgroundWorker)sender).DoWork -= DoReapplyFilter;
-            ((BackgroundWorker)sender).RunWorkerCompleted -= DoneReapplyFilter;
-        }
-
         #endregion
 
         /// <summary>
         /// Disposes resources used by this object.
         /// </summary>
-        public override void Dispose()
+        public override async ValueTask DisposeAsync()
         {
             if (_itemList != null)
             {
-                _itemList.Dispose();
+                await _itemList.DisposeAsync();
             }
 
-            base.Dispose();
+            await base.DisposeAsync();
         }
 
         #endregion

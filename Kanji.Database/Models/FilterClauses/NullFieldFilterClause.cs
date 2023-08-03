@@ -19,7 +19,7 @@ namespace Kanji.Database.Models
 
         #region Methods
 
-        protected override string DoGetSqlWhereClause(List<DaoParameter> parameters)
+        protected override string DoGetSqlWhereClause(List<object> parameters)
         {
             if (Value.HasValue)
             {

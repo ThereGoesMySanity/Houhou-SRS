@@ -74,13 +74,13 @@ namespace Kanji.Interface.ViewModels
         /// <summary>
         /// Disposes the resources used by this object.
         /// </summary>
-        public override void Dispose()
+        public override async ValueTask DisposeAsync()
         {
             VocabListVm.KanjiNavigated -= OnKanjiNavigation;
-            VocabListVm.Dispose();
+            await VocabListVm.DisposeAsync();
             VocabFilterVm.FilterChanged -= OnFilterChanged;
-            VocabFilterVm.Dispose();
-            base.Dispose();
+            await VocabFilterVm.DisposeAsync();
+            await base.DisposeAsync();
         }
     }
 }

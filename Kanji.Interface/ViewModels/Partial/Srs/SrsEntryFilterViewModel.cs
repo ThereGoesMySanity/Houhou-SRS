@@ -162,33 +162,33 @@ namespace Kanji.Interface.ViewModels
 
         #endregion
 
-        public override void Dispose()
+        public override async ValueTask DisposeAsync()
         {
             MeaningFilterVm.FilterChanged -= OnFilterChanged;
-            MeaningFilterVm.Dispose();
+            await MeaningFilterVm.DisposeAsync();
 
             ReadingFilterVm.FilterChanged -= OnFilterChanged;
-            ReadingFilterVm.Dispose();
+            await ReadingFilterVm.DisposeAsync();
 
             TagsFilterVm.FilterChanged -= OnFilterChanged;
-            TagsFilterVm.Dispose();
+            await TagsFilterVm.DisposeAsync();
 
             TypeFilterVm.FilterChanged -= OnFilterChanged;
-            TypeFilterVm.Dispose();
+            await TypeFilterVm.DisposeAsync();
 
             LevelFilterVm.FilterChanged -= OnFilterChanged;
-            LevelFilterVm.Dispose();
+            await LevelFilterVm.DisposeAsync();
 
             CategoryFilterVm.FilterChanged -= OnFilterChanged;
-            CategoryFilterVm.Dispose();
+            await CategoryFilterVm.DisposeAsync();
 
             JlptLevelFilterVm.FilterChanged -= OnFilterChanged;
-            JlptLevelFilterVm.Dispose();
+            await JlptLevelFilterVm.DisposeAsync();
 
             WkLevelFilterVm.FilterChanged -= OnFilterChanged;
-            WkLevelFilterVm.Dispose();
+            await WkLevelFilterVm.DisposeAsync();
 
-            base.Dispose();
+            await base.DisposeAsync();
         }
 
         #endregion

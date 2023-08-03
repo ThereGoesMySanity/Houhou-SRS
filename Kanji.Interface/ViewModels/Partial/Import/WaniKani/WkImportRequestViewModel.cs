@@ -238,7 +238,7 @@ namespace Kanji.Interface.ViewModels
             await RequestApi();
         }
 
-        public override bool OnNextStep()
+        public override Task<bool> OnNextStep()
         {
             List<SrsEntry> newEntries = new List<SrsEntry>();
             foreach (WkItem wkItem in Result.Items)
@@ -267,7 +267,7 @@ namespace Kanji.Interface.ViewModels
             _parent.NewEntries = newEntries;
             _parent.ApplyTiming();
 
-            return true;
+            return Task.FromResult(true);
         }
 
         #endregion

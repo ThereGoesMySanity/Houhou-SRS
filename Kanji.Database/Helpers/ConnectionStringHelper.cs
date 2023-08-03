@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Text;
 using Kanji.Common.Helpers;
@@ -17,11 +18,7 @@ namespace Kanji.Database.Helpers
 
         public static void SetSrsDatabasePath(string path)
         {
-            // Alter the connection string to the user SRS content database.
-            // I couldn't find better ways to do that. Connection strings wouldn't work because of dynamic parts.
-            Kanji.Database.Helpers.ConnectionStringHelper.SrsDatabaseConnectionString =
-                string.Format("data source={0};UTF8Encoding=True;Journal Mode=WAL",
-                path);
+            SrsDatabaseConnectionString = path;
         }
 
         /// <summary>
@@ -34,8 +31,8 @@ namespace Kanji.Database.Helpers
             switch (endpoint)
             {
                 case DaoConnectionEnum.KanjiDatabase:
-                    return ConfigurationManager.ConnectionStrings[
-                        ConnectionStringHelper.KanjiDatabaseConnectionName].ConnectionString;
+                    return Path.Combine(
+                        (string)AppDomain.CurrentDomain.GetData("DataDirectory"), "KanjiDatabase.sqlite");
                 case DaoConnectionEnum.SrsDatabase:
                     return ConnectionStringHelper.SrsDatabaseConnectionString;
                 default:

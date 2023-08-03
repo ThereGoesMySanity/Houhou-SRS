@@ -134,7 +134,7 @@ namespace Kanji.Interface.ViewModels
             //worker.RunWorkerAsync();
         }
 
-        private void DoImportToDatabase()
+        private async Task DoImportToDatabase()
         {
             foreach (SrsEntry entry in ParentMode.NewEntries)
             {
@@ -149,7 +149,7 @@ namespace Kanji.Interface.ViewModels
                 bool needDuplicate = !(ParentMode.DuplicateOptions.DuplicateExistingItemAction == Models.ImportDuplicateExistingItemAction.Ignore
                     && ParentMode.DuplicateOptions.DuplicateNewItemAction == Models.ImportDuplicateNewItemAction.Import);
 
-                SrsEntry duplicate = needDuplicate ? _srsDao.GetSimilarItem(entry) : null;
+                SrsEntry duplicate = needDuplicate ? await _srsDao.GetSimilarItem(entry) : null;
 
                 if (duplicate != null)
                 {
@@ -166,7 +166,7 @@ namespace Kanji.Interface.ViewModels
                         if (ParentMode.DuplicateOptions.DuplicateExistingItemAction == ImportDuplicateExistingItemAction.Delete)
                         {
                             // Delete existing item.
-                            _srsDao.Delete(duplicate);
+                            await _srsDao.Delete(duplicate);
                             log += "Duplicate found: DELETE... ";
                         }
                         else if (ParentMode.DuplicateOptions.DuplicateExistingItemAction == ImportDuplicateExistingItemAction.Disable)
@@ -177,11 +177,11 @@ namespace Kanji.Interface.ViewModels
                             {
                                 duplicate.SuspensionDate = DateTime.Now;
                             }
-                            _srsDao.Update(duplicate);
+                            await _srsDao.Update(duplicate);
                         }
 
                         // Import!
-                        _srsDao.Add(entry);
+                        await _srsDao.Add(entry);
                         log += "IMPORTED.";
                         SuccessfulCount++;
                     }
@@ -189,7 +189,7 @@ namespace Kanji.Interface.ViewModels
                 else if (duplicate == null)
                 {
                     // No duplicate. Just add to database.
-                    _srsDao.Add(entry);
+                    await _srsDao.Add(entry);
                     log += "IMPORTED.";
                     SuccessfulCount++;
                 }

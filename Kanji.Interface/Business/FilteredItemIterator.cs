@@ -3,32 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using Avalonia.Threading;
 using Kanji.Interface.Models;
 
 namespace Kanji.Interface.Business
 {
-    public abstract class FilteredItemIterator<T> : IDisposable
+    public abstract class FilteredItemIterator<T> : IAsyncDisposable
     {
         #region Fields
 
-        private IEnumerable<T> _itemSet;
-        private IEnumerator<T> _iterator;
+        private IAsyncEnumerable<T> _itemSet;
+        private IAsyncEnumerator<T> _iterator;
 
         /// <summary>
         /// Last filter applied or filter being applied.
         /// </summary>
         protected Filter<T> _currentFilter;
 
-        #region Locks
-
-        /// <summary>
-        /// Locks the iteration operations and the filter application operations,
-        /// so that conflicting operations cannot be executed at the same time.
-        /// </summary>
-        private object _loadingLock = new object();
-
-        #endregion
+        private CancellationTokenSource _iteratorCancellation = new CancellationTokenSource();
 
         #endregion
 
@@ -72,7 +66,7 @@ namespace Kanji.Interface.Business
             if (Filter != newFilter)
             {
                 Filter = newFilter;
-                ApplyFilter();
+                Dispatcher.UIThread.Post(async () => await ApplyFilter(), DispatcherPriority.Background);
             }
         }
 
@@ -84,67 +78,62 @@ namespace Kanji.Interface.Business
         /// <returns>A list of items containing 0 to <paramref name="count"/> elements.
         /// If the list contains less than <paramref name="count"/> elements, the set
         /// has been iterated until the end.</returns>
-        public IEnumerable<T> GetNext(int count)
+        public async IAsyncEnumerable<T> GetNext(int count)
         {
-            // Make sure it isn't executed during a loading operation by locking.
-            lock (_loadingLock)
+            while (--count >= 0 && !_iteratorCancellation.IsCancellationRequested &&
+                await _iterator.WithCancellation(_iteratorCancellation.Token).MoveNextAsync())
             {
-                while (--count >= 0 && _iterator.MoveNext())
-                {
-                    // Add the current item.
-                    yield return _iterator.Current;
-                    // Continue iterating while we are not finished.
-                }
+                // Add the current item.
+                yield return _iterator.Current;
+                // Continue iterating while we are not finished.
             }
         }
 
         /// <summary>
         /// Applies the filter and sets the iterator.
         /// </summary>
-        public void ApplyFilter()
+        public async Task ApplyFilter()
         {
-            lock (_loadingLock)
+            // Dispose the previous iterator.
+            if (_iterator != null)
             {
-                // Dispose the previous iterator.
-                if (_iterator != null)
-                {
-                    _iterator.Dispose();
-                }
-
-                // Clone the filter.
-                _currentFilter = Filter.Clone();
-
-                // Apply the filter.
-                _itemSet = DoFilter();
-
-                // Get the total item count.
-                ItemCount = GetItemCount();
-
-                // Store the iterator, free the lock, return.
-                _iterator = _itemSet.GetEnumerator();
+                await _iterator.DisposeAsync();
             }
+
+            // Clone the filter.
+            _currentFilter = Filter.Clone();
+
+            // Apply the filter.
+            _itemSet = DoFilter();
+
+            // Get the total item count.
+            ItemCount = await GetItemCount();
+
+            // Store the iterator, free the lock, return.
+            _iterator = _itemSet.GetAsyncEnumerator();
         }
 
         /// <summary>
         /// In child classes, implements the filter application and returns the
         /// resulting set.
         /// </summary>
-        protected abstract IEnumerable<T> DoFilter();
+        protected abstract IAsyncEnumerable<T> DoFilter();
 
         /// <summary>
         /// In child classes, returns the total number of items to be iterated.
         /// </summary>
-        protected abstract int GetItemCount();
+        protected abstract Task<int> GetItemCount();
 
         /// <summary>
         /// Disposes resources used by the object.
         /// </summary>
-        public virtual void Dispose()
+        public virtual async ValueTask DisposeAsync()
         {
             if (_iterator != null)
             {
-                _iterator.Dispose();
+                _iteratorCancellation.Cancel();
             }
+            await ValueTask.CompletedTask;
         }
 
         #endregion

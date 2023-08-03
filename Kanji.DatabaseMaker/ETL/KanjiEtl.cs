@@ -5,12 +5,14 @@ using System.Text;
 using System.Xml.Linq;
 using Kanji.Common.Helpers;
 using Kanji.Common.Extensions;
-using Kanji.Database.Business;
 using Kanji.Database.Entities;
 using Kanji.Database.Entities.Joins;
 using Kanji.Database.Helpers;
 using System.IO;
 using System.IO.Compression;
+using SQLite;
+using Kanji.Database.Dao;
+using System.Threading.Tasks;
 
 namespace Kanji.DatabaseMaker
 {
@@ -41,8 +43,6 @@ namespace Kanji.DatabaseMaker
         private static readonly string XmlAttributeValue_OnYomiReading = "ja_on";
         private static readonly string XmlAttributeValue_CodePointUnicode = "ucs";
 
-        private static readonly int KanjiMaxCommit = 500;
-
         #endregion
 
         #region Fields
@@ -54,6 +54,8 @@ namespace Kanji.DatabaseMaker
         private log4net.ILog _log;
 
         private ZipArchive _svgZipArchive;
+
+        private SQLiteAsyncConnection connection = DaoConnection.Instance[DaoConnectionEnum.KanjiDatabase];
 
         #endregion
 
@@ -167,96 +169,70 @@ namespace Kanji.DatabaseMaker
         /// <summary>
         /// Reads kanji and stores them in the database.
         /// </summary>
-        public override void Execute()
+        public override async Task ExecuteAsync()
         {
             List<KanjiRadicalJoinEntity> kanjiRadicalList = new List<KanjiRadicalJoinEntity>();
             List<KanjiMeaning> kanjiMeaningList = new List<KanjiMeaning>();
             List<KanjiStrokes> kanjiStrokes = new List<KanjiStrokes>();
 
-            using (SQLiteBulkInsert<KanjiEntity> kanjiInsert
-                = new SQLiteBulkInsert<KanjiEntity>(KanjiMaxCommit))
+            // Parse the file.
+            foreach (KanjiEntity kanji in ReadKanjiDic2())
             {
-                
-                // Parse the file.
-                foreach (KanjiEntity kanji in ReadKanjiDic2())
+                // For each kanji read:
+                string addedRadicalsString = string.Empty; // Log
+
+                // Try to find the matching composition.
+                if (_radicalDictionary.ContainsKey(kanji.Character))
                 {
-                    // For each kanji read:
-                    string addedRadicalsString = string.Empty; // Log
-
-                    // Try to find the matching composition.
-                    if (_radicalDictionary.ContainsKey(kanji.Character))
+                    RadicalValue[] matchingRadicals = _radicalDictionary[kanji.Character];
+                    // If the composition is found:
+                    foreach (RadicalValue radicalValue in matchingRadicals)
                     {
-                        RadicalValue[] matchingRadicals = _radicalDictionary[kanji.Character];
-                        // If the composition is found:
-                        foreach (RadicalValue radicalValue in matchingRadicals)
-                        {
-                            // Retrieve each radical from the database and add it in the kanji.
-                            kanji.Radicals.Add(radicalValue.Radical);
-                            addedRadicalsString += radicalValue.Character + " "; // Log
-                        }
+                        // Retrieve each radical from the database and add it in the kanji.
+                        kanji.Radicals.Add(radicalValue.Radical);
+                        addedRadicalsString += radicalValue.Character + " "; // Log
                     }
-
-                    // Search for a matching SVG.
-                    kanjiStrokes.Add(RetrieveSvg(kanji));
-
-                    // Add the finalized kanji to the database.
-                    kanji.ID = kanjiInsert.Insert(kanji);
-
-                    // Add the kanji meaning entities.
-                    kanjiMeaningList.AddRange(kanji.Meanings);
-
-                    // Add the kanji-radical join entities.
-                    foreach (RadicalEntity radical in kanji.Radicals)
-                    {
-                        kanjiRadicalList.Add(new KanjiRadicalJoinEntity()
-                            {
-                                KanjiId = kanji.ID,
-                                RadicalId = radical.ID
-                            });
-                    }
-
-                    // Increment counter
-                    KanjiCount++;
-
-                    // Log
-                    _log.InfoFormat("Inserted kanji {0}  ({1}) with radicals {2}", kanji.Character, kanji.ID, addedRadicalsString);
                 }
+
+                // Search for a matching SVG.
+                kanjiStrokes.Add(RetrieveSvg(kanji));
+
+                // Add the finalized kanji to the database.
+                await connection.InsertAsync(kanji);
+
+                // Add the kanji meaning entities.
+                kanjiMeaningList.AddRange(kanji.Meanings);
+
+                // Add the kanji-radical join entities.
+                foreach (RadicalEntity radical in kanji.Radicals)
+                {
+                    kanjiRadicalList.Add(new KanjiRadicalJoinEntity()
+                        {
+                            KanjiId = kanji.ID,
+                            RadicalId = radical.ID
+                        });
+                }
+
+                // Increment counter
+                KanjiCount++;
+
+                // Log
+                _log.InfoFormat("Inserted kanji {0}  ({1}) with radicals {2}", kanji.Character, kanji.ID, addedRadicalsString);
             }
             CloseZipArchive();
 
             // Insert the strokes.
-            using (SQLiteBulkInsert<KanjiStrokes> kanjiStrokesInsert
-                    = new SQLiteBulkInsert<KanjiStrokes>(KanjiMaxCommit))
-            {
-                foreach (KanjiStrokes strokes in kanjiStrokes)
-                {
-                    kanjiStrokesInsert.Insert(strokes);
-                }
-            }
+            await connection.InsertAllAsync(kanjiStrokes);
 
             // Insert the kanji meaning entities.
             KanjiMeaningCount = kanjiMeaningList.Count;
             _log.InfoFormat("Inserting {0} kanji meaning entities", KanjiMeaningCount);
-            using (SQLiteBulkInsert<KanjiMeaning> kanjiMeaningInsert
-                    = new SQLiteBulkInsert<KanjiMeaning>(int.MaxValue))
-            {
-                foreach (KanjiMeaning km in kanjiMeaningList)
-                {
-                    kanjiMeaningInsert.Insert(km);
-                }
-            }
+            await connection.InsertAllAsync(kanjiMeaningList);
 
             // Insert the kanji-radical join entities
             KanjiRadicalCount = kanjiRadicalList.Count;
             _log.InfoFormat("Inserting {0} kanji-radical join entities", KanjiRadicalCount);
-            using (SQLiteBulkInsert<KanjiRadicalJoinEntity> kanjiRadicalInsert
-                    = new SQLiteBulkInsert<KanjiRadicalJoinEntity>(int.MaxValue))
-            {
-                foreach (KanjiRadicalJoinEntity kr in kanjiRadicalList)
-                {
-                    kanjiRadicalInsert.Insert(kr);
-                }
-            }
+            await connection.InsertAllAsync(kanjiRadicalList);
         }
 
         /// <summary>

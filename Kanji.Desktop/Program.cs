@@ -90,8 +90,8 @@ namespace Kanji.Interface
             NavigationActor.Instance = new DesktopNavigationActor();
 
             // Start loading user resources.
-            RadicalStore.Instance.InitializeAsync();
-            SrsLevelStore.Instance.InitializeAsync();
+            Task.WhenAll(RadicalStore.Instance.InitializeAsync(),
+                    SrsLevelStore.Instance.InitializeAsync());
 
             // Load the autostart configuration.
             AutostartBusiness.Instance.Load();

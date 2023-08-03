@@ -1,10 +1,6 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Kanji.Common.Utility;
 using Kanji.Database.Dao;
 using Kanji.Database.Entities;
 using Kanji.Interface.Models;
@@ -35,32 +31,28 @@ namespace Kanji.Interface.Business
 
         #region Methods
 
-        protected override IEnumerable<VocabEntity> DoFilter()
+        protected override IAsyncEnumerable<VocabEntity> DoFilter()
         {
             if (!Filter.IsEmpty())
             {
                 VocabFilter filter = (VocabFilter)_currentFilter;
 
-                foreach (VocabEntity vocab in _vocabDao.GetFilteredVocab(
+                return _vocabDao.GetFilteredVocab(
                     filter.Kanji.FirstOrDefault(), filter.Vocab,
                     filter.ReadingString, filter.MeaningString,
                     filter.Category, filter.JlptLevel, filter.WkLevel,
-                    filter.IsCommonFirst, filter.IsShortReadingFirst))
-                {
-                    yield return vocab;
-                }
+                    filter.IsCommonFirst, filter.IsShortReadingFirst);
             }
-
-            yield break;
+            return AsyncEnumerable.Empty<VocabEntity>();
         }
 
-        protected override int GetItemCount()
+        protected override async Task<int> GetItemCount()
         {
             if (!Filter.IsEmpty())
             {
                 VocabFilter filter = (VocabFilter)_currentFilter;
 
-                return (int)_vocabDao.GetFilteredVocabCount(filter.Kanji.FirstOrDefault(), filter.Vocab,
+                return (int)await _vocabDao.GetFilteredVocabCount(filter.Kanji.FirstOrDefault(), filter.Vocab,
                     filter.ReadingString, filter.MeaningString,
                     filter.Category, filter.JlptLevel, filter.WkLevel);
             }
@@ -71,9 +63,9 @@ namespace Kanji.Interface.Business
         /// <summary>
         /// Disposes resources used by this object.
         /// </summary>
-        public override void Dispose()
+        public override async ValueTask DisposeAsync()
         {
-            base.Dispose();
+            await base.DisposeAsync();
         }
 
         #endregion

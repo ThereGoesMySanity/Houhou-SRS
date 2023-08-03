@@ -130,15 +130,15 @@ namespace Kanji.Interface.ViewModels
         /// <summary>
         /// Disposes the resources used by this object.
         /// </summary>
-        public override void Dispose()
+        public override async ValueTask DisposeAsync()
         {
             foreach (SettingControlViewModel vm in _settingViewModels)
             {
                 vm.SettingValueChanged -= OnSettingChanged;
-                vm.Dispose();
+                await vm.DisposeAsync();
             }
 
-            base.Dispose();
+            await base.DisposeAsync();
         }
 
         #endregion

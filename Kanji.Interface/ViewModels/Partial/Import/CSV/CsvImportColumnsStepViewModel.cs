@@ -311,7 +311,7 @@ namespace Kanji.Interface.ViewModels
         /// <summary>
         /// Before going to the next step, read all items!
         /// </summary>
-        public override bool OnNextStep()
+        public override async Task<bool> OnNextStep()
         {
             // Initialize fields
             _parent.NewEntries = new List<SrsEntry>();
@@ -320,14 +320,13 @@ namespace Kanji.Interface.ViewModels
             int i = 0;
             var vocabDao = new VocabDao();
             var kanjiDao = new KanjiDao();
-            vocabDao.OpenMassTransaction();
 
             // Browse CSV lines!
             foreach (List<string> row in _parent.CsvLines)
             {
                 log.AppendFormat("l{0}: ", ++i);
                 // Attempt to read the entry.
-                SrsEntry entry = ReadEntry(row, vocabDao, kanjiDao, log);
+                SrsEntry entry = await ReadEntry(row, vocabDao, kanjiDao, log);
                 log.AppendLine();
                 
                 // Add the entry to the parent's list if not null.
@@ -336,8 +335,6 @@ namespace Kanji.Interface.ViewModels
                     _parent.NewEntries.Add(entry);
                 }
             }
-
-            vocabDao.CloseMassTransaction();
 
             // All items have been added.
             // Apply the timing preferences for items that do not have a review date.
@@ -357,7 +354,7 @@ namespace Kanji.Interface.ViewModels
         /// <param name="row">Row to read.</param>
         /// <param name="log">Log under the form of a stringbuilder to inform the user about how everything goes.</param>
         /// <returns>The SRS item read if successful. A null value otherwise.</returns>
-        private SrsEntry ReadEntry(List<string> row, VocabDao vocabDao, KanjiDao kanjiDao, StringBuilder log)
+        private async Task<SrsEntry> ReadEntry(List<string> row, VocabDao vocabDao, KanjiDao kanjiDao, StringBuilder log)
         {
             try
             {
@@ -401,7 +398,7 @@ namespace Kanji.Interface.ViewModels
                     switch (itemType)
                     {
                         case CsvItemType.Kanji:
-                            var kanji = kanjiDao.GetFirstMatchingKanji(kanjiReading);
+                            var kanji = await kanjiDao.GetFirstMatchingKanji(kanjiReading);
                             if (kanji == null)
                             {
                                 log.Append("Can't find kanji in database. Skipping.");
@@ -413,7 +410,7 @@ namespace Kanji.Interface.ViewModels
                             var vocabs = string.IsNullOrEmpty(readings) ? vocabDao.GetMatchingVocab(kanjiReading)
                                         : vocabDao.GetVocabByReadings(kanjiReading, readings);
                             if (sequenceNumber.HasValue) vocabs = vocabs.Where(v => v.Seq == sequenceNumber);
-                            var vocab = vocabs.FirstOrDefault();
+                            var vocab = await vocabs.FirstOrDefaultAsync();
                             if (vocab == null)
                             {
                                 log.Append("Can't find vocab in database. Skipping.");

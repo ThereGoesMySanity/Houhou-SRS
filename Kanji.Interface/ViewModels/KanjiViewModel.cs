@@ -4,8 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-
+using Avalonia.Threading;
 using GalaSoft.MvvmLight.Command;
 using Kanji.Common.Utility;
 using Kanji.Interface.Actors;
@@ -179,7 +178,7 @@ namespace Kanji.Interface.ViewModels
         /// and events correctly bound.
         /// </summary>
         /// <param name="value">New value.</param>
-        private void SetKanjiDetailsVm(KanjiDetailsViewModel value)
+        private async Task SetKanjiDetailsVm(KanjiDetailsViewModel value)
         {
             if (value != _kanjiDetailsVm)
             {
@@ -187,7 +186,7 @@ namespace Kanji.Interface.ViewModels
                 if (_kanjiDetailsVm != null)
                 {
                     _kanjiDetailsVm.KanjiNavigated -= OnKanjiNavigated;
-                    _kanjiDetailsVm.Dispose();
+                    await _kanjiDetailsVm.DisposeAsync();
                 }
 
                 // Set the value.
@@ -209,17 +208,17 @@ namespace Kanji.Interface.ViewModels
         /// Called when a kanji selection event is fired by the kanji list VM.
         /// Sets the kanji details view model.
         /// </summary>
-        private void OnKanjiSelected(object sender, KanjiSelectedEventArgs e)
+        private async void OnKanjiSelected(object sender, KanjiSelectedEventArgs e)
         {
             // Set to null or a new instance, depending on the selected value.
             if (e.SelectedKanji == null)
             {
-                SetKanjiDetailsVm(null);
+                await SetKanjiDetailsVm(null);
             }
             else if (_kanjiDetailsVm == null ||
                 _kanjiDetailsVm.KanjiEntity.DbKanji.ID != e.SelectedKanji.DbKanji.ID)
             {
-                SetKanjiDetailsVm(new KanjiDetailsViewModel(e.SelectedKanji));
+                await SetKanjiDetailsVm(new KanjiDetailsViewModel(e.SelectedKanji));
             }
 
             //todo: remove?
@@ -253,9 +252,9 @@ namespace Kanji.Interface.ViewModels
         /// Command callback.
         /// Clears the kanji details view model.
         /// </summary>
-        private void OnClearSelectedKanji()
+        private async void OnClearSelectedKanji()
         {
-            SetKanjiDetailsVm(null);
+            await SetKanjiDetailsVm(null);
             KanjiListVm.ClearSelection();
 
             int navigationHistorySize = _navigationHistory.Count;
@@ -288,7 +287,7 @@ namespace Kanji.Interface.ViewModels
         /// Command callback.
         /// Navigates back in the navigation history.
         /// </summary>
-        private void OnNavigateBack()
+        private async void OnNavigateBack()
         {
             try
             {
@@ -309,7 +308,7 @@ namespace Kanji.Interface.ViewModels
                 }
 
                 // Reset the kanji details viewmodel.
-                SetKanjiDetailsVm(entry.KanjiDetailsVm);
+                await SetKanjiDetailsVm(entry.KanjiDetailsVm);
             }
             catch (InvalidOperationException)
             {
@@ -325,16 +324,16 @@ namespace Kanji.Interface.ViewModels
         /// <summary>
         /// Disposes resources used by this object.
         /// </summary>
-        public override void Dispose()
+        public override async ValueTask DisposeAsync()
         {
             if (_kanjiDetailsVm != null)
             {
-                _kanjiDetailsVm.Dispose();
+                await _kanjiDetailsVm.DisposeAsync();
             }
 
-            KanjiListVm.Dispose();
-            KanjiFilterVm.Dispose();
-            base.Dispose();
+            await KanjiListVm.DisposeAsync();
+            await KanjiFilterVm.DisposeAsync();
+            await base.DisposeAsync();
         }
 
         #endregion

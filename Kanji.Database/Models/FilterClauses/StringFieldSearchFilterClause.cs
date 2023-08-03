@@ -34,7 +34,7 @@ namespace Kanji.Database.Models
 
         #region Methods
 
-        protected override string DoGetSqlWhereClause(List<DaoParameter> parameters)
+        protected override string DoGetSqlWhereClause(List<object> parameters)
         {
             if (!string.IsNullOrWhiteSpace(Value))
             {
@@ -45,21 +45,16 @@ namespace Kanji.Database.Models
                 {
                     foreach (string fieldName in _fieldNames)
                     {
-                        string paramIdExact = GetUniqueParamId(),
-                        paramIdStart = GetUniqueParamId(),
-                        paramIdMiddle = GetUniqueParamId(),
-                        paramIdEnd = GetUniqueParamId();
-
-                        parameters.Add(new DaoParameter(paramIdStart, Value.ToLower() + ",%"));
-                        parameters.Add(new DaoParameter(paramIdEnd, "%," + Value.ToLower()));
-                        parameters.Add(new DaoParameter(paramIdMiddle, "%," + Value.ToLower() + ",%"));
-                        parameters.Add(new DaoParameter(paramIdExact, Value.ToLower()));
+                        parameters.Add(Value.ToLower() + ",%");
+                        parameters.Add("%," + Value.ToLower() + ",%");
+                        parameters.Add("%," + Value.ToLower());
+                        parameters.Add(Value.ToLower());
 
                         clause += isFiltered ? " OR " : string.Empty;
-                        clause += "LOWER(" + fieldName + ") LIKE " + paramIdStart
-                            + " OR LOWER(" + fieldName + ") LIKE " + paramIdMiddle
-                            + " OR LOWER(" + fieldName + ") LIKE " + paramIdEnd
-                            + " OR LOWER(" + fieldName + ")=" + paramIdExact;
+                        clause += $@"LOWER({fieldName}) LIKE ?
+                                    OR LOWER({fieldName}) LIKE ?
+                                    OR LOWER({fieldName}) LIKE ?
+                                    OR LOWER({fieldName})= ?";
                         isFiltered = true;
                     }
                 }
@@ -67,11 +62,10 @@ namespace Kanji.Database.Models
                 {
                     foreach (string fieldName in _fieldNames)
                     {
-                        string paramIdContains = GetUniqueParamId();
-                        parameters.Add(new DaoParameter(paramIdContains, "%" + Value.ToLower() + "%"));
+                        parameters.Add($"%{Value.ToLower()}%");
 
                         clause += isFiltered ? " OR " : string.Empty;
-                        clause += "LOWER(" + fieldName + ") LIKE " + paramIdContains;
+                        clause += $"LOWER({fieldName}) LIKE ?";
                         isFiltered = true;
                     }
                 }

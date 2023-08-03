@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Kanji.Database.Business;
+using System.Threading.Tasks;
+using Kanji.Database.Dao;
 using Kanji.Database.Entities;
+using SQLite;
 
 namespace Kanji.DatabaseMaker
 {
@@ -16,13 +18,13 @@ namespace Kanji.DatabaseMaker
         private static readonly string KradFileCommentStarter = "#";
         private static readonly char KradFileKanjiSeparator = ':';
         private static readonly char KradFileRadicalSeparator = ' ';
-        private static readonly int RadicalMaxCommit = 100;
 
         #endregion
 
         #region Fields
 
         private log4net.ILog _log;
+        private SQLiteAsyncConnection connection = DaoConnection.Instance[DaoConnectionEnum.KanjiDatabase];
 
         #endregion
 
@@ -55,42 +57,39 @@ namespace Kanji.DatabaseMaker
         /// <summary>
         /// Gets the radicals and stores them in the database.
         /// </summary>
-        public override void Execute()
+        public override async Task ExecuteAsync()
         {
             // Parse the files.
             RadicalDictionary = ParseKradFiles();
 
             // Create a new bulk insert object.
-            using (SQLiteBulkInsert<RadicalEntity> radicalInsert
-                = new SQLiteBulkInsert<RadicalEntity>(RadicalMaxCommit))
+
+            Dictionary<string, RadicalEntity> addedRadicals = new Dictionary<string, RadicalEntity>();
+            foreach (var composition in RadicalDictionary)
             {
-                Dictionary<string, RadicalEntity> addedRadicals = new Dictionary<string, RadicalEntity>();
-                foreach (var composition in RadicalDictionary)
+                // For each composition read, browse the radicals.
+                foreach (RadicalValue radicalValue in composition.Value)
                 {
-                    // For each composition read, browse the radicals.
-                    foreach (RadicalValue radicalValue in composition.Value)
+                    if (addedRadicals.ContainsKey(radicalValue.Character))
                     {
-                        if (addedRadicals.ContainsKey(radicalValue.Character))
-                        {
-                            // The radical was already found and added.
-                            // Just set the radical of the RadicalValue.
-                            radicalValue.Radical = addedRadicals[radicalValue.Character];
-                        }
-                        else
-                        {
-                            // Store in the database the radicals that have not already been stored in the
-                            // "already added" dictionary.
-                            RadicalEntity radical = new RadicalEntity() { Character = radicalValue.Character };
-                            radical.ID = radicalInsert.Insert(radical);
-                            RadicalCount++;
+                        // The radical was already found and added.
+                        // Just set the radical of the RadicalValue.
+                        radicalValue.Radical = addedRadicals[radicalValue.Character];
+                    }
+                    else
+                    {
+                        // Store in the database the radicals that have not already been stored in the
+                        // "already added" dictionary.
+                        RadicalEntity radical = new RadicalEntity() { Character = radicalValue.Character };
+                        await connection.InsertAsync(radical);
+                        RadicalCount++;
 
-                            // Set the radical of the RadicalValue and add an entry to the "already added" dictionary.
-                            radicalValue.Radical = radical;
-                            addedRadicals.Add(radicalValue.Character, radical);
+                        // Set the radical of the RadicalValue and add an entry to the "already added" dictionary.
+                        radicalValue.Radical = radical;
+                        addedRadicals.Add(radicalValue.Character, radical);
 
-                            // Log
-                            _log.InfoFormat("Added radical {0}  ({1})", radical.Character, radical.ID);
-                        }
+                        // Log
+                        _log.InfoFormat("Added radical {0}  ({1})", radical.Character, radical.ID);
                     }
                 }
             }

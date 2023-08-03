@@ -17,6 +17,7 @@ using Kanji.Database.Helpers;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Dto;
 using MsBox.Avalonia.Enums;
+using Avalonia.Threading;
 
 namespace Kanji.Interface.ViewModels
 {
@@ -64,12 +65,6 @@ namespace Kanji.Interface.ViewModels
         private bool _isEditingDate;
 
         private bool _isFirstSrsLevelSelect;
-
-        /// <summary>
-        /// Lock object used to prevent multiple send operations to occur
-        /// at the same time.
-        /// </summary>
-        private object _sendLock = new object();
 
         #endregion
 
@@ -128,7 +123,7 @@ namespace Kanji.Interface.ViewModels
                     _entry.AssociatedKanji = value;
                     RaisePropertyChanged();
                     AssociatedKanji = null;
-                    GetAssociatedKanji();
+                    Dispatcher.UIThread.Post(async () => await GetAssociatedKanji(), DispatcherPriority.Background);
                 }
             }
         }
@@ -165,7 +160,7 @@ namespace Kanji.Interface.ViewModels
                     _entry.AssociatedVocab = value;
                     RaisePropertyChanged();
                     AssociatedVocab = null;
-                    GetAssociatedVocab();
+                    Dispatcher.UIThread.Post(async () => await GetAssociatedVocab(), DispatcherPriority.Background);
                 }
             }
         }
@@ -343,9 +338,8 @@ namespace Kanji.Interface.ViewModels
             DateToNeverCommand = new RelayCommand(OnDateToNever);
 
             // Get the associated kanji or vocab.
-            GetAssociatedKanji();
-            GetAssociatedVocab();
-
+            Dispatcher.UIThread.Post(async () => {await GetAssociatedKanji(); await GetAssociatedVocab();},
+                DispatcherPriority.Background);
             // Initialize the VM.
             _isFirstSrsLevelSelect = true;
             SrsLevelPickerVm = new SrsLevelPickerViewModel();
@@ -389,123 +383,92 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         /// <param name="operationType">Operation to execute on the SRS
         /// item.</param>
-        private void SendEntity(SrsEntryOperationEnum operationType)
+        private async Task SendEntity(SrsEntryOperationEnum operationType)
         {
-            BackgroundWorker sendEntityWorker = new BackgroundWorker();
-            sendEntityWorker.DoWork += DoSendEntity;
-            sendEntityWorker.RunWorkerCompleted += DoneSendEntity;
-            sendEntityWorker.RunWorkerAsync(operationType);
-        }
-
-        /// <summary>
-        /// Background task work method.
-        /// Sends the entity to the database.
-        /// </summary>
-        private void DoSendEntity(object sender, DoWorkEventArgs e)
-        {
-            SrsEntryOperationEnum operationType = (SrsEntryOperationEnum)e.Argument;
-
-            // Acquire the send object. Thus, only one send operation can occur
-            // at any given time.
-            lock (_sendLock)
+            if (!_isDone)
             {
-                // Once the lock is acquired, check that the work is not done.
-                // You wouldn't want to submit the item again if it worked
-                // the first time.
-                if (!_isDone)
+                // The work has still not been done.
+                // Set the IsSending value and start the job.
+                IsSending = true;
+
+                if (operationType == SrsEntryOperationEnum.Update)
                 {
-                    // The work has still not been done.
-                    // Set the IsSending value and start the job.
-                    IsSending = true;
-
-                    if (operationType == SrsEntryOperationEnum.Update)
+                    // Update
+                    try
                     {
-                        // Update
-                        try
+                        _isDone = await _srsEntryDao.Update(_entry.Reference);
+                        if (!_isDone)
                         {
-                            _isDone = _srsEntryDao.Update(_entry.Reference);
-                            if (!_isDone)
-                            {
-                                ErrorMessage = R.SrsItem_EditFailure;
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            // An exception occured.
-                            // Log the exception and set the error message.
-                            LogHelper.GetLogger(this.GetType().Name)
-                                .Error("Could not update the entity.", ex);
                             ErrorMessage = R.SrsItem_EditFailure;
                         }
                     }
-                    else if (operationType == SrsEntryOperationEnum.Add)
+                    catch (Exception ex)
                     {
-                        // Add
-                        try
-                        {
-                            // Sets some properties
-                            Entry.Reference.CreationDate = DateTime.UtcNow;
-
-                            // Add the entity to the database.
-                            _srsEntryDao.Add(_entry.Reference);
-                            _isDone = true;
-
-                            // Saves the value of the tags
-                            Properties.Settings.Default.LastSrsTagsValue = Entry.Tags;
-                        }
-                        catch (Exception ex)
-                        {
-                            // An exception occured.
-                            // Log the exception and set the error message.
-                            LogHelper.GetLogger(this.GetType().Name)
-                                .Error("Could not add the entity.", ex);
-                            ErrorMessage = R.SrsItem_EditFailure;
-                        }
+                        // An exception occured.
+                        // Log the exception and set the error message.
+                        LogHelper.GetLogger(this.GetType().Name)
+                            .Error("Could not update the entity.", ex);
+                        ErrorMessage = R.SrsItem_EditFailure;
                     }
-                    else
-                    {
-                        // Delete
-                        try
-                        {
-                            _isDone = _srsEntryDao.Delete(_entry.Reference);
-                            if (!_isDone)
-                            {
-                                ErrorMessage = R.SrsItem_EditFailure;
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            // An exception occured.
-                            // Log the exception and set the error message.
-                            LogHelper.GetLogger(this.GetType().Name)
-                                .Error("Could not delete the entity.", ex);
-                            ErrorMessage = R.SrsItem_EditFailure;
-                        }
-                    }
-
-                    // After the job.
-                    if (_isDone && FinishedEditing != null)
-                    {
-                        // If the job has been done, raise the event.
-                        ExtendedSrsEntry result =
-                            (operationType == SrsEntryOperationEnum.Delete ?
-                            null : Entry);
-
-                        FinishedEditing(this, new SrsEntryEditedEventArgs(result, true));
-                    }
-
-                    IsSending = false;
                 }
-            }
-        }
+                else if (operationType == SrsEntryOperationEnum.Add)
+                {
+                    // Add
+                    try
+                    {
+                        // Sets some properties
+                        Entry.Reference.CreationDate = DateTime.UtcNow;
 
-        /// <summary>
-        /// Background task completed method. Unsubscribes to the events.
-        /// </summary>
-        private void DoneSendEntity(object sender, RunWorkerCompletedEventArgs e)
-        {
-            ((BackgroundWorker)sender).DoWork -= DoSendEntity;
-            ((BackgroundWorker)sender).RunWorkerCompleted -= DoneSendEntity;
+                        // Add the entity to the database.
+                        await _srsEntryDao.Add(_entry.Reference);
+                        _isDone = true;
+
+                        // Saves the value of the tags
+                        Properties.Settings.Default.LastSrsTagsValue = Entry.Tags;
+                    }
+                    catch (Exception ex)
+                    {
+                        // An exception occured.
+                        // Log the exception and set the error message.
+                        LogHelper.GetLogger(this.GetType().Name)
+                            .Error("Could not add the entity.", ex);
+                        ErrorMessage = R.SrsItem_EditFailure;
+                    }
+                }
+                else
+                {
+                    // Delete
+                    try
+                    {
+                        _isDone = await _srsEntryDao.Delete(_entry.Reference);
+                        if (!_isDone)
+                        {
+                            ErrorMessage = R.SrsItem_EditFailure;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // An exception occured.
+                        // Log the exception and set the error message.
+                        LogHelper.GetLogger(this.GetType().Name)
+                            .Error("Could not delete the entity.", ex);
+                        ErrorMessage = R.SrsItem_EditFailure;
+                    }
+                }
+
+                // After the job.
+                if (_isDone && FinishedEditing != null)
+                {
+                    // If the job has been done, raise the event.
+                    ExtendedSrsEntry result =
+                        (operationType == SrsEntryOperationEnum.Delete ?
+                        null : Entry);
+
+                    FinishedEditing(this, new SrsEntryEditedEventArgs(result, true));
+                }
+
+                IsSending = false;
+            }
         }
 
         #endregion
@@ -516,33 +479,12 @@ namespace Kanji.Interface.ViewModels
         /// Starts a background task that will obtain the associated
         /// kanji property.
         /// </summary>
-        private void GetAssociatedKanji()
+        private async Task GetAssociatedKanji()
         {
             if (!string.IsNullOrWhiteSpace(AssociatedKanjiString))
             {
-                BackgroundWorker worker = new BackgroundWorker();
-                worker.DoWork += DoGetAssociatedKanji;
-                worker.RunWorkerCompleted += DoneGetAssociatedKanji;
-                worker.RunWorkerAsync();
+                AssociatedKanji = await _kanjiDao.GetFirstMatchingKanji(AssociatedKanjiString);
             }
-        }
-
-        /// <summary>
-        /// Background task work method.
-        /// Retrieves the first matching kanji.
-        /// </summary>
-        private void DoGetAssociatedKanji(object sender, DoWorkEventArgs e)
-        {
-            AssociatedKanji = _kanjiDao.GetFirstMatchingKanji(AssociatedKanjiString);
-        }
-
-        /// <summary>
-        /// Background task completed method. Unsubscribes to the events.
-        /// </summary>
-        private void DoneGetAssociatedKanji(object sender, RunWorkerCompletedEventArgs e)
-        {
-            ((BackgroundWorker)sender).DoWork -= DoGetAssociatedKanji;
-            ((BackgroundWorker)sender).RunWorkerCompleted -= DoneGetAssociatedKanji;
         }
 
         #endregion
@@ -553,56 +495,35 @@ namespace Kanji.Interface.ViewModels
         /// Starts a background task that will obtain the associated
         /// vocab property.
         /// </summary>
-        private void GetAssociatedVocab()
+        private async Task GetAssociatedVocab()
         {
             if (!string.IsNullOrWhiteSpace(AssociatedVocabString))
             {
-                BackgroundWorker worker = new BackgroundWorker();
-                worker.DoWork += DoGetAssociatedVocab;
-                worker.RunWorkerCompleted += DoneGetAssociatedVocab;
-                worker.RunWorkerAsync();
-            }
-        }
-
-        /// <summary>
-        /// Background task work method.
-        /// Retrieves the first matching vocab.
-        /// </summary>
-        private void DoGetAssociatedVocab(object sender, DoWorkEventArgs e)
-        {
-            IEnumerable<VocabEntity> results = _vocabDao.GetMatchingVocab(AssociatedVocabString);
-            if (results.Any())
-            {
-                VocabEntity entity = new VocabEntity();
-                StringBuilder meanings = new StringBuilder();
-                StringBuilder readings = new StringBuilder();
-                foreach (VocabEntity result in results)
+                IAsyncEnumerable<VocabEntity> results = _vocabDao.GetMatchingVocab(AssociatedVocabString);
+                if (await results.AnyAsync())
                 {
-                    foreach (VocabMeaning meaning in result.Meanings)
+                    VocabEntity entity = new VocabEntity();
+                    StringBuilder meanings = new StringBuilder();
+                    StringBuilder readings = new StringBuilder();
+                    await foreach (VocabEntity result in results)
                     {
-                        meanings.Append(MultiValueFieldHelper.ReplaceSeparator(meaning.Meaning)
-                            .Replace(';', MultiValueFieldHelper.ValueSeparator)
-                            + MultiValueFieldHelper.ValueSeparator);
+                        foreach (VocabMeaning meaning in result.Meanings)
+                        {
+                            meanings.Append(MultiValueFieldHelper.ReplaceSeparator(meaning.Meaning)
+                                .Replace(';', MultiValueFieldHelper.ValueSeparator)
+                                + MultiValueFieldHelper.ValueSeparator);
+                        }
+                        readings.Append(result.KanaWriting + MultiValueFieldHelper.ValueSeparator);
                     }
-                    readings.Append(result.KanaWriting + MultiValueFieldHelper.ValueSeparator);
+                    entity.Meanings.Add(new VocabMeaning() { Meaning = MultiValueFieldHelper.Expand(MultiValueFieldHelper.Distinct(meanings.ToString())) });
+                    entity.KanaWriting = MultiValueFieldHelper.Expand(MultiValueFieldHelper.Distinct(readings.ToString()));
+                    AssociatedVocab = entity;
                 }
-                entity.Meanings.Add(new VocabMeaning() { Meaning = MultiValueFieldHelper.Expand(MultiValueFieldHelper.Distinct(meanings.ToString())) });
-                entity.KanaWriting = MultiValueFieldHelper.Expand(MultiValueFieldHelper.Distinct(readings.ToString()));
-                AssociatedVocab = entity;
+                else
+                {
+                    AssociatedVocab = null;
+                }
             }
-            else
-            {
-                AssociatedVocab = null;
-            }
-        }
-
-        /// <summary>
-        /// Background task completed method. Unsubscribes to the events.
-        /// </summary>
-        private void DoneGetAssociatedVocab(object sender, RunWorkerCompletedEventArgs e)
-        {
-            ((BackgroundWorker)sender).DoWork -= DoGetAssociatedVocab;
-            ((BackgroundWorker)sender).RunWorkerCompleted -= DoneGetAssociatedVocab;
         }
 
         #endregion
@@ -615,12 +536,12 @@ namespace Kanji.Interface.ViewModels
         /// Command callback.
         /// Called when the entity is submitted.
         /// </summary>
-        private void OnSubmit()
+        private async void OnSubmit()
         {
             // Validate and send.
             if (ValidateEntity())
             {
-                SendEntity(IsNew ? SrsEntryOperationEnum.Add :
+                await SendEntity(IsNew ? SrsEntryOperationEnum.Add :
                     SrsEntryOperationEnum.Update);
             }
         }
@@ -697,7 +618,7 @@ namespace Kanji.Interface.ViewModels
             }).ShowAsPopupAsync(NavigationActor.Instance.ActiveWindow);
             if (result == ButtonResult.Yes)
             {
-                SendEntity(SrsEntryOperationEnum.Delete);
+                await SendEntity(SrsEntryOperationEnum.Delete);
             }
         }
 
@@ -769,11 +690,11 @@ namespace Kanji.Interface.ViewModels
         /// <summary>
         /// Disposes the resources used by this object.
         /// </summary>
-        public override void Dispose()
+        public override async ValueTask DisposeAsync()
         {
             SrsLevelPickerVm.SrsLevelSelected -= OnSrsLevelSelected;
-            SrsLevelPickerVm.Dispose();
-            base.Dispose();
+            await SrsLevelPickerVm.DisposeAsync();
+            await base.DisposeAsync();
         }
 
         #endregion

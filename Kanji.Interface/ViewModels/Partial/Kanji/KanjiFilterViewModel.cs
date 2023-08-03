@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Avalonia.Threading;
 using GalaSoft.MvvmLight.Command;
 using Kanji.Common.Helpers;
 using Kanji.Common.Utility;
@@ -334,7 +335,7 @@ namespace Kanji.Interface.ViewModels
             RaisePropertyChanged("MainFilterMode");
             RaisePropertyChanged("JlptLevel");
             RaisePropertyChanged("WkLevel");
-            ComputeRadicalAvailability();
+            Dispatcher.UIThread.Post(ComputeRadicalAvailability, DispatcherPriority.Background);
         }
 
         /// <summary>
@@ -347,7 +348,7 @@ namespace Kanji.Interface.ViewModels
                 FilterChanged(this, new EventArgs());
             }
 
-            ComputeRadicalAvailability();
+            Dispatcher.UIThread.Post(ComputeRadicalAvailability, DispatcherPriority.Background);
         }
 
         #region ComputeRadicalAvailability
@@ -356,49 +357,23 @@ namespace Kanji.Interface.ViewModels
         /// Starts a background task to update the availability boolean of radicals
         /// according to the state of the filter.
         /// </summary>
-        private void ComputeRadicalAvailability()
+        private async void ComputeRadicalAvailability()
         {
-            // Run the task in the background.
-            BackgroundWorker worker = new BackgroundWorker();
-            worker.DoWork += DoComputeRadicalAvailability;
-            worker.RunWorkerCompleted += DoneComputeRadicalAvailability;
-            worker.RunWorkerAsync();
-        }
+            // Apply filter and select the distinct radicals from the resulting kanji.
+            RadicalEntity[] availableRadicals =
+                (await _radicalBusiness.GetAvailableRadicals(_filter))
+                .ToArray();
 
-        /// <summary>
-        /// Background task work method.
-        /// Computes values and updates fields.
-        /// </summary>
-        private void DoComputeRadicalAvailability(object sender, DoWorkEventArgs e)
-        {
-            // Lock to allow only one of these operations at a time.
-            lock (_updateLock)
+            foreach (FilteringRadical radical in _radicals)
             {
-                // Apply filter and select the distinct radicals from the resulting kanji.
-                RadicalEntity[] availableRadicals =
-                    _radicalBusiness.GetAvailableRadicals(_filter)
-                    .ToArray();
-
-                foreach (FilteringRadical radical in _radicals)
-                {
-                    radical.IsRelevant = radical.Reference.DoesMatch(availableRadicals);
-                }
-
-                // Sort if wanted.
-                if (_comparer.SortByRelevance)
-                {
-                    Radicals = Radicals.OrderBy(x => x, _comparer).ToList();
-                }
+                radical.IsRelevant = radical.Reference.DoesMatch(availableRadicals);
             }
-        }
 
-        /// <summary>
-        /// Background task completed method. Unsubscribes to the events.
-        /// </summary>
-        private void DoneComputeRadicalAvailability(object sender, RunWorkerCompletedEventArgs e)
-        {
-            ((BackgroundWorker)sender).DoWork -= DoComputeRadicalAvailability;
-            ((BackgroundWorker)sender).RunWorkerCompleted -= DoneComputeRadicalAvailability;
+            // Sort if wanted.
+            if (_comparer.SortByRelevance)
+            {
+                Radicals = Radicals.OrderBy(x => x, _comparer).ToList();
+            }
         }
 
         #endregion
@@ -597,9 +572,9 @@ namespace Kanji.Interface.ViewModels
         /// <summary>
         /// Disposes resources.
         /// </summary>
-        public override void Dispose()
+        public override async ValueTask DisposeAsync()
         {
-            base.Dispose();
+            await base.DisposeAsync();
         }
 
         #endregion

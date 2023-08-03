@@ -58,7 +58,7 @@ namespace Kanji.Interface.ViewModels
 
         #region Methods
 
-        public override bool OnNextStep()
+        public override Task<bool> OnNextStep()
         {
             // Check the API key field.
             bool isApiOk = true;
@@ -90,7 +90,7 @@ namespace Kanji.Interface.ViewModels
                 Kanji.Interface.Properties.Settings.Default.WkTags = _parent.Tags;
                 Kanji.Interface.Properties.Settings.Default.Save();
 
-                return true;
+                return Task.FromResult(true);
             }
 
             // Our key is not ok. Stop.
@@ -98,7 +98,7 @@ namespace Kanji.Interface.ViewModels
             {
                 InvalidApiKeyChecked(new EventArgs(), this);
             }
-            return false;
+            return Task.FromResult(false);
         }
 
         #endregion

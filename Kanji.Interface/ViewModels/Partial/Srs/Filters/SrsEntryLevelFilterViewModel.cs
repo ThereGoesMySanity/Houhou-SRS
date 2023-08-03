@@ -105,11 +105,11 @@ namespace Kanji.Interface.ViewModels
         /// <summary>
         /// Disposes the resources used by this object.
         /// </summary>
-        public override void Dispose()
+        public override async ValueTask DisposeAsync()
         {
             SrsLevelPickerVm.SrsLevelSelected -= OnSrsLevelSelected;
-            SrsLevelPickerVm.Dispose();
-            base.Dispose();
+            await SrsLevelPickerVm.DisposeAsync();
+            await base.DisposeAsync();
         }
 
         #endregion

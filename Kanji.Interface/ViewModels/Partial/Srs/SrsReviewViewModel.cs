@@ -341,17 +341,17 @@ namespace Kanji.Interface.ViewModels
         /// <summary>
         /// Starts a new SRS session.
         /// </summary>
-        public void StartSession()
+        public async Task StartSession()
         {
-            _iterator.ApplyFilter();
+            await _iterator.ApplyFilter();
             IsReviewing = true;
             TotalReviewsCount = _iterator.ItemCount;
             AnsweredReviewsCount = 0;
             _isEntryAvailable = true;
             CurrentAnswer = string.Empty;
             _currentBatch = new List<SrsQuestionGroup>();
-            FillCurrentBatch();
-            ToNextQuestion();
+            await FillCurrentBatch();
+            await ToNextQuestion();
         }
 
         /// <summary>
@@ -412,12 +412,12 @@ namespace Kanji.Interface.ViewModels
         /// <summary>
         /// Goes forward to the next question.
         /// </summary>
-        private void ToNextQuestion()
+        private async Task ToNextQuestion()
         {
             if (CurrentQuestion != null)
             {
                 // Execute the logic of success/failure for the last question.
-                ProcessLastSubmission();
+                await ProcessLastSubmission();
             }
 
             PreviewNextLevel = null;
@@ -447,22 +447,19 @@ namespace Kanji.Interface.ViewModels
         /// <summary>
         /// Attempts to fill the batch to its maximal capacity.
         /// </summary>
-        private void FillCurrentBatch()
+        private async Task FillCurrentBatch()
         {
-            lock (_batchLock)
+            int remaining = BatchMaxSize - _currentBatch.Count;
+            while (remaining-- > 0 && _isEntryAvailable)
             {
-                int remaining = BatchMaxSize - _currentBatch.Count;
-                while (remaining-- > 0 && _isEntryAvailable)
+                SrsEntry next = await _iterator.GetNext(1).FirstOrDefaultAsync();
+                if (next == null)
                 {
-                    SrsEntry next = _iterator.GetNext(1).FirstOrDefault();
-                    if (next == null)
-                    {
-                        _isEntryAvailable = false;
-                    }
-                    else
-                    {
-                        _currentBatch.Add(ProcessEntry(next));
-                    }
+                    _isEntryAvailable = false;
+                }
+                else
+                {
+                    _currentBatch.Add(ProcessEntry(next));
                 }
             }
         }
@@ -558,7 +555,7 @@ namespace Kanji.Interface.ViewModels
         /// Processes the success/failure logic for the last answered question.
         /// Executed before getting to the next question.
         /// </summary>
-        private void ProcessLastSubmission()
+        private async Task ProcessLastSubmission()
         {
             if (ReviewState == SrsReviewStateEnum.Success)
             {
@@ -586,7 +583,7 @@ namespace Kanji.Interface.ViewModels
                     // Fill the batch to compensate for the removed group.
                     if (!IsWrappingUp)
                     {
-                        FillCurrentBatch();
+                        await FillCurrentBatch();
                     }
                     else if (_currentBatch.Count == 0)
                     {
@@ -693,10 +690,10 @@ namespace Kanji.Interface.ViewModels
         /// Background task work method.
         /// Updates the given SRS item.
         /// </summary>
-        private void DoUpdateEntry(object sender, DoWorkEventArgs e)
+        private async void DoUpdateEntry(object sender, DoWorkEventArgs e)
         {
             SrsEntry entry = (SrsEntry)e.Argument;
-            if (!_srsEntryDao.Update(entry))
+            if (!(await _srsEntryDao.Update(entry)))
             {
                 LogHelper.GetLogger(this.GetType().Name).WarnFormat(
                     "The review update for the SRS entry \"{0}\" ({1}) failed.",
@@ -734,25 +731,22 @@ namespace Kanji.Interface.ViewModels
         /// Command callback.
         /// Submits the current answer.
         /// </summary>
-        private void OnSubmit()
+        private async void OnSubmit()
         {
             if (IsReviewing)
             {
-                lock (_submitLock)
+                if (ReviewState == SrsReviewStateEnum.Input)
                 {
-                    if (ReviewState == SrsReviewStateEnum.Input)
+                    SubmitAnswer();
+                    if (ReviewState == SrsReviewStateEnum.Success
+                        && Kanji.Interface.Properties.Settings.Default.AutoSkipReviews)
                     {
-                        SubmitAnswer();
-                        if (ReviewState == SrsReviewStateEnum.Success
-                            && Kanji.Interface.Properties.Settings.Default.AutoSkipReviews)
-                        {
-                            ToNextQuestion();
-                        }
+                        await ToNextQuestion();
                     }
-                    else if (_canSubmit)
-                    {
-                        ToNextQuestion();
-                    }
+                }
+                else if (_canSubmit)
+                {
+                    await ToNextQuestion();
                 }
             }
         }
@@ -763,7 +757,8 @@ namespace Kanji.Interface.ViewModels
         /// meanings of the entry referred by the given question.
         /// Also sets the state as successful and goes forward.
         /// </summary>
-        private void OnAddAnswer()
+        private async void OnAddAnswer() => await AddAnswer();
+        private async Task AddAnswer()
         {
             if (CurrentQuestion != null && ReviewState == SrsReviewStateEnum.Failure)
             {
@@ -779,7 +774,7 @@ namespace Kanji.Interface.ViewModels
                 }
 
                 ReviewState = SrsReviewStateEnum.Success;
-                ToNextQuestion();
+                await ToNextQuestion();
             }
         }
 
@@ -787,11 +782,11 @@ namespace Kanji.Interface.ViewModels
         /// Command callback.
         /// Calls the AddAnswer command if shortcuts are enabled.
         /// </summary>
-        private void OnAddAnswerShortcut()
+        private async void OnAddAnswerShortcut()
         {
             if (Properties.Settings.Default.IsIgnoreAnswerShortcutEnabled)
             {
-                OnAddAnswer();
+                await AddAnswer();
             }
         }
 
@@ -810,13 +805,13 @@ namespace Kanji.Interface.ViewModels
         /// Command callback.
         /// Ignores the last answer and goes to the next question.
         /// </summary>
-        private void OnIgnoreAnswer()
+        private async void OnIgnoreAnswer()
         {
             if (ReviewState == SrsReviewStateEnum.Failure
                 || ReviewState == SrsReviewStateEnum.Success)
             {
                 ReviewState = SrsReviewStateEnum.Ignore;
-                ToNextQuestion();
+                await ToNextQuestion();
             }
         }
 
@@ -861,10 +856,10 @@ namespace Kanji.Interface.ViewModels
                         ReviewState = SrsReviewStateEnum.Ignore;
                         _currentBatch.Remove(CurrentQuestionGroup);
 						if (!IsWrappingUp)
-							FillCurrentBatch();
+							await FillCurrentBatch();
 
                         AnsweredReviewsCount++;
-                        ToNextQuestion();
+                        await ToNextQuestion();
                     }
                 }
             }

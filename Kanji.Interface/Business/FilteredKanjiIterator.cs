@@ -35,7 +35,7 @@ namespace Kanji.Interface.Business
         /// Applies the filter.
         /// </summary>
         /// <returns>Filtered set.</returns>
-        protected override IEnumerable<KanjiEntity> DoFilter()
+        protected override IAsyncEnumerable<KanjiEntity> DoFilter()
         {
             KanjiFilter filter = (KanjiFilter)_currentFilter;
             string anyReadingFilter = filter.MainFilterMode == KanjiFilterModeEnum.AnyReading ?
@@ -57,7 +57,7 @@ namespace Kanji.Interface.Business
         /// <summary>
         /// Returns the item count.
         /// </summary>
-        protected override int GetItemCount()
+        protected override async Task<int> GetItemCount()
         {
             KanjiFilter filter = (KanjiFilter)_currentFilter;
             string anyReadingFilter = filter.MainFilterMode == KanjiFilterModeEnum.AnyReading ?
@@ -72,16 +72,16 @@ namespace Kanji.Interface.Business
                 filter.MainFilter : string.Empty;
             RadicalGroup[] radicalGroups = filter.Radicals.SelectMany(r => r.Reference.RadicalGroups).ToArray();
 
-            return (int)_kanjiDao.GetFilteredKanjiCount(radicalGroups, filter.TextFilter, meaningFilter,
+            return (int)await _kanjiDao.GetFilteredKanjiCount(radicalGroups, filter.TextFilter, meaningFilter,
                 anyReadingFilter, onYomiFilter, kunYomiFilter, nanoriFilter, filter.JlptLevel, filter.WkLevel);
         }
 
         /// <summary>
         /// Disposes resources used by this object.
         /// </summary>
-        public override void Dispose()
+        public override async ValueTask DisposeAsync()
         {
-            base.Dispose();
+            await base.DisposeAsync();
         }
 
         #endregion

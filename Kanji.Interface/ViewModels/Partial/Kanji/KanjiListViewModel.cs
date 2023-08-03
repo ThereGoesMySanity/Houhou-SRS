@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GalaSoft.MvvmLight.Command;
+﻿using GalaSoft.MvvmLight.Command;
 using Kanji.Database.Entities;
 using Kanji.Interface.Business;
 using Kanji.Interface.Models;
-using Kanji.Interface.Utilities;
 
 namespace Kanji.Interface.ViewModels
 {

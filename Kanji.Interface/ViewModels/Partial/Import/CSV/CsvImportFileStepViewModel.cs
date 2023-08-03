@@ -211,9 +211,9 @@ namespace Kanji.Interface.ViewModels
         /// Before going to the next step, makes sure everything is okay and loads the
         /// CSV file.
         /// </summary>
-        public override bool OnNextStep()
+        public override Task<bool> OnNextStep()
         {
-            return TestFilePath() && TestFileExists() && TestFileSize() && TryLoadFile();
+            return Task.FromResult(TestFilePath() && TestFileExists() && TestFileSize() && TryLoadFile());
         }
 
         /// <summary>

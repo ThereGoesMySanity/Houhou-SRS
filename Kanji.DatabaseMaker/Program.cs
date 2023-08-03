@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace Kanji.DatabaseMaker
@@ -16,7 +17,7 @@ namespace Kanji.DatabaseMaker
     /// </summary>
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             // Add extra codepages
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
@@ -28,10 +29,12 @@ namespace Kanji.DatabaseMaker
             log4net.ILog log = log4net.LogManager.GetLogger("Main");
             log.Info("Starting.");
 
+            AppDomain.CurrentDomain.SetData("DataDirectory", AppContext.BaseDirectory);
+
             // Get and store radicals.
             log.Info("Getting radicals.");
             RadicalEtl radicalEtl = new RadicalEtl();
-            radicalEtl.Execute();
+            await radicalEtl.ExecuteAsync();
             
             log.InfoFormat("Retrieved and stored {0} radicals from {1} compositions.",
                 radicalEtl.RadicalCount, radicalEtl.RadicalDictionary.Count());
@@ -39,13 +42,13 @@ namespace Kanji.DatabaseMaker
             // Get and store kanji.
             log.Info("Getting kanji.");
             KanjiEtl kanjiEtl = new KanjiEtl(radicalEtl.RadicalDictionary);
-            kanjiEtl.Execute();
+            await kanjiEtl.ExecuteAsync();
             log.InfoFormat("Retrieved and stored {0} kanji.", kanjiEtl.KanjiCount);
 
             // Get and store vocab.
             log.Info("Getting vocab.");
             VocabEtl vocabEtl = new VocabEtl();
-            vocabEtl.Execute();
+            await vocabEtl.ExecuteAsync();
             log.InfoFormat("Retrieved and stored {0} vocabs.", vocabEtl.VocabCount);
 
             // Log.

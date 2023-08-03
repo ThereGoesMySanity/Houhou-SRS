@@ -6,13 +6,14 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using Kanji.Common.Extensions;
-using Kanji.Database.Business;
 using Kanji.Database.Dao;
 using Kanji.Database.Entities;
 using Kanji.Database.Entities.Joins;
 using System.IO;
 using Kanji.Common.Helpers;
 using System.Xml;
+using SQLite;
+using System.Threading.Tasks;
 
 namespace Kanji.DatabaseMaker
 {
@@ -73,6 +74,8 @@ namespace Kanji.DatabaseMaker
         private Dictionary<string, int> _topFrequencyWords;
         private Dictionary<string, int> _waniKaniDictionary;
 
+        private SQLiteAsyncConnection connection = DaoConnection.Instance[DaoConnectionEnum.KanjiDatabase];
+
         #endregion
 
         #region Properties
@@ -101,7 +104,7 @@ namespace Kanji.DatabaseMaker
 
             // Build the kanji dictionary.
             _kanjiDictionary = new Dictionary<string, KanjiEntity>();
-            foreach (KanjiEntity kanji in new KanjiDao().GetAllKanji())
+            foreach (KanjiEntity kanji in new KanjiDao().GetAllKanji().Result)
             {
                 if (!_kanjiDictionary.ContainsKey(kanji.Character))
                 {
@@ -119,7 +122,7 @@ namespace Kanji.DatabaseMaker
         /// <summary>
         /// Gets and stores in database the vocab.
         /// </summary>
-        public override void Execute()
+        public override async Task ExecuteAsync()
         {
             _log.Info("Starting vocab ETL.");
 
@@ -129,7 +132,7 @@ namespace Kanji.DatabaseMaker
 
             // Read the dictionary and browse each resulting vocab.
             List<VocabEntity> vocabList = new List<VocabEntity>(BatchSize);
-            foreach (VocabEntity vocab in ReadJmDict())
+            foreach (VocabEntity vocab in await ReadJmDict())
             {
                 if (string.IsNullOrEmpty(vocab.KanaWriting))
                 {
@@ -146,23 +149,22 @@ namespace Kanji.DatabaseMaker
                     // If the vocab list size exceeds the batch size, write all to the database.
                     if (vocabList.Count >= BatchSize)
                     {
-                        Commit(vocabList);
+                        await Commit(vocabList);
                         vocabList.Clear();
                     }
                 }
             }
 
             // Flush the remaining data.
-            Commit(vocabList);
+            await Commit(vocabList);
 
-            AttachWordFrequencyOnSingleKanaMatch();
+            await AttachWordFrequencyOnSingleKanaMatch();
         }
 
-        private void AttachWordFrequencyOnSingleKanaMatch()
+        private async Task AttachWordFrequencyOnSingleKanaMatch()
         {
             _log.InfoFormat("Attaching word frequency on single kana match...");
             VocabDao dao = new VocabDao();
-            dao.OpenMassTransaction();
             foreach (string line in FileReadingHelper.ReadLineByLine(PathHelper.WordUsagePath, Encoding.UTF8))
             {
                 if (!string.IsNullOrWhiteSpace(line))
@@ -175,7 +177,7 @@ namespace Kanji.DatabaseMaker
                         string kanaReading = split[2];
                         if (kanjiReading == kanaReading)
                         {
-                            if (dao.UpdateFrequencyRankOnSingleKanaMatch(kanaReading, (int)rank.Value))
+                            if (await dao.UpdateFrequencyRankOnSingleKanaMatch(kanaReading, (int)rank.Value))
                             {
                                 _log.InfoFormat("{0} has a frequency of {1}", kanaReading, rank.Value);
                             }
@@ -183,10 +185,9 @@ namespace Kanji.DatabaseMaker
                     }
                 }
             }
-            dao.CloseMassTransaction();
         }
 
-        private void Commit(List<VocabEntity> vocabList)
+        private async Task Commit(List<VocabEntity> vocabList)
         {
             Dictionary<string, List<VocabEntity>> fullDictionary = new Dictionary<string, List<VocabEntity>>();
             Dictionary<string, List<VocabEntity>> kanaDictionary = new Dictionary<string, List<VocabEntity>>();
@@ -217,7 +218,7 @@ namespace Kanji.DatabaseMaker
             AttachWordFrequency(vocabList, fullDictionary);
             AttachWkLevel(vocabList);
             AttachWikipediaRank(vocabList);
-            InsertData(vocabList);
+            await InsertData(vocabList);
         }
 
         private void AttachWordFrequency(List<VocabEntity> vocabList, Dictionary<string, List<VocabEntity>> fullDictionary)
@@ -405,21 +406,14 @@ namespace Kanji.DatabaseMaker
         /// Writes the given list of vocab to the database.
         /// </summary>
         /// <param name="vocabList">Vocab to write to the database.</param>
-        private void InsertData(List<VocabEntity> vocabList)
+        private async Task InsertData(List<VocabEntity> vocabList)
         {
             if (vocabList.Any())
             {
                 _log.InfoFormat("Inserting the entities for the {0} last vocab", vocabList.Count);
 
                 // Insert vocab itself.
-                using (SQLiteBulkInsert<VocabEntity> vocabInsert
-                    = new SQLiteBulkInsert<VocabEntity>(int.MaxValue))
-                {
-                    foreach (VocabEntity vocab in vocabList)
-                    {
-                        vocab.ID = vocabInsert.Insert(vocab);
-                    }
-                }
+                await connection.InsertAllAsync(vocabList);
                 _log.InfoFormat("Inserted {0} vocab entities", vocabList.Count);
                 VocabCount += vocabList.Count;
 
@@ -428,100 +422,52 @@ namespace Kanji.DatabaseMaker
                     .Distinct()
                     .Where(vm => vm.ID <= 0)
                     .ToArray();
-                int vocabMeaningCount = 0;
-                using (SQLiteBulkInsert<VocabMeaning> vocabMeaningInsert
-                    = new SQLiteBulkInsert<VocabMeaning>(int.MaxValue))
-                {
-                    foreach (VocabMeaning vocabMeaning in newMeanings)
-                    {
-                        vocabMeaning.ID = vocabMeaningInsert.Insert(vocabMeaning);
-                        vocabMeaningCount++;
-                    }
-                }
-                _log.InfoFormat("Inserted {0} vocab meaning entities", vocabMeaningCount);
-                VocabMeaningCount += vocabMeaningCount;
+                await connection.InsertAllAsync(newMeanings);
+                _log.InfoFormat("Inserted {0} vocab meaning entities", newMeanings.Length);
+                VocabMeaningCount += newMeanings.Length;
 
                 // Insert kanji-vocab join entities.
-                int kanjiVocabCount = 0;
-                using (SQLiteBulkInsert<KanjiVocabJoinEntity> kanjiVocabInsert
-                    = new SQLiteBulkInsert<KanjiVocabJoinEntity>(int.MaxValue))
-                {
-                    foreach (VocabEntity vocab in vocabList)
+                int kanjiVocabCount = await connection.InsertAllAsync(vocabList.SelectMany(v => v.Kanji.Select(k =>
+                    new KanjiVocabJoinEntity()
                     {
-                        foreach (KanjiEntity kanji in vocab.Kanji)
-                        {
-                            kanjiVocabInsert.Insert(new KanjiVocabJoinEntity()
-                                {
-                                    KanjiId = kanji.ID,
-                                    VocabId = vocab.ID
-                                });
-                            kanjiVocabCount++;
-                        }
+                        KanjiId = k.ID,
+                        VocabId = v.ID
                     }
-                }
+                )));
                 _log.InfoFormat("Inserted {0} kanji-vocab join entities", kanjiVocabCount);
                 KanjiVocabCount += kanjiVocabCount;
 
                 // Insert Vocab-VocabCategory join entities.
-                int vocabVocabCategoryCount = 0;
-                using (SQLiteBulkInsert<VocabCategoryVocabJoinEntity> bulk
-                    = new SQLiteBulkInsert<VocabCategoryVocabJoinEntity>(int.MaxValue))
-                {
-                    foreach (VocabEntity vocab in vocabList)
+                int vocabVocabCategoryCount = await connection.InsertAllAsync(vocabList.SelectMany(v => 
+                    v.Categories.Distinct().Select(c =>
+                    new VocabCategoryVocabJoinEntity()
                     {
-                        foreach (VocabCategory category in vocab.Categories.Distinct())
-                        {
-                            bulk.Insert(new VocabCategoryVocabJoinEntity()
-                            {
-                                CategoryId = category.ID,
-                                VocabId = vocab.ID
-                            });
-                            vocabVocabCategoryCount++;
-                        }
+                        CategoryId = c.ID,
+                        VocabId = v.ID
                     }
-                }
+                )));
                 _log.InfoFormat("Inserted {0} Vocab-VocabCategory join entities", vocabVocabCategoryCount);
                 VocabVocabCategoryCount += vocabVocabCategoryCount;
 
                 // Insert Vocab-VocabMeaning join entities.
-                int vocabVocabMeaningCount = 0;
-                using (SQLiteBulkInsert<VocabVocabMeaningJoinEntity> bulk
-                    = new SQLiteBulkInsert<VocabVocabMeaningJoinEntity>(int.MaxValue))
-                {
-                    foreach (VocabEntity vocab in vocabList)
+                int vocabVocabMeaningCount = await connection.InsertAllAsync(vocabList.SelectMany(v => v.Meanings.Select(m => 
+                    new VocabVocabMeaningJoinEntity()
                     {
-                        foreach (VocabMeaning meaning in vocab.Meanings)
-                        {
-                            bulk.Insert(new VocabVocabMeaningJoinEntity()
-                            {
-                                MeaningId = meaning.ID,
-                                VocabId = vocab.ID
-                            });
-                            vocabVocabMeaningCount++;
-                        }
+                        MeaningId = m.ID,
+                        VocabId = v.ID
                     }
-                }
+                )));
                 _log.InfoFormat("Inserted {0} Vocab-VocabMeaning join entities", vocabVocabMeaningCount);
                 VocabVocabMeaningCount += vocabVocabMeaningCount;
 
                 // Insert VocabMeaning-VocabCategory join entities.
-                int vocabMeaningVocabCategoryCount = 0;
-                using (SQLiteBulkInsert<VocabMeaningVocabCategoryJoinEntity> bulk
-                    = new SQLiteBulkInsert<VocabMeaningVocabCategoryJoinEntity>(int.MaxValue))
-                {
-                    foreach (VocabMeaning meaning in newMeanings)
+                int vocabMeaningVocabCategoryCount = await connection.InsertAllAsync(newMeanings.SelectMany(m => m.Categories.Select(c =>
+                    new VocabMeaningVocabCategoryJoinEntity()
                     {
-                        foreach (VocabCategory category in meaning.Categories)
-                        {
-                            bulk.Insert(new VocabMeaningVocabCategoryJoinEntity()
-                            {
-                                MeaningId = meaning.ID,
-                                CategoryId = category.ID
-                            });
-                            vocabMeaningVocabCategoryCount++;
-                        }
+                        MeaningId = m.ID,
+                        CategoryId = c.ID
                     }
-                }
+                )));
                 _log.InfoFormat("Inserted {0} VocabMeaning-VocabCategory join entities", vocabMeaningVocabCategoryCount);
                 VocabMeaningVocabCategoryCount += vocabMeaningVocabCategoryCount;
             }
@@ -530,7 +476,7 @@ namespace Kanji.DatabaseMaker
         /// <summary>
         /// Reads the JMdict file.
         /// </summary>
-        private IEnumerable<VocabEntity> ReadJmDict()
+        private async Task<IEnumerable<VocabEntity>> ReadJmDict()
         {
             // Load the file.
             var settings = new XmlReaderSettings();
@@ -540,24 +486,20 @@ namespace Kanji.DatabaseMaker
 
             // Load vocab categories.
             _log.Info("Loading vocab categories");
-            using (SQLiteBulkInsert<VocabCategory> categoryInsert
-                    = new SQLiteBulkInsert<VocabCategory>(int.MaxValue))
+            foreach (VocabCategory category in LoadVocabCategories(xdoc))
             {
-                foreach (VocabCategory category in LoadVocabCategories(xdoc))
-                {
-                    // Store vocab categories in the database.
-                    category.ID = categoryInsert.Insert(category);
-                    VocabCategoryCount++;
+                // Store vocab categories in the database.
+                await connection.InsertAsync(category);
+                VocabCategoryCount++;
 
-                    // Add them to the dictionary too.
-                    _categoryDictionary.Add(category.Label, category);
-                }
+                // Add them to the dictionary too.
+                _categoryDictionary.Add(category.Label, category);
             }
             _log.InfoFormat("Loaded {0} vocab categories", VocabCategoryCount);
 
             // Load and return vocab items.
             _log.Info("Loading vocab");
-            foreach (VocabEntity vocab in LoadVocabItems(xdoc)) { yield return vocab; }
+            return LoadVocabItems(xdoc);
         }
 
         /// <summary>

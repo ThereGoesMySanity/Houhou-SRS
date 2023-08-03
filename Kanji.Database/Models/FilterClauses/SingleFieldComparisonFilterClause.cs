@@ -30,14 +30,13 @@ namespace Kanji.Database.Models
 
         #region Methods
 
-        protected override string DoGetSqlWhereClause(List<DaoParameter> parameters)
+        protected override string DoGetSqlWhereClause(List<object> parameters)
         {
             if (Value != null && Operator.HasValue)
             {
-                string paramId = GetUniqueParamId();
-                parameters.Add(new DaoParameter(paramId, Value));
+                parameters.Add(Value);
 
-                return _fieldName + Operator.Value.ToSqlOperator() + paramId;
+                return _fieldName + Operator.Value.ToSqlOperator() + "?";
             }
 
             return null;

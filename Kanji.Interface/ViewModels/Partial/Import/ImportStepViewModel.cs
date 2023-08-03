@@ -46,9 +46,9 @@ namespace Kanji.Interface.ViewModels
         /// Returns <value>true</value> to inform the parent mode that it's okay to go to the next step,
         /// or <value>false</value> to prevent the parent mode to go forward to the next step.
         /// </summary>
-        public virtual bool OnNextStep()
+        public virtual async Task<bool> OnNextStep()
         {
-            return true;
+            return await Task.FromResult(true);
         }
 
         /// <summary>

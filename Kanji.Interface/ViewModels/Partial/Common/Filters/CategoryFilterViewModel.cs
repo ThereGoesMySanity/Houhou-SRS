@@ -12,7 +12,7 @@ namespace Kanji.Interface.ViewModels
     {
         #region Fields
 
-        private static readonly VocabCategory[] categories;
+        private static VocabCategory[] categories;
 
         private int _selectedCategoryIndex;
 
@@ -23,7 +23,7 @@ namespace Kanji.Interface.ViewModels
         public VocabCategory CategoryFilter
         {
             get { return SelectedCategoryIndex < 0 ? null : categories[SelectedCategoryIndex]; }
-            set { SelectedCategoryIndex = System.Array.IndexOf(categories, value); }
+            set { SelectedCategoryIndex = value != null ? System.Array.IndexOf(categories, value) : -1; }
         }
 
         /// <summary>
@@ -73,9 +73,9 @@ namespace Kanji.Interface.ViewModels
         {
             var converter = new VocabCategoriesToStringConverter();
             VocabDao dao = new VocabDao();
-            var allCategories = dao.GetAllCategories().OrderBy(cat => cat.Label);
-            categories = allCategories.Where(
-                cat =>
+            dao.GetAllCategories().ContinueWith((allCategories) => 
+            {
+                categories = allCategories.Result.OrderBy(cat => cat.Label).Where(cat =>
                 {
                     // These are various types of archaic verbs.
                     // We remove these from the category list for two reasons:
@@ -118,6 +118,7 @@ namespace Kanji.Interface.ViewModels
                     object convertedValue = converter.Convert(cat, null, null, null);
                     return !string.IsNullOrWhiteSpace(convertedValue as string);
                 }).ToArray();
+            });
         }
 
         #endregion

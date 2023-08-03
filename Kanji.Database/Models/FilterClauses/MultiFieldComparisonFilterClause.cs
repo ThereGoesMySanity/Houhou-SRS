@@ -32,12 +32,11 @@ namespace Kanji.Database.Models
 
         #region Methods
 
-        protected override string DoGetSqlWhereClause(List<DaoParameter> parameters)
+        protected override string DoGetSqlWhereClause(List<object> parameters)
         {
             if (Value != null && Comparison.HasValue && _fieldNames.Any())
             {
-                string paramId = GetUniqueParamId();
-                parameters.Add(new DaoParameter(paramId, Value));
+                parameters.Add(Value);
 
                 string clause = string.Empty;
                 foreach (string fieldName in _fieldNames)
@@ -49,7 +48,7 @@ namespace Kanji.Database.Models
                     }
                 }
 
-                return clause + Comparison.Value.ToSqlOperator() + paramId;
+                return clause + Comparison.Value.ToSqlOperator() + "?";
             }
 
             return null;

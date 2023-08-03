@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Command;
 using Kanji.Database.Entities;
 using Kanji.Interface.Actors;
@@ -169,13 +170,13 @@ namespace Kanji.Interface.ViewModels
         /// <summary>
         /// Starts a review session.
         /// </summary>
-        public void StartReviewSession()
+        public async Task StartReviewSession()
         {
             if (_reviewVm == null)
             {
                 ReviewVm = new SrsReviewViewModel();
                 ReviewVm.ReviewFinished += OnReviewFinished;
-                ReviewVm.StartSession();
+                await ReviewVm.StartSession();
             }
         }
 
@@ -185,9 +186,9 @@ namespace Kanji.Interface.ViewModels
         /// Command callback.
         /// Starts reviews.
         /// </summary>
-        private void OnStartReviews()
+        private async void OnStartReviews()
         {
-            StartReviewSession();
+            await StartReviewSession();
         }
 
         /// <summary>
@@ -250,7 +251,7 @@ namespace Kanji.Interface.ViewModels
         private void OnReviewFinished(object sender, EventArgs e)
         {
             ReviewVm.ReviewFinished -= OnReviewFinished;
-            ReviewVm.Dispose();
+            ReviewVm.DisposeAsync().AsTask().Wait();
             ReviewVm = null;
 
             SrsBusiness.Instance.UpdateReviewInfoAsync();
@@ -271,24 +272,24 @@ namespace Kanji.Interface.ViewModels
         /// <summary>
         /// Disposes the resources used by this object.
         /// </summary>
-        public override void Dispose()
+        public override async ValueTask DisposeAsync()
         {
             if (ReviewVm != null)
             {
                 try
                 {
                     ReviewVm.ReviewFinished -= OnReviewFinished;
-                    ReviewVm.Dispose();
+                    await ReviewVm.DisposeAsync();
                 }
                 catch { }
             }
 
-            ListVm.Dispose();
+            await ListVm.DisposeAsync();
 
             FilterVm.FilterChanged -= OnFilterChanged;
-            FilterVm.Dispose();
+            await FilterVm.DisposeAsync();
 
-            base.Dispose();
+            await base.DisposeAsync();
         }
 
         #endregion

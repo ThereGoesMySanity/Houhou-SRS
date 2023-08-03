@@ -29,7 +29,7 @@ namespace Kanji.Interface.Business
 
         #region Methods
 
-        public RadicalEntity[] GetAvailableRadicals(KanjiFilter filter)
+        public async Task<RadicalEntity[]> GetAvailableRadicals(KanjiFilter filter)
         {
             string anyReadingFilter = filter.MainFilterMode == KanjiFilterModeEnum.AnyReading ?
                 filter.MainFilter : string.Empty;
@@ -43,9 +43,9 @@ namespace Kanji.Interface.Business
                 filter.MainFilter : string.Empty;
             RadicalGroup[] radicalGroups = filter.Radicals.SelectMany(r => r.Reference.RadicalGroups).ToArray();
 
-            return _radicalDao.GetAvailableRadicals(radicalGroups, filter.TextFilter, meaningFilter,
+            return (await _radicalDao.GetAvailableRadicals(radicalGroups, filter.TextFilter, meaningFilter,
                 anyReadingFilter, onYomiFilter, kunYomiFilter, nanoriFilter, filter.JlptLevel, filter.WkLevel)
-                .ToArray();
+                ).ToArray();
         }
 
         #endregion

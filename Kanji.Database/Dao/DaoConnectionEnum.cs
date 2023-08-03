@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Kanji.Database.Dao
 {
-    enum DaoConnectionEnum
+    public enum DaoConnectionEnum
     {
         KanjiDatabase = 0,
         SrsDatabase = 1

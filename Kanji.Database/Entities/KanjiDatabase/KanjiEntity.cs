@@ -1,73 +1,43 @@
 using System;
 using System.Collections.Generic;
-using System.Data;
 using Kanji.Database.Helpers;
+using SQLite;
 
-namespace Kanji.Database.Entities
+namespace Kanji.Database.Entities;
+
+[Table(SqlHelper.Table_Kanji)]
+public class KanjiEntity : Entity
 {
-    public class KanjiEntity : Entity
+    public KanjiEntity()
     {
-        public KanjiEntity()
-        {
-            this.Radicals = new HashSet<RadicalEntity>();
-            this.Vocabs = new HashSet<VocabEntity>();
-            this.Meanings = new HashSet<KanjiMeaning>();
-            this.SrsEntries = new HashSet<SrsEntry>();
-        }
-    
-        public long ID { get; set; }
-        public string Character { get; set; }
-        public Nullable<int> StrokeCount { get; set; }
-        public Nullable<short> Grade { get; set; }
-        public Nullable<int> MostUsedRank { get; set; }
-        public Nullable<short> JlptLevel { get; set; }
-        public Nullable<int> UnicodeValue { get; set; }
-        public Nullable<int> NewspaperRank { get; set; }
-        public Nullable<int> WaniKaniLevel { get; set; }
-        public string OnYomi { get; set; }
-        public string KunYomi { get; set; }
-        public string Nanori { get; set; }
-    
-        public ICollection<RadicalEntity> Radicals { get; set; }
-        public ICollection<VocabEntity> Vocabs { get; set; }
-        public ICollection<KanjiMeaning> Meanings { get; set; }
-        public ICollection<SrsEntry> SrsEntries { get; set; }
-
-        public override Dictionary<string, DbType> GetMapping()
-        {
-            return new Dictionary<string, DbType>()
-            {
-                { SqlHelper.Field_Kanji_Character, DbType.String },
-                { SqlHelper.Field_Kanji_StrokeCount, DbType.Int16 },
-                { SqlHelper.Field_Kanji_Grade, DbType.Int16 },
-                { SqlHelper.Field_Kanji_MostUsedRank, DbType.Int32 },
-                { SqlHelper.Field_Kanji_JlptLevel, DbType.Int16 },
-                { SqlHelper.Field_Kanji_KunYomi, DbType.String },
-                { SqlHelper.Field_Kanji_Nanori, DbType.String },
-                { SqlHelper.Field_Kanji_OnYomi, DbType.String },
-                { SqlHelper.Field_Kanji_UnicodeValue, DbType.Int32 },
-                { SqlHelper.Field_Kanji_NewspaperRank, DbType.Int32 },
-                { SqlHelper.Field_Kanji_WaniKaniLevel, DbType.Int32 }
-            };
-        }
-
-        public override object[] GetValues()
-        {
-            return new object[]
-            {
-                Character, StrokeCount, Grade, MostUsedRank, JlptLevel, KunYomi,
-                Nanori, OnYomi, UnicodeValue, NewspaperRank, WaniKaniLevel
-            };
-        }
-
-        public override string GetTableName()
-        {
-            return SqlHelper.Table_Kanji;
-        }
-
-        internal override Dao.DaoConnectionEnum GetEndpoint()
-        {
-            return Dao.DaoConnectionEnum.KanjiDatabase;
-        }
+        this.Radicals = new HashSet<RadicalEntity>();
+        this.Vocabs = new HashSet<VocabEntity>();
+        this.Meanings = new HashSet<KanjiMeaning>();
+        this.SrsEntries = new HashSet<SrsEntry>();
     }
+
+    [PrimaryKey]
+    [AutoIncrement]
+    public long ID { get; set; }
+    public string Character { get; set; }
+    public Nullable<int> StrokeCount { get; set; }
+    public Nullable<short> Grade { get; set; }
+    public Nullable<int> MostUsedRank { get; set; }
+    public Nullable<short> JlptLevel { get; set; }
+    public Nullable<int> UnicodeValue { get; set; }
+    public Nullable<int> NewspaperRank { get; set; }
+    [Column(SqlHelper.Field_Kanji_WaniKaniLevel)]
+    public Nullable<int> WaniKaniLevel { get; set; }
+    public string OnYomi { get; set; }
+    public string KunYomi { get; set; }
+    public string Nanori { get; set; }
+
+    [Ignore]
+    public ICollection<RadicalEntity> Radicals { get; set; }
+    [Ignore]
+    public ICollection<VocabEntity> Vocabs { get; set; }
+    [Ignore]
+    public ICollection<KanjiMeaning> Meanings { get; set; }
+    [Ignore]
+    public ICollection<SrsEntry> SrsEntries { get; set; }
 }

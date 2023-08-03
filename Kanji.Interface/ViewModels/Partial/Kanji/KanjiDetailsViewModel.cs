@@ -19,6 +19,7 @@ using Kanji.Interface.Actors;
 using Avalonia.Input;
 using Avalonia.Svg.Skia;
 using SvgImage = Avalonia.Svg.Skia.SvgImage;
+using System.Threading.Tasks;
 
 namespace Kanji.Interface.ViewModels
 {
@@ -332,14 +333,14 @@ namespace Kanji.Interface.ViewModels
         /// <summary>
         /// Background task work method.
         /// </summary>
-        private void DoPrepareSvg(object sender, DoWorkEventArgs e)
+        private async void DoPrepareSvg(object sender, DoWorkEventArgs e)
         {
+            KanjiDao dao = new KanjiDao();
+            // Get the kanji strokes.
+            KanjiStrokes strokes = await dao.GetKanjiStrokes(_kanjiEntity.DbKanji.ID);
             // Lock to allow only one of these operations at a time.
             lock (_updateLock)
             {
-                KanjiDao dao = new KanjiDao();
-                // Get the kanji strokes.
-                KanjiStrokes strokes = dao.GetKanjiStrokes(_kanjiEntity.DbKanji.ID);
                 if (strokes != null && strokes.FramesSvg.Length > 0)
                 {
                     // If the strokes was successfuly retrieved, we have to read the compressed SVG contained inside.
@@ -587,20 +588,20 @@ namespace Kanji.Interface.ViewModels
         /// <summary>
         /// Disposes resources used by this object.
         /// </summary>
-        public override void Dispose()
+        public override async ValueTask DisposeAsync()
         {
             VocabListVm.KanjiNavigated -= OnKanjiNavigated;
             KanjiNavigated = null;
-            VocabListVm.Dispose();
+            await VocabListVm.DisposeAsync();
             VocabFilterVm.FilterChanged -= OnVocabFilterChanged;
-            VocabFilterVm.Dispose();
+            await VocabFilterVm.DisposeAsync();
 
             if (_strokeUpdateTimer != null)
             {
                 _strokeUpdateTimer.Tick -= OnStrokeUpdateTimerTick;
             }
 
-            base.Dispose();
+            await base.DisposeAsync();
         }
 
         #endregion

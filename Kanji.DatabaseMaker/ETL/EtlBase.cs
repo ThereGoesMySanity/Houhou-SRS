@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Kanji.DatabaseMaker
 {
@@ -21,7 +22,7 @@ namespace Kanji.DatabaseMaker
         /// <summary>
         /// Executes the ETL operation.
         /// </summary>
-        public abstract void Execute();
+        public abstract Task ExecuteAsync();
 
         #endregion
     }

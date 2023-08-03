@@ -1,46 +1,32 @@
-namespace Kanji.Database.Entities
+using System.Collections.Generic;
+using System.Data;
+using Kanji.Database.Helpers;
+using SQLite;
+namespace Kanji.Database.Entities;
+
+[Table(SqlHelper.Table_VocabCategory)]
+public class VocabCategory : Entity
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using Kanji.Database.Helpers;
-    
-    public class VocabCategory : Entity
+    [PrimaryKey]
+    [AutoIncrement]
+    public long ID { get; set; }
+    public string ShortName { get; set; }
+    public string Label { get; set; }
+
+    /// <inheritdoc />
+    public override string ToString()
     {
-        public long ID { get; set; }
-        public string ShortName { get; set; }
-        public string Label { get; set; }
+        // Used for selecting items by typing the first letter.
+        // TODO: This should use the same value as VocabCategoriesToStringConverter.
+        return Label;
+    }
+    public override bool Equals(object obj)
+    {
+        return (obj as VocabCategory)?.ID == ID;
+    }
 
-        public override string GetTableName()
-        {
-            return SqlHelper.Table_VocabCategory;
-        }
-
-        public override Dictionary<string, DbType> GetMapping()
-        {
-            return new Dictionary<string, DbType>()
-            {
-                { SqlHelper.Field_VocabCategory_Label, DbType.String },
-                { SqlHelper.Field_VocabCategory_ShortName, DbType.String }
-            };
-        }
-
-        public override object[] GetValues()
-        {
-            return new object[] { Label, ShortName };
-        }
-
-        internal override Dao.DaoConnectionEnum GetEndpoint()
-        {
-            return Dao.DaoConnectionEnum.KanjiDatabase;
-        }
-
-        /// <inheritdoc />
-        public override string ToString()
-        {
-            // Used for selecting items by typing the first letter.
-            // TODO: This should use the same value as VocabCategoriesToStringConverter.
-            return Label;
-        }
+    public override int GetHashCode()
+    {
+        return ID.GetHashCode();
     }
 }

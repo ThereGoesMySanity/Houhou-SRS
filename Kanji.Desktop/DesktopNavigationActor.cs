@@ -118,14 +118,14 @@ namespace Kanji.Interface.Actors
         /// <summary>
         /// Navigates to the SRS page and starts a review session.
         /// </summary>
-        public void NavigateToReviewSession()
+        public async void NavigateToReviewSession()
         {
             lock (_mainWindowLock)
             {
                 RequireMainWindow();
                 CurrentPage = NavigationPageEnum.Srs;
-                SrsVm.StartReviewSession();
             }
+            await SrsVm.StartReviewSession();
         }
 
         /// <summary>
@@ -290,10 +290,10 @@ namespace Kanji.Interface.Actors
                 ActiveWindow = null;
 
                 // Dispose and release main pages View Models.
-                KanjiVm.Dispose();
+                KanjiVm.DisposeAsync().AsTask().Wait();
                 KanjiVm = null;
 
-                SrsVm.Dispose();
+                SrsVm.DisposeAsync().AsTask().Wait();
                 SrsVm = null;
             }
         }

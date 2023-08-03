@@ -163,13 +163,10 @@ namespace Kanji.Interface.Business
         /// <summary>
         /// Asnchronously loads available radical sets.
         /// </summary>
-        public void InitializeAsync()
+        public async Task InitializeAsync()
         {
-            Task.Run(() =>
-            {
-                DoInitialization();
-                EmptyQueue();
-            });
+            await DoInitialization();
+            EmptyQueue();
         }
 
         /// <summary>
@@ -189,7 +186,7 @@ namespace Kanji.Interface.Business
         /// </summary>
         public abstract T GetDefaultValue();
 
-        protected void DoInitialization()
+        protected async Task DoInitialization()
         {
             var log = LogHelper.GetLogger(this.GetType().Name);
             log.Info("Loading sets...");
@@ -216,7 +213,7 @@ namespace Kanji.Interface.Business
                 .Where(s => s.Name == selectedRadicalSetName)
                 .FirstOrDefault();
 
-            if (selectedInfo == null || !TryLoad(selectedInfo.Path))
+            if (selectedInfo == null || !await TryLoad(selectedInfo.Path))
             {
                 log.InfoFormat("Cannot find selected set '{0}'. "
                 + "Will attempt to load default set.",
@@ -227,7 +224,7 @@ namespace Kanji.Interface.Business
                     .Where(s => s.Name == DefaultSetName)
                     .FirstOrDefault();
 
-                if (selectedInfo == null || !TryLoad(selectedInfo.Path))
+                if (selectedInfo == null || !await TryLoad(selectedInfo.Path))
                 {
                     // Default info not found or failed to load.
                     log.Warn("Could not load default format.");
@@ -264,14 +261,14 @@ namespace Kanji.Interface.Business
         /// <param name="path">Path to the base directory of the set.</param>
         /// <returns>True if the set has been successfuly loaded.
         /// False otherwise.</returns>
-        private bool TryLoad(string path)
+        private async Task<bool> TryLoad(string path)
         {
             // Try to load the info.
             UserResourceSetInfo info = _setManager.ReadInfo(path);
             if (info != null)
             {
                 // If info are properly loaded, try to read the set data.
-                T loadedSet = _setManager.ReadData(path);
+                T loadedSet = await _setManager.ReadData(path);
                 if (loadedSet != null)
                 {
                     // If the set is properly loaded, set the values and return true.

@@ -169,7 +169,7 @@ namespace Kanji.Interface.ViewModels
         {
             if (!IsLastStep())
             {
-                if (CurrentStep.OnNextStep())
+                if (await CurrentStep.OnNextStep())
                 {
                     CurrentStep = _steps[GetStepIndex() + 1];
                     await CurrentStep.OnEnterStep();

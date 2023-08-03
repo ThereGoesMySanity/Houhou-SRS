@@ -7,11 +7,11 @@ using Kanji.Interface.Utilities;
 
 namespace Kanji.Interface.ViewModels
 {
-    public class ViewModel : NotifyPropertyChanged, IDisposable
+    public class ViewModel : NotifyPropertyChanged, IAsyncDisposable
     {
-        public virtual void Dispose()
+        public virtual ValueTask DisposeAsync()
         {
-            // Do nothing.
+            return ValueTask.CompletedTask;
         }
     }
 }

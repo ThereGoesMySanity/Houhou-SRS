@@ -101,17 +101,16 @@ namespace Kanji.Database.Models
 
         #region Methods
 
-        protected override string DoGetSqlWhereClause(List<DaoParameter> parameters)
+        protected override string DoGetSqlWhereClause(List<object> parameters)
         {
             if (Value != null && Operator.HasValue)
             {
-                string paramId = GetUniqueParamId();
-                parameters.Add(new DaoParameter(paramId, Value));
+                parameters.Add(Value);
 
                 return "se." + SqlHelper.Field_SrsEntry_SuccessCount
                     + "/(se." + SqlHelper.Field_SrsEntry_SuccessCount
                     + "+se." + SqlHelper.Field_SrsEntry_FailureCount + ")"
-                    + Operator.Value.ToSqlOperator() + paramId;
+                    + Operator.Value.ToSqlOperator() + "?";
             }
 
             return null;

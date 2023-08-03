@@ -17,6 +17,7 @@ using MsBox.Avalonia.Dto;
 using MsBox.Avalonia.Enums;
 using Avalonia.Controls;
 using System.Collections;
+using System.Threading.Tasks;
 
 namespace Kanji.Interface.ViewModels
 {
@@ -593,7 +594,7 @@ namespace Kanji.Interface.ViewModels
         /// Background task work method.
         /// Performs the bulk edit.
         /// </summary>
-        private void DoBulkEdit(object sender, DoWorkEventArgs e)
+        private async void DoBulkEdit(object sender, DoWorkEventArgs e)
         {
             BulkEditTaskEnum task = (BulkEditTaskEnum)((object[])e.Argument)[0];
             SrsEntry[] entries = (SrsEntry[])((object[])e.Argument)[1];
@@ -603,32 +604,32 @@ namespace Kanji.Interface.ViewModels
             {
                 case BulkEditTaskEnum.MeaningNote:
                     BulkEditResultCount =
-                        _srsEntryDao.BulkEditMeaningNote(entries, (string)value);
+                        await _srsEntryDao.BulkEditMeaningNote(entries, (string)value);
                     break;
                 case BulkEditTaskEnum.ReadingNote:
                     BulkEditResultCount =
-                        _srsEntryDao.BulkEditReadingNote(entries, (string)value);
+                        await _srsEntryDao.BulkEditReadingNote(entries, (string)value);
                     break;
                 case BulkEditTaskEnum.Tags:
                     BulkEditResultCount =
-                        _srsEntryDao.BulkEditTags(entries, (string)value);
+                        await _srsEntryDao.BulkEditTags(entries, (string)value);
                     break;
                 case BulkEditTaskEnum.Level:
                     BulkEditResultCount =
-                        _srsEntryDao.BulkEditGrade(entries, (short)value,
+                        await _srsEntryDao.BulkEditGrade(entries, (short)value,
                         SrsLevelStore.Instance.GetLevelByValue((short)value).Delay);
                     break;
                 case BulkEditTaskEnum.Timing:
-                    BulkEditResultCount = _srsEntryDao.BulkEditReviewDate(entries);
+                    BulkEditResultCount = await _srsEntryDao.BulkEditReviewDate(entries);
                     break;
                 case BulkEditTaskEnum.Suspend:
-                    BulkEditResultCount = _srsEntryDao.BulkSuspend(entries);
+                    BulkEditResultCount = await _srsEntryDao.BulkSuspend(entries);
                     break;
                 case BulkEditTaskEnum.Resume:
-                    BulkEditResultCount = _srsEntryDao.BulkResume(entries);
+                    BulkEditResultCount = await _srsEntryDao.BulkResume(entries);
                     break;
                 case BulkEditTaskEnum.Delete:
-                    BulkEditResultCount = _srsEntryDao.BulkDelete(entries);
+                    BulkEditResultCount = await _srsEntryDao.BulkDelete(entries);
                     break;
                 default:
                     throw new ArgumentException(string.Format(
@@ -1019,10 +1020,10 @@ namespace Kanji.Interface.ViewModels
         /// <summary>
         /// Disposes resources used by this object.
         /// </summary>
-        public override void Dispose()
+        public override async ValueTask DisposeAsync()
         {
-            LevelPickerVm.Dispose();
-            base.Dispose();
+            await LevelPickerVm.DisposeAsync();
+            await base.DisposeAsync();
         }
 
         #endregion

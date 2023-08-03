@@ -6,5 +6,4 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Kanji.Interface.MainView"
              x:DataType="vm:MainViewModel">
-  <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 </UserControl>

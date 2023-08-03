@@ -189,7 +189,7 @@ namespace Kanji.Interface.ViewModels
                 DateTime start = vocab.SrsEntry.NextAnswerDate ?? DateTime.Now;
 
                 vocab.SrsEntry.NextAnswerDate = (add ? start + delay : start - delay);
-                new SrsEntryDao().Update(vocab.SrsEntry.Reference);
+                await new SrsEntryDao().Update(vocab.SrsEntry.Reference);
             }
             catch (Exception ex)
             {
@@ -301,7 +301,7 @@ namespace Kanji.Interface.ViewModels
             try
             {
                 // Add the entity to the database.
-                new SrsEntryDao().Add(entry);
+                await new SrsEntryDao().Add(entry);
                 vocab.SrsEntry = new ExtendedSrsEntry(entry);
             }
             catch (Exception ex)
@@ -407,12 +407,12 @@ namespace Kanji.Interface.ViewModels
         /// Called to switch between two variants of a vocab entry.
         /// </summary>
         /// <param name="variant">Variant to switch to.</param>
-        private void OnSwitchVocab(VocabVariant variant)
+        private async void OnSwitchVocab(VocabVariant variant)
         {
             int index = LoadedItems.IndexOf(variant.Parent);
             if (index >= 0)
             {
-                VocabEntity newVocab = new VocabDao().GetVocabById(variant.Variant.ID);
+                VocabEntity newVocab = await new VocabDao().GetVocabById(variant.Variant.ID);
 
                 LoadedItems[index] = new ExtendedVocab(newVocab, newVocab.SrsEntries.Any() ?
                     new ExtendedSrsEntry(newVocab.SrsEntries.First()) : null);

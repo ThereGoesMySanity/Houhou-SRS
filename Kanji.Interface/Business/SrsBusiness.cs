@@ -180,11 +180,11 @@ namespace Kanji.Interface.Business
         /// <summary>
         /// Synchronously updates the review info.
         /// </summary>
-        private void DoUpdateReviewInfo()
+        private async void DoUpdateReviewInfo()
         {
+            CurrentReviewInfo = await _srsEntryDao.GetReviewInfo();
             lock (_updateLock)
             {
-                CurrentReviewInfo = _srsEntryDao.GetReviewInfo();
                 SrsLevelStore.Instance.IssueWhenLoaded(UpdateItemsPerLevel);
             }
 

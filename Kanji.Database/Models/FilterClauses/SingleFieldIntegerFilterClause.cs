@@ -29,7 +29,7 @@ namespace Kanji.Database.Models
 
         #region Methods
 
-        protected override string DoGetSqlWhereClause(List<DaoParameter> parameters)
+        protected override string DoGetSqlWhereClause(List<object> parameters)
         {
             if (!Value.HasValue)
 			{
@@ -38,10 +38,9 @@ namespace Kanji.Database.Models
 
 			string clause = string.Empty;
 
-			string paramIdContains = GetUniqueParamId();
-			parameters.Add(new DaoParameter(paramIdContains, Value.Value));
+			parameters.Add(Value.Value);
 
-			clause += _fieldName + "=" + paramIdContains;
+			clause += _fieldName + "= ?";
 			return (IsInclude ? string.Empty : "NOT ") + "(" + clause + ")";
         }
 

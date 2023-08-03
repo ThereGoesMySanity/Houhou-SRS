@@ -55,7 +55,7 @@ namespace Kanji.Interface.Business
         /// </summary>
         /// <param name="directoryPath">Path to the base directory of the set.</param>
         /// <returns>Radicals read.</returns>
-        protected override ExtendedRadical[] DoReadData(string directoryPath)
+        protected override async Task<ExtendedRadical[]> DoReadData(string directoryPath)
         {
             List<ExtendedRadical> extendedRadicals = new List<ExtendedRadical>();
             string radicalsFilePath = Path.Combine(directoryPath, RadicalsFilePath);
@@ -64,7 +64,7 @@ namespace Kanji.Interface.Business
             XElement xroot = xdoc.Root;
 
             // Get radicals from DB.
-            RadicalEntity[] radicals = _radicalDao.GetAllRadicals().ToArray();
+            RadicalEntity[] radicals = await _radicalDao.GetAllRadicals();
 
             foreach (XElement xradical in xroot.Elements(XmlNode_Radical))
             {

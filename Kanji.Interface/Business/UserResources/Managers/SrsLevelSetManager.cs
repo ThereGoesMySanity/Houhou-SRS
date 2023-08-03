@@ -49,7 +49,7 @@ namespace Kanji.Interface.Business
         /// </summary>
         /// <param name="directoryPath">Path to the base directory of the set.</param>
         /// <returns>Level groups read.</returns>
-        protected override SrsLevelGroup[] DoReadData(string directoryPath)
+        protected override Task<SrsLevelGroup[]> DoReadData(string directoryPath)
         {
             List<SrsLevelGroup> groups = new List<SrsLevelGroup>();
 
@@ -123,7 +123,7 @@ namespace Kanji.Interface.Business
                 groups.Add(group);
             }
 
-            return groups.ToArray();
+            return Task.FromResult(groups.ToArray());
         }
 
         #endregion

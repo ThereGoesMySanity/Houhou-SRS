@@ -121,7 +121,7 @@
       </LinearGradientBrush>
 
       <!-- TEMPLATES -->
-      <DataTemplate x:Key="MiniRadicalInListTemplate">
+      <DataTemplate x:Key="MiniRadicalInListTemplate" x:DataType="models:ExtendedRadical">
         <Border Height="26" Width="26" CornerRadius="3" BorderBrush="Black" Background="#86469B" BorderThickness="1" Margin="0 0 4 4">
             <i:Interaction.Behaviors>
               <ia:DataTriggerBehavior Binding="{Binding HasImage}" Value="True">
@@ -143,7 +143,7 @@
         </Border>
       </DataTemplate>
 
-      <DataTemplate x:Key="RadicalInListTemplate">
+      <DataTemplate x:Key="RadicalInListTemplate" x:DataType="models:FilteringRadical">
         <Border Classes="RadicalInListBorder">
           <i:Interaction.Behaviors>
             <ia:DataTriggerBehavior Value="True">
@@ -1222,7 +1222,7 @@
         </Setter>
         <Setter Property="ItemTemplate">
           <Setter.Value>
-            <DataTemplate>
+            <DataTemplate x:DataType="models:ExtendedVocab">
               <Border>
                 <i:Interaction.Behaviors>
                   <ia:DataTriggerBehavior Binding="{Binding $self.IsPointerOver}" Value="False">

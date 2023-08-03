@@ -104,11 +104,11 @@ namespace Kanji.Interface.Business
         /// </summary>
         /// <param name="directoryPath">Path to the set directory.</param>
         /// <returns>Data read. Returns a default value if an error occurs.</returns>
-        public T ReadData(string directoryPath)
+        public async Task<T> ReadData(string directoryPath)
         {
             try
             {
-                return DoReadData(directoryPath);
+                return await DoReadData(directoryPath);
             }
             catch (Exception ex)
             {
@@ -126,7 +126,7 @@ namespace Kanji.Interface.Business
         /// </summary>
         /// <param name="directoryPath">Path to the base directory of the set.</param>
         /// <returns>Set data read.</returns>
-        protected abstract T DoReadData(string directoryPath);
+        protected abstract Task<T> DoReadData(string directoryPath);
 
         #endregion
     }

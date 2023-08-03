@@ -29,14 +29,16 @@ namespace Kanji.Interface.Converters
             CategoryDictionary = new Dictionary<long, VocabCategoryInfo>();
 
             VocabDao vocabDao = new VocabDao();
-            foreach (VocabCategory category in vocabDao.GetAllCategories())
-            {
-                VocabCategoryInfo info = GetInfo(category);
-                if (info != null)
+            vocabDao.GetAllCategories().ContinueWith(categories => {
+                foreach (VocabCategory category in categories.Result)
                 {
-                    CategoryDictionary.Add(category.ID, info);
+                    VocabCategoryInfo info = GetInfo(category);
+                    if (info != null)
+                    {
+                        CategoryDictionary.Add(category.ID, info);
+                    }
                 }
-            }
+            });
         }
 
         private static VocabCategoryInfo GetInfo(VocabCategory c)
