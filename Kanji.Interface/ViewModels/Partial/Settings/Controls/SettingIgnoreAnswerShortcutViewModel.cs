@@ -39,7 +39,7 @@ namespace Kanji.Interface.ViewModels
 
         public override void InitializeSettings()
         {
-            IsIgnoreAnswerShortcutEnabled = Properties.Settings.Default.IsIgnoreAnswerShortcutEnabled;
+            IsIgnoreAnswerShortcutEnabled = Properties.UserSettings.Instance.IsIgnoreAnswerShortcutEnabled;
         }
 
         #endregion
@@ -48,12 +48,12 @@ namespace Kanji.Interface.ViewModels
 
         public override bool IsSettingChanged()
         {
-            return Properties.Settings.Default.IsIgnoreAnswerShortcutEnabled != IsIgnoreAnswerShortcutEnabled;
+            return Properties.UserSettings.Instance.IsIgnoreAnswerShortcutEnabled != IsIgnoreAnswerShortcutEnabled;
         }
 
         protected override void DoSaveSetting()
         {
-            Properties.Settings.Default.IsIgnoreAnswerShortcutEnabled = IsIgnoreAnswerShortcutEnabled;
+            Properties.UserSettings.Instance.IsIgnoreAnswerShortcutEnabled = IsIgnoreAnswerShortcutEnabled;
         }
 
         #endregion

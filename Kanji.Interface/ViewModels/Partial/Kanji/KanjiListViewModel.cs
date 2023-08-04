@@ -133,7 +133,7 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         protected override int GetItemsPerPage()
         {
-            return Properties.Settings.Default.KanjiPerPage;
+            return Properties.UserSettings.Instance.KanjiPerPage;
         }
 
         /// <summary>

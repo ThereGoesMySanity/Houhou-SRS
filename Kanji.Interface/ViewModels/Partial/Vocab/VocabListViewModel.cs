@@ -185,7 +185,7 @@ namespace Kanji.Interface.ViewModels
         {
             try
             {
-                TimeSpan delay = TimeSpan.FromHours(Kanji.Interface.Properties.Settings.Default.VocabSrsDelayHours);
+                TimeSpan delay = TimeSpan.FromHours(Kanji.Interface.Properties.UserSettings.Instance.VocabSrsDelayHours);
                 DateTime start = vocab.SrsEntry.NextAnswerDate ?? DateTime.Now;
 
                 vocab.SrsEntry.NextAnswerDate = (add ? start + delay : start - delay);
@@ -221,7 +221,7 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         protected override int GetItemsPerPage()
         {
-            return Properties.Settings.Default.VocabPerPage;
+            return Properties.UserSettings.Instance.VocabPerPage;
         }
 
         /// <summary>
@@ -287,7 +287,7 @@ namespace Kanji.Interface.ViewModels
         {
             SrsEntry entry = new SrsEntry();
             entry.LoadFromVocab(vocab.DbVocab);
-            entry.Tags = Kanji.Interface.Properties.Settings.Default.LastSrsTagsValue;
+            entry.Tags = Properties.UserSettings.Instance.LastSrsTagsValue;
 
             SrsLevel startLevel = SrsLevelStore.Instance.GetLevelByValue(0);
             if (startLevel != null)

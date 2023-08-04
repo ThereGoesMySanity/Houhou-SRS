@@ -39,7 +39,7 @@ namespace Kanji.Interface.ViewModels
 
         public override void InitializeSettings()
         {
-            Threshold = Math.Max(0, Properties.Settings.Default.TrayNotificationCountThreshold);
+            Threshold = Math.Max(0, Properties.UserSettings.Instance.TrayNotificationCountThreshold);
         }
 
         #endregion
@@ -50,12 +50,12 @@ namespace Kanji.Interface.ViewModels
 
         protected override void DoSaveSetting()
         {
-            Properties.Settings.Default.TrayNotificationCountThreshold = Threshold;
+            Properties.UserSettings.Instance.TrayNotificationCountThreshold = Threshold;
         }
 
         public override bool IsSettingChanged()
         {
-            return Threshold != Math.Max(1, (int)Properties.Settings.Default.TrayNotificationCountThreshold);
+            return Threshold != Math.Max(1, (int)Properties.UserSettings.Instance.TrayNotificationCountThreshold);
         }
 
         #endregion

@@ -38,7 +38,7 @@ namespace Kanji.Interface.ViewModels
 
         public override void InitializeSettings()
         {
-            EntriesPerPage = Properties.Settings.Default.KanjiPerPage;
+            EntriesPerPage = Properties.UserSettings.Instance.KanjiPerPage;
         }
 
         #endregion
@@ -47,12 +47,12 @@ namespace Kanji.Interface.ViewModels
 
         public override bool IsSettingChanged()
         {
-            return Properties.Settings.Default.KanjiPerPage != _entriesPerPage;
+            return Properties.UserSettings.Instance.KanjiPerPage != _entriesPerPage;
         }
 
         protected override void DoSaveSetting()
         {
-            Properties.Settings.Default.KanjiPerPage = _entriesPerPage;
+            Properties.UserSettings.Instance.KanjiPerPage = _entriesPerPage;
         }
 
         #endregion

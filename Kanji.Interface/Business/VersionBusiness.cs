@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -158,7 +159,7 @@ namespace Kanji.Interface.Business
             UpdateCommand = new RelayCommand(Update);
 
             // Run the first update check.
-            if (Properties.Settings.Default.IsAutoUpdateCheckEnabled)
+            if (Properties.UserSettings.Instance.IsAutoUpdateCheckEnabled)
             {
                 Task.Run(() =>
                 {
@@ -166,7 +167,7 @@ namespace Kanji.Interface.Business
                     // the app may be launched at Windows startup and we don't
                     // want to be too heavy.
                     Thread.Sleep(BeforeFirstCheckDelay);
-                    if (Properties.Settings.Default.IsAutoUpdateCheckEnabled)
+                    if (Properties.UserSettings.Instance.IsAutoUpdateCheckEnabled)
                     {
                         Check();
                     }
@@ -253,7 +254,7 @@ namespace Kanji.Interface.Business
             {
                 // Prepare the request.
                 HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(
-                    Properties.Settings.Default.UpdateCheckUri);
+                    ConfigurationManager.AppSettings["UpdateCheckUri"]);
                 request.UserAgent = HouhouUserAgent;
 
                 // Execute the request.

@@ -13,6 +13,7 @@ using Kanji.Interface.Utilities;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Dialogs;
+using Config.Net;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Dto;
 using MsBox.Avalonia.Enums;
@@ -123,20 +124,23 @@ namespace Kanji.Interface
         /// </summary>
         private static void InitializeUserSettings()
         {
-            if (Kanji.Interface.Properties.Settings.Default.ShouldUpgradeSettings)
-            {
-                try
-                {
-                    Kanji.Interface.Properties.Settings.Default.Upgrade();
-                }
-                catch (Exception ex)
-                {
-                    LogHelper.GetLogger("Settings initialization").Error("Settings initialization failed.", ex);
-                }
+            Properties.UserSettings.Instance = new ConfigurationBuilder<Properties.IUserSettings>()
+                .UseIniFile(Path.Combine(ConfigurationHelper.UserContentDirectoryPath, "UserSettings.ini"))
+                .Build();
+            //TODO
+            // if (Properties.UserSettings.Instance.ShouldUpgradeSettings)
+            // {
+            //     try
+            //     {
+            //         Properties.UserSettings.Instance.Upgrade();
+            //     }
+            //     catch (Exception ex)
+            //     {
+            //         LogHelper.GetLogger("Settings initialization").Error("Settings initialization failed.", ex);
+            //     }
 
-                Kanji.Interface.Properties.Settings.Default.ShouldUpgradeSettings = false;
-                Kanji.Interface.Properties.Settings.Default.Save();
-            }
+            //     Properties.UserSettings.Instance.ShouldUpgradeSettings = false;
+            // }
         }
 
         /// <summary>
@@ -227,7 +231,6 @@ namespace Kanji.Interface
         /// </summary>
         public static void Shutdown()
         {
-            Kanji.Interface.Properties.Settings.Default.Save();
             DispatcherHelper.Invoke(() => { (App.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime).Shutdown(0); });
         }
     }

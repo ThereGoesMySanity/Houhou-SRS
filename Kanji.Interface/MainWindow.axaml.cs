@@ -38,7 +38,6 @@ namespace Kanji.Interface
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
-            Kanji.Interface.Properties.Settings.Default.Save();
             NavigationActor.Instance.SendMainWindowCloseEvent();
         }
 

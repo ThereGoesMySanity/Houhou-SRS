@@ -28,7 +28,7 @@ namespace Kanji.Interface.Converters
                     string text = "";
                     bool onlyOne = meanings.Count() == 1;
                     int count = 0;
-                    int maxCount = Kanji.Interface.Properties.Settings.Default.CollapseMeaningsLimit;
+                    int maxCount = Properties.UserSettings.Instance.CollapseMeaningsLimit;
                     if (meanings.Count() > maxCount)
                     {
                         maxCount--;

@@ -42,27 +42,27 @@ namespace Kanji.Interface.Models
 
         public bool ShowBookRanking
         {
-            get { return DbKanji.MostUsedRank.HasValue && Kanji.Interface.Properties.Settings.Default.ShowKanjiBookRanking; }
+            get { return DbKanji.MostUsedRank.HasValue && Properties.UserSettings.Instance.ShowKanjiBookRanking; }
         }
 
         public bool ShowGrade
         {
-            get { return DbKanji.Grade.HasValue && Kanji.Interface.Properties.Settings.Default.ShowKanjiGrade; }
+            get { return DbKanji.Grade.HasValue && Properties.UserSettings.Instance.ShowKanjiGrade; }
         }
 
         public bool ShowJlptLevel
         {
-            get { return DbKanji.JlptLevel.HasValue && Kanji.Interface.Properties.Settings.Default.ShowKanjiJlptLevel; }
+            get { return DbKanji.JlptLevel.HasValue && Properties.UserSettings.Instance.ShowKanjiJlptLevel; }
         }
 
         public bool ShowWkLevel
         {
-            get { return DbKanji.WaniKaniLevel.HasValue && Kanji.Interface.Properties.Settings.Default.ShowKanjiWkLevel; }
+            get { return DbKanji.WaniKaniLevel.HasValue && Properties.UserSettings.Instance.ShowKanjiWkLevel; }
         }
 
         public bool ShowStrokes
         {
-            get { return Kanji.Interface.Properties.Settings.Default.ShowKanjiStrokes; }
+            get { return Properties.UserSettings.Instance.ShowKanjiStrokes; }
         }
 
         #endregion

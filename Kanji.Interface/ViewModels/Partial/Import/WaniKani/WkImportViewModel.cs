@@ -136,8 +136,8 @@ namespace Kanji.Interface.ViewModels
         public WkImportViewModel()
             : base()
         {
-            ApiKey = Kanji.Interface.Properties.Settings.Default.WkApiKey;
-            Tags = Kanji.Interface.Properties.Settings.Default.WkTags;
+            ApiKey = Properties.UserSettings.Instance.WkApiKey;
+            Tags = Properties.UserSettings.Instance.WkTags;
             IsStartEnabled = true;
             DoImportSrsLevel = true;
             DoImportReviewDate = true;

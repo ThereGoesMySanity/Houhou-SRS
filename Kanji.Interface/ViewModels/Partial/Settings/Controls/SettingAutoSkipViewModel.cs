@@ -38,7 +38,7 @@ namespace Kanji.Interface.ViewModels
 
         public override void InitializeSettings()
         {
-            AutoSkip = Properties.Settings.Default.AutoSkipReviews;
+            AutoSkip = Properties.UserSettings.Instance.AutoSkipReviews;
         }
 
         #endregion
@@ -49,12 +49,12 @@ namespace Kanji.Interface.ViewModels
 
         protected override void DoSaveSetting()
         {
-            Properties.Settings.Default.AutoSkipReviews = AutoSkip;
+            Properties.UserSettings.Instance.AutoSkipReviews = AutoSkip;
         }
 
         public override bool IsSettingChanged()
         {
-            return AutoSkip != Properties.Settings.Default.AutoSkipReviews;
+            return AutoSkip != Properties.UserSettings.Instance.AutoSkipReviews;
         }
 
         #endregion

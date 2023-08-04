@@ -224,7 +224,6 @@ namespace Kanji.Interface.ViewModels
             bool needRestart = ContentViewModel.IsRestartNeeded();
 
             ContentViewModel.SaveSettings();
-            Interface.Properties.Settings.Default.Save();
 
             if (needRestart)
             {

@@ -38,7 +38,7 @@ namespace Kanji.Interface.ViewModels
 
         public override void InitializeSettings()
         {
-            EntriesPerPage = Properties.Settings.Default.SrsEntriesPerPage;
+            EntriesPerPage = Properties.UserSettings.Instance.SrsEntriesPerPage;
         }
 
         #endregion
@@ -47,12 +47,12 @@ namespace Kanji.Interface.ViewModels
 
         public override bool IsSettingChanged()
         {
-            return Properties.Settings.Default.SrsEntriesPerPage != _entriesPerPage;
+            return Properties.UserSettings.Instance.SrsEntriesPerPage != _entriesPerPage;
         }
 
         protected override void DoSaveSetting()
         {
-            Properties.Settings.Default.SrsEntriesPerPage = _entriesPerPage;
+            Properties.UserSettings.Instance.SrsEntriesPerPage = _entriesPerPage;
         }
 
         #endregion

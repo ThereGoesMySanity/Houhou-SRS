@@ -86,9 +86,8 @@ namespace Kanji.Interface.ViewModels
                 ApiKeyError = string.Empty;
 
                 // Save the API key and Tags fields in the user settings.
-                Kanji.Interface.Properties.Settings.Default.WkApiKey = _parent.ApiKey;
-                Kanji.Interface.Properties.Settings.Default.WkTags = _parent.Tags;
-                Kanji.Interface.Properties.Settings.Default.Save();
+                Properties.UserSettings.Instance.WkApiKey = _parent.ApiKey;
+                Properties.UserSettings.Instance.WkTags = _parent.Tags;
 
                 return Task.FromResult(true);
             }

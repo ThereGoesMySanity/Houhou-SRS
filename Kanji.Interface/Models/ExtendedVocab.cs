@@ -52,7 +52,7 @@ namespace Kanji.Interface.Models
         {
             get
             {
-                return DbVocab.Meanings.Count > Properties.Settings.Default.CollapseMeaningsLimit;
+                return DbVocab.Meanings.Count > Properties.UserSettings.Instance.CollapseMeaningsLimit;
             }
         }
 
@@ -98,22 +98,22 @@ namespace Kanji.Interface.Models
 
         public bool ShowBookRanking
         {
-            get { return DbVocab.FrequencyRank.HasValue && Kanji.Interface.Properties.Settings.Default.ShowVocabBookRanking; }
+            get { return DbVocab.FrequencyRank.HasValue && Properties.UserSettings.Instance.ShowVocabBookRanking; }
         }
 
         public bool ShowWikipediaRank
         {
-            get { return DbVocab.WikipediaRank.HasValue && Kanji.Interface.Properties.Settings.Default.ShowVocabWikipediaRank; }
+            get { return DbVocab.WikipediaRank.HasValue && Properties.UserSettings.Instance.ShowVocabWikipediaRank; }
         }
 
         public bool ShowJlptLevel
         {
-            get { return DbVocab.JlptLevel.HasValue && Kanji.Interface.Properties.Settings.Default.ShowVocabJlptLevel; }
+            get { return DbVocab.JlptLevel.HasValue && Properties.UserSettings.Instance.ShowVocabJlptLevel; }
         }
 
         public bool ShowWkLevel
         {
-            get { return DbVocab.WaniKaniLevel.HasValue && Kanji.Interface.Properties.Settings.Default.ShowVocabWkLevel; }
+            get { return DbVocab.WaniKaniLevel.HasValue && Properties.UserSettings.Instance.ShowVocabWkLevel; }
         }
 
         public bool HasVariants

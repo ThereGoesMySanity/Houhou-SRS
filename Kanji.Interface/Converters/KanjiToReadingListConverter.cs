@@ -30,19 +30,19 @@ namespace Kanji.Interface.Converters
             if (!string.IsNullOrWhiteSpace(kanji.DbKanji.OnYomi))
             {
                 results.Add(new KanjiReadingLabel() { Label = "On'yomi" });
-                results.AddRange(GetReadingList(kanji.DbKanji.OnYomi, Properties.Settings.Default.OnYomiReadingType));
+                results.AddRange(GetReadingList(kanji.DbKanji.OnYomi, Properties.UserSettings.Instance.OnYomiReadingType));
             }
 
             if (!string.IsNullOrWhiteSpace(kanji.DbKanji.KunYomi))
             {
                 results.Add(new KanjiReadingLabel() { Label = "Kun'yomi" });
-                results.AddRange(GetReadingList(kanji.DbKanji.KunYomi, Properties.Settings.Default.KunYomiReadingType));
+                results.AddRange(GetReadingList(kanji.DbKanji.KunYomi, Properties.UserSettings.Instance.KunYomiReadingType));
             }
 
-            if (!string.IsNullOrWhiteSpace(kanji.DbKanji.Nanori) && Properties.Settings.Default.ShowNanori)
+            if (!string.IsNullOrWhiteSpace(kanji.DbKanji.Nanori) && Properties.UserSettings.Instance.ShowNanori)
             {
                 results.Add(new KanjiReadingLabel() { Label = "Nanori" });
-                results.AddRange(GetReadingList(kanji.DbKanji.Nanori, Properties.Settings.Default.NanoriReadingType));
+                results.AddRange(GetReadingList(kanji.DbKanji.Nanori, Properties.UserSettings.Instance.NanoriReadingType));
             }
 
             return results;

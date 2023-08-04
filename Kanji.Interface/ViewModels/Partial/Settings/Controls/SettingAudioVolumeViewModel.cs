@@ -38,7 +38,7 @@ namespace Kanji.Interface.ViewModels
 
         public override void InitializeSettings()
         {
-            AudioVolume = (int)Properties.Settings.Default.AudioVolume;
+            AudioVolume = (int)Properties.UserSettings.Instance.AudioVolume;
         }
 
         #endregion
@@ -47,12 +47,12 @@ namespace Kanji.Interface.ViewModels
 
         public override bool IsSettingChanged()
         {
-            return Properties.Settings.Default.AudioVolume != _audioVolume;
+            return Properties.UserSettings.Instance.AudioVolume != _audioVolume;
         }
 
         protected override void DoSaveSetting()
         {
-            Properties.Settings.Default.AudioVolume = _audioVolume;
+            Properties.UserSettings.Instance.AudioVolume = _audioVolume;
         }
 
         #endregion

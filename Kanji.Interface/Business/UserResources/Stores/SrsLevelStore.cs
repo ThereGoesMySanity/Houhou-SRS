@@ -53,7 +53,7 @@ namespace Kanji.Interface.Business
         /// </summary>
         public override string GetSelectedSetName()
         {
-            return Kanji.Interface.Properties.Settings.Default.SrsLevelSetName;
+            return Properties.UserSettings.Instance.SrsLevelSetName;
         }
 
         /// <summary>

@@ -40,7 +40,7 @@ namespace Kanji.Interface.ViewModels
 
         public override void InitializeSettings()
         {
-            Interval = Math.Max(1, (int)Properties.Settings.Default.TrayCheckInterval.TotalMinutes);
+            Interval = Math.Max(1, (int)Properties.UserSettings.Instance.TrayCheckInterval.TotalMinutes);
         }
 
         #endregion
@@ -51,14 +51,14 @@ namespace Kanji.Interface.ViewModels
 
         protected override void DoSaveSetting()
         {
-            Properties.Settings.Default.TrayCheckInterval = TimeSpan.FromMinutes(Interval);
+            Properties.UserSettings.Instance.TrayCheckInterval = TimeSpan.FromMinutes(Interval);
             //TODO
             //TrayBusiness.Instance.ReloadConfiguration();
         }
 
         public override bool IsSettingChanged()
         {
-            return Interval != Math.Max(1, (int)Properties.Settings.Default.TrayCheckInterval.TotalMinutes);
+            return Interval != Math.Max(1, (int)Properties.UserSettings.Instance.TrayCheckInterval.TotalMinutes);
         }
 
         #endregion

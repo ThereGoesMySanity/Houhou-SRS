@@ -545,7 +545,7 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         protected override int GetItemsPerPage()
         {
-            return Properties.Settings.Default.SrsEntriesPerPage;
+            return Properties.UserSettings.Instance.SrsEntriesPerPage;
         }
 
         /// <summary>

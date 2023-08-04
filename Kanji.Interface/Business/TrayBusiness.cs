@@ -108,7 +108,7 @@ namespace Kanji.Interface.Business
 
             // Initialize the check timer.
             _checkTimer = new DispatcherTimer();
-            _checkTimer.Interval = Properties.Settings.Default.TrayCheckInterval;
+            _checkTimer.Interval = Properties.UserSettings.Instance.TrayCheckInterval;
             _checkTimer.Tick += OnCheckTick;
             _checkTimer.Start();
         }
@@ -125,9 +125,9 @@ namespace Kanji.Interface.Business
             _lastCheckDate = DateTime.Now;
             _lastCheckReviewsCount = DoCheck();
 
-            if (Properties.Settings.Default.TrayShowNotifications
+            if (Properties.UserSettings.Instance.TrayShowNotifications
                 && _lastCheckReviewsCount >
-                Properties.Settings.Default.TrayNotificationCountThreshold)
+                Properties.UserSettings.Instance.TrayNotificationCountThreshold)
             {
                 ShowReviewNotification();
             }
@@ -147,10 +147,10 @@ namespace Kanji.Interface.Business
         /// </summary>
         public void ReloadConfiguration()
         {
-            if (_checkTimer.Interval != Properties.Settings.Default.TrayCheckInterval)
+            if (_checkTimer.Interval != Properties.UserSettings.Instance.TrayCheckInterval)
             {
                 _checkTimer.Stop();
-                _checkTimer.Interval = Properties.Settings.Default.TrayCheckInterval;
+                _checkTimer.Interval = Properties.UserSettings.Instance.TrayCheckInterval;
                 _checkTimer.Start();
             }
         }
@@ -307,7 +307,7 @@ namespace Kanji.Interface.Business
         /// </summary>
         private void OnMainWindowClosed()
         {
-            if (Properties.Settings.Default.WindowCloseAction == WindowCloseActionEnum.Warn)
+            if (Properties.UserSettings.Instance.WindowCloseAction == WindowCloseActionEnum.Warn)
             {
                 ShowNotification(TrayNotificationEnum.ExitNotification, "Houhou",
                     string.Format("Houhou is still running in the background.{0}Click this bubble to shut it down.", Environment.NewLine),

@@ -38,7 +38,7 @@ namespace Kanji.Interface.ViewModels
 
         public override void InitializeSettings()
         {
-            AudioUri = Properties.Settings.Default.AudioUri;
+            AudioUri = Properties.UserSettings.Instance.AudioUri;
         }
 
         #endregion
@@ -47,12 +47,12 @@ namespace Kanji.Interface.ViewModels
 
         public override bool IsSettingChanged()
         {
-            return Properties.Settings.Default.AudioUri != _audioUri;
+            return Properties.UserSettings.Instance.AudioUri != _audioUri;
         }
 
         protected override void DoSaveSetting()
         {
-            Properties.Settings.Default.AudioUri = _audioUri;
+            Properties.UserSettings.Instance.AudioUri = _audioUri;
         }
 
         #endregion

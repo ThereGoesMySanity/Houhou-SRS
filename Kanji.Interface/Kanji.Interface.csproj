@@ -7,6 +7,7 @@
     <AvaloniaResource Include="Data\*" />
     <AvaloniaResource Include="Data\Resources\*" />
     <AvaloniaResource Include="Data\UI\*" />
+    <AvaloniaResource Include="Data\Fonts\NotoSansCJKjp-Thin.otf" />
   </ItemGroup>
   <ItemGroup>
     <AvaloniaResource Remove="Data\KanjiDatabase.sqlite" />
@@ -15,48 +16,6 @@
     <AvaloniaResource Remove="Data\Resources\HomePageHelp.xml" />
     <AvaloniaResource Remove="Data\Resources\TrayIconAlert.ico" />
     <AvaloniaResource Remove="Data\Resources\TrayIconIdle.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Data\Fonts\NotoSansCJKjp-Thin.otf" />
-    <None Remove="Data\Resources\HomePageChangelog.xml" />
-    <None Remove="Data\Resources\HomePageFutureChanges.xml" />
-    <None Remove="Data\Resources\HomePageHelp.xml" />
-    <None Remove="Data\Resources\TrayIconAlert.ico" />
-    <None Remove="Data\Resources\TrayIconIdle.ico" />
-    <None Remove="Data\UserContent\Radicals\Default\info.xml" />
-    <None Remove="Data\UserContent\Radicals\Default\radicals.xml" />
-    <None Remove="Data\UserContent\Radicals\Kangxi\info.xml" />
-    <None Remove="Data\UserContent\Radicals\Kangxi\radicals.xml" />
-    <None Remove="Data\UserContent\Radicals\WaniKani\Animal.png" />
-    <None Remove="Data\UserContent\Radicals\WaniKani\Butcher.png" />
-    <None Remove="Data\UserContent\Radicals\WaniKani\Butcher2.png" />
-    <None Remove="Data\UserContent\Radicals\WaniKani\Coffin.png" />
-    <None Remove="Data\UserContent\Radicals\WaniKani\FishStick.png" />
-    <None Remove="Data\UserContent\Radicals\WaniKani\FishTail.png" />
-    <None Remove="Data\UserContent\Radicals\WaniKani\Flowers.png" />
-    <None Remove="Data\UserContent\Radicals\WaniKani\Hat.png" />
-    <None Remove="Data\UserContent\Radicals\WaniKani\Horns.png" />
-    <None Remove="Data\UserContent\Radicals\WaniKani\info.xml" />
-    <None Remove="Data\UserContent\Radicals\WaniKani\Leader.png" />
-    <None Remove="Data\UserContent\Radicals\WaniKani\Mohawk.png" />
-    <None Remove="Data\UserContent\Radicals\WaniKani\Nailbat.png" />
-    <None Remove="Data\UserContent\Radicals\WaniKani\Pelican.png" />
-    <None Remove="Data\UserContent\Radicals\WaniKani\Pelican2.png" />
-    <None Remove="Data\UserContent\Radicals\WaniKani\radicals.xml" />
-    <None Remove="Data\UserContent\Radicals\WaniKani\Ribs.png" />
-    <None Remove="Data\UserContent\Radicals\WaniKani\Sauron.png" />
-    <None Remove="Data\UserContent\Radicals\WaniKani\Sick.png" />
-    <None Remove="Data\UserContent\Radicals\WaniKani\Triceratops.png" />
-    <None Remove="Data\UserContent\Radicals\WaniKani\Tsunami.png" />
-    <None Remove="Data\UserContent\Radicals\WaniKani\WaterSlide.png" />
-    <None Remove="Data\UserContent\SrsDatabase.sqlite" />
-    <None Remove="Data\UserContent\SrsLevels\Default\info.xml" />
-    <None Remove="Data\UserContent\SrsLevels\Default\levels.xml" />
-    <None Remove="Data\UserContent\SrsLevels\WaniKani\info.xml" />
-    <None Remove="Data\UserContent\SrsLevels\WaniKani\levels.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AvaloniaResource Include="Data\Fonts\NotoSansCJKjp-Thin.otf" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Data\KanjiDatabase.sqlite">
@@ -166,6 +125,7 @@
   <ItemGroup>
     <PackageReference Include="Avalonia.Svg.Skia" Version="11.0.0" />
     <PackageReference Include="Avalonia.Themes.Simple" Version="$(AvaloniaVersion)" />
+    <PackageReference Include="Config.Net" Version="5.1.5" />
     <PackageReference Include="MessageBox.Avalonia" Version="3.1.0" />
     <PackageReference Include="MvvmLightLibsStd10" Version="5.4.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

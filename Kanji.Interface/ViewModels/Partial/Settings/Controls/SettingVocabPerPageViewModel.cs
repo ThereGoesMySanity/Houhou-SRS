@@ -38,7 +38,7 @@ namespace Kanji.Interface.ViewModels
 
         public override void InitializeSettings()
         {
-            EntriesPerPage = Properties.Settings.Default.VocabPerPage;
+            EntriesPerPage = Properties.UserSettings.Instance.VocabPerPage;
         }
 
         #endregion
@@ -47,12 +47,12 @@ namespace Kanji.Interface.ViewModels
 
         public override bool IsSettingChanged()
         {
-            return Properties.Settings.Default.VocabPerPage != _entriesPerPage;
+            return Properties.UserSettings.Instance.VocabPerPage != _entriesPerPage;
         }
 
         protected override void DoSaveSetting()
         {
-            Properties.Settings.Default.VocabPerPage = _entriesPerPage;
+            Properties.UserSettings.Instance.VocabPerPage = _entriesPerPage;
         }
 
         #endregion

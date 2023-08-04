@@ -322,7 +322,7 @@ namespace Kanji.Interface.ViewModels
             _vocabDao = new VocabDao();
             if (IsNew)
             {
-                Entry.Tags = Properties.Settings.Default.LastSrsTagsValue;
+                Entry.Tags = Properties.UserSettings.Instance.LastSrsTagsValue;
             }
 
             // Create the relay commands.
@@ -424,7 +424,7 @@ namespace Kanji.Interface.ViewModels
                         _isDone = true;
 
                         // Saves the value of the tags
-                        Properties.Settings.Default.LastSrsTagsValue = Entry.Tags;
+                        Properties.UserSettings.Instance.LastSrsTagsValue = Entry.Tags;
                     }
                     catch (Exception ex)
                     {

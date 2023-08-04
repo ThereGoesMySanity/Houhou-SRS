@@ -141,18 +141,17 @@ namespace Kanji.Interface.Helpers
         /// </summary>
         private static void CheckUserDirectoryPath()
         {
-            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.UserDirectoryPath) || Properties.Settings.Default.UserDirectoryPath.StartsWith("["))
+            if (string.IsNullOrWhiteSpace(Properties.UserSettings.Instance.UserDirectoryPath) || Properties.UserSettings.Instance.UserDirectoryPath.StartsWith("["))
             {
                 // If path is empty, or starts with "[": for some reason the path was not replaced during installation.
-                Properties.Settings.Default.UserDirectoryPath = UserContentDirectoryPath;
-                Properties.Settings.Default.Save();
+                Properties.UserSettings.Instance.UserDirectoryPath = UserContentDirectoryPath;
             }
             else
             {
                 try
                 {
-                    CreateDirectoryIfNotExist(Properties.Settings.Default.UserDirectoryPath);
-                    UserContentDirectoryPath = Properties.Settings.Default.UserDirectoryPath;
+                    CreateDirectoryIfNotExist(Properties.UserSettings.Instance.UserDirectoryPath);
+                    UserContentDirectoryPath = Properties.UserSettings.Instance.UserDirectoryPath;
                 }
                 catch (Exception)
                 {

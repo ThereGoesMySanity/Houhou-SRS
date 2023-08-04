@@ -20,7 +20,7 @@ namespace Kanji.Interface.ViewModels
 
         protected override string GetInitialSetName()
         {
-            return Properties.Settings.Default.SrsLevelSetName;
+            return Properties.UserSettings.Instance.SrsLevelSetName;
         }
 
         protected override async Task<bool> CanChangeSet(UserResourceSetInfo setInfo)
@@ -41,12 +41,12 @@ namespace Kanji.Interface.ViewModels
 
         public override bool IsSettingChanged()
         {
-            return Properties.Settings.Default.SrsLevelSetName != SelectedSetName;
+            return Properties.UserSettings.Instance.SrsLevelSetName != SelectedSetName;
         }
 
         protected override void DoSaveSetting()
         {
-            Properties.Settings.Default.SrsLevelSetName = SelectedSetName;
+            Properties.UserSettings.Instance.SrsLevelSetName = SelectedSetName;
         }
 
         #endregion

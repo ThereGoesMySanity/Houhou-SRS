@@ -59,7 +59,7 @@ namespace Kanji.Interface.Business
         /// </summary>
         public override string GetSelectedSetName()
         {
-            return Kanji.Interface.Properties.Settings.Default.RadicalSetName;
+            return Properties.UserSettings.Instance.RadicalSetName;
         }
 
         /// <summary>

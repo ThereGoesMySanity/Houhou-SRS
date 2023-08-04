@@ -91,7 +91,7 @@ namespace Kanji.Interface.ViewModels
 
         public override void InitializeSettings()
         {
-            UserDirectoryPath = Properties.Settings.Default.UserDirectoryPath;
+            UserDirectoryPath = Properties.UserSettings.Instance.UserDirectoryPath;
             EnterEditModeCommand = new RelayCommand(OnEnterEditMode);
             SetDirectoryCommand = new RelayCommand(OnSetDirectory);
         }
@@ -129,7 +129,7 @@ namespace Kanji.Interface.ViewModels
             // Try to copy everything from the current user folder to the new one.
             try
             {
-                FileHelper.CopyAllContent(Properties.Settings.Default.UserDirectoryPath, _userDirectoryPath);
+                FileHelper.CopyAllContent(Properties.UserSettings.Instance.UserDirectoryPath, _userDirectoryPath);
             }
             catch (Exception ex)
             {
@@ -148,8 +148,7 @@ namespace Kanji.Interface.ViewModels
             }).ShowAsPopupAsync(NavigationActor.Instance.ActiveWindow);
 
             // Modify values.
-            Properties.Settings.Default.UserDirectoryPath = _userDirectoryPath;
-            Properties.Settings.Default.Save();
+            Properties.UserSettings.Instance.UserDirectoryPath = _userDirectoryPath;
             ErrorMessage = string.Empty;
             IsEditMode = false;
         }

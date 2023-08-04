@@ -39,7 +39,7 @@ namespace Kanji.Interface.ViewModels
 
         public override void InitializeSettings()
         {
-            AutoPlayMode = Properties.Settings.Default.AudioAutoplayMode;
+            AutoPlayMode = Properties.UserSettings.Instance.AudioAutoplayMode;
         }
 
         #endregion
@@ -48,12 +48,12 @@ namespace Kanji.Interface.ViewModels
 
         public override bool IsSettingChanged()
         {
-            return Properties.Settings.Default.AudioAutoplayMode != AutoPlayMode;
+            return Properties.UserSettings.Instance.AudioAutoplayMode != AutoPlayMode;
         }
 
         protected override void DoSaveSetting()
         {
-            Properties.Settings.Default.AudioAutoplayMode = AutoPlayMode;
+            Properties.UserSettings.Instance.AudioAutoplayMode = AutoPlayMode;
         }
 
         #endregion

@@ -32,10 +32,10 @@ namespace Kanji.Interface.Converters
                     = (KanjiReadingToListConversionType)parameter;
                 KanaTypeEnum kanaType = (conversionType ==
                     KanjiReadingToListConversionType.KunYomi ?
-                    Properties.Settings.Default.KunYomiReadingType
+                    Properties.UserSettings.Instance.KunYomiReadingType
                     : conversionType == KanjiReadingToListConversionType.OnYomi ?
-                        Properties.Settings.Default.OnYomiReadingType
-                        : Properties.Settings.Default.NanoriReadingType);
+                        Properties.UserSettings.Instance.OnYomiReadingType
+                        : Properties.UserSettings.Instance.NanoriReadingType);
 
                 List<KanjiReading> readingList = new List<KanjiReading>();
                 if (!string.IsNullOrWhiteSpace(value.ToString()))
@@ -85,10 +85,10 @@ namespace Kanji.Interface.Converters
         //        // Get the conversion type and deduce the associated reading type.
         //        ReadingToStringConversionType conversionType = (ReadingToStringConversionType)parameter;
         //        KanaTypeEnum kanaType = (conversionType == ReadingToStringConversionType.KunYomi ?
-        //            Properties.Settings.Default.KunYomiReadingType
+        //            Properties.UserSettings.Instance.KunYomiReadingType
         //            : conversionType == ReadingToStringConversionType.OnYomi ?
-        //                Properties.Settings.Default.OnYomiReadingType
-        //                : Properties.Settings.Default.NanoriReadingType);
+        //                Properties.UserSettings.Instance.OnYomiReadingType
+        //                : Properties.UserSettings.Instance.NanoriReadingType);
 
         //        if (!string.IsNullOrWhiteSpace(value.ToString()))
         //        {

@@ -38,7 +38,7 @@ namespace Kanji.Interface.ViewModels
 
         public override void InitializeSettings()
         {
-            DoUpdateCheck = Properties.Settings.Default.IsAutoUpdateCheckEnabled;
+            DoUpdateCheck = Properties.UserSettings.Instance.IsAutoUpdateCheckEnabled;
         }
 
         #endregion
@@ -49,12 +49,12 @@ namespace Kanji.Interface.ViewModels
 
         protected override void DoSaveSetting()
         {
-            Properties.Settings.Default.IsAutoUpdateCheckEnabled = DoUpdateCheck;
+            Properties.UserSettings.Instance.IsAutoUpdateCheckEnabled = DoUpdateCheck;
         }
 
         public override bool IsSettingChanged()
         {
-            return DoUpdateCheck != Properties.Settings.Default.IsAutoUpdateCheckEnabled;
+            return DoUpdateCheck != Properties.UserSettings.Instance.IsAutoUpdateCheckEnabled;
         }
 
         #endregion

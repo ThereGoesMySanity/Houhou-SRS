@@ -39,7 +39,7 @@ namespace Kanji.Interface.ViewModels
 
         public override void InitializeSettings()
         {
-            CloseAction = Properties.Settings.Default.WindowCloseAction;
+            CloseAction = Properties.UserSettings.Instance.WindowCloseAction;
         }
 
         #endregion
@@ -50,12 +50,12 @@ namespace Kanji.Interface.ViewModels
 
         protected override void DoSaveSetting()
         {
-            Properties.Settings.Default.WindowCloseAction = CloseAction;
+            Properties.UserSettings.Instance.WindowCloseAction = CloseAction;
         }
 
         public override bool IsSettingChanged()
         {
-            return CloseAction != Properties.Settings.Default.WindowCloseAction;
+            return CloseAction != Properties.UserSettings.Instance.WindowCloseAction;
         }
 
         #endregion

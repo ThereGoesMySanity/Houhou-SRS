@@ -14,7 +14,7 @@ namespace Kanji.Interface.ViewModels
 
         protected override string GetInitialSetName()
         {
-            return Properties.Settings.Default.RadicalSetName;
+            return Properties.UserSettings.Instance.RadicalSetName;
         }
 
         protected override Task<bool> CanChangeSet(Models.UserResourceSetInfo setInfo)
@@ -24,12 +24,12 @@ namespace Kanji.Interface.ViewModels
 
         public override bool IsSettingChanged()
         {
-            return Properties.Settings.Default.RadicalSetName != SelectedSetName;
+            return Properties.UserSettings.Instance.RadicalSetName != SelectedSetName;
         }
 
         protected override void DoSaveSetting()
         {
-            Properties.Settings.Default.RadicalSetName = SelectedSetName;
+            Properties.UserSettings.Instance.RadicalSetName = SelectedSetName;
         }
 
         #endregion

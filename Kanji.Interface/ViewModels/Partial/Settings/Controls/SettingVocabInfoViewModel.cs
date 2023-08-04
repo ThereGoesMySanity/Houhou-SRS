@@ -77,10 +77,10 @@ namespace Kanji.Interface.ViewModels
 
         public override void InitializeSettings()
         {
-            ShowBookRanking = Properties.Settings.Default.ShowVocabBookRanking;
-            ShowWikipediaRank = Properties.Settings.Default.ShowVocabWikipediaRank;
-            ShowJlptLevel = Properties.Settings.Default.ShowVocabJlptLevel;
-            ShowWkLevel = Properties.Settings.Default.ShowVocabWkLevel;
+            ShowBookRanking = Properties.UserSettings.Instance.ShowVocabBookRanking;
+            ShowWikipediaRank = Properties.UserSettings.Instance.ShowVocabWikipediaRank;
+            ShowJlptLevel = Properties.UserSettings.Instance.ShowVocabJlptLevel;
+            ShowWkLevel = Properties.UserSettings.Instance.ShowVocabWkLevel;
         }
 
         #endregion
@@ -89,18 +89,18 @@ namespace Kanji.Interface.ViewModels
 
         public override bool IsSettingChanged()
         {
-            return ShowBookRanking != Properties.Settings.Default.ShowVocabBookRanking
-                || ShowWikipediaRank != Properties.Settings.Default.ShowVocabWikipediaRank
-                || ShowJlptLevel != Properties.Settings.Default.ShowVocabJlptLevel
-                || ShowWkLevel != Properties.Settings.Default.ShowVocabWkLevel;
+            return ShowBookRanking != Properties.UserSettings.Instance.ShowVocabBookRanking
+                || ShowWikipediaRank != Properties.UserSettings.Instance.ShowVocabWikipediaRank
+                || ShowJlptLevel != Properties.UserSettings.Instance.ShowVocabJlptLevel
+                || ShowWkLevel != Properties.UserSettings.Instance.ShowVocabWkLevel;
         }
 
         protected override void DoSaveSetting()
         {
-            Properties.Settings.Default.ShowVocabBookRanking = ShowBookRanking;
-            Properties.Settings.Default.ShowVocabWikipediaRank = ShowWikipediaRank;
-            Properties.Settings.Default.ShowVocabJlptLevel = ShowJlptLevel;
-            Properties.Settings.Default.ShowVocabWkLevel = ShowWkLevel;
+            Properties.UserSettings.Instance.ShowVocabBookRanking = ShowBookRanking;
+            Properties.UserSettings.Instance.ShowVocabWikipediaRank = ShowWikipediaRank;
+            Properties.UserSettings.Instance.ShowVocabJlptLevel = ShowJlptLevel;
+            Properties.UserSettings.Instance.ShowVocabWkLevel = ShowWkLevel;
         }
 
         #endregion

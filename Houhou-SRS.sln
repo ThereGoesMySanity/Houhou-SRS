@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kanji.Android", "Kanji.Android\Kanji.Android.csproj", "{12FC97D2-24AB-4F4E-92AE-82CF2D4B7CC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kanji.Common", "Kanji.Common\Kanji.Common.csproj", "{26020446-5DE8-4E35-B329-ED80DF7324DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kanji.Database", "Kanji.Database\Kanji.Database.csproj", "{909F836B-31E5-4127-876F-2DC263D044A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kanji.DatabaseMaker", "Kanji.DatabaseMaker\Kanji.DatabaseMaker.csproj", "{E0674A19-59F0-4864-BCF6-643DE8BD554E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kanji.DatabaseMaker.WaniKani", "Kanji.DatabaseMaker.WaniKani\Kanji.DatabaseMaker.WaniKani.csproj", "{940643CF-0AD9-46B9-B24C-4DEDDCE2E29E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kanji.Desktop", "Kanji.Desktop\Kanji.Desktop.csproj", "{C3FF1538-BA06-443B-AAA4-E45D412278AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kanji.Interface", "Kanji.Interface\Kanji.Interface.csproj", "{5DC70527-69A4-465D-8D37-EF980985DE06}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{12FC97D2-24AB-4F4E-92AE-82CF2D4B7CC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12FC97D2-24AB-4F4E-92AE-82CF2D4B7CC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12FC97D2-24AB-4F4E-92AE-82CF2D4B7CC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12FC97D2-24AB-4F4E-92AE-82CF2D4B7CC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26020446-5DE8-4E35-B329-ED80DF7324DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26020446-5DE8-4E35-B329-ED80DF7324DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26020446-5DE8-4E35-B329-ED80DF7324DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26020446-5DE8-4E35-B329-ED80DF7324DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{909F836B-31E5-4127-876F-2DC263D044A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{909F836B-31E5-4127-876F-2DC263D044A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{909F836B-31E5-4127-876F-2DC263D044A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{909F836B-31E5-4127-876F-2DC263D044A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0674A19-59F0-4864-BCF6-643DE8BD554E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0674A19-59F0-4864-BCF6-643DE8BD554E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0674A19-59F0-4864-BCF6-643DE8BD554E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0674A19-59F0-4864-BCF6-643DE8BD554E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{940643CF-0AD9-46B9-B24C-4DEDDCE2E29E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{940643CF-0AD9-46B9-B24C-4DEDDCE2E29E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{940643CF-0AD9-46B9-B24C-4DEDDCE2E29E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{940643CF-0AD9-46B9-B24C-4DEDDCE2E29E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3FF1538-BA06-443B-AAA4-E45D412278AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3FF1538-BA06-443B-AAA4-E45D412278AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3FF1538-BA06-443B-AAA4-E45D412278AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3FF1538-BA06-443B-AAA4-E45D412278AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DC70527-69A4-465D-8D37-EF980985DE06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DC70527-69A4-465D-8D37-EF980985DE06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DC70527-69A4-465D-8D37-EF980985DE06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DC70527-69A4-465D-8D37-EF980985DE06}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

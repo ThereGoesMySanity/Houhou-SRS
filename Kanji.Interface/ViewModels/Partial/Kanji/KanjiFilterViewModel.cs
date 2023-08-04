@@ -257,10 +257,12 @@ namespace Kanji.Interface.ViewModels
         public KanjiFilterViewModel(KanjiFilter filter)
         {
             _filter = filter;
-            _comparer = new RadicalComparer();
-            _comparer.SortMode = Properties.Settings.Default.RadicalSortMode;
-            _comparer.SortByRelevance = false;
-            RadicalSortMode = Properties.Settings.Default.RadicalSortMode;
+            _comparer = new RadicalComparer
+            {
+                SortMode = Properties.UserSettings.Instance.RadicalSortMode,
+                SortByRelevance = false
+            };
+            RadicalSortMode = Properties.UserSettings.Instance.RadicalSortMode;
             _radicalBusiness = new RadicalBusiness();
             SelectedRadicals = new ObservableCollection<FilteringRadical>();
             MainFilterMode = KanjiFilterModeEnum.Meaning;
@@ -456,7 +458,7 @@ namespace Kanji.Interface.ViewModels
             {
                 RadicalSortMode = value;
                 _comparer.SortMode = value;
-                Kanji.Interface.Properties.Settings.Default.RadicalSortMode = value;
+                Kanji.Interface.Properties.UserSettings.Instance.RadicalSortMode = value;
                 Radicals = await Task.Run(() => Radicals.OrderBy(x => x, _comparer).ToList());
             }
         }

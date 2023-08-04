@@ -38,7 +38,7 @@ namespace Kanji.Interface.ViewModels
 
         public override void InitializeSettings()
         {
-            DoNotify = Properties.Settings.Default.TrayShowNotifications;
+            DoNotify = Properties.UserSettings.Instance.TrayShowNotifications;
         }
 
         #endregion
@@ -49,12 +49,12 @@ namespace Kanji.Interface.ViewModels
 
         protected override void DoSaveSetting()
         {
-            Properties.Settings.Default.TrayShowNotifications = DoNotify;
+            Properties.UserSettings.Instance.TrayShowNotifications = DoNotify;
         }
 
         public override bool IsSettingChanged()
         {
-            return DoNotify != Properties.Settings.Default.TrayShowNotifications;
+            return DoNotify != Properties.UserSettings.Instance.TrayShowNotifications;
         }
 
         #endregion

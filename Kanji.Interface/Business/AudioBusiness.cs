@@ -190,7 +190,7 @@ namespace Kanji.Interface.Business
         /// <returns>True if it has been configured. False otherwise.</returns>
         private bool CheckUriSetting()
         {
-            string uri = Kanji.Interface.Properties.Settings.Default.AudioUri;
+            string uri = Kanji.Interface.Properties.UserSettings.Instance.AudioUri;
             if (string.IsNullOrWhiteSpace(uri))
             {
                 //if (System.Windows.MessageBox.Show(
@@ -219,7 +219,7 @@ namespace Kanji.Interface.Business
         /// <returns>URI built from the setting using the vocab.</returns>
         private Uri GetUri(VocabAudio vocab)
         {
-            return new Uri(Kanji.Interface.Properties.Settings.Default.AudioUri
+            return new Uri(Properties.UserSettings.Instance.AudioUri
                 .Replace("%kana%", vocab.KanaReading)
                 .Replace("%kanji%", vocab.KanjiReading));
         }
@@ -277,7 +277,7 @@ namespace Kanji.Interface.Business
             //        _playingVocab.State = VocabAudioState.Playing;
             //    }
 
-            //    _player.Volume = Math.Min(1, Math.Max(0, Properties.Settings.Default.AudioVolume / 100f));
+            //    _player.Volume = Math.Min(1, Math.Max(0, Properties.UserSettings.Instance.AudioVolume / 100f));
             //    _player.Play();
             //    _timeoutTimer.Stop();
             //}

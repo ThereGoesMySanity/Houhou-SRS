@@ -133,14 +133,14 @@ namespace Kanji.Interface.ViewModels
 
         public override void InitializeSettings()
         {
-            ShowBookRanking = Kanji.Interface.Properties.Settings.Default.ShowKanjiBookRanking;
-            ShowGrade = Kanji.Interface.Properties.Settings.Default.ShowKanjiGrade;
-            ShowJlptLevel = Kanji.Interface.Properties.Settings.Default.ShowKanjiJlptLevel;
-            ShowWkLevel = Kanji.Interface.Properties.Settings.Default.ShowKanjiWkLevel;
-            ShowStrokes = Kanji.Interface.Properties.Settings.Default.ShowKanjiStrokes;
-            AnimateStrokes = Kanji.Interface.Properties.Settings.Default.AnimateStrokes;
-            StrokeAnimationDelay = Kanji.Interface.Properties.Settings.Default.StrokeAnimationDelay;
-            ShowNanori = Kanji.Interface.Properties.Settings.Default.ShowNanori;
+            ShowBookRanking = Properties.UserSettings.Instance.ShowKanjiBookRanking;
+            ShowGrade = Properties.UserSettings.Instance.ShowKanjiGrade;
+            ShowJlptLevel = Properties.UserSettings.Instance.ShowKanjiJlptLevel;
+            ShowWkLevel = Properties.UserSettings.Instance.ShowKanjiWkLevel;
+            ShowStrokes = Kanji.Interface.Properties.UserSettings.Instance.ShowKanjiStrokes;
+            AnimateStrokes = Kanji.Interface.Properties.UserSettings.Instance.AnimateStrokes;
+            StrokeAnimationDelay = Kanji.Interface.Properties.UserSettings.Instance.StrokeAnimationDelay;
+            ShowNanori = Kanji.Interface.Properties.UserSettings.Instance.ShowNanori;
         }
 
         #endregion
@@ -149,26 +149,26 @@ namespace Kanji.Interface.ViewModels
 
         public override bool IsSettingChanged()
         {
-            return ShowBookRanking != Kanji.Interface.Properties.Settings.Default.ShowKanjiBookRanking
-                || ShowGrade != Kanji.Interface.Properties.Settings.Default.ShowKanjiGrade
-                || ShowJlptLevel != Kanji.Interface.Properties.Settings.Default.ShowKanjiJlptLevel
-                || ShowWkLevel != Kanji.Interface.Properties.Settings.Default.ShowKanjiWkLevel
-                || ShowStrokes != Kanji.Interface.Properties.Settings.Default.ShowKanjiStrokes
-                || AnimateStrokes != Kanji.Interface.Properties.Settings.Default.AnimateStrokes
-                || StrokeAnimationDelay != Kanji.Interface.Properties.Settings.Default.StrokeAnimationDelay
-                || ShowNanori != Kanji.Interface.Properties.Settings.Default.ShowNanori;
+            return ShowBookRanking != Kanji.Interface.Properties.UserSettings.Instance.ShowKanjiBookRanking
+                || ShowGrade != Kanji.Interface.Properties.UserSettings.Instance.ShowKanjiGrade
+                || ShowJlptLevel != Kanji.Interface.Properties.UserSettings.Instance.ShowKanjiJlptLevel
+                || ShowWkLevel != Kanji.Interface.Properties.UserSettings.Instance.ShowKanjiWkLevel
+                || ShowStrokes != Kanji.Interface.Properties.UserSettings.Instance.ShowKanjiStrokes
+                || AnimateStrokes != Kanji.Interface.Properties.UserSettings.Instance.AnimateStrokes
+                || StrokeAnimationDelay != Kanji.Interface.Properties.UserSettings.Instance.StrokeAnimationDelay
+                || ShowNanori != Kanji.Interface.Properties.UserSettings.Instance.ShowNanori;
         }
 
         protected override void DoSaveSetting()
         {
-            Kanji.Interface.Properties.Settings.Default.ShowKanjiBookRanking = ShowBookRanking;
-            Kanji.Interface.Properties.Settings.Default.ShowKanjiGrade = ShowGrade;
-            Kanji.Interface.Properties.Settings.Default.ShowKanjiJlptLevel = ShowJlptLevel;
-            Kanji.Interface.Properties.Settings.Default.ShowKanjiWkLevel = ShowWkLevel;
-            Kanji.Interface.Properties.Settings.Default.ShowKanjiStrokes = ShowStrokes;
-            Kanji.Interface.Properties.Settings.Default.AnimateStrokes = AnimateStrokes;
-            Kanji.Interface.Properties.Settings.Default.StrokeAnimationDelay = StrokeAnimationDelay;
-            Kanji.Interface.Properties.Settings.Default.ShowNanori = ShowNanori;
+            Kanji.Interface.Properties.UserSettings.Instance.ShowKanjiBookRanking = ShowBookRanking;
+            Kanji.Interface.Properties.UserSettings.Instance.ShowKanjiGrade = ShowGrade;
+            Kanji.Interface.Properties.UserSettings.Instance.ShowKanjiJlptLevel = ShowJlptLevel;
+            Kanji.Interface.Properties.UserSettings.Instance.ShowKanjiWkLevel = ShowWkLevel;
+            Kanji.Interface.Properties.UserSettings.Instance.ShowKanjiStrokes = ShowStrokes;
+            Kanji.Interface.Properties.UserSettings.Instance.AnimateStrokes = AnimateStrokes;
+            Kanji.Interface.Properties.UserSettings.Instance.StrokeAnimationDelay = StrokeAnimationDelay;
+            Kanji.Interface.Properties.UserSettings.Instance.ShowNanori = ShowNanori;
         }
 
         #endregion

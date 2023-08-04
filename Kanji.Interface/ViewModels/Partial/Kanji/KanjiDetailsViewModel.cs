@@ -368,10 +368,10 @@ namespace Kanji.Interface.ViewModels
             ((BackgroundWorker)sender).DoWork -= DoPrepareSvg;
             ((BackgroundWorker)sender).RunWorkerCompleted -= DonePrepareSvg;
 
-            if (Kanji.Interface.Properties.Settings.Default.AnimateStrokes)
+            if (Properties.UserSettings.Instance.AnimateStrokes)
             {
                 _strokeUpdateTimer = new DispatcherTimer();
-                _strokeUpdateTimer.Interval = TimeSpan.FromMilliseconds(Kanji.Interface.Properties.Settings.Default.StrokeAnimationDelay);
+                _strokeUpdateTimer.Interval = TimeSpan.FromMilliseconds(Properties.UserSettings.Instance.StrokeAnimationDelay);
                 _strokeUpdateTimer.Tick += OnStrokeUpdateTimerTick;
                 _strokeUpdateTimer.Start();
             }

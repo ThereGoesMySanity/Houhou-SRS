@@ -35,7 +35,7 @@ namespace Kanji.Interface.ViewModels
 
         public override void InitializeSettings()
         {
-            QuickDelayHours = Kanji.Interface.Properties.Settings.Default.VocabSrsDelayHours;
+            QuickDelayHours = Properties.UserSettings.Instance.VocabSrsDelayHours;
         }
 
         #endregion
@@ -44,12 +44,12 @@ namespace Kanji.Interface.ViewModels
 
         public override bool IsSettingChanged()
         {
-            return QuickDelayHours != Kanji.Interface.Properties.Settings.Default.VocabSrsDelayHours;
+            return QuickDelayHours != Properties.UserSettings.Instance.VocabSrsDelayHours;
         }
 
         protected override void DoSaveSetting()
         {
-            Kanji.Interface.Properties.Settings.Default.VocabSrsDelayHours = QuickDelayHours;
+            Properties.UserSettings.Instance.VocabSrsDelayHours = QuickDelayHours;
         }
 
         #endregion

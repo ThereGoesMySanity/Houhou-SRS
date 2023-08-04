@@ -39,7 +39,7 @@ namespace Kanji.Interface.ViewModels
 
         public override void InitializeSettings()
         {
-            StartPage = Properties.Settings.Default.StartPage;
+            StartPage = Properties.UserSettings.Instance.StartPage;
         }
 
         #endregion
@@ -50,12 +50,12 @@ namespace Kanji.Interface.ViewModels
 
         protected override void DoSaveSetting()
         {
-            Properties.Settings.Default.StartPage = StartPage;
+            Properties.UserSettings.Instance.StartPage = StartPage;
         }
 
         public override bool IsSettingChanged()
         {
-            return StartPage != Properties.Settings.Default.StartPage;
+            return StartPage != Properties.UserSettings.Instance.StartPage;
         }
 
         #endregion

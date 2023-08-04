@@ -112,7 +112,7 @@ namespace Kanji.Interface.Actors
         /// </summary>
         public void NavigateToStartPage()
         {
-            Navigate(Properties.Settings.Default.StartPage.ToNavigationPage());
+            Navigate(Properties.UserSettings.Instance.StartPage.ToNavigationPage());
         }
 
         /// <summary>
@@ -174,7 +174,7 @@ namespace Kanji.Interface.Actors
         {
             lock (_mainWindowLock)
             {
-                CurrentPage = Properties.Settings.Default.StartPage.ToNavigationPage();
+                CurrentPage = Properties.UserSettings.Instance.StartPage.ToNavigationPage();
                 DoOpenWindow();
             }
         }
@@ -231,7 +231,7 @@ namespace Kanji.Interface.Actors
                 MainWindowClose();
             }
 
-            if (Properties.Settings.Default.WindowCloseAction == WindowCloseActionEnum.Exit)
+            if (Properties.UserSettings.Instance.WindowCloseAction == WindowCloseActionEnum.Exit)
             {
                 Program.Shutdown();
             }

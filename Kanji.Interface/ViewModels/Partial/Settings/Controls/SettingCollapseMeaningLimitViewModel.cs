@@ -38,7 +38,7 @@ namespace Kanji.Interface.ViewModels
 
         public override void InitializeSettings()
         {
-            CollapseMeaningLimit = Properties.Settings.Default.CollapseMeaningsLimit;
+            CollapseMeaningLimit = Properties.UserSettings.Instance.CollapseMeaningsLimit;
         }
 
         #endregion
@@ -47,12 +47,12 @@ namespace Kanji.Interface.ViewModels
 
         public override bool IsSettingChanged()
         {
-            return Properties.Settings.Default.CollapseMeaningsLimit != _collapseMeaningLimit;
+            return Properties.UserSettings.Instance.CollapseMeaningsLimit != _collapseMeaningLimit;
         }
 
         protected override void DoSaveSetting()
         {
-            Properties.Settings.Default.CollapseMeaningsLimit = _collapseMeaningLimit;
+            Properties.UserSettings.Instance.CollapseMeaningsLimit = _collapseMeaningLimit;
         }
 
         #endregion

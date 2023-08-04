@@ -382,8 +382,8 @@ namespace Kanji.Interface.ViewModels
             // Play audio if auto play enabled.
             if (CurrentQuestion.Question == SrsQuestionEnum.Reading
                 && CurrentQuestionGroup.IsVocab
-                && ((success && Properties.Settings.Default.AudioAutoplayMode.ShouldPlayOnSuccess())
-                || (!success && Properties.Settings.Default.AudioAutoplayMode.ShouldPlayOnFailure())))
+                && ((success && Properties.UserSettings.Instance.AudioAutoplayMode.ShouldPlayOnSuccess())
+                || (!success && Properties.UserSettings.Instance.AudioAutoplayMode.ShouldPlayOnFailure())))
             {
                 AudioBusiness.PlayVocabAudio(CurrentQuestionGroup.Audio);
             }
@@ -739,7 +739,7 @@ namespace Kanji.Interface.ViewModels
                 {
                     SubmitAnswer();
                     if (ReviewState == SrsReviewStateEnum.Success
-                        && Kanji.Interface.Properties.Settings.Default.AutoSkipReviews)
+                        && Kanji.Interface.Properties.UserSettings.Instance.AutoSkipReviews)
                     {
                         await ToNextQuestion();
                     }
@@ -784,7 +784,7 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         private async void OnAddAnswerShortcut()
         {
-            if (Properties.Settings.Default.IsIgnoreAnswerShortcutEnabled)
+            if (Properties.UserSettings.Instance.IsIgnoreAnswerShortcutEnabled)
             {
                 await AddAnswer();
             }
@@ -821,7 +821,7 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         private void OnIgnoreAnswerShortcut()
         {
-            if (Properties.Settings.Default.IsIgnoreAnswerShortcutEnabled)
+            if (Properties.UserSettings.Instance.IsIgnoreAnswerShortcutEnabled)
             {
                 OnIgnoreAnswer();
             }
