@@ -88,7 +88,7 @@ namespace Kanji.Interface.Extensions
                     ReadingNote = se.ReadingNote,
                     Readings = MultiValueFieldHelper.Expand(se.Readings),
                     SuccessCount = se.SuccessCount,
-                    Tags = MultiValueFieldHelper.Expand(se.Tags)
+                    Tags = MultiValueFieldHelper.Expand(se.Tags ?? "")
                 };
         }
     }

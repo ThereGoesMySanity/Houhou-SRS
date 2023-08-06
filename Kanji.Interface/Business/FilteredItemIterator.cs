@@ -10,7 +10,7 @@ using Kanji.Interface.Models;
 
 namespace Kanji.Interface.Business
 {
-    public abstract class FilteredItemIterator<T> : IAsyncDisposable
+    public abstract class FilteredItemIterator<T>
     {
         #region Fields
 
@@ -78,15 +78,19 @@ namespace Kanji.Interface.Business
         /// <returns>A list of items containing 0 to <paramref name="count"/> elements.
         /// If the list contains less than <paramref name="count"/> elements, the set
         /// has been iterated until the end.</returns>
-        public async IAsyncEnumerable<T> GetNext(int count)
+        public IAsyncEnumerable<T> GetNext(int count)
         {
-            while (--count >= 0 && !_iteratorCancellation.IsCancellationRequested &&
-                await _iterator.WithCancellation(_iteratorCancellation.Token).MoveNextAsync())
-            {
-                // Add the current item.
-                yield return _iterator.Current;
-                // Continue iterating while we are not finished.
-            }
+            return _itemSet.TakeWhile(t => --count >= 0 && !_iteratorCancellation.IsCancellationRequested);
+            // while (--count >= 0 && !_iteratorCancellation.IsCancellationRequested)
+            // {
+            //     if (await _iterator.MoveNextAsync())
+            //     {
+            //         Console.WriteLine("a: " +_iterator.Current);
+            //         // Add the current item.
+            //         yield return _iterator.Current;
+            //         // Continue iterating while we are not finished.
+            //     }
+            // }
         }
 
         /// <summary>
@@ -94,12 +98,6 @@ namespace Kanji.Interface.Business
         /// </summary>
         public async Task ApplyFilter()
         {
-            // Dispose the previous iterator.
-            if (_iterator != null)
-            {
-                await _iterator.DisposeAsync();
-            }
-
             // Clone the filter.
             _currentFilter = Filter.Clone();
 
@@ -108,9 +106,6 @@ namespace Kanji.Interface.Business
 
             // Get the total item count.
             ItemCount = await GetItemCount();
-
-            // Store the iterator, free the lock, return.
-            _iterator = _itemSet.GetAsyncEnumerator();
         }
 
         /// <summary>
@@ -123,18 +118,6 @@ namespace Kanji.Interface.Business
         /// In child classes, returns the total number of items to be iterated.
         /// </summary>
         protected abstract Task<int> GetItemCount();
-
-        /// <summary>
-        /// Disposes resources used by the object.
-        /// </summary>
-        public virtual async ValueTask DisposeAsync()
-        {
-            if (_iterator != null)
-            {
-                _iteratorCancellation.Cancel();
-            }
-            await ValueTask.CompletedTask;
-        }
 
         #endregion
     }

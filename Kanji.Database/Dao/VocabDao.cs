@@ -215,7 +215,7 @@ public class VocabDao : Dao
             (isShortWritingFirst ? "ASC" : "DESC"));
 
         
-        var vocabs = await connection.QueryAsync<VocabEntity>(
+        var vocabs = await connection.DeferredQueryAsync<VocabEntity>(
                 string.Format("SELECT DISTINCT v.* FROM {0} v {1}{2}",
                 SqlHelper.Table_Vocab,
                 sqlFilterClauses,

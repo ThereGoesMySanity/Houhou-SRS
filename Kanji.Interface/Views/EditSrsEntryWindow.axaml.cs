@@ -103,7 +103,7 @@ public partial class EditSrsEntryWindow : Window
 
         SrsEntryViewModel vm = ((SrsEntryViewModel)DataContext);
         vm.FinishedEditing -= OnFinishedEditing;
-        vm.DisposeAsync().AsTask().Wait();
+        vm.Dispose();
 
         NavigationActor.Instance.ActiveWindow = NavigationActor.Instance.MainWindow;
     }

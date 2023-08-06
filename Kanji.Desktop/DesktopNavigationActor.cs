@@ -290,10 +290,10 @@ namespace Kanji.Interface.Actors
                 ActiveWindow = null;
 
                 // Dispose and release main pages View Models.
-                KanjiVm.DisposeAsync().AsTask().Wait();
+                KanjiVm.Dispose();
                 KanjiVm = null;
 
-                SrsVm.DisposeAsync().AsTask().Wait();
+                SrsVm.Dispose();
                 SrsVm = null;
             }
         }

@@ -16,7 +16,7 @@ namespace Kanji.Interface.Models
         {
             if (KanjiDetailsVm != null)
             {
-                KanjiDetailsVm.DisposeAsync().AsTask().Wait();
+                KanjiDetailsVm.Dispose();
             }
         }
     }

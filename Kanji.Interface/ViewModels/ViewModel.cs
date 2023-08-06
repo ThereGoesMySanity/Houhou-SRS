@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Kanji.Interface.Utilities;
 
 namespace Kanji.Interface.ViewModels
 {
-    public class ViewModel : NotifyPropertyChanged, IAsyncDisposable
+    public class ViewModel : NotifyPropertyChanged, IDisposable
     {
-        public virtual ValueTask DisposeAsync()
+        public virtual void Dispose()
         {
-            return ValueTask.CompletedTask;
+            GC.SuppressFinalize(this);
         }
     }
 }

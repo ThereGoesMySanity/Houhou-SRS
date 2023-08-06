@@ -1020,10 +1020,10 @@ namespace Kanji.Interface.ViewModels
         /// <summary>
         /// Disposes resources used by this object.
         /// </summary>
-        public override async ValueTask DisposeAsync()
+        public override void Dispose()
         {
-            await LevelPickerVm.DisposeAsync();
-            await base.DisposeAsync();
+            LevelPickerVm.Dispose();
+            base.Dispose();
         }
 
         #endregion

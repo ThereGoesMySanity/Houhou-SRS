@@ -60,14 +60,6 @@ namespace Kanji.Interface.Business
             return 0;
         }
 
-        /// <summary>
-        /// Disposes resources used by this object.
-        /// </summary>
-        public override async ValueTask DisposeAsync()
-        {
-            await base.DisposeAsync();
-        }
-
         #endregion
     }
 }

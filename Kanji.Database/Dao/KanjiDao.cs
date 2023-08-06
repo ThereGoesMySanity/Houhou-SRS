@@ -87,7 +87,7 @@ namespace Kanji.Database.Dao
 
             // FILTERS COMPUTED.
             // Execute the final request.
-            List<KanjiEntity> results = await connection.QueryAsync<KanjiEntity>(string.Format(
+            IEnumerable<KanjiEntity> results = await connection.DeferredQueryAsync<KanjiEntity>(string.Format(
                 "SELECT * FROM {0} k {1}ORDER BY (k.{2} IS NULL),(k.{2});",
                 SqlHelper.Table_Kanji,
                 sqlFilter,

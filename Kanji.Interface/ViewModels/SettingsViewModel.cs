@@ -142,7 +142,7 @@ namespace Kanji.Interface.ViewModels
 
                 if (_contentViewModel != null)
                 {
-                    _contentViewModel.DisposeAsync().AsTask().Wait();
+                    _contentViewModel.Dispose();
                 }
 
                 _contentViewModel = GetViewModelByCategory(targetCategory);

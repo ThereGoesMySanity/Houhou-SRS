@@ -251,7 +251,7 @@ namespace Kanji.Interface.ViewModels
         private void OnReviewFinished(object sender, EventArgs e)
         {
             ReviewVm.ReviewFinished -= OnReviewFinished;
-            ReviewVm.DisposeAsync().AsTask().Wait();
+            ReviewVm.Dispose();
             ReviewVm = null;
 
             SrsBusiness.Instance.UpdateReviewInfoAsync();
@@ -272,24 +272,24 @@ namespace Kanji.Interface.ViewModels
         /// <summary>
         /// Disposes the resources used by this object.
         /// </summary>
-        public override async ValueTask DisposeAsync()
+        public override void Dispose()
         {
             if (ReviewVm != null)
             {
                 try
                 {
                     ReviewVm.ReviewFinished -= OnReviewFinished;
-                    await ReviewVm.DisposeAsync();
+                    ReviewVm.Dispose();
                 }
                 catch { }
             }
 
-            await ListVm.DisposeAsync();
+            ListVm.Dispose();
 
             FilterVm.FilterChanged -= OnFilterChanged;
-            await FilterVm.DisposeAsync();
+            FilterVm.Dispose();
 
-            await base.DisposeAsync();
+            base.Dispose();
         }
 
         #endregion

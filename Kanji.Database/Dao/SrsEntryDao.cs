@@ -79,14 +79,14 @@ public class SrsEntryDao : Dao
     /// Gets all reviews due for the current date.
     /// </summary>
     /// <returns>Reviews due for the current date.</returns>
-    public async IAsyncEnumerable<SrsEntry> GetReviews()
+    public async Task<IEnumerable<SrsEntry>> GetReviews()
     {
-        foreach (var res in await connection.QueryAsync<SrsEntry>(
+        return await connection.QueryAsync<SrsEntry>(
             "SELECT * FROM " + SqlHelper.Table_SrsEntry + " se WHERE se."
             + SqlHelper.Field_SrsEntry_SuspensionDate + " IS NULL AND se."
             + SqlHelper.Field_SrsEntry_NextAnswerDate + " <= ?"
             + " ORDER BY RANDOM()",
-            DateTime.UtcNow.Ticks)) yield return res;
+            DateTime.UtcNow.Ticks);
     }
 
     /// <summary>
@@ -107,7 +107,7 @@ public class SrsEntryDao : Dao
     /// </summary>
     /// <param name="filterClauses">Filter clauses.</param>
     /// <returns>Filtered SRS entries.</returns>
-    public async IAsyncEnumerable<SrsEntry> GetFilteredItems(FilterClause[] filterClauses)
+    public async Task<IEnumerable<SrsEntry>> GetFilteredItems(FilterClause[] filterClauses)
     {
         List<object> parameters = new List<object>();
         string whereClause = string.Empty;
@@ -126,11 +126,11 @@ public class SrsEntryDao : Dao
             }
         }
 
-        foreach(var res in await connection.QueryAsync<SrsEntry>(
+        return await connection.DeferredQueryAsync<SrsEntry>(
             "SELECT * FROM " + SqlHelper.Table_SrsEntry + " se "
             + whereClause
             + "ORDER BY (se." + SqlHelper.Field_SrsEntry_CreationDate + ") DESC",
-            parameters.ToArray())) yield return res;
+            parameters.ToArray());
     }
 
     /// <summary>

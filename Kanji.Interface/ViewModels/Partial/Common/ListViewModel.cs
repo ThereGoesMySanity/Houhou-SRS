@@ -341,14 +341,9 @@ namespace Kanji.Interface.ViewModels
         /// <summary>
         /// Disposes resources used by this object.
         /// </summary>
-        public override async ValueTask DisposeAsync()
+        public override void Dispose()
         {
-            if (_itemList != null)
-            {
-                await _itemList.DisposeAsync();
-            }
-
-            await base.DisposeAsync();
+            base.Dispose();
         }
 
         #endregion

@@ -48,30 +48,31 @@ namespace Kanji.Interface.Business
 
         #region Methods
 
-        protected override IAsyncEnumerable<SrsEntry> DoFilter()
+        protected override async IAsyncEnumerable<SrsEntry> DoFilter()
         {
             if (IsReviewIterator)
             {
-                return _srsEntryDao.GetReviews();
+                foreach(var r in await _srsEntryDao.GetReviews()) yield return r;
             }
             else if (!_currentFilter.IsEmpty() || _currentFilter.ForceFilter)
             {
-                return _srsEntryDao.GetFilteredItems(((SrsEntryFilter)_currentFilter).FilterClauses);
+                foreach(var r in await _srsEntryDao.GetFilteredItems(((SrsEntryFilter)_currentFilter).FilterClauses))
+                {
+                    yield return r;
+                }
             }
-
-            return AsyncEnumerable.Empty<SrsEntry>();
         }
 
         protected override async Task<int> GetItemCount()
         {
             if (IsReviewIterator)
             {
-                return (int)(await _srsEntryDao.GetReviewsCount());
+                return (int)await _srsEntryDao.GetReviewsCount();
             }
             else if (!_currentFilter.IsEmpty() || _currentFilter.ForceFilter)
             {
-                return (int)(await _srsEntryDao.GetFilteredItemsCount(
-                    ((SrsEntryFilter)_currentFilter).FilterClauses));
+                return (int)await _srsEntryDao.GetFilteredItemsCount(
+                    ((SrsEntryFilter)_currentFilter).FilterClauses);
             }
             
             return 0;

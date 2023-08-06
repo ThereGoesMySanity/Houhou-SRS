@@ -76,14 +76,6 @@ namespace Kanji.Interface.Business
                 anyReadingFilter, onYomiFilter, kunYomiFilter, nanoriFilter, filter.JlptLevel, filter.WkLevel);
         }
 
-        /// <summary>
-        /// Disposes resources used by this object.
-        /// </summary>
-        public override async ValueTask DisposeAsync()
-        {
-            await base.DisposeAsync();
-        }
-
         #endregion
     }
 }

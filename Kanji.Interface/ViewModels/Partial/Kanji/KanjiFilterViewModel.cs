@@ -574,9 +574,9 @@ namespace Kanji.Interface.ViewModels
         /// <summary>
         /// Disposes resources.
         /// </summary>
-        public override async ValueTask DisposeAsync()
+        public override void Dispose()
         {
-            await base.DisposeAsync();
+            base.Dispose();
         }
 
         #endregion
