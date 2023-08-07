@@ -30,7 +30,9 @@ namespace Kanji.Interface.ViewModels
         /// Makes sure that concurrent loading operations are not running
         /// simultaneously.
         /// </summary>
-        protected Mutex _loadMutex;
+        protected Task _loadTask;
+        protected CancellationTokenSource _loadCancel;
+        
 
         #endregion
 
@@ -146,7 +148,6 @@ namespace Kanji.Interface.ViewModels
         public ListViewModel(Filter<Tentity> filter)
         {
             _selectedIndex = -1;
-            _loadMutex = new Mutex();
             _filter = filter;
 
             LoadedItems = new ObservableCollection<Tmodel>();
@@ -191,10 +192,11 @@ namespace Kanji.Interface.ViewModels
         /// <summary>
         /// Executes the operation of retrieving and processing new items.
         /// </summary>
-        private async Task LoadMoreAction()
+        private async Task LoadMoreAction(CancellationToken token)
         {
             // Get the amount of items to load.
             int loadCount = GetItemsPerPage();
+            Console.WriteLine(loadCount);
 
             // Get the next batch of items.
             IAsyncEnumerable<Tentity> nextItems = _itemList.GetNext(loadCount);
@@ -202,13 +204,11 @@ namespace Kanji.Interface.ViewModels
             // Browse  and process each retrieved item.
             await foreach (Tentity item in nextItems)
             {
+                if (token.IsCancellationRequested) break;
+
                 Tmodel model = ProcessItem(item);
 
-                // Invoke the item addition on the dispatcher.
-                DispatcherHelper.Invoke(() =>
-                {
-                    LoadedItems.Add(model);
-                });
+                LoadedItems.Add(model);
 
                 LoadedItemCount++;
             }
@@ -225,18 +225,15 @@ namespace Kanji.Interface.ViewModels
             IsFiltering = true;
 
             // Run the initialization in the background.
-            Dispatcher.UIThread.Post(DoInitialize);
+            SetCurrentTask(DoInitialize);
         }
 
         /// <summary>
         /// Background task work method.
         /// Initializes the list.
         /// </summary>
-        private async void DoInitialize()
+        private async Task DoInitialize(CancellationToken token)
         {
-            // Take the mutex.
-            _loadMutex.WaitOne();
-
             // Apply filter.
             _itemList = GetFilteredIterator();
             await _itemList.ApplyFilter();
@@ -244,11 +241,9 @@ namespace Kanji.Interface.ViewModels
             RaisePropertyChanged("TotalItemCount");
 
             // Load the first batch of items.
-            await LoadMoreAction();
+            await LoadMoreAction(token);
 
-            // Release the mutex.
             IsLoading = false;
-            _loadMutex.ReleaseMutex();
         }
 
         #endregion
@@ -260,41 +255,24 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         public void LoadMore()
         {
-            IsLoading = true;
-            BackgroundWorker loadMoreWorker = new BackgroundWorker();
-            loadMoreWorker.DoWork += DoLoadMore;
-            loadMoreWorker.RunWorkerCompleted += DoneLoadMore;
-            loadMoreWorker.RunWorkerAsync();
+            SetCurrentTask(DoLoadMore);
         }
 
         /// <summary>
         /// Background task work method.
         /// Retrieves the next bunch of items.
         /// </summary>
-        private async void DoLoadMore(object sender, DoWorkEventArgs e)
+        private async Task DoLoadMore(CancellationToken token)
         {
             if (TotalItemCount > _loadedItems.Count)
             {
-                // Take the mutex.
-                _loadMutex.WaitOne();
                 IsLoading = true;
 
                 // Execute the operation.
-                await LoadMoreAction();
+                await LoadMoreAction(token);
 
-                // Done - release the mutex.
                 IsLoading = false;
-                _loadMutex.ReleaseMutex();
             }
-        }
-
-        /// <summary>
-        /// Background task completed method. Unsubscribes to the events.
-        /// </summary>
-        private void DoneLoadMore(object sender, RunWorkerCompletedEventArgs e)
-        {
-            ((BackgroundWorker)sender).DoWork -= DoLoadMore;
-            ((BackgroundWorker)sender).RunWorkerCompleted -= DoneLoadMore;
         }
 
         #endregion
@@ -306,19 +284,18 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         public virtual void ReapplyFilter()
         {
-            Dispatcher.UIThread.Post(DoReapplyFilter);
+            SetCurrentTask(DoReapplyFilter);
         }
 
         /// <summary>
         /// Background task work method.
         /// Clears the current items and reloads to match the new filters.
         /// </summary>
-        private async void DoReapplyFilter()
+        private async Task DoReapplyFilter(CancellationToken token)
         {
-            // Take the mutex.
-            _loadMutex.WaitOne();
             IsLoading = true;
             IsFiltering = true;
+            Console.WriteLine("a");
 
             _loadedItems.Clear();
 
@@ -328,12 +305,27 @@ namespace Kanji.Interface.ViewModels
             RaisePropertyChanged("TotalItemCount");
 
             // Load the next batch of items.
-            await LoadMoreAction();
+            await LoadMoreAction(token);
 
-            // Done - Release the mutex.
+            Console.WriteLine("b");
             IsFiltering = false;
             IsLoading = false;
-            _loadMutex.ReleaseMutex();
+        }
+
+        private void SetCurrentTask(Func<CancellationToken, Task> t)
+        {
+            var newTS = new CancellationTokenSource();
+            if (!(_loadTask?.IsCompleted ?? true))
+            {
+                var oldTask = _loadTask;
+                _loadCancel.Cancel();
+                _loadTask = Dispatcher.UIThread.InvokeAsync(async () => { await oldTask; await t(newTS.Token); });
+            }
+            else
+            {
+                _loadTask = Dispatcher.UIThread.InvokeAsync(() => t(newTS.Token));
+            }
+            _loadCancel = newTS;
         }
 
         #endregion

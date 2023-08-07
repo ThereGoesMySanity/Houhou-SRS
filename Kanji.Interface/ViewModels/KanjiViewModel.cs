@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Avalonia.Threading;
 using GalaSoft.MvvmLight.Command;
 using Kanji.Common.Utility;
+using Kanji.Database.Entities;
 using Kanji.Interface.Actors;
 using Kanji.Interface.Business;
 using Kanji.Interface.Models;
@@ -123,6 +124,8 @@ namespace Kanji.Interface.ViewModels
         /// <param name="character">
         /// Character driving the navigation.</param>
         public void Navigate(KanjiWritingCharacter character)
+            => Navigate(character.Kanji, character.OriginalVocab.KanjiWriting);
+        public void Navigate(KanjiEntity kanji, string textFilter)
         {
             if (KanjiDetailsVm != null)
             {
@@ -136,7 +139,7 @@ namespace Kanji.Interface.ViewModels
             // Create a new filter matching the vocab word selected.
             _kanjiFilter = new KanjiFilter()
             {
-                TextFilter = character.OriginalVocab.KanjiWriting,
+                TextFilter = textFilter,
                 // Ignore the levels because not only are they irrelevant,
                 // they might not even be the same for the kanji as for the vocab.
                 JlptLevel = Levels.IgnoreJlptLevel,
@@ -145,12 +148,12 @@ namespace Kanji.Interface.ViewModels
 
             // Apply the filter
             KanjiFilterVm.SetFilter(_kanjiFilter);
-            KanjiListVm.Navigate(_kanjiFilter, character.Kanji);
+            KanjiListVm.Navigate(_kanjiFilter, kanji);
 
             // Create a new KanjiDetailsVm.
             // Do not use the SetKanjiDetailsVm method as to not dispose
             // the previous value.
-            KanjiDetailsVm = new KanjiDetailsViewModel(new ExtendedKanji(character.Kanji));
+            KanjiDetailsVm = new KanjiDetailsViewModel(new ExtendedKanji(kanji));
 
             // Re-subscribe the event.
             KanjiDetailsVm.KanjiNavigated += OnKanjiNavigated;

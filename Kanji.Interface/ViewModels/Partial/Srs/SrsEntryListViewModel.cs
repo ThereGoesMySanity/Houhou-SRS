@@ -390,7 +390,7 @@ namespace Kanji.Interface.ViewModels
             SelectSrsItemCommand = new RelayCommand<FilteringSrsEntry>(OnSelectSrsItem);
             EditSingleItemCommand = new RelayCommand<FilteringSrsEntry>(OnEditSingleItem);
             UnselectCommand = new RelayCommand(OnUnselect);
-            SelectAllCommand = new RelayCommand(OnSelectAll);
+            // SelectAllCommand = new RelayCommand(OnSelectAll);
             EditSingleSelectionCommand = new RelayCommand(OnEditSingleSelection);
             BulkEditMeaningNoteCommand = new RelayCommand(OnBulkEditMeaningNote);
             BulkEditReadingNoteCommand = new RelayCommand(OnBulkEditReadingNote);
@@ -419,11 +419,7 @@ namespace Kanji.Interface.ViewModels
         private void UnselectAll()
         {
             _isSetSelectionAllowed = false;
-            foreach (FilteringSrsEntry item in LoadedItems)
-            {
-                SelectedItems.Clear();
-            }
-
+            SelectedItems.Clear();
             RefreshSelection();
             _isSetSelectionAllowed = true;
         }

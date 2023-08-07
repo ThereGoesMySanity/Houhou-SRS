@@ -9,7 +9,12 @@ public partial class SrsEntryList : UserControl
     public SrsEntryList()
     {
         InitializeComponent();
-        this.DataContextChanged += (object o, EventArgs args) => (DataContext as SrsEntryListViewModel).SelectedItems = SrsList.SelectedItems;
+        this.DataContextChanged += (object o, EventArgs args) => 
+        {
+            var vm = DataContext as SrsEntryListViewModel;
+            vm.SelectedItems = SrsList.SelectedItems;
+            vm.SelectAllCommand = new GalaSoft.MvvmLight.Command.RelayCommand(SrsList.SelectAll);
+        };
         SrsList.SelectionChanged += SrsList_SelectionChanged;
     }
     void SrsList_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -134,12 +134,14 @@ namespace Kanji.Interface.Actors
         /// </summary>
         /// <param name="character">Character driving the navigation.</param>
         public void NavigateToKanji(KanjiWritingCharacter character)
+            => NavigateToKanji(character.Kanji, character.OriginalVocab.KanjiWriting);
+        public void NavigateToKanji(KanjiEntity kanji, string filterText)
         {
             lock (_mainWindowLock)
             {
                 RequireMainWindow();
                 CurrentPage = NavigationPageEnum.Kanji;
-                KanjiVm.Navigate(character);
+                KanjiVm.Navigate(kanji, filterText);
             }
         }
 

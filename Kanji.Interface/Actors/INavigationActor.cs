@@ -45,6 +45,7 @@ public interface INavigationActor
 
     void NavigateToReviewSession();
 
+    void NavigateToKanji(KanjiEntity character, string filterText);
     void NavigateToKanji(KanjiWritingCharacter character);
 
     void NavigateToSettings(SettingsCategoryEnum page);
