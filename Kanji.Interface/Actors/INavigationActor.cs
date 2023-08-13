@@ -50,13 +50,9 @@ public interface INavigationActor
 
     void NavigateToSettings(SettingsCategoryEnum page);
 
-    void OpenMainWindow();
-    void CloseMainWindow();
-    void OpenOrFocus();
-    void SendMainWindowCloseEvent();
-
     Task<SrsEntryEditedEventArgs> OpenSrsEditWindow(SrsEntry entry);
 
     void SetMainWindow(ContentControl window);
 
+    void SendMainWindowCloseEvent();
 }

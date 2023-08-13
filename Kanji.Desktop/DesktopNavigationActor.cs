@@ -12,7 +12,7 @@ using Kanji.Database.Entities;
 
 namespace Kanji.Interface.Actors
 {
-    class DesktopNavigationActor : NotifyPropertyChanged, INavigationActor
+    class DesktopNavigationActor : NavigationActor
     {
         #region Fields
 
@@ -22,67 +22,11 @@ namespace Kanji.Interface.Actors
 
         #endregion
 
-        #region Events
-
-        public delegate void MainWindowCloseHandler();
-        public event MainWindowCloseHandler MainWindowClose;
-
-        #endregion
-
-        #region Property
-
-        /// <summary>
-        /// Gets the currently active page.
-        /// </summary>
-        public NavigationPageEnum CurrentPage
-        {
-            get { return _currentPage; }
-            private set
-            {
-                if (value != _currentPage)
-                {
-                    _currentPage = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the reference to the kanji view model
-        /// to enable kanji navigation.
-        /// </summary>
-        public KanjiViewModel KanjiVm { get; set; }
-
-        /// <summary>
-        /// Gets or sets the reference to the SRS view model
-        /// to enable SRS module navigation.
-        /// </summary>
-        public SrsViewModel SrsVm { get; set; }
-
-        /// <summary>
-        /// Gets or sets the reference to the Settings view model
-        /// to enable settings page navigation.
-        /// </summary>
-        public SettingsViewModel SettingsVm { get; set; }
-
-        /// <summary>
-        /// Gets or sets a reference to the main window.
-        /// </summary>
-        public ContentControl MainWindow { get; private set; }
-
-        /// <summary>
-        /// Gets or sets the current modal window.
-        /// </summary>
-        public ContentControl ActiveWindow { get; set; }
-
-        #endregion
-
         #region Constructors
 
         public DesktopNavigationActor()
         {
             _mainWindowLock = new object();
-            CurrentPage = NavigationPageEnum.Home;
         }
 
         #endregion
@@ -90,77 +34,7 @@ namespace Kanji.Interface.Actors
         #region Methods
 
         #region Public
-
-        /// <summary>
-        /// Navigates to the page referred by the given enum value.
-        /// </summary>
-        /// <param name="page">Page enum value.</param>
-        public void Navigate(NavigationPageEnum page)
-        {
-            lock (_mainWindowLock)
-            {
-                if (CurrentPage == page)
-                    return;
-
-                RequireMainWindow();
-                CurrentPage = page;
-            }
-        }
-
-        /// <summary>
-        /// Navigates to the page referred by the start page setting.
-        /// </summary>
-        public void NavigateToStartPage()
-        {
-            Navigate(Properties.UserSettings.Instance.StartPage.ToNavigationPage());
-        }
-
-        /// <summary>
-        /// Navigates to the SRS page and starts a review session.
-        /// </summary>
-        public async void NavigateToReviewSession()
-        {
-            lock (_mainWindowLock)
-            {
-                RequireMainWindow();
-                CurrentPage = NavigationPageEnum.Srs;
-            }
-            await SrsVm.StartReviewSession();
-        }
-
-        /// <summary>
-        /// Navigates to the kanji page, and performs an intra-navigation
-        /// to the kanji referred by the given character.
-        /// </summary>
-        /// <param name="character">Character driving the navigation.</param>
-        public void NavigateToKanji(KanjiWritingCharacter character)
-            => NavigateToKanji(character.Kanji, character.OriginalVocab.KanjiWriting);
-        public void NavigateToKanji(KanjiEntity kanji, string filterText)
-        {
-            lock (_mainWindowLock)
-            {
-                RequireMainWindow();
-                CurrentPage = NavigationPageEnum.Kanji;
-                KanjiVm.Navigate(kanji, filterText);
-            }
-        }
-
-        /// <summary>
-        /// Navigates to the settings page, and performs an intra-navigation
-        /// to the specified settings page.
-        /// </summary>
-        /// <param name="page">Page to navigate to.</param>
-        public void NavigateToSettings(SettingsCategoryEnum page)
-        {
-            lock (_mainWindowLock)
-            {
-                RequireMainWindow();
-                CurrentPage = NavigationPageEnum.Settings;
-                SettingsVm.Navigate(page);
-            }
-        }
-
-        public async Task<SrsEntryEditedEventArgs> OpenSrsEditWindow(SrsEntry entry)
+        public override async Task<SrsEntryEditedEventArgs> OpenSrsEditWindow(SrsEntry entry)
         {
             EditSrsEntryWindow wnd = new EditSrsEntryWindow(entry.Clone());
             await wnd.ShowDialog(MainWindow as Window);
@@ -186,13 +60,10 @@ namespace Kanji.Interface.Actors
         /// </summary>
         public void CloseMainWindow()
         {
-            var MainWindow = (this.MainWindow as MainWindow);
+            var MainWindow = this.MainWindow as MainWindow;
             lock (_mainWindowLock)
             {
-                if (MainWindow != null)
-                {
-                    MainWindow.Close();
-                }
+                MainWindow?.Close();
             }
         }
 
@@ -201,7 +72,7 @@ namespace Kanji.Interface.Actors
         /// </summary>
         public void OpenOrFocus()
         {
-            var MainWindow = (this.MainWindow as MainWindow);
+            var MainWindow = this.MainWindow as MainWindow;
             lock (_mainWindowLock)
             {
                 if (MainWindow == null)
@@ -226,13 +97,8 @@ namespace Kanji.Interface.Actors
         /// <summary>
         /// Sends the main window close event.
         /// </summary>
-        public void SendMainWindowCloseEvent()
+        public override void SendMainWindowCloseEvent()
         {
-            if (MainWindowClose != null)
-            {
-                MainWindowClose();
-            }
-
             if (Properties.UserSettings.Instance.WindowCloseAction == WindowCloseActionEnum.Exit)
             {
                 Program.Shutdown();
@@ -242,17 +108,6 @@ namespace Kanji.Interface.Actors
         #endregion
 
         #region Private
-
-        /// <summary>
-        /// Makes sure the main window is open.
-        /// </summary>
-        private void RequireMainWindow()
-        {
-            if (MainWindow == null)
-            {
-                DoOpenWindow();
-            }
-        }
 
         /// <summary>
         /// Opens the Main Window without locking.
@@ -268,10 +123,12 @@ namespace Kanji.Interface.Actors
                 window.Show();
             });
         }
-        public void SetMainWindow(ContentControl window)
+
+        public override void SetMainWindow(ContentControl window)
         {
             SetMainWindow(window as MainWindow);
         }
+
         public void SetMainWindow(MainWindow window)
         {
             MainWindow = window;

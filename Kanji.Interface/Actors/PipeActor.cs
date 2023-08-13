@@ -64,7 +64,8 @@ namespace Kanji.Interface.Actors
                 // Shutdown command.
                 if (command.Value == PipeMessageEnum.OpenOrFocus)
                 {
-                    NavigationActor.Instance.OpenOrFocus();
+                    //TODO
+                    // NavigationActor.Instance.OpenOrFocus();
                 }
                 else
                 {

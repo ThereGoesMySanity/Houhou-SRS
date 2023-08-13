@@ -102,6 +102,11 @@ public class SrsEntryDao : Dao
                 DateTime.UtcNow.Ticks);
     }
 
+    public async Task<SrsEntry> GetItem(long id)
+    {
+        return await connection.GetAsync<SrsEntry>(id);
+    }
+
     /// <summary>
     /// Gets a filtered set of SRS entries.
     /// </summary>

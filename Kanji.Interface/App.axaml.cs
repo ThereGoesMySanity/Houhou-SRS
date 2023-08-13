@@ -2,6 +2,7 @@
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Kanji.Interface.Actors;
+using Kanji.Interface.Views;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -22,7 +23,7 @@ namespace Kanji.Interface
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 NavigationActor.Instance.SetMainWindow(new MainWindow());
-                desktop.MainWindow = (NavigationActor.Instance.MainWindow as MainWindow);
+                desktop.MainWindow = NavigationActor.Instance.MainWindow as MainWindow;
             }
             else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
             {

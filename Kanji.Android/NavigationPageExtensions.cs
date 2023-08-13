@@ -1,5 +1,5 @@
 using System;
-using Kanji.Android.Activities;
+using Kanji.Android.Fragments;
 using Kanji.Interface.Models;
 
 namespace Kanji.Android.Extensions;
@@ -11,10 +11,10 @@ public static class NavigationPageExtensions
         {
             NavigationPageEnum.Home => typeof(MainActivity),
 
-            NavigationPageEnum.Kanji => typeof(KanjiPageActivity),
-            NavigationPageEnum.Vocab => typeof(VocabPageActivity),
-            NavigationPageEnum.Settings => typeof(SettingsPageActivity),
-            NavigationPageEnum.Srs => typeof(SrsPageActivity),
+            NavigationPageEnum.Kanji => typeof(KanjiPageFragment),
+            NavigationPageEnum.Vocab => typeof(VocabPageFragment),
+            NavigationPageEnum.Settings => typeof(SettingsPageFragment),
+            NavigationPageEnum.Srs => typeof(SrsPageFragment),
 
             _ => null,
         };

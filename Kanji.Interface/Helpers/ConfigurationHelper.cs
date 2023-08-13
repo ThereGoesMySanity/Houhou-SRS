@@ -44,7 +44,7 @@ namespace Kanji.Interface.Helpers
         /// may not work, depending on the path (e.g. Program Files).
         /// </summary>
         public static readonly string CommonDataDirectoryPath = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
             "Houhou SRS", "Debug");
 
         #else
@@ -55,7 +55,7 @@ namespace Kanji.Interface.Helpers
         /// may not work, depending on the path (e.g. Program Files).
         /// </summary>
         public static readonly string CommonDataDirectoryPath = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
             "Houhou SRS");
 
         #endif

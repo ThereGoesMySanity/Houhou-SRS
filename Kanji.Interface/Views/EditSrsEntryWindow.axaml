@@ -6,6 +6,15 @@
                     xmlns:converters="clr-namespace:Kanji.Interface.Converters"
                     xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
                     xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
-                     x:Class="Kanji.Interface.Views.EditSrsEntryWindow" Height="500" Width="500" KeyDown="OnKeyDown">
+                     x:Class="Kanji.Interface.Views.EditSrsEntryWindow" Height="500" Width="500">
+  <i:Interaction.Behaviors>
+    <ia:DataTriggerBehavior Binding="{Binding IsNew}" Value="True">
+      <ia:ChangePropertyAction Value="SRS item creation" PropertyName="Title"/>
+    </ia:DataTriggerBehavior>
+    <ia:DataTriggerBehavior Binding="{Binding IsNew}" Value="False">
+      <ia:ChangePropertyAction Value="SRS item editing" PropertyName="Title"/>
+    </ia:DataTriggerBehavior>
+  </i:Interaction.Behaviors>
+
   <views:EditSrsEntry/>
 </Window>
