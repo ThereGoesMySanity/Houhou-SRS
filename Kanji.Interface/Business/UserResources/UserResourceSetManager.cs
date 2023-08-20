@@ -12,6 +12,8 @@ using Kanji.Database.Models;
 using Kanji.Interface.Models;
 using Kanji.Common.Extensions;
 using Kanji.Common.Helpers;
+using Avalonia.Logging;
+using Avalonia;
 
 namespace Kanji.Interface.Business
 {

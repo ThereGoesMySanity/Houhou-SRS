@@ -40,15 +40,15 @@ public class SrsEntryDao : Dao
             endOfToday.Ticks);
 
         // Query the first review date.
-        object nextAnswerDate = await connection.ExecuteScalarAsync<long>(
+        long? nextAnswerDate = await connection.ExecuteScalarAsync<long?>(
             "SELECT MIN(" + SqlHelper.Field_SrsEntry_NextAnswerDate + ") FROM "
             + SqlHelper.Table_SrsEntry + " WHERE "
             + SqlHelper.Field_SrsEntry_SuspensionDate + " IS NULL AND "
             + SqlHelper.Field_SrsEntry_NextAnswerDate + " NOT NULL");
 
-        if (nextAnswerDate != null && nextAnswerDate is long)
+        if (nextAnswerDate.HasValue)
         {
-            info.FirstReviewDate = new DateTime((long)nextAnswerDate,
+            info.FirstReviewDate = new DateTime(nextAnswerDate.Value,
                 DateTimeKind.Utc);
         }
 
@@ -371,7 +371,7 @@ public class SrsEntryDao : Dao
         int count = 0;
         foreach (var entity in entities)
         {
-            count += await connection.DeleteAsync<SrsEntry>(entity);
+            count += await connection.DeleteAsync<SrsEntry>(entity.ID);
         };
         return count;
     }
@@ -383,7 +383,7 @@ public class SrsEntryDao : Dao
     /// <returns>True if the operation was successful. False otherwise.</returns>
     public async Task<bool> Delete(SrsEntry entity)
     {
-        return (await connection.DeleteAsync<SrsEntry>(entity)) == 1;
+        return (await connection.DeleteAsync<SrsEntry>(entity.ID)) == 1;
     }
 
     #endregion

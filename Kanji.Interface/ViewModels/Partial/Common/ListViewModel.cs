@@ -196,7 +196,6 @@ namespace Kanji.Interface.ViewModels
         {
             // Get the amount of items to load.
             int loadCount = GetItemsPerPage();
-            Console.WriteLine(loadCount);
 
             // Get the next batch of items.
             IAsyncEnumerable<Tentity> nextItems = _itemList.GetNext(loadCount);
@@ -238,7 +237,7 @@ namespace Kanji.Interface.ViewModels
             _itemList = GetFilteredIterator();
             await _itemList.ApplyFilter();
             IsFiltering = false;
-            RaisePropertyChanged("TotalItemCount");
+            RaisePropertyChanged(nameof(TotalItemCount));
 
             // Load the first batch of items.
             await LoadMoreAction(token);
@@ -295,19 +294,17 @@ namespace Kanji.Interface.ViewModels
         {
             IsLoading = true;
             IsFiltering = true;
-            Console.WriteLine("a");
 
             _loadedItems.Clear();
 
             // Reapply the filter.
             LoadedItemCount = 0;
             await _itemList.ApplyFilter();
-            RaisePropertyChanged("TotalItemCount");
+            RaisePropertyChanged(nameof(TotalItemCount));
 
             // Load the next batch of items.
             await LoadMoreAction(token);
 
-            Console.WriteLine("b");
             IsFiltering = false;
             IsLoading = false;
         }

@@ -172,12 +172,8 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         public async Task StartReviewSession()
         {
-            if (_reviewVm == null)
-            {
-                ReviewVm = new SrsReviewViewModel();
-                ReviewVm.ReviewFinished += OnReviewFinished;
-                await ReviewVm.StartSession();
-            }
+            var vm = await NavigationActor.Instance.OpenReviewSession();
+            vm.ReviewFinished += OnReviewFinished;
         }
 
         #region Command callbacks
@@ -250,8 +246,8 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         private void OnReviewFinished(object sender, EventArgs e)
         {
-            ReviewVm.ReviewFinished -= OnReviewFinished;
-            ReviewVm.Dispose();
+            (sender as SrsReviewViewModel).ReviewFinished -= OnReviewFinished;
+            ReviewVm?.Dispose();
             ReviewVm = null;
 
             SrsBusiness.Instance.UpdateReviewInfoAsync();

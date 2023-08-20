@@ -16,8 +16,6 @@ namespace Kanji.Interface.Actors
     {
         #region Fields
 
-        private NavigationPageEnum _currentPage;
-
         private object _mainWindowLock;
 
         #endregion
@@ -40,7 +38,17 @@ namespace Kanji.Interface.Actors
             await wnd.ShowDialog(MainWindow as Window);
 
             // When it is closed, get the result.
-            return wnd.Result;
+            return wnd.Result ?? new SrsEntryEditedEventArgs(new ExtendedSrsEntry(entry), false);
+        }
+
+        public override async Task<SrsReviewViewModel> OpenReviewSession()
+        {
+            if (SrsVm.ReviewVm == null)
+            {
+                SrsVm.ReviewVm = new SrsReviewViewModel();
+                await SrsVm.ReviewVm.StartSession();
+            }
+            return SrsVm.ReviewVm;
         }
 
         /// <summary>

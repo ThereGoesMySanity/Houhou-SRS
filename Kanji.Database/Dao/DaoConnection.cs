@@ -14,28 +14,26 @@ namespace Kanji.Database.Dao
 {
     public class DaoConnection
     {
-        private static DaoConnection _instance;
-        public static DaoConnection Instance
+        public static DaoConnection Instance;
+        public DaoConnection(string kanjiDb, string srsDb)
         {
-            get
+            _paths = new Dictionary<DaoConnectionEnum, string>()
             {
-                if (_instance == null)
-                {
-                    _instance = new DaoConnection();
-                }
-                return _instance;
-            }
+                [DaoConnectionEnum.KanjiDatabase] = kanjiDb,
+                [DaoConnectionEnum.SrsDatabase] = srsDb,
+            };
         }
 
         private Dictionary<DaoConnectionEnum, SQLiteAsyncConnection> _connections = new Dictionary<DaoConnectionEnum, SQLiteAsyncConnection>();
+        private Dictionary<DaoConnectionEnum, string> _paths;
+
         public SQLiteAsyncConnection this[DaoConnectionEnum endpoint]
         {
             get
             {
                 if (!_connections.ContainsKey(endpoint))
                 {
-                    _connections[endpoint] = new SQLiteAsyncConnection(
-                        ConnectionStringHelper.GetConnectionString(endpoint));
+                    _connections[endpoint] = new SQLiteAsyncConnection(_paths[endpoint]);
                 }
                 return _connections[endpoint];
             }

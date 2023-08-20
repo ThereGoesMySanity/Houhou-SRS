@@ -26,7 +26,7 @@ namespace Kanji.Interface.ViewModels
         protected override async Task<bool> CanChangeSet(UserResourceSetInfo setInfo)
         {
             // Show validation messagebox.
-            var result = await MessageBoxManager.GetMessageBoxStandard(new MessageBoxStandardParams
+            var result = await MessageBoxActor.Instance.ShowMessageBox(new MessageBoxStandardParams
             {
                 ContentTitle = "SRS level set change warning",
                 ContentMessage = "Please be aware that modifying the SRS level set may block "
@@ -35,7 +35,7 @@ namespace Kanji.Interface.ViewModels
                 + "scheduled review dates will not be affected.",
                 ButtonDefinitions = ButtonEnum.OkCancel,
                 Icon = Icon.Warning,
-            }).ShowAsPopupAsync(NavigationActor.Instance.ActiveWindow);
+            });
             return result == ButtonResult.Ok;
         }
 

@@ -194,13 +194,13 @@ namespace Kanji.Interface.ViewModels
 
             if (ContentViewModel.IsChangePending)
             {
-                var result = await MessageBoxManager.GetMessageBoxStandard(new MessageBoxStandardParams
+                var result = await MessageBoxActor.Instance.ShowMessageBox(new MessageBoxStandardParams
                 {
                     ContentTitle = "Pending changes",
                     ContentMessage = $"Some changes were not saved{Environment.NewLine}Do you want to save them?",
                     ButtonDefinitions = ButtonEnum.YesNoCancel,
                     Icon = Icon.Info,
-                }).ShowAsPopupAsync(NavigationActor.Instance.ActiveWindow);
+                });
 
                 switch (result)
                 {
@@ -227,13 +227,13 @@ namespace Kanji.Interface.ViewModels
 
             if (needRestart)
             {
-                await MessageBoxManager.GetMessageBoxStandard(new MessageBoxStandardParams
+                await MessageBoxActor.Instance.ShowMessageBox(new MessageBoxStandardParams
                 {
                     ButtonDefinitions = ButtonEnum.Ok,
                     ContentTitle = "Some settings need restart",
                     ContentMessage = "Some changes will not take effect until the application is restarted.",
                     Icon = Icon.Info,
-                }).ShowAsPopupAsync(NavigationActor.Instance.ActiveWindow);
+                });
             }
         }
 

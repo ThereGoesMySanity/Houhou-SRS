@@ -138,6 +138,7 @@ public abstract class NavigationActor : NotifyPropertyChanged, INavigationActor
     }
 
     public abstract Task<SrsEntryEditedEventArgs> OpenSrsEditWindow(SrsEntry entry);
+    public abstract Task<SrsReviewViewModel> OpenReviewSession();
 
     public abstract void SetMainWindow(ContentControl control);
 

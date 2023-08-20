@@ -81,16 +81,6 @@ namespace Kanji.Interface.Business
         public IAsyncEnumerable<T> GetNext(int count)
         {
             return _itemSet.TakeWhile(t => --count >= 0 && !_iteratorCancellation.IsCancellationRequested);
-            // while (--count >= 0 && !_iteratorCancellation.IsCancellationRequested)
-            // {
-            //     if (await _iterator.MoveNextAsync())
-            //     {
-            //         Console.WriteLine("a: " +_iterator.Current);
-            //         // Add the current item.
-            //         yield return _iterator.Current;
-            //         // Continue iterating while we are not finished.
-            //     }
-            // }
         }
 
         /// <summary>

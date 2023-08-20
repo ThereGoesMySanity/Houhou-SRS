@@ -52,6 +52,8 @@ public interface INavigationActor
 
     Task<SrsEntryEditedEventArgs> OpenSrsEditWindow(SrsEntry entry);
 
+    Task<SrsReviewViewModel> OpenReviewSession();
+
     void SetMainWindow(ContentControl window);
 
     void SendMainWindowCloseEvent();

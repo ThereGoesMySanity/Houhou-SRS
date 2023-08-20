@@ -51,7 +51,7 @@ namespace Kanji.Interface.Business
         /// </summary>
         public override string GetBaseDirectoryPath()
         {
-            return ConfigurationHelper.UserContentRadicalDirectoryPath;
+            return ConfigurationHelper.Instance.UserContentRadicalDirectoryPath;
         }
 
         /// <summary>

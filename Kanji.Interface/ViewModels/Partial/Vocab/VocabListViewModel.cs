@@ -193,13 +193,13 @@ namespace Kanji.Interface.ViewModels
             }
             catch (Exception ex)
             {
-                await MessageBoxManager.GetMessageBoxStandard(new MessageBoxStandardParams
+                await MessageBoxActor.Instance.ShowMessageBox(new MessageBoxStandardParams
                 {
                     ContentTitle = "Quick delay error",
                     ContentMessage = $"An error occurred: {ex.Message}",
                     Icon = Icon.Error,
                     ButtonDefinitions = ButtonEnum.Ok,
-                }).ShowAsPopupAsync(NavigationActor.Instance.ActiveWindow);
+                });
 
                 LogHelper.GetLogger("Quick SRS delay").Error("An error occured during quick SRS delay.", ex);
             }
@@ -306,13 +306,13 @@ namespace Kanji.Interface.ViewModels
             }
             catch (Exception ex)
             {
-                await MessageBoxManager.GetMessageBoxStandard(new MessageBoxStandardParams
+                await MessageBoxActor.Instance.ShowMessageBox(new MessageBoxStandardParams
                 {
                     ContentTitle = "Quick add error",
                     ContentMessage = $"An error occurred: {ex.Message}",
                     Icon = Icon.Error,
                     ButtonDefinitions = ButtonEnum.Ok,
-                }).ShowAsPopupAsync(NavigationActor.Instance.ActiveWindow);
+                });
 
                 LogHelper.GetLogger("Quick add").Error("An error occured during quick add.", ex);
             }

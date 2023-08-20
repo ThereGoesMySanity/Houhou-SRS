@@ -610,12 +610,12 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         private async void OnDelete()
         {
-            var result = await MessageBoxManager.GetMessageBoxStandard(new MessageBoxStandardParams
+            var result = await MessageBoxActor.Instance.ShowMessageBox(new MessageBoxStandardParams
             {
                 ContentTitle = "Delete the SRS item",
                 ContentMessage = "Do you really want to delete the SRS item?",
                 ButtonDefinitions = MsBox.Avalonia.Enums.ButtonEnum.YesNo,
-            }).ShowAsPopupAsync(NavigationActor.Instance.ActiveWindow);
+            });
             if (result == ButtonResult.Yes)
             {
                 await SendEntity(SrsEntryOperationEnum.Delete);

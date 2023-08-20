@@ -195,7 +195,7 @@
     </Border>
 
     <!-- Input textbox -->
-    <TextBox Grid.Row="4" Text="{Binding CurrentAnswer, Mode=TwoWay}" FontSize="20" IsReadOnly="False">
+    <TextBox Name="InputTextBox" Grid.Row="4" Text="{Binding CurrentAnswer, Mode=TwoWay}" FontSize="20" IsReadOnly="False">
       <TextBox.KeyBindings>
         <KeyBinding Gesture="Enter" Command="{Binding SubmitCommand}"/>
       </TextBox.KeyBindings>

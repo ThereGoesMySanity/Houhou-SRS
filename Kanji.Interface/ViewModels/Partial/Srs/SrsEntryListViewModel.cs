@@ -752,12 +752,12 @@ namespace Kanji.Interface.ViewModels
                     (BulkEditMode == BulkEditModeEnum.ReadingNote ? "reading note" :
                     "tag"));
 
-            var result = await MessageBoxManager.GetMessageBoxStandard(new MessageBoxStandardParams
+            var result = await MessageBoxActor.Instance.ShowMessageBox(new MessageBoxStandardParams
             {
                 ButtonDefinitions = ButtonEnum.YesNo,
                 ContentTitle = "Bulk edition confirmation",
                 ContentMessage = messageBoxContent,
-            }).ShowAsPopupAsync(NavigationActor.Instance.ActiveWindow);
+            });
 
             if (result == ButtonResult.Yes)
             {
@@ -785,14 +785,14 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         private async void OnBulkEditLevelApply()
         {
-            var result = await MessageBoxManager.GetMessageBoxStandard(new MessageBoxStandardParams
+            var result = await MessageBoxActor.Instance.ShowMessageBox(new MessageBoxStandardParams
             {
                 ContentTitle = "Bulk edition confirmation",
                 ContentMessage = $"Do you really want to reset all {SelectedCount} selected "
                     + $"items to this level?{Environment.NewLine}The current levels and next review "
                     + "dates will be permanently overwritten.",
                 ButtonDefinitions = ButtonEnum.YesNo,
-            }).ShowAsPopupAsync(NavigationActor.Instance.ActiveWindow);
+            });
 
             if (result == ButtonResult.Yes)
             {
@@ -818,12 +818,12 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         private async void OnBulkSuspend()
         {
-            var result = await MessageBoxManager.GetMessageBoxStandard(new MessageBoxStandardParams
+            var result = await MessageBoxActor.Instance.ShowMessageBox(new MessageBoxStandardParams
             {
                 ContentTitle = "Bulk suspension confirmation",
                 ContentMessage = $"Do you really want to suspend all {SelectedCount} items?",
                 ButtonDefinitions = ButtonEnum.YesNo,
-            }).ShowAsPopupAsync(NavigationActor.Instance.ActiveWindow);
+            });
 
             if (result == ButtonResult.Yes)
             {
@@ -837,12 +837,12 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         private async void OnBulkResume()
         {
-            var result = await MessageBoxManager.GetMessageBoxStandard(new MessageBoxStandardParams
+            var result = await MessageBoxActor.Instance.ShowMessageBox(new MessageBoxStandardParams
             {
                 ContentTitle = "Bulk resume confirmation",
                 ContentMessage = $"Do you really want to resume all {SelectedCount} items?",
                 ButtonDefinitions = ButtonEnum.YesNo,
-            }).ShowAsPopupAsync(NavigationActor.Instance.ActiveWindow);
+            });
 
             if (result == ButtonResult.Yes)
             {
@@ -856,13 +856,13 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         private async void OnBulkDelete()
         {
-            var result = await MessageBoxManager.GetMessageBoxStandard(new MessageBoxStandardParams
+            var result = await MessageBoxActor.Instance.ShowMessageBox(new MessageBoxStandardParams
             {
                 ContentTitle = "Bulk deletion confirmation",
                 ContentMessage = $"Do you really want to delete all {SelectedCount} items?{Environment.NewLine}"
                     + "These items will be lost FOREVER.",
                 ButtonDefinitions = ButtonEnum.YesNo,
-            }).ShowAsPopupAsync(NavigationActor.Instance.ActiveWindow);
+            });
 
             if (result == ButtonResult.Yes)
             {
@@ -884,13 +884,13 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         private async void OnBulkRescheduleApply()
         {
-            var result = await MessageBoxManager.GetMessageBoxStandard(new MessageBoxStandardParams
+            var result = await MessageBoxActor.Instance.ShowMessageBox(new MessageBoxStandardParams
             {
                 ContentTitle = "Bulk edition confirmation",
                 ContentMessage = $"Do you really want to reset the review date of all {SelectedCount} selected "
                     + $"items to this level?{Environment.NewLine}This action is not reversible.",
                 ButtonDefinitions = ButtonEnum.YesNo,
-            }).ShowAsPopupAsync(NavigationActor.Instance.ActiveWindow);
+            });
 
             if (result == ButtonResult.Yes)
             {
@@ -908,12 +908,12 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         private async void OnBulkDelayApply()
         {
-            var result = await MessageBoxManager.GetMessageBoxStandard(new MessageBoxStandardParams
+            var result = await MessageBoxActor.Instance.ShowMessageBox(new MessageBoxStandardParams
             {
                 ContentTitle = "Bulk edition confirmation",
                 ContentMessage = $"Do you really want to delay the review date of all {SelectedCount} selected items?",
                 ButtonDefinitions = ButtonEnum.YesNo,
-            }).ShowAsPopupAsync(NavigationActor.Instance.ActiveWindow);
+            });
 
             if (result == ButtonResult.Yes)
             {
@@ -1000,13 +1000,13 @@ namespace Kanji.Interface.ViewModels
                     LogHelper.GetLogger("Export").Error("An exception occured during an export operation.", ex);
 
                     // And show a dialog with the error.
-                    await MessageBoxManager.GetMessageBoxStandard(new MessageBoxStandardParams
+                    await MessageBoxActor.Instance.ShowMessageBox(new MessageBoxStandardParams
                     {
                         ContentTitle = "Export error",
                         ContentMessage = $"An error occurred during the export: \"{ex.GetType().Name}\".{Environment.NewLine}{Environment.NewLine}{ex.Message}",
                         Icon = Icon.Error,
                         ButtonDefinitions = ButtonEnum.Ok,
-                    }).ShowAsPopupAsync(NavigationActor.Instance.ActiveWindow);
+                    });
                 }
             }
         }

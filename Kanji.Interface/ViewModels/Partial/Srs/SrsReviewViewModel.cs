@@ -157,13 +157,8 @@ namespace Kanji.Interface.ViewModels
                     if (CurrentQuestion != null
                         && CurrentQuestion.Question == SrsQuestionEnum.Reading)
                     {
-                        //TODO: https://github.com/AvaloniaUI/Avalonia/issues/3603
-                        //_currentAnswer = KanaHelper.RomajiToKana(value, true);
-                        DispatcherTimer.RunOnce(() => 
-                                {
-                                    _currentAnswer = KanaHelper.RomajiToKana(value, true);
-                                    RaisePropertyChanged(nameof(CurrentAnswer));
-                                }, TimeSpan.FromMilliseconds(10));
+                        //Fixed: https://github.com/AvaloniaUI/Avalonia/issues/3603
+                        _currentAnswer = KanaHelper.RomajiToKana(value, true);
                     }
                     else
                     {

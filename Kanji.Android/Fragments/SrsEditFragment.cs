@@ -1,5 +1,7 @@
+using System.Threading.Tasks;
 using Android.OS;
 using Android.Views;
+using AndroidX.Work;
 using Avalonia.Android;
 using Kanji.Database.Dao;
 using Kanji.Database.Entities;
@@ -14,29 +16,22 @@ namespace Kanji.Android.Fragments;
 public class SrsEditFragment : NavigationFragment
 {
     private SrsEntryViewModel DataContext;
-    public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    private readonly TaskCompletionSource<SrsEntryEditedEventArgs> resultTask;
+
+    public SrsEditFragment(SrsEntry entry, TaskCompletionSource<SrsEntryEditedEventArgs> resultTask)
     {
-        Bundle args = RequireArguments();
-        SrsEntry entry = new();
-        if (args.ContainsKey("srsEntry"))
-        {
-            entry = new SrsEntryDao().GetItem(args.GetLong("srsEntry")).GetAwaiter().GetResult();
-        }
-        else if (args.ContainsKey("associatedKanji") || args.ContainsKey("associatedVocab"))
-        {
-            entry = new SrsEntryDao().GetSimilarItem(new SrsEntry{
-                AssociatedKanji = args.GetString("associatedKanji"),
-                AssociatedVocab = args.GetString("associatedVocab"),
-            }).GetAwaiter().GetResult();
-        }
         DataContext = new SrsEntryViewModel(entry);
         DataContext.FinishedEditing += OnFinishedEditing;
-        var content = new EditSrsEntry()
+        this.resultTask = resultTask;
+    }
+    public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
+        var view = new EditSrsEntry()
         {
             DataContext = this.DataContext
         };
         return new AvaloniaView(Context) {
-            Content = content
+            Content = view
         };
     }
 
@@ -47,17 +42,19 @@ public class SrsEditFragment : NavigationFragment
     /// </summary>
     private void OnFinishedEditing(object sender, SrsEntryEditedEventArgs e)
     {
+        SetResult(e);
+        ParentFragmentManager.PopBackStack();
+    }
+
+    private void SetResult(SrsEntryEditedEventArgs e)
+    {
         if (e.SrsEntry != null)
         {
             e.SrsEntry.Meanings = MultiValueFieldHelper.Trim(e.SrsEntry.Meanings);
             e.SrsEntry.Readings = MultiValueFieldHelper.Trim(e.SrsEntry.Readings);
             e.SrsEntry.Tags = MultiValueFieldHelper.Trim(e.SrsEntry.Tags);
         }
-        Bundle result = new();
-        result.PutString("result", JsonConvert.SerializeObject(e));
-        ParentFragmentManager.SetFragmentResult("srsEntryEdited", result);
-        ParentFragmentManager.BeginTransaction().SetReorderingAllowed(true)
-            .Remove(this).Commit();
+        resultTask.SetResult(e);
     }
 
     /// <summary>
@@ -66,6 +63,7 @@ public class SrsEditFragment : NavigationFragment
     public override void OnDestroyView()
     {
         base.OnDestroyView();
+        if (!resultTask.Task.IsCompleted) SetResult(new SrsEntryEditedEventArgs(DataContext.Entry, false));
         DataContext.FinishedEditing -= OnFinishedEditing;
         DataContext.Dispose();
         DataContext = null;

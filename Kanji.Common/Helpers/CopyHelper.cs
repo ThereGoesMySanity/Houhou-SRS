@@ -45,11 +45,11 @@ namespace Kanji.Common.Helpers
         /// </summary>
         /// <param name="sourceFilePath">Source file path.</param>
         /// <param name="destinationFilePath">Destination file path.</param>
-        public static void CopyIfDifferent(string sourceFilePath, string destinationFilePath)
+        public static void CopyIfDifferent(Stream sourceFile, string destinationFilePath)
         {
-            if (!File.Exists(destinationFilePath) || !FileEquals(sourceFilePath, destinationFilePath))
+            if (!File.Exists(destinationFilePath) || !FileEquals(sourceFile, destinationFilePath))
             {
-                File.Copy(sourceFilePath, destinationFilePath, true);
+                sourceFile.CopyTo(new FileStream(destinationFilePath, FileMode.OpenOrCreate, FileAccess.Write));
             }
         }
 
@@ -60,34 +60,34 @@ namespace Kanji.Common.Helpers
         /// <param name="pathA">First file path.</param>
         /// <param name="pathB">Second file path.</param>
         /// <returns></returns>
-        public static bool FileEquals(string pathA, string pathB)
+        public static bool FileEquals(Stream fileA, string pathB)
         {
             int file1byte;
             int file2byte;
-            FileStream fs1;
+            Stream fs1;
             FileStream fs2;
 
-            // Determine if the same file was referenced two times.
-            if (pathA == pathB)
-            {
-                // Return true to indicate that the files are the same.
-                return true;
-            }
-
             // Open the two files.
-            fs1 = new FileStream(pathA, FileMode.Open, FileAccess.Read);
+            fs1 = fileA;
             fs2 = new FileStream(pathB, FileMode.Open, FileAccess.Read);
 
-            // Check the file sizes. If they are not the same, the files 
-            // are not the same.
-            if (fs1.Length != fs2.Length)
+            try
             {
-                // Close the file
-                fs1.Close();
-                fs2.Close();
+                // Check the file sizes. If they are not the same, the files 
+                // are not the same.
+                if (fs1.Length != fs2.Length)
+                {
+                    // Close the file
+                    fs1.Close();
+                    fs2.Close();
 
-                // Return false to indicate files are different
-                return false;
+                    // Return false to indicate files are different
+                    return false;
+                }
+            }
+            catch (NotSupportedException) 
+            {
+                return fs2.Length > 0;
             }
 
             // Read and compare a byte from each file until either a

@@ -17,6 +17,12 @@ using Config.Net;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Dto;
 using MsBox.Avalonia.Enums;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Kanji.Interface.Properties;
+using Kanji.Desktop;
+using Avalonia.Threading;
+using Kanji.Database.Dao;
 
 namespace Kanji.Interface
 {
@@ -56,7 +62,7 @@ namespace Kanji.Interface
             if (true || RunOnceMutex.WaitOne(TimeSpan.Zero, true))
             {
                 // The application is not already running. So let's start it.
-                Run();
+                Run(args);
 
                 // Once the application is shutdown, release the mutex.
                 RunOnceMutex.ReleaseMutex();
@@ -76,20 +82,27 @@ namespace Kanji.Interface
         /// Initializes the application, runs it, and manages
         /// the resources.
         /// </summary>
-        public static void Run()
+        public static void Run(string[] args)
         {
             // Initialize the logging system.
             LogHelper.InitializeLoggingSystem();
 
+            // Initialize the configuration system.
+            ConfigurationHelper.Instance = new DesktopConfigurationHelper();
+
             // Initialize settings.
             InitializeUserSettings();
+            ConfigurationHelper.Instance.InitializeConfiguration();
 
-            // Initialize the configuration system.
-            ConfigurationHelper.InitializeConfiguration();
 
             // Load the navigation actor.
             NavigationActor.Instance = new DesktopNavigationActor();
 
+            MessageBoxActor.Instance = new MessageBoxActor();
+
+            DaoConnection.Instance = new DaoConnection(
+                    ConfigurationHelper.Instance.CommonDataDictionaryDatabaseFilePath,
+                    ConfigurationHelper.Instance.UserContentSrsDatabaseFilePath);
             // Start loading user resources.
             Task.WhenAll(RadicalStore.Instance.InitializeAsync(),
                     SrsLevelStore.Instance.InitializeAsync());
@@ -113,8 +126,8 @@ namespace Kanji.Interface
                 var app = BuildAvaloniaApp().AfterSetup((a) =>
                 {
                     // Start the SRS business.
-                    SrsBusiness.Initialize();
-                }).StartWithClassicDesktopLifetime(new string[] { });
+            SrsBusiness.Initialize();
+                }).StartWithClassicDesktopLifetime(args);
             }
         }
 
@@ -125,7 +138,7 @@ namespace Kanji.Interface
         private static void InitializeUserSettings()
         {
             Properties.UserSettings.Instance = new ConfigurationBuilder<Properties.IUserSettings>()
-                .UseIniFile(Path.Combine(ConfigurationHelper.UserContentDirectoryPath, "UserSettings.ini"))
+                .UseIniFile(Path.Combine(ConfigurationHelper.Instance.UserContentDirectoryPath, "UserSettings.ini"))
                 .Build();
             //TODO
             // if (Properties.UserSettings.Instance.ShouldUpgradeSettings)
@@ -181,7 +194,7 @@ namespace Kanji.Interface
 
             DispatcherHelper.Invoke(async () =>
             {
-                if (await MessageBoxManager.GetMessageBoxStandard(
+                if (await MessageBoxActor.Instance.ShowMessageBox(
                     new MessageBoxStandardParams
                     {
                         ContentTitle = "Fatal error",
@@ -193,9 +206,9 @@ namespace Kanji.Interface
                                 ex.GetType().Name,
                                 Environment.NewLine,
                                 ex.Message),
-                        ButtonDefinitions = ButtonEnum.YesNoCancel,
+                        ButtonDefinitions = ButtonEnum.YesNo,
                         Icon = Icon.Error
-                    }).ShowAsPopupAsync(NavigationActor.Instance.ActiveWindow) == ButtonResult.Yes)
+                    }) == ButtonResult.Yes)
                 {
                     try
                     {
@@ -205,7 +218,7 @@ namespace Kanji.Interface
                     {
                         LogHelper.GetLogger("Main").Fatal("Failed to open the log after fatal exception. Double fatal shock.", ex2);
 
-                        await MessageBoxManager.GetMessageBoxStandard(
+                        await MessageBoxActor.Instance.ShowMessageBox(
                             new MessageBoxStandardParams
                             {
                                 ContentMessage = string.Format("Okay, so... the log file failed to open.{0}"
@@ -217,7 +230,7 @@ namespace Kanji.Interface
                                 ContentTitle = "Double fatal error shock",
                                 ButtonDefinitions = ButtonEnum.Ok,
                                 Icon = Icon.Error
-                            }).ShowAsPopupAsync(NavigationActor.Instance.ActiveWindow);
+                            });
                     }
                 }
             });

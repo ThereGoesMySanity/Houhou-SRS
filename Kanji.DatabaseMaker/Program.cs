@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Kanji.Database.Dao;
 
 namespace Kanji.DatabaseMaker
 {
@@ -29,8 +30,7 @@ namespace Kanji.DatabaseMaker
             log4net.ILog log = log4net.LogManager.GetLogger("Main");
             log.Info("Starting.");
 
-            AppDomain.CurrentDomain.SetData("DataDirectory", AppContext.BaseDirectory);
-
+            DaoConnection.Instance = new DaoConnection(Path.Combine(AppContext.BaseDirectory, "KanjiDatabase.sqlite"), null);
             // Get and store radicals.
             log.Info("Getting radicals.");
             RadicalEtl radicalEtl = new RadicalEtl();

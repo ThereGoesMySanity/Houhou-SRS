@@ -139,13 +139,13 @@ namespace Kanji.Interface.ViewModels
             }
 
             // Show dialog.
-            await MessageBoxManager.GetMessageBoxStandard(new MessageBoxStandardParams
+            await MessageBoxActor.Instance.ShowMessageBox(new MessageBoxStandardParams
             {
                 ButtonDefinitions = ButtonEnum.Ok,
                 ContentTitle = "User directory changed",
                 ContentMessage = $"Your user directory has been successfuly modified. Please restart Houhou completely now.{Environment.NewLine}Please note that for safety reasons, your old directory has not been deleted.",
                 Icon = Icon.Info,
-            }).ShowAsPopupAsync(NavigationActor.Instance.ActiveWindow);
+            });
 
             // Modify values.
             Properties.UserSettings.Instance.UserDirectoryPath = _userDirectoryPath;
