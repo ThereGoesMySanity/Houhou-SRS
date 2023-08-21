@@ -16,7 +16,7 @@ namespace Kanji.Interface.Helpers
             {
                 // If no associated application/json MimeType is found xdg-open opens retrun error
                 // but it tries to open it anyway using the console editor (nano, vim, other..)
-                ShellExec($"xdg-open {uri}", waitForExit: false);
+                ShellExec($"xdg-open \"{uri}\"", waitForExit: false);
             }
             else
             {

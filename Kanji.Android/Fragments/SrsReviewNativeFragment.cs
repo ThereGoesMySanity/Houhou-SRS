@@ -3,6 +3,7 @@ using System.ComponentModel;
 using Android.Content.Res;
 using Android.Graphics;
 using Android.OS;
+using Android.Text;
 using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
@@ -22,6 +23,7 @@ public class SrsReviewNativeFragment : Fragment
     public SrsReviewNativeFragment(SrsReviewViewModel viewModel) : base(Resource.Layout.srs_review) 
     {
         this.viewModel = viewModel;
+        viewModel.ReviewFinished += OnReviewFinished;
     }
 
     public override void OnViewCreated(View view, Bundle savedInstanceState)
@@ -36,6 +38,7 @@ public class SrsReviewNativeFragment : Fragment
         };
         view.FindViewById<Button>(Resource.Id.ignore_button).Click += (_, _) => viewModel.IgnoreAnswerCommand.Execute(null);
         view.FindViewById<Button>(Resource.Id.add_meaning_button).Click += (_, _) => viewModel.AddAnswerCommand.Execute(null);
+        view.FindViewById<Button>(Resource.Id.edit_button).Click += (_, _) => viewModel.EditSrsEntryCommand.Execute(null);
 
         view.FindViewById<EditText>(Resource.Id.answer_text).EditorAction += (_, e) => 
         {
@@ -132,9 +135,16 @@ public class SrsReviewNativeFragment : Fragment
             View.FindViewById<EditText>(Resource.Id.answer_text).Text = viewModel.CurrentAnswer;
         }
     }
+
+    public void OnReviewFinished(object sender, EventArgs e)
+    {
+        ParentFragmentManager.PopBackStack();
+    }
+
     public override void OnDestroyView()
     {
         base.OnDestroyView();
+        viewModel.ReviewFinished -= OnReviewFinished;
         viewModel.StopSessionCommand.Execute(null);
         viewModel.Dispose();
     }

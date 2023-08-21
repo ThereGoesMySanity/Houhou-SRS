@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Threading;
+using ExCSS;
 using Kanji.Interface.Models;
 
 namespace Kanji.Interface.Business
@@ -78,9 +79,15 @@ namespace Kanji.Interface.Business
         /// <returns>A list of items containing 0 to <paramref name="count"/> elements.
         /// If the list contains less than <paramref name="count"/> elements, the set
         /// has been iterated until the end.</returns>
-        public IAsyncEnumerable<T> GetNext(int count)
+        public async IAsyncEnumerable<T> GetNext(int count)
         {
-            return _itemSet.TakeWhile(t => --count >= 0 && !_iteratorCancellation.IsCancellationRequested);
+            while (--count >= 0 && !_iteratorCancellation.IsCancellationRequested)
+            {
+                if(await _iterator.MoveNextAsync())
+                {
+                    yield return _iterator.Current;
+                }
+            }
         }
 
         /// <summary>
@@ -93,6 +100,7 @@ namespace Kanji.Interface.Business
 
             // Apply the filter.
             _itemSet = DoFilter();
+            _iterator =  _itemSet.GetAsyncEnumerator();
 
             // Get the total item count.
             ItemCount = await GetItemCount();

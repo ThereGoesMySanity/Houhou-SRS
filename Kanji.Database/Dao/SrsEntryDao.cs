@@ -31,6 +31,14 @@ public class SrsEntryDao : Dao
             + SqlHelper.Field_SrsEntry_NextAnswerDate + " <= ?",
             DateTime.UtcNow.Ticks);
 
+        // Query the new review count
+        info.RecentReviewsCount = await connection.ExecuteScalarAsync<long>(
+            "SELECT COUNT(1) FROM " + SqlHelper.Table_SrsEntry + " se WHERE se."
+            + SqlHelper.Field_SrsEntry_SuspensionDate + " IS NULL AND se."
+            + SqlHelper.Field_SrsEntry_NextAnswerDate + " <= ? AND se."
+            + SqlHelper.Field_SrsEntry_NextAnswerDate + " >= ?",
+            DateTime.UtcNow.Ticks, DateTime.UtcNow.AddHours(-1).Ticks);
+
         // Query the review count for today.
         DateTime endOfToday = DateTime.Now.Date.AddDays(1).ToUniversalTime();
         info.TodayReviewsCount = await connection.ExecuteScalarAsync<long>(

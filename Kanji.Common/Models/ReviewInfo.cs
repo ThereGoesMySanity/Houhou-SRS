@@ -20,6 +20,11 @@ namespace Kanji.Common.Models
         public long AvailableReviewsCount { get; set; }
 
         /// <summary>
+        /// Gets or sets the number of reviews in the past hour
+        /// </summary>
+        public long RecentReviewsCount { get; set; }
+
+        /// <summary>
         /// Gets or sets the first review date in chronological order.
         /// </summary>
         public DateTime? FirstReviewDate { get; set; }

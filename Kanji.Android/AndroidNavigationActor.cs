@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using AndroidX.AppCompat.App;
+using Avalonia.Android;
 using Avalonia.Controls;
 using Kanji.Android.Fragments;
 using Kanji.Database.Entities;
@@ -10,24 +11,29 @@ using Kanji.Interface.ViewModels;
 namespace Kanji.Android;
 public class AndroidNavigationActor : NavigationActor
 {
-    internal AppCompatActivity Activity { get; set; }
+    internal KanjiActivity Activity { get; set; }
 
-    public AndroidNavigationActor(AppCompatActivity activity)
+    public override ContentControl ActiveWindow => (Activity.SupportFragmentManager.FindFragmentById(Activity.FragmentContentId).View as AvaloniaView)?.Content as ContentControl;
+
+    public AndroidNavigationActor(KanjiActivity activity)
     {
         CurrentPage = NavigationPageEnum.Home;
         Activity = activity;
     }
 
-    public override async Task<SrsEntryEditedEventArgs> OpenSrsEditWindow(SrsEntry entry)
+    public override Task<SrsEntryEditedEventArgs> OpenSrsEditWindow(SrsEntry entry)
     {
         TaskCompletionSource<SrsEntryEditedEventArgs> task = new();
 
-        Activity.SupportFragmentManager.BeginTransaction().SetReorderingAllowed(true)
-            .Replace(Resource.Id.main_content, new SrsEditFragment(entry, task))
-            .AddToBackStack(null).Commit();
+        var transaction = Activity.SupportFragmentManager.BeginTransaction().SetReorderingAllowed(true)
+            .Replace(Activity.FragmentContentId, new SrsEditFragment(entry, task));
         
-        var result = await task.Task;
-        return result;
+        if (Activity is MainActivity)
+            transaction = transaction.AddToBackStack(null);
+
+        transaction.Commit();
+
+        return task.Task;
     }
 
     public override Task<SrsReviewViewModel> OpenReviewSession()
@@ -35,7 +41,7 @@ public class AndroidNavigationActor : NavigationActor
         SrsReviewViewModel viewModel = new();
 
         Activity.SupportFragmentManager.BeginTransaction().SetReorderingAllowed(true)
-            .Replace(Resource.Id.main_content, new SrsReviewNativeFragment(viewModel))
+            .Replace(Activity.FragmentContentId, new SrsReviewNativeFragment(viewModel))
             .AddToBackStack(null).Commit();
         
         return Task.FromResult(viewModel);

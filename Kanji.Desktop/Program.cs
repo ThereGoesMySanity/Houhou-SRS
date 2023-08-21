@@ -137,9 +137,6 @@ namespace Kanji.Interface
         /// </summary>
         private static void InitializeUserSettings()
         {
-            Properties.UserSettings.Instance = new ConfigurationBuilder<Properties.IUserSettings>()
-                .UseIniFile(Path.Combine(ConfigurationHelper.Instance.UserContentDirectoryPath, "UserSettings.ini"))
-                .Build();
             //TODO
             // if (Properties.UserSettings.Instance.ShouldUpgradeSettings)
             // {

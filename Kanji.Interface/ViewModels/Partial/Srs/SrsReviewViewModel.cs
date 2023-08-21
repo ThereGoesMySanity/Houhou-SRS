@@ -479,7 +479,7 @@ namespace Kanji.Interface.ViewModels
 
             if (eligibleQuestions.Any())
             {
-                return eligibleQuestions[_random.Next(eligibleQuestions.Count())];
+                return eligibleQuestions[_random.Next(eligibleQuestions.Length)];
             }
 
             return null;
@@ -675,20 +675,16 @@ namespace Kanji.Interface.ViewModels
         private void UpdateEntry(SrsEntry entry)
         {
             _currentTransactionCount++;
-            BackgroundWorker worker = new BackgroundWorker();
-            worker.DoWork += DoUpdateEntry;
-            worker.RunWorkerCompleted += DoneUpdateEntry;
-            worker.RunWorkerAsync(entry);
+            Task.Run(() => DoUpdateEntry(entry).ContinueWith((t) => DoneUpdateEntry()));
         }
 
         /// <summary>
         /// Background task work method.
         /// Updates the given SRS item.
         /// </summary>
-        private async void DoUpdateEntry(object sender, DoWorkEventArgs e)
+        private async Task DoUpdateEntry(SrsEntry entry)
         {
-            SrsEntry entry = (SrsEntry)e.Argument;
-            if (!(await _srsEntryDao.Update(entry)))
+            if (!await _srsEntryDao.Update(entry))
             {
                 LogHelper.GetLogger(this.GetType().Name).WarnFormat(
                     "The review update for the SRS entry \"{0}\" ({1}) failed.",
@@ -699,11 +695,8 @@ namespace Kanji.Interface.ViewModels
         /// <summary>
         /// Background task completed method. Unsubscribes to the events.
         /// </summary>
-        private void DoneUpdateEntry(object sender, RunWorkerCompletedEventArgs e)
+        private void DoneUpdateEntry()
         {
-            ((BackgroundWorker)sender).DoWork -= DoUpdateEntry;
-            ((BackgroundWorker)sender).RunWorkerCompleted -= DoneUpdateEntry;
-
             // Trigger the event if the revision should be over.
             lock (_stopLock)
             {
@@ -767,6 +760,7 @@ namespace Kanji.Interface.ViewModels
                     CurrentQuestionGroup.Reference.Readings +=
                         MultiValueFieldHelper.ValueSeparator + CurrentAnswer;
                 }
+                RaisePropertyChanged(nameof(CurrentQuestion));
 
                 ReviewState = SrsReviewStateEnum.Success;
                 await ToNextQuestion();
@@ -842,7 +836,7 @@ namespace Kanji.Interface.ViewModels
                         // The result exists and is still due for review.
                         // Update the current group.
                         CurrentQuestionGroup.Reference = e.SrsEntry.Reference;
-                        RaisePropertyChanged("CurrentQuestion");
+                        RaisePropertyChanged(nameof(CurrentQuestion));
                     }
                     else
                     {

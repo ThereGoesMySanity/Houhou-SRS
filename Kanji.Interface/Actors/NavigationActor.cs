@@ -67,7 +67,7 @@ public abstract class NavigationActor : NotifyPropertyChanged, INavigationActor
     /// <summary>
     /// Gets or sets the current modal window.
     /// </summary>
-    public ContentControl ActiveWindow { get; set; }
+    public virtual ContentControl ActiveWindow { get; set; }
 
     #endregion
 

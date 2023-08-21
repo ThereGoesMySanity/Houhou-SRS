@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Config.Net;
 using Kanji.Common.Helpers;
 
 namespace Kanji.Interface.Helpers
@@ -112,6 +113,9 @@ namespace Kanji.Interface.Helpers
 
         public void InitializeConfiguration()
         {
+            Properties.UserSettings.Instance = new ConfigurationBuilder<Properties.IUserSettings>()
+                .UseIniFile(Path.Combine(UserContentDirectoryPath, "UserSettings.ini"))
+                .Build();
             // First of all, check the user directory path.
             CheckUserDirectoryPath();
 
