@@ -24,8 +24,10 @@
         
         <!-- Vocab list -->
         <ScrollViewer Grid.Row="1">
+            <Viewbox>
             <ItemsControl Name="VocabListBox" Grid.Row="1" Classes="VocabList"
                 ItemsSource="{Binding LoadedItems,  Mode=OneWay}" />
+            </Viewbox>
         </ScrollViewer>
         
         <controls:ListLoadingFooterControl Grid.Row="2" Tag="vocab" />

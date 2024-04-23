@@ -69,6 +69,8 @@ public abstract class NavigationActor : NotifyPropertyChanged, INavigationActor
     /// </summary>
     public virtual ContentControl ActiveWindow { get; set; }
 
+    public TopLevel TopLevel => TopLevel.GetTopLevel(ActiveWindow ?? MainWindow);
+
     #endregion
 
     #region Constructors

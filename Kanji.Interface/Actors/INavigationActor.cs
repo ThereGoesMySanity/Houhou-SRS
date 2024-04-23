@@ -39,6 +39,8 @@ public interface INavigationActor
     /// </summary>
     ContentControl ActiveWindow { get; set; }
 
+    TopLevel TopLevel { get; }
+
     void Navigate(NavigationPageEnum page);
 
     void NavigateToStartPage();

@@ -5,16 +5,12 @@ using GalaSoft.MvvmLight.Command;
 using Kanji.Common.Helpers;
 using Kanji.Database.Entities;
 using Kanji.Interface.Business;
-using Kanji.Interface.Helpers;
 using Kanji.Interface.Models;
 using Kanji.Interface.Extensions;
-using Kanji.Interface.Views;
 using Kanji.Database.Dao;
 using Kanji.Interface.Actors;
-using MsBox.Avalonia;
 using MsBox.Avalonia.Dto;
 using MsBox.Avalonia.Enums;
-using Xamarin.Essentials;
 
 namespace Kanji.Interface.ViewModels
 {
@@ -379,7 +375,7 @@ namespace Kanji.Interface.ViewModels
         /// <param name="vocab">Vocab to copy.</param>
         private async void OnKanjiCopy(ExtendedVocab vocab)
         {
-            await Clipboard.SetTextAsync(vocab.DbVocab.KanjiWriting);
+            await NavigationActor.Instance.TopLevel.Clipboard.SetTextAsync(vocab.DbVocab.KanjiWriting);
         }
 
         /// <summary>
@@ -389,7 +385,7 @@ namespace Kanji.Interface.ViewModels
         /// <param name="vocab">Vocab to copy.</param>
         private async void OnKanaCopy(ExtendedVocab vocab)
         {
-            await Clipboard.SetTextAsync(vocab.DbVocab.KanaWriting);
+            await NavigationActor.Instance.TopLevel.Clipboard.SetTextAsync(vocab.DbVocab.KanaWriting);
         }
 
         /// <summary>
