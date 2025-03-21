@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Kanji.Common.Utility;
 using Kanji.Database.Entities;
 using Kanji.Database.Helpers;
+using Kanji.Database.Models;
 using SQLite;
 
 namespace Kanji.Database.Dao;
@@ -197,13 +198,14 @@ public class VocabDao : Dao
     /// come first.</param>
     /// <returns>Vocab entities matching the filters.</returns>
     public async IAsyncEnumerable<VocabEntity> GetFilteredVocab(KanjiEntity kanji, string[] vocab,
-        string readingFilter, string meaningFilter, VocabCategory categoryFilter,
+        string readingFilter, string meaningFilter, string searchFilter,
+        VocabCategory categoryFilter,
         int jlptLevel, int wkLevel,
         bool isCommonFirst, bool isShortWritingFirst)
     {
         List<object> parameters = new List<object>();
         string sqlFilterClauses = BuildVocabFilterClauses(parameters, kanji, vocab,
-            readingFilter, meaningFilter, categoryFilter, jlptLevel, wkLevel);
+            readingFilter, meaningFilter, searchFilter, categoryFilter, jlptLevel, wkLevel);
 
         string sortClause = "ORDER BY ";
         if (isCommonFirst)
@@ -238,14 +240,15 @@ public class VocabDao : Dao
     /// Returns the results count.
     /// </summary>
     public async Task<long> GetFilteredVocabCount(KanjiEntity kanji, string[] vocab,
-        string readingFilter, string meaningFilter, VocabCategory categoryFilter, int jlptLevel, int wkLevel)
+        string readingFilter, string meaningFilter, string searchFilter, VocabCategory categoryFilter, int jlptLevel, int wkLevel)
     {
         List<object> parameters = new List<object>();
         string sqlFilterClauses = BuildVocabFilterClauses(parameters, kanji, vocab,
-            readingFilter, meaningFilter, categoryFilter, jlptLevel, wkLevel);
+            readingFilter, meaningFilter, searchFilter, categoryFilter, jlptLevel, wkLevel);
+        
 
         return await connection.ExecuteScalarAsync<long>(
-            $"SELECT count(1) FROM {SqlHelper.Table_Vocab} v {sqlFilterClauses}",
+            $"SELECT count(distinct v.{SqlHelper.Field_Vocab_Id}) FROM {SqlHelper.Table_Vocab} v {sqlFilterClauses}",
             parameters.ToArray());
     }
 
@@ -280,7 +283,8 @@ public class VocabDao : Dao
     /// </summary>
     internal string BuildVocabFilterClauses(List<object> parameters, 
         KanjiEntity kanji, string[] vocab,
-        string readingFilter, string meaningFilter, VocabCategory categoryFilter,
+        string readingFilter, string meaningFilter, string searchFilter,
+        VocabCategory categoryFilter,
         int jlptLevel, int wkLevel)
     {
         const int minJlptLevel = Levels.MinJlptLevel;
@@ -380,6 +384,23 @@ public class VocabDao : Dao
                 SqlHelper.Field_VocabMeaning_Meaning);
 
             parameters.Add($"%{meaningFilter}%");
+        }
+
+        if (!string.IsNullOrWhiteSpace(searchFilter))
+        {
+            if (string.IsNullOrEmpty(sqlSharedJoins))
+            {
+                sqlSharedJoins = joinString_VocabEntity_VocabMeaning;
+            }
+            sqlMeaningFilterJoins = joinString_VocabMeaningSet;
+
+            sqlKanjiFilter = $@"(v.{SqlHelper.Field_Vocab_KanjiWriting} LIKE ? 
+                    OR v.{SqlHelper.Field_Vocab_KanaWriting} LIKE ? 
+                    OR vm.{SqlHelper.Field_VocabMeaning_Meaning} LIKE ?)";
+
+            parameters.Add($"%{searchFilter}%");
+            parameters.Add($"%{searchFilter}%");
+            parameters.Add($"%{searchFilter}%");
         }
         
         string sqlCategoryFilterJoins = string.Empty;

@@ -12,7 +12,17 @@ namespace Kanji.Database.Dao;
 
 public class SrsEntryDao : Dao
 {
-    private static SQLiteAsyncConnection connection => DaoConnection.Instance[DaoConnectionEnum.SrsDatabase];
+    private readonly SQLiteAsyncConnection connection; 
+    
+    public SrsEntryDao()
+    {
+        connection = DaoConnection.Instance[DaoConnectionEnum.SrsDatabase];
+    }
+
+    public SrsEntryDao(SQLiteAsyncConnection connection)
+    {
+        this.connection = connection;
+    }
 
     #region Methods
 
@@ -20,32 +30,47 @@ public class SrsEntryDao : Dao
     /// Gets all review information for the current date.
     /// </summary>
     /// <returns>Review info for the current date.</returns>
-    public async Task<ReviewInfo> GetReviewInfo()
+    public async Task<ReviewInfo> GetReviewInfo(bool updateCheckDate = true)
     {
-        ReviewInfo info = new ReviewInfo();
+        ReviewInfo info = new();
 
         // Query the review count for this date.
         info.AvailableReviewsCount = await connection.ExecuteScalarAsync<long>(
             "SELECT COUNT(1) FROM " + SqlHelper.Table_SrsEntry + " se WHERE se."
             + SqlHelper.Field_SrsEntry_SuspensionDate + " IS NULL AND se."
             + SqlHelper.Field_SrsEntry_NextAnswerDate + " <= ?",
-            DateTime.UtcNow.Ticks);
+            DateTimeOffset.Now.UtcTicks);
 
         // Query the new review count
-        info.RecentReviewsCount = await connection.ExecuteScalarAsync<long>(
-            "SELECT COUNT(1) FROM " + SqlHelper.Table_SrsEntry + " se WHERE se."
-            + SqlHelper.Field_SrsEntry_SuspensionDate + " IS NULL AND se."
-            + SqlHelper.Field_SrsEntry_NextAnswerDate + " <= ? AND se."
-            + SqlHelper.Field_SrsEntry_NextAnswerDate + " >= ?",
-            DateTime.UtcNow.Ticks, DateTime.UtcNow.AddHours(-1).Ticks);
+        info.RecentReviewsCount = await connection.ExecuteScalarAsync<long>(@$"
+            SELECT COUNT(1) FROM {SqlHelper.Table_SrsEntry} se
+            CROSS JOIN (SELECT * FROM {SqlHelper.Table_SrsLastCheck} LIMIT 1) lc
+            WHERE se.{SqlHelper.Field_SrsEntry_SuspensionDate} IS NULL
+            AND se.{SqlHelper.Field_SrsEntry_NextAnswerDate} <= ?
+            AND se.{SqlHelper.Field_SrsEntry_NextAnswerDate} >= lc.{SqlHelper.Field_SrsLastCheck_LastChecked}"
+            , DateTimeOffset.Now.UtcTicks);
+
+        //Update last checked time
+        await connection.ExecuteAsync($"UPDATE {SqlHelper.Table_SrsLastCheck} SET {SqlHelper.Field_SrsLastCheck_LastChecked} = ?"
+            , DateTimeOffset.Now.UtcTicks);
 
         // Query the review count for today.
-        DateTime endOfToday = DateTime.Now.Date.AddDays(1).ToUniversalTime();
+        DateTimeOffset endOfToday = DateTimeOffset.Now.Date.AddDays(1);
         info.TodayReviewsCount = await connection.ExecuteScalarAsync<long>(
             "SELECT COUNT(1) FROM " + SqlHelper.Table_SrsEntry + " se WHERE se."
             + SqlHelper.Field_SrsEntry_SuspensionDate + " IS NULL AND se."
             + SqlHelper.Field_SrsEntry_NextAnswerDate + " <= ?",
-            endOfToday.Ticks);
+            endOfToday.UtcTicks);
+
+        DateTimeOffset endOfWeek = DateTimeOffset.Now.AddDays(7);
+        info.UpcomingReviews = (await connection.QueryAsync<SrsEntry>($@"
+            SELECT {SqlHelper.Field_SrsEntry_NextAnswerDate}, {SqlHelper.Field_SrsEntry_CurrentGrade}
+            FROM {SqlHelper.Table_SrsEntry}
+            WHERE {SqlHelper.Field_SrsEntry_SuspensionDate} IS NULL AND
+            {SqlHelper.Field_SrsEntry_NextAnswerDate} <= ?",
+            endOfWeek.UtcTicks))
+            .GroupBy(e => e.CurrentGrade)
+            .ToDictionary(g => g.Key, g => g.Select(e => e.NextAnswerDate.Value).ToList());
 
         // Query the first review date.
         long? nextAnswerDate = await connection.ExecuteScalarAsync<long?>(
@@ -56,8 +81,7 @@ public class SrsEntryDao : Dao
 
         if (nextAnswerDate.HasValue)
         {
-            info.FirstReviewDate = new DateTime(nextAnswerDate.Value,
-                DateTimeKind.Utc);
+            info.FirstReviewDate = new DateTimeOffset(nextAnswerDate.Value, TimeSpan.Zero);
         }
 
         // Query all counts/total info.
@@ -94,7 +118,7 @@ public class SrsEntryDao : Dao
             + SqlHelper.Field_SrsEntry_SuspensionDate + " IS NULL AND se."
             + SqlHelper.Field_SrsEntry_NextAnswerDate + " <= ?"
             + " ORDER BY RANDOM()",
-            DateTime.UtcNow.Ticks);
+            DateTimeOffset.Now.UtcTicks);
     }
 
     /// <summary>
@@ -107,12 +131,32 @@ public class SrsEntryDao : Dao
                 "SELECT COUNT(1) FROM " + SqlHelper.Table_SrsEntry + " se WHERE se."
                 + SqlHelper.Field_SrsEntry_SuspensionDate + " IS NULL AND se."
                 + SqlHelper.Field_SrsEntry_NextAnswerDate + " <= ?",
-                DateTime.UtcNow.Ticks);
+                DateTimeOffset.Now.UtcTicks);
     }
 
     public async Task<SrsEntry> GetItem(long id)
     {
         return await connection.GetAsync<SrsEntry>(id);
+    }
+
+    private string AssembleWhereClause(FilterClause[] filterClauses, List<object> outParams)
+    {
+        string whereClause = string.Empty;
+        bool isFiltered = false;
+
+        foreach (FilterClause clause in filterClauses)
+        {
+            if (clause != null)
+            {
+                string sqlClause = clause.GetSqlWhereClause(!isFiltered, outParams);
+                if (!string.IsNullOrEmpty(sqlClause))
+                {
+                    whereClause += sqlClause + " ";
+                    isFiltered = true;
+                }
+            }
+        }
+        return whereClause;
     }
 
     /// <summary>
@@ -123,26 +167,26 @@ public class SrsEntryDao : Dao
     public async Task<IEnumerable<SrsEntry>> GetFilteredItems(FilterClause[] filterClauses)
     {
         List<object> parameters = new List<object>();
-        string whereClause = string.Empty;
-        bool isFiltered = false;
-
-        foreach (FilterClause clause in filterClauses)
-        {
-            if (clause != null)
-            {
-                string sqlClause = clause.GetSqlWhereClause(!isFiltered, parameters);
-                if (!string.IsNullOrEmpty(sqlClause))
-                {
-                    whereClause += sqlClause + " ";
-                    isFiltered = true;
-                }
-            }
-        }
+        var whereClause = AssembleWhereClause(filterClauses, parameters);
 
         return await connection.DeferredQueryAsync<SrsEntry>(
             "SELECT * FROM " + SqlHelper.Table_SrsEntry + " se "
             + whereClause
             + "ORDER BY (se." + SqlHelper.Field_SrsEntry_CreationDate + ") DESC",
+            parameters.ToArray());
+    }
+
+    public async Task<SrsEntry> GetFilteredItem(FilterClause[] filterClauses, int index)
+    {
+        List<object> parameters = new();
+        var whereClause = AssembleWhereClause(filterClauses, parameters);
+        parameters.Add(index);
+
+        return await connection.FindWithQueryAsync<SrsEntry>(
+            $@"SELECT * FROM {SqlHelper.Table_SrsEntry} se
+            {whereClause}
+            ORDER BY (se.{SqlHelper.Field_SrsEntry_CreationDate}) DESC
+            LIMIT 1 OFFSET ?",
             parameters.ToArray());
     }
 
@@ -154,21 +198,7 @@ public class SrsEntryDao : Dao
     public async Task<long> GetFilteredItemsCount(FilterClause[] filterClauses)
     {
         List<object> parameters = new List<object>();
-        string whereClause = string.Empty;
-        bool isFiltered = false;
-
-        foreach (FilterClause clause in filterClauses)
-        {
-            if (clause != null)
-            {
-                string sqlClause = clause.GetSqlWhereClause(!isFiltered, parameters);
-                if (!string.IsNullOrEmpty(sqlClause))
-                {
-                    whereClause += sqlClause + " ";
-                    isFiltered = true;
-                }
-            }
-        }
+        var whereClause = AssembleWhereClause(filterClauses, parameters);
 
         return await connection.ExecuteScalarAsync<long>(
             "SELECT COUNT(1) FROM " + SqlHelper.Table_SrsEntry + " se "
@@ -207,7 +237,7 @@ public class SrsEntryDao : Dao
     /// <param name="entity">Entity to insert.</param>
     public async Task Add(SrsEntry entity)
     {
-        entity.LastUpdateDate = DateTime.UtcNow;
+        entity.LastUpdateDate = DateTimeOffset.Now;
         await connection.InsertAsync(entity);
     }
 
@@ -218,7 +248,7 @@ public class SrsEntryDao : Dao
     /// <returns>True if the operation was sucessful. False otherwise.</returns>
     public async Task<bool> Update(SrsEntry entity)
     {
-        entity.LastUpdateDate = DateTime.UtcNow;
+        entity.LastUpdateDate = DateTimeOffset.Now;
         return (await connection.UpdateAsync(entity)) == 1;
     }
 
@@ -278,7 +308,7 @@ public class SrsEntryDao : Dao
         foreach (var entity in entities)
         {
             setter.Invoke(entity, new[]{value});
-            entity.LastUpdateDate = DateTime.UtcNow;
+            entity.LastUpdateDate = DateTimeOffset.Now;
         }
         return await connection.UpdateAllAsync(entities);
     }
@@ -300,8 +330,8 @@ public class SrsEntryDao : Dao
         }
         foreach (var entity in entities)
         {
-            entity.LastUpdateDate = DateTime.UtcNow;
-            entity.NextAnswerDate = delay.HasValue? DateTime.UtcNow + delay.Value : null;
+            entity.LastUpdateDate = DateTimeOffset.Now;
+            entity.NextAnswerDate = delay.HasValue? DateTimeOffset.Now + delay.Value : null;
         }
         return await connection.UpdateAllAsync(entities);
     }
@@ -320,7 +350,7 @@ public class SrsEntryDao : Dao
         }
         foreach (var entity in entities)
         {
-            entity.LastUpdateDate = DateTime.UtcNow;
+            entity.LastUpdateDate = DateTimeOffset.Now;
         }
         return await connection.UpdateAllAsync(entities);
     }
@@ -338,8 +368,8 @@ public class SrsEntryDao : Dao
         }
         foreach (var entity in entities)
         {
-            entity.LastUpdateDate = DateTime.UtcNow;
-            entity.SuspensionDate = DateTime.UtcNow;
+            entity.LastUpdateDate = DateTimeOffset.Now;
+            entity.SuspensionDate = DateTimeOffset.Now;
         }
         return await connection.UpdateAllAsync(entities);
     }
@@ -358,8 +388,8 @@ public class SrsEntryDao : Dao
         }
         foreach (var entity in entities)
         {
-            entity.LastUpdateDate = DateTime.UtcNow;
-            entity.NextAnswerDate = entity.NextAnswerDate + (DateTime.UtcNow - entity.SuspensionDate);
+            entity.LastUpdateDate = DateTimeOffset.Now;
+            entity.NextAnswerDate = entity.NextAnswerDate + (DateTimeOffset.Now - entity.SuspensionDate);
             entity.SuspensionDate = null;
         }
         return await connection.UpdateAllAsync(entities);

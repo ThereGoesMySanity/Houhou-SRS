@@ -144,80 +144,58 @@
       </DataTemplate>
 
       <DataTemplate x:Key="RadicalInListTemplate" x:DataType="models:FilteringRadical">
-        <Border Classes="RadicalInListBorder">
-          <i:Interaction.Behaviors>
-            <ia:DataTriggerBehavior Value="True">
-              <ia:DataTriggerBehavior.Binding>
-                <MultiBinding Converter="{x:Static BoolConverters.And}">
-                  <Binding Path="!IsRelevant"/>
-                  <Binding Path="!IsSelected"/>
-                  <Binding RelativeSource="{RelativeSource Self}" Path="!IsPointerOver"/>
-                </MultiBinding>
-              </ia:DataTriggerBehavior.Binding>
-              <ia:ChangePropertyAction PropertyName="Background" Value="#333333"/>
-            </ia:DataTriggerBehavior>
-            <ia:DataTriggerBehavior Binding="{Binding IsSelected}" Value="True">
-              <ia:ChangePropertyAction PropertyName="Background" Value="#FF2277CB"/>
-            </ia:DataTriggerBehavior>
-            <ia:DataTriggerBehavior Value="True">
-              <ia:DataTriggerBehavior.Binding>
-                <MultiBinding Converter="{x:Static BoolConverters.And}">
-                  <Binding RelativeSource="{RelativeSource Self}" Path="IsPointerOver"/>
-                  <Binding Path="!IsSelected"/>
-                </MultiBinding>
-              </ia:DataTriggerBehavior.Binding>
-              <ia:ChangePropertyAction PropertyName="Background" Value="#8646DD"/>
-            </ia:DataTriggerBehavior>
-            <ia:DataTriggerBehavior Value="True">
-              <ia:DataTriggerBehavior.Binding>
-                <MultiBinding Converter="{x:Static BoolConverters.And}">
-                  <Binding Path="IsRelevant"/>
-                  <Binding Path="!IsSelected"/>
-                  <Binding RelativeSource="{RelativeSource Self}" Path="!IsPointerOver"/>
-                </MultiBinding>
-              </ia:DataTriggerBehavior.Binding>
-              <ia:ChangePropertyAction PropertyName="Background" Value="#86469B"/>
-            </ia:DataTriggerBehavior>
-            <ia:DataTriggerBehavior Binding="{Binding IsAvailable}" Value="Hidden">
-              <ia:ChangePropertyAction PropertyName="IsVisible" Value="False"/>
-            </ia:DataTriggerBehavior>
-            <ia:DataTriggerBehavior Binding="{Binding IsAvailable}" Value="Hidden" ComparisonCondition="NotEqual">
-              <ia:ChangePropertyAction PropertyName="IsVisible" Value="True"/>
-            </ia:DataTriggerBehavior>
-            <ia:DataTriggerBehavior Binding="{Binding IsAvailable}" Value="SemiHidden">
-              <ia:ChangePropertyAction PropertyName="Opacity" Value="0.5"/>
-            </ia:DataTriggerBehavior>
-            <ia:DataTriggerBehavior Binding="{Binding IsAvailable}" Value="SemiHidden" ComparisonCondition="NotEqual">
-              <ia:ChangePropertyAction PropertyName="Opacity" Value="1"/>
-            </ia:DataTriggerBehavior>
-          </i:Interaction.Behaviors>
+        <Border Classes="RadicalInListBorder"
+              Classes.Hidden="{Binding IsAvailable, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Hidden}"
+              Classes.SemiHidden="{Binding IsAvailable, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=SemiHidden}"
+              Classes.relevant="{Binding IsRelevant}"
+              Classes.selected="{Binding IsSelected}">
+          <Border.Resources>
+            <SolidColorBrush x:Key="RadicalSelectedBrush" Color="#FF2277CB"/>
+            <SolidColorBrush x:Key="RadicalIsPointerOverBrush" Color="#8646DD"/>
+            <SolidColorBrush x:Key="RadicalIsRelevantBrush" Color="#86469B"/>
+            <SolidColorBrush x:Key="RadicalNotRelevantBrush" Color="#333333"/>
+          </Border.Resources>
+          <Border.Styles>
+            <Style Selector="Border.RadicalInListBorder">
+              <Setter Property="Background" Value="{DynamicResource RadicalNotRelevantBrush}"/>
+            </Style>
+            <Style Selector="Border.RadicalInListBorder.relevant">
+              <Setter Property="Background" Value="{DynamicResource RadicalIsRelevantBrush}"/>
+            </Style>
+            <Style Selector="Border.RadicalInListBorder:pointerover">
+              <Setter Property="Background" Value="{DynamicResource RadicalIsPointerOverBrush}"/>
+            </Style>
+            <Style Selector="Border.RadicalInListBorder.selected">
+              <Setter Property="Background" Value="{DynamicResource RadicalSelectedBrush}"/>
+            </Style>
+            <Style Selector="Border.RadicalInListBorder.Hidden">
+              <Setter Property="IsVisible" Value="False"/>
+            </Style>
+            <Style Selector="Border.RadicalInListBorder.SemiHidden">
+              <Setter Property="Opacity" Value="0.5"/>
+            </Style>
+            <Style Selector="TextBlock">
+              <Setter Property="FontFamily" Value="/Data/Fonts/NotoSansCJKjp-Thin.otf#Noto Sans CJK JP"/>
+            </Style>
+          </Border.Styles>
           <Grid>
             <Grid.RowDefinitions>
               <RowDefinition Height="*"/>
               <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <i:Interaction.Behaviors>
-              <ia:DataTriggerBehavior Binding="{Binding Reference.HasImage}" Value="True">
-                <ia:ChangePropertyAction TargetObject="{Binding #RadicalTextShadow}" PropertyName="IsVisible" Value="False"/>
-                <ia:ChangePropertyAction TargetObject="{Binding #RadicalText}" PropertyName="IsVisible" Value="False"/>
-                <ia:ChangePropertyAction TargetObject="{Binding #RadicalImage}" PropertyName="IsVisible" Value="True"/>
-              </ia:DataTriggerBehavior>
-              <ia:DataTriggerBehavior Binding="{Binding Reference.HasImage}" Value="False">
-                <ia:ChangePropertyAction TargetObject="{Binding #RadicalTextShadow}" PropertyName="IsVisible" Value="True"/>
-                <ia:ChangePropertyAction TargetObject="{Binding #RadicalText}" PropertyName="IsVisible" Value="True"/>
-                <ia:ChangePropertyAction TargetObject="{Binding #RadicalImage}" PropertyName="IsVisible" Value="False"/>
-              </ia:DataTriggerBehavior>
-            </i:Interaction.Behaviors>
-            <TextBlock Name="RadicalTextShadow" HorizontalAlignment="Center" FontSize="32" Foreground="Black" Text="{Binding Reference.Character}">
+            <TextBlock HorizontalAlignment="Center" FontSize="32" Foreground="Black" Text="{Binding Reference.Character}"
+                IsVisible="{Binding !Reference.HasImage}">
               <TextBlock.RenderTransform>
                 <TranslateTransform X="-1" Y="-1"/>
               </TextBlock.RenderTransform>
             </TextBlock>
             <!-- Radical character -->
-            <TextBlock Name="RadicalText" HorizontalAlignment="Center" FontSize="32" Text="{Binding Reference.Character}" Foreground="White"/>
+            <TextBlock HorizontalAlignment="Center" FontSize="32" Text="{Binding Reference.Character}" Foreground="White"
+                IsVisible="{Binding !Reference.HasImage}"/>
 
             <!-- Radical image -->
-            <Image Name="RadicalImage" Source="{Binding Reference.ImageUri, Converter={x:Static converters:CustomAvaloniaConverters.BitmapConverter}}" Stretch="None" />
+            <Image Source="{Binding Reference.ImageUri, Converter={x:Static converters:CustomAvaloniaConverters.BitmapConverter}}" Stretch="None"
+                IsVisible="{Binding Reference.HasImage}"/>
 
             <!-- Radical name -->
             <TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="{Binding Reference.Name}" TextWrapping="Wrap" LineHeight="12" Foreground="White"/>
@@ -510,7 +488,7 @@
     <!-- Style of the list box items in the reading listbox -->
     <Setter Property="ItemTemplate">
       <DataTemplate>
-        <Border BorderBrush="#CC000000" BorderThickness="1" Background="{TemplateBinding Background}" Padding="2">
+        <Border BorderBrush="#CC000000" BorderThickness="1" Padding="2">
           <i:Interaction.Behaviors>
             <ia:DataTriggerBehavior Binding="{Binding ., Converter={StaticResource IsFirstItemInContainerConverter}, ConverterParameter={Binding $parent[ListBox]}}" Value="True">
              <!--First item in the list. Add a margin-->
@@ -906,7 +884,7 @@
     <Setter Property="ItemTemplate">
       <Setter.Value>
         <DataTemplate>
-          <Border BorderThickness="1,1,1,1" BorderBrush="Gray" Background="{TemplateBinding Background}">
+          <Border BorderThickness="1,1,1,1" BorderBrush="Gray">
             <i:Interaction.Behaviors>
               <ia:DataTriggerBehavior Value="True">
                 <ia:DataTriggerBehavior.Binding>

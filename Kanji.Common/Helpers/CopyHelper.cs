@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Kanji.Common.Helpers
 {
@@ -45,11 +46,13 @@ namespace Kanji.Common.Helpers
         /// </summary>
         /// <param name="sourceFilePath">Source file path.</param>
         /// <param name="destinationFilePath">Destination file path.</param>
-        public static void CopyIfDifferent(Stream sourceFile, string destinationFilePath)
+        public static void CopyIfDifferent(Func<Stream> sourceFile, string destinationFilePath)
         {
-            if (!File.Exists(destinationFilePath) || !FileEquals(sourceFile, destinationFilePath))
+            if (!File.Exists(destinationFilePath) || !FileEquals(sourceFile(), destinationFilePath))
             {
-                sourceFile.CopyTo(new FileStream(destinationFilePath, FileMode.OpenOrCreate, FileAccess.Write));
+                using var inFile = sourceFile();
+                using var outFile = new FileStream(destinationFilePath, FileMode.OpenOrCreate, FileAccess.Write);
+                inFile.CopyTo(outFile);
             }
         }
 
@@ -64,28 +67,21 @@ namespace Kanji.Common.Helpers
         {
             int file1byte;
             int file2byte;
-            Stream fs1;
-            FileStream fs2;
 
             // Open the two files.
-            fs1 = fileA;
-            fs2 = new FileStream(pathB, FileMode.Open, FileAccess.Read);
-
+            using var fs1 = fileA;
+            using var fs2 = new FileStream(pathB, FileMode.Open, FileAccess.Read);
             try
             {
                 // Check the file sizes. If they are not the same, the files 
                 // are not the same.
                 if (fs1.Length != fs2.Length)
                 {
-                    // Close the file
-                    fs1.Close();
-                    fs2.Close();
-
                     // Return false to indicate files are different
                     return false;
                 }
             }
-            catch (NotSupportedException) 
+            catch (NotSupportedException)
             {
                 return fs2.Length > 0;
             }
@@ -101,14 +97,10 @@ namespace Kanji.Common.Helpers
             }
             while ((file1byte == file2byte) && (file1byte != -1));
 
-            // Close the files.
-            fs1.Close();
-            fs2.Close();
-
             // Return the success of the comparison. "file1byte" is 
             // equal to "file2byte" at this point only if the files are 
             // the same.
-            return ((file1byte - file2byte) == 0);
+            return (file1byte - file2byte) == 0;
         }
     }
 }

@@ -8,6 +8,7 @@ using Kanji.Common.Models;
 using Kanji.Interface.Helpers;
 using Kanji.Interface.Models;
 using Kanji.Interface.Utilities;
+using Microsoft.Extensions.Logging;
 
 namespace Kanji.Interface.Actors
 {
@@ -20,7 +21,7 @@ namespace Kanji.Interface.Actors
         /// </summary>
         public static void Initialize(NamedPipeHandler handler)
         {
-            Instance = new PipeActor(handler);
+            Instance = new PipeActor(handler, LogHelper.Factory.CreateLogger<PipeActor>());
         }
 
         /// <summary>
@@ -33,15 +34,17 @@ namespace Kanji.Interface.Actors
         #region Fields
 
         private NamedPipeHandler _handler;
+        private ILogger<PipeActor> _logger;
 
         #endregion
 
         #region Constructor
 
-        private PipeActor(NamedPipeHandler handler)
+        private PipeActor(NamedPipeHandler handler, ILogger<PipeActor> logger)
         {
             _handler = handler;
             _handler.MessageReceived += OnMessageReceived;
+            _logger = logger;
         }
 
         #endregion
@@ -58,20 +61,19 @@ namespace Kanji.Interface.Actors
             if (command.HasValue)
             {
                 // Log the pipe command received.
-                LogHelper.GetLogger(this.GetType().Name).WarnFormat(
-                        "Received \"{0}\" pipe command.", command.Value);
+                _logger.LogWarning(
+                        "Received \"{value}\" pipe command.", command.Value);
 
                 // Shutdown command.
                 if (command.Value == PipeMessageEnum.OpenOrFocus)
                 {
-                    //TODO
-                    // NavigationActor.Instance.OpenOrFocus();
+                    NavigationActor.Instance.OpenOrFocus();
                 }
                 else
                 {
                     // Unhandled command. Ignore (but log).
-                    LogHelper.GetLogger(this.GetType().Name).WarnFormat(
-                        "Unhandled pipe command: \"{0}\". Ignoring.", command.Value);
+                    _logger.LogWarning(
+                        "Unhandled pipe command: \"{value}\". Ignoring.", command.Value);
                 }
             }
         }

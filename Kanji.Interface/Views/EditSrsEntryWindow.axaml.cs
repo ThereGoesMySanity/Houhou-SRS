@@ -48,7 +48,9 @@ public partial class EditSrsEntryWindow : Window
     {
         InitializeComponent();
         InitializeViewModel(entity);
+#if DEBUG
         this.AttachDevTools();
+#endif
         NavigationActor.Instance.ActiveWindow = this;
         Owner = NavigationActor.Instance.MainWindow as Window;
         WindowStartupLocation = WindowStartupLocation.CenterOwner;
@@ -101,7 +103,7 @@ public partial class EditSrsEntryWindow : Window
     {
         base.OnClosed(e);
 
-        SrsEntryViewModel vm = ((SrsEntryViewModel)DataContext);
+        SrsEntryViewModel vm = (SrsEntryViewModel)DataContext!;
         vm.FinishedEditing -= OnFinishedEditing;
         vm.Dispose();
 

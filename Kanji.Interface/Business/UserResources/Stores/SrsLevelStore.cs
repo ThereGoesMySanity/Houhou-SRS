@@ -99,16 +99,16 @@ namespace Kanji.Interface.Business
         }
 
         /// <summary>
-        /// Gets a review date matching the given level using the delay and the DateTime.Now value.
+        /// Gets a review date matching the given level using the delay and the DateTimeOffset.Now value.
         /// Will return null if the level doesn't exist or is final.
         /// </summary>
         /// <param name="levelIndex">Index of the level to use as a reference.</param>
-        public DateTime? GetNextReviewDate(int levelIndex)
+        public DateTimeOffset? GetNextReviewDate(int levelIndex)
         {
             SrsLevel level = GetLevelByValue(levelIndex);
             if (level != null && level.Delay.HasValue)
             {
-                return DateTime.Now + level.Delay.Value;
+                return DateTimeOffset.Now + level.Delay.Value;
             }
 
             return null;

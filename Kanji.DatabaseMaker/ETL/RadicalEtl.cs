@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Kanji.Database.Dao;
 using Kanji.Database.Entities;
+using Microsoft.Extensions.Logging;
 using SQLite;
 
 namespace Kanji.DatabaseMaker
@@ -23,7 +24,7 @@ namespace Kanji.DatabaseMaker
 
         #region Fields
 
-        private log4net.ILog _log;
+        private ILogger<RadicalEtl> _log;
         private SQLiteAsyncConnection connection = DaoConnection.Instance[DaoConnectionEnum.KanjiDatabase];
 
         #endregion
@@ -45,9 +46,9 @@ namespace Kanji.DatabaseMaker
 
         #region Constructors
 
-        public RadicalEtl()
+        public RadicalEtl(ILogger<RadicalEtl> logger)
         {
-            _log = log4net.LogManager.GetLogger(this.GetType());
+            _log = logger;
         }
 
         #endregion
@@ -89,7 +90,7 @@ namespace Kanji.DatabaseMaker
                         addedRadicals.Add(radicalValue.Character, radical);
 
                         // Log
-                        _log.InfoFormat("Added radical {0}  ({1})", radical.Character, radical.ID);
+                        _log.LogInformation("Added radical {char}  ({id})", radical.Character, radical.ID);
                     }
                 }
             }

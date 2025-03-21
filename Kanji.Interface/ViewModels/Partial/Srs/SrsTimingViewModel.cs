@@ -20,7 +20,7 @@ namespace Kanji.Interface.ViewModels
         private int _spreadInterval;
         private ImportSpreadTimingMode _spreadMode = ImportSpreadTimingMode.Random;
         private bool _kanjiOrdered = false;
-        private DateTime? _fixedDate;
+        private DateTimeOffset? _fixedDate;
         protected Random _random;
 
         #endregion
@@ -105,7 +105,7 @@ namespace Kanji.Interface.ViewModels
         /// <summary>
         /// Gets or sets the fixed date to use when the mode is set to Fixed.
         /// </summary>
-        public DateTime? FixedDate
+        public DateTimeOffset? FixedDate
         {
             get { return _fixedDate; }
             set
@@ -125,7 +125,7 @@ namespace Kanji.Interface.ViewModels
         public SrsTimingViewModel()
         {
             _random = new Random();
-            FixedDate = DateTime.Now;
+            FixedDate = DateTimeOffset.Now;
         }
 
         #endregion
@@ -215,7 +215,7 @@ namespace Kanji.Interface.ViewModels
                         }
 
                         // Apply spread
-                        next.NextAnswerDate = DateTime.Now + delay;
+                        next.NextAnswerDate = DateTimeOffset.Now + delay;
                     }
 
                     // Increment i and add a day to the delay if i reaches the spread value.
@@ -238,7 +238,7 @@ namespace Kanji.Interface.ViewModels
             {
                 foreach (SrsEntry entry in entries)
                 {
-                    entry.NextAnswerDate = DateTime.Now;
+                    entry.NextAnswerDate = DateTimeOffset.Now;
                 }
             }
             else if (TimingMode == ImportTimingMode.Never)

@@ -33,7 +33,7 @@ namespace Kanji.Interface.Models
         /// <summary>
         /// Gets or sets the next review date of the entry.
         /// </summary>
-        public DateTime? NextAnswerDate
+        public DateTimeOffset? NextAnswerDate
         {
             get { return Reference.NextAnswerDate; }
             set
@@ -199,7 +199,7 @@ namespace Kanji.Interface.Models
         /// <summary>
         /// Gets or sets the suspension date of the entry.
         /// </summary>
-        public DateTime? SuspensionDate
+        public DateTimeOffset? SuspensionDate
         {
             get { return Reference.SuspensionDate; }
             set
@@ -277,15 +277,15 @@ namespace Kanji.Interface.Models
         /// to always provide the next review date as if the SRS entry was to be
         /// resumed now.
         /// </summary>
-        public DateTime? NextActiveReviewDate
+        public DateTimeOffset? NextActiveReviewDate
         {
             get
             {
                 if (SuspensionDate != null && NextAnswerDate != null)
                 {
-                    return DateTime.UtcNow +
-                        (NextAnswerDate.Value.ToUniversalTime() -
-                        SuspensionDate.Value.ToUniversalTime());
+                    return DateTimeOffset.Now +
+                        (NextAnswerDate.Value -
+                        SuspensionDate.Value);
                 }
                 else
                 {

@@ -11,6 +11,7 @@ using Kanji.Database.Dao;
 using Kanji.Interface.Actors;
 using MsBox.Avalonia.Dto;
 using MsBox.Avalonia.Enums;
+using Microsoft.Extensions.Logging;
 
 namespace Kanji.Interface.ViewModels
 {
@@ -182,7 +183,7 @@ namespace Kanji.Interface.ViewModels
             try
             {
                 TimeSpan delay = TimeSpan.FromHours(Kanji.Interface.Properties.UserSettings.Instance.VocabSrsDelayHours);
-                DateTime start = vocab.SrsEntry.NextAnswerDate ?? DateTime.Now;
+                DateTimeOffset start = vocab.SrsEntry.NextAnswerDate ?? DateTimeOffset.Now;
 
                 vocab.SrsEntry.NextAnswerDate = (add ? start + delay : start - delay);
                 await new SrsEntryDao().Update(vocab.SrsEntry.Reference);
@@ -197,7 +198,7 @@ namespace Kanji.Interface.ViewModels
                     ButtonDefinitions = ButtonEnum.Ok,
                 });
 
-                LogHelper.GetLogger("Quick SRS delay").Error("An error occured during quick SRS delay.", ex);
+                LogHelper.Factory.CreateLogger("Quick SRS delay").LogError(ex, "An error occured during quick SRS delay.");
             }
         }
 
@@ -288,11 +289,11 @@ namespace Kanji.Interface.ViewModels
             SrsLevel startLevel = SrsLevelStore.Instance.GetLevelByValue(0);
             if (startLevel != null)
             {
-                entry.NextAnswerDate = DateTime.Now + startLevel.Delay;
+                entry.NextAnswerDate = DateTimeOffset.Now + startLevel.Delay;
             }
 
             // Sets some properties
-            entry.CreationDate = DateTime.UtcNow;
+            entry.CreationDate = DateTimeOffset.Now;
 
             try
             {
@@ -310,7 +311,7 @@ namespace Kanji.Interface.ViewModels
                     ButtonDefinitions = ButtonEnum.Ok,
                 });
 
-                LogHelper.GetLogger("Quick add").Error("An error occured during quick add.", ex);
+                LogHelper.Factory.CreateLogger("Quick add").LogError(ex, "An error occured during quick add.");
             }
         }
 

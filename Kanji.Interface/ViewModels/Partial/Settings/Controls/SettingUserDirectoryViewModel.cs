@@ -3,6 +3,7 @@ using System.IO;
 using GalaSoft.MvvmLight.Command;
 using Kanji.Common.Helpers;
 using Kanji.Interface.Actors;
+using Microsoft.Extensions.Logging;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Dto;
 using MsBox.Avalonia.Enums;
@@ -133,8 +134,8 @@ namespace Kanji.Interface.ViewModels
             }
             catch (Exception ex)
             {
-                ErrorMessage = string.Format("Copy failed with error: {0}", ex.Message);
-                LogHelper.GetLogger("Configuration").Error("User directory path modification failed.", ex);
+                ErrorMessage = $"Copy failed with error: {ex.Message}";
+                LogHelper.Factory.CreateLogger("Configuration").LogError(ex, "User directory path modification failed.");
                 return;
             }
 

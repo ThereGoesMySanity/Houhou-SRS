@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 using Kanji.Common.Helpers;
+using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 
 namespace Kanji.Interface.Business
@@ -94,8 +95,8 @@ namespace Kanji.Interface.Business
             }
             catch (Exception ex)
             {
-                LogHelper.GetLogger(GetType().Name).Warn(
-                    "Could not load startup configuration.", ex);
+                LogHelper.Factory.CreateLogger(GetType()).LogWarning(ex,
+                    "Could not load startup configuration.");
             }
 
             return result;
@@ -139,8 +140,8 @@ namespace Kanji.Interface.Business
             }
             catch (Exception ex)
             {
-                LogHelper.GetLogger(GetType().Name).Warn(
-                    "Could not save startup configuration.", ex);
+                LogHelper.Factory.CreateLogger(GetType()).LogWarning(ex,
+                    "Could not save startup configuration.");
             }
         }
 

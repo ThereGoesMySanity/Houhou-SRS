@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-
 using GalaSoft.MvvmLight.Command;
 using Kanji.Common.Helpers;
 using Kanji.Database.Dao;
@@ -12,11 +9,10 @@ using Kanji.Database.Entities;
 using Kanji.Database.Helpers;
 using Kanji.Interface.Business;
 using Kanji.Interface.Models;
-using Kanji.Interface.Views;
-using Kanji.Interface.Extensions;
 using Kanji.Interface.Actors;
 using Avalonia.Threading;
 using Kanji.Interface.Helpers;
+using Microsoft.Extensions.Logging;
 
 namespace Kanji.Interface.ViewModels
 {
@@ -27,7 +23,7 @@ namespace Kanji.Interface.ViewModels
         private static readonly int BatchMaxSize = 10;
 
         private static readonly int[] MeaningDistanceLenience =
-            new int[] { 0, 4, 7, 12, 20 };
+            [0, 4, 7, 12, 20];
 
         /// <summary>
         /// Delay before a submission can be issued after the state was set to
@@ -612,7 +608,7 @@ namespace Kanji.Interface.ViewModels
                 if (newLevel.Delay.HasValue)
                 {
                     group.Reference.NextAnswerDate =
-                        DateTime.UtcNow
+                        DateTimeOffset.Now
                         + newLevel.Delay.Value;
                 }
                 else
@@ -686,8 +682,8 @@ namespace Kanji.Interface.ViewModels
         {
             if (!await _srsEntryDao.Update(entry))
             {
-                LogHelper.GetLogger(this.GetType().Name).WarnFormat(
-                    "The review update for the SRS entry \"{0}\" ({1}) failed.",
+                LogHelper.Factory.CreateLogger(GetType()).LogWarning(
+                    "The review update for the SRS entry \"{associated}\" ({id}) failed.",
                     entry.AssociatedKanji ?? entry.AssociatedVocab, entry.ID);
             }
         }
@@ -830,7 +826,7 @@ namespace Kanji.Interface.ViewModels
                 {
                     if (e.SrsEntry != null
                         && e.SrsEntry.NextAnswerDate.HasValue
-                        && e.SrsEntry.NextAnswerDate.Value.ToLocalTime() <= DateTime.Now
+                        && e.SrsEntry.NextAnswerDate.Value.ToLocalTime() <= DateTimeOffset.Now
                         && !e.SrsEntry.SuspensionDate.HasValue)
                     {
                         // The result exists and is still due for review.

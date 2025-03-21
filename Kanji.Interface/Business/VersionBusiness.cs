@@ -15,6 +15,7 @@ using Kanji.Common.Helpers;
 using Kanji.Interface.Helpers;
 using Kanji.Interface.Models;
 using Kanji.Interface.Utilities;
+using Microsoft.Extensions.Logging;
 
 namespace Kanji.Interface.Business
 {
@@ -64,7 +65,7 @@ namespace Kanji.Interface.Business
         #region Fields
 
         // Stores the last check date.
-        private DateTime _lastCheckDate;
+        private DateTimeOffset _lastCheckDate;
 
         private Update _lastUpdate;
 
@@ -121,7 +122,7 @@ namespace Kanji.Interface.Business
         /// <summary>
         /// Gets the last update check date.
         /// </summary>
-        public DateTime LastCheckDate
+        public DateTimeOffset LastCheckDate
         {
             get { return _lastCheckDate; }
             private set
@@ -184,7 +185,7 @@ namespace Kanji.Interface.Business
         /// </summary>
         public void Check()
         {
-            LastCheckDate = DateTime.Now;
+            LastCheckDate = DateTimeOffset.Now;
             CheckStatus = UpdateCheckStatusEnum.Checking;
             LastUpdate = DoCheck();
 
@@ -223,7 +224,7 @@ namespace Kanji.Interface.Business
             if (_checkStatus != UpdateCheckStatusEnum.UpdateAvailable
                 || _lastUpdate == null)
             {
-                LogHelper.GetLogger(this.GetType().Name).Warn(
+                LogHelper.Factory.CreateLogger(GetType()).LogWarning(
                     "Tried to Update when no update available. Ignoring.");
                 return;
             }
@@ -233,8 +234,8 @@ namespace Kanji.Interface.Business
                 || (!_lastUpdate.Uri.StartsWith("http://")
                    && !_lastUpdate.Uri.StartsWith("https://")))
             {
-                LogHelper.GetLogger(this.GetType().Name).WarnFormat(
-                    "Tried to Update with an invalid uri: \"{0}\". Ignoring.",
+                LogHelper.Factory.CreateLogger(GetType()).LogWarning(
+                    "Tried to Update with an invalid uri: \"{uri}\". Ignoring.",
                     _lastUpdate.Uri);
                 return;
             }
@@ -271,13 +272,13 @@ namespace Kanji.Interface.Business
             catch (Exception ex)
             {
                 // In the failure case, try again until the MaxCheckAttemptsCount is reached.
-                var log = LogHelper.GetLogger(this.GetType().Name);
-                log.ErrorFormat("Update check attempt #{0} failed:{1}{2}",
-                    attempt, Environment.NewLine, ex);
+                var log = LogHelper.Factory.CreateLogger(GetType());
+                log.LogError(ex, "Update check attempt #{attempt} failed.",
+                    attempt);
 
                 if (attempt < MaxCheckAttemptsCount)
                 {
-                    log.Info("Attempting update check again.");
+                    log.LogInformation("Attempting update check again.");
                     // After a nap, recursively call back the same method,
                     // but with an incremented attempt #.
                     Thread.Sleep(CheckAttemptErrorDelay);
@@ -286,7 +287,7 @@ namespace Kanji.Interface.Business
                 else
                 {
                     // MaxCheckAttemptsCount reached. Stop and return 0.
-                    log.Info("Update check abandoned.");
+                    log.LogInformation("Update check abandoned.");
                     return null;
                 }
             }

@@ -10,6 +10,7 @@ using GalaSoft.MvvmLight.Command;
 using Kanji.Common.Helpers;
 using Kanji.Common.Utility;
 using Kanji.Interface.Actors;
+using Microsoft.Extensions.Logging;
 
 namespace Kanji.Interface.ViewModels
 {
@@ -330,7 +331,7 @@ namespace Kanji.Interface.ViewModels
             {
                 // On exception, prevent going any further in the import process, display an error, and log it.
                 ErrorMessage = string.Format("An unknown error occured while reading the CSV file:{0}{1}", Environment.NewLine, ex.Message);
-                LogHelper.GetLogger("CSV Import").ErrorFormat("Error while reading CSV: {1}", ex.Message);
+                LogHelper.Factory.CreateLogger("CSV Import").LogError(ex, "Error while reading CSV.");
                 return false;
             }
 

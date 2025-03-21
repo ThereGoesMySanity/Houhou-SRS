@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Kanji.Database.Dao;
+using Microsoft.Extensions.Logging;
 
 namespace Kanji.DatabaseMaker
 {
@@ -21,57 +22,57 @@ namespace Kanji.DatabaseMaker
         static async Task Main(string[] args)
         {
             // Add extra codepages
-            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
             // Initialize log4net.
-            log4net.Config.XmlConfigurator.Configure();
+            var logFactory = LoggerFactory.Create(b => b.AddConsole());
 
             // Create a logger.
-            log4net.ILog log = log4net.LogManager.GetLogger("Main");
-            log.Info("Starting.");
+            var log = logFactory.CreateLogger<Program>();
+            log.LogInformation("Starting.");
 
             DaoConnection.Instance = new DaoConnection(Path.Combine(AppContext.BaseDirectory, "KanjiDatabase.sqlite"), null);
             // Get and store radicals.
-            log.Info("Getting radicals.");
-            RadicalEtl radicalEtl = new RadicalEtl();
+            log.LogInformation("Getting radicals.");
+            RadicalEtl radicalEtl = new RadicalEtl(logFactory.CreateLogger<RadicalEtl>());
             await radicalEtl.ExecuteAsync();
             
-            log.InfoFormat("Retrieved and stored {0} radicals from {1} compositions.",
+            log.LogInformation("Retrieved and stored {0} radicals from {1} compositions.",
                 radicalEtl.RadicalCount, radicalEtl.RadicalDictionary.Count());
 
             // Get and store kanji.
-            log.Info("Getting kanji.");
-            KanjiEtl kanjiEtl = new KanjiEtl(radicalEtl.RadicalDictionary);
+            log.LogInformation("Getting kanji.");
+            KanjiEtl kanjiEtl = new KanjiEtl(radicalEtl.RadicalDictionary, logFactory.CreateLogger<KanjiEtl>());
             await kanjiEtl.ExecuteAsync();
-            log.InfoFormat("Retrieved and stored {0} kanji.", kanjiEtl.KanjiCount);
+            log.LogInformation("Retrieved and stored {0} kanji.", kanjiEtl.KanjiCount);
 
             // Get and store vocab.
-            log.Info("Getting vocab.");
-            VocabEtl vocabEtl = new VocabEtl();
+            log.LogInformation("Getting vocab.");
+            VocabEtl vocabEtl = new VocabEtl(logFactory.CreateLogger<VocabEtl>());
             await vocabEtl.ExecuteAsync();
-            log.InfoFormat("Retrieved and stored {0} vocabs.", vocabEtl.VocabCount);
+            log.LogInformation("Retrieved and stored {0} vocabs.", vocabEtl.VocabCount);
 
             // Log.
-            log.InfoFormat("{0}{0}*****{0}Process report{0}*****", Environment.NewLine);
-            log.InfoFormat("+ {0} radicals", radicalEtl.RadicalCount);
-            log.InfoFormat("+ {0} kanji", kanjiEtl.KanjiCount);
-            log.InfoFormat("  + {0} kanji meanings", kanjiEtl.KanjiMeaningCount);
-            log.InfoFormat("  + {0} Kanji-Radical links", kanjiEtl.KanjiRadicalCount);
-            log.InfoFormat("+ {0} vocab categories", vocabEtl.VocabCategoryCount);
-            log.InfoFormat("+ {0} vocabs", vocabEtl.VocabCount);
-            log.InfoFormat("  + {0} vocab meanings", vocabEtl.VocabMeaningCount);
-            log.InfoFormat("    + {0} vocab meaning entries", vocabEtl.VocabMeaningEntryCount);
-            log.InfoFormat("  + {0} Kanji-Vocab links", vocabEtl.KanjiVocabCount);
-            log.InfoFormat("  + {0} Vocab-VocabCategory links", vocabEtl.VocabVocabCategoryCount);
-            log.InfoFormat("  + {0} Vocab-VocabMeaning links", vocabEtl.VocabVocabMeaningCount);
-            log.InfoFormat("  + {0} VocabMeaning-VocabCategory links", vocabEtl.VocabMeaningVocabCategoryCount);
-            log.InfoFormat("TOTAL: {0} items added.", radicalEtl.RadicalCount + kanjiEtl.KanjiCount
+            log.LogInformation("{0}{0}*****{0}Process report{0}*****", Environment.NewLine, Environment.NewLine, Environment.NewLine, Environment.NewLine);
+            log.LogInformation("+ {0} radicals", radicalEtl.RadicalCount);
+            log.LogInformation("+ {0} kanji", kanjiEtl.KanjiCount);
+            log.LogInformation("  + {0} kanji meanings", kanjiEtl.KanjiMeaningCount);
+            log.LogInformation("  + {0} Kanji-Radical links", kanjiEtl.KanjiRadicalCount);
+            log.LogInformation("+ {0} vocab categories", vocabEtl.VocabCategoryCount);
+            log.LogInformation("+ {0} vocabs", vocabEtl.VocabCount);
+            log.LogInformation("  + {0} vocab meanings", vocabEtl.VocabMeaningCount);
+            log.LogInformation("    + {0} vocab meaning entries", vocabEtl.VocabMeaningEntryCount);
+            log.LogInformation("  + {0} Kanji-Vocab links", vocabEtl.KanjiVocabCount);
+            log.LogInformation("  + {0} Vocab-VocabCategory links", vocabEtl.VocabVocabCategoryCount);
+            log.LogInformation("  + {0} Vocab-VocabMeaning links", vocabEtl.VocabVocabMeaningCount);
+            log.LogInformation("  + {0} VocabMeaning-VocabCategory links", vocabEtl.VocabMeaningVocabCategoryCount);
+            log.LogInformation("TOTAL: {0} items added.", radicalEtl.RadicalCount + kanjiEtl.KanjiCount
                 + kanjiEtl.KanjiMeaningCount + kanjiEtl.KanjiRadicalCount + vocabEtl.KanjiVocabCount
                 + vocabEtl.VocabCategoryCount + vocabEtl.VocabCount + vocabEtl.VocabMeaningCount
                 + vocabEtl.VocabMeaningEntryCount + vocabEtl.VocabMeaningVocabCategoryCount
                 + vocabEtl.VocabVocabCategoryCount + vocabEtl.VocabVocabMeaningCount);
 
-            log.Info("Ending process.");
+            log.LogInformation("Ending process.");
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 using Kanji.Common.Helpers;
 using Kanji.Common.Extensions;
@@ -13,6 +12,7 @@ using System.IO.Compression;
 using SQLite;
 using Kanji.Database.Dao;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace Kanji.DatabaseMaker
 {
@@ -51,7 +51,7 @@ namespace Kanji.DatabaseMaker
         private Dictionary<string, short> _jlptDictionary;
         private Dictionary<string, int> _frequencyRankDictionary;
         private Dictionary<string, int> _waniKaniDictionary;
-        private log4net.ILog _log;
+        private ILogger<KanjiEtl> _log;
 
         private ZipArchive _svgZipArchive;
 
@@ -80,11 +80,11 @@ namespace Kanji.DatabaseMaker
 
         #region Constructors
 
-        public KanjiEtl(RadicalDictionary radicalDictionary)
+        public KanjiEtl(RadicalDictionary radicalDictionary, ILogger<KanjiEtl> logger)
             : base()
         {
             _radicalDictionary = radicalDictionary;
-            _log = log4net.LogManager.GetLogger(this.GetType());
+            _log = logger;
             CreateJlptDictionary();
             CreateFrequencyRankDictionary();
             CreateWkDictionary();
@@ -217,7 +217,7 @@ namespace Kanji.DatabaseMaker
                 KanjiCount++;
 
                 // Log
-                _log.InfoFormat("Inserted kanji {0}  ({1}) with radicals {2}", kanji.Character, kanji.ID, addedRadicalsString);
+                _log.LogInformation("Inserted kanji {char}  ({id}) with radicals {radicals}", kanji.Character, kanji.ID, addedRadicalsString);
             }
             CloseZipArchive();
 
@@ -226,12 +226,12 @@ namespace Kanji.DatabaseMaker
 
             // Insert the kanji meaning entities.
             KanjiMeaningCount = kanjiMeaningList.Count;
-            _log.InfoFormat("Inserting {0} kanji meaning entities", KanjiMeaningCount);
+            _log.LogInformation("Inserting {count} kanji meaning entities", KanjiMeaningCount);
             await connection.InsertAllAsync(kanjiMeaningList);
 
             // Insert the kanji-radical join entities
             KanjiRadicalCount = kanjiRadicalList.Count;
-            _log.InfoFormat("Inserting {0} kanji-radical join entities", KanjiRadicalCount);
+            _log.LogInformation("Inserting {count} kanji-radical join entities", KanjiRadicalCount);
             await connection.InsertAllAsync(kanjiRadicalList);
         }
 

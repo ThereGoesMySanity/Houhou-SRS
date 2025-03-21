@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Kanji.Common.Helpers;
 using Kanji.Interface.Models;
 using Kanji.Interface.Utilities;
+using Microsoft.Extensions.Logging;
 
 namespace Kanji.Interface.Business
 {
@@ -188,8 +189,8 @@ namespace Kanji.Interface.Business
 
         protected async Task DoInitialization()
         {
-            var log = LogHelper.GetLogger(this.GetType().Name);
-            log.Info("Loading sets...");
+            var log = LogHelper.Factory.CreateLogger(GetType());
+            log.LogInformation("Loading sets...");
             string baseDirectory = GetBaseDirectoryPath();
 
             // Load the info of all available sets from the base directory.
@@ -200,7 +201,7 @@ namespace Kanji.Interface.Business
                 if (info != null)
                 {
                     availableSets.Add(info);
-                    log.InfoFormat("Found set '{0}' at '{1}'.",
+                    log.LogInformation("Found set '{name}' at '{path}'.",
                         info.Name, info.Path);
                 }
             }
@@ -215,7 +216,7 @@ namespace Kanji.Interface.Business
 
             if (selectedInfo == null || !await TryLoad(selectedInfo.Path))
             {
-                log.InfoFormat("Cannot find selected set '{0}'. "
+                log.LogInformation("Cannot find selected set '{name}'. "
                 + "Will attempt to load default set.",
                     selectedRadicalSetName);
 
@@ -227,12 +228,12 @@ namespace Kanji.Interface.Business
                 if (selectedInfo == null || !await TryLoad(selectedInfo.Path))
                 {
                     // Default info not found or failed to load.
-                    log.Warn("Could not load default format.");
+                    log.LogWarning("Could not load default format.");
                     CurrentSet = GetDefaultValue();
                 }
             }
 
-            log.Info("Finished loading sets.");
+            log.LogInformation("Finished loading sets.");
         }
 
         /// <summary>

@@ -3,6 +3,7 @@ using Kanji.Database.Entities;
 using Kanji.Interface.Business;
 using Kanji.Interface.Models;
 using Kanji.Interface.Models.Import;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -211,7 +212,7 @@ namespace Kanji.Interface.ViewModels
                             MeaningNote = (string)t.s["meaning_hint"] ?? (string)t.s["meaning_mnemonic"],
                             ReadingNote = (string)t.s["reading_hint"] ?? (string)t.s["reading_mnemonic"],
                             Meanings = string.Join(',', t.s["meanings"].Where(m => (bool)m["accepted_answer"]).Select(m => (string)m["meaning"])),
-                            NextReviewDate = (DateTime?)t.a["available_at"],
+                            NextReviewDate = (DateTimeOffset?)t.a["available_at"],
                             Readings = string.Join(',', t.s["readings"].Where(r => (bool)r["accepted_answer"]).Select(r => (string)r["reading"])),
                             SrsLevel = (short)((short)t.a["srs_stage"] - 1),
                             WkLevel = (int)t.s["level"],
@@ -224,7 +225,7 @@ namespace Kanji.Interface.ViewModels
             }
             catch (Exception ex)
             {
-                LogHelper.GetLogger("WkImport").Error("An error occured during the request to the WaniKani API.", ex);
+                LogHelper.Factory.CreateLogger("WkImport").LogError(ex, "An error occured during the request to the WaniKani API.");
                 Error = "An error occured while trying to request the data. Please consult your log file for more details.";
                 IsError = true;
                 return;
@@ -259,7 +260,7 @@ namespace Kanji.Interface.ViewModels
                 entry.NextAnswerDate = wkItem.NextReviewDate;
                 entry.ReadingNote = wkItem.ReadingNote;
                 entry.Readings = wkItem.Readings;
-                entry.SuspensionDate = _parent.IsStartEnabled ? (DateTime?)null : DateTime.Now;
+                entry.SuspensionDate = _parent.IsStartEnabled ? null : DateTimeOffset.Now;
                 entry.Tags = _parent.Tags.Replace(WkImportViewModel.LevelSpecialString, wkItem.WkLevel.ToString());
                 newEntries.Add(entry);
             }

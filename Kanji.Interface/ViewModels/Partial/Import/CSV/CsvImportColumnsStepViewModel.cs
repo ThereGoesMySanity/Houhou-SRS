@@ -599,13 +599,13 @@ namespace Kanji.Interface.ViewModels
         /// Reads the next review date field from the given row.
         /// </summary>
         /// <param name="row">Row to read.</param>
-        private DateTime? ReadNextReviewDate(List<string> row)
+        private DateTimeOffset? ReadNextReviewDate(List<string> row)
         {
             if (_nextReviewDateColumn > 0 && row.Count >= _nextReviewDateColumn)
             {
                 string value = row[_nextReviewDateColumn - 1].Trim();
-                DateTime timeValue = new DateTime();
-                if (DateTime.TryParseExact(value, "yyyy-MM-dd H:mm:ss", ParsingHelper.DefaultCulture, DateTimeStyles.None, out timeValue))
+                DateTimeOffset timeValue = new DateTimeOffset();
+                if (DateTimeOffset.TryParseExact(value, "yyyy-MM-dd H:mm:ss", ParsingHelper.DefaultCulture, DateTimeStyles.None, out timeValue))
                 {
                     return timeValue;
                 }

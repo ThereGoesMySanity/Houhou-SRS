@@ -41,6 +41,17 @@ namespace Kanji.Database.Models
             : base("se." + SqlHelper.Field_SrsEntry_Meanings) { }
     }
 
+    public sealed class SrsEntryFilterSearchClause : StringFieldSearchFilterClause
+    {
+        public SrsEntryFilterSearchClause()
+            : base("se." + SqlHelper.Field_SrsEntry_Readings,
+                    "se." + SqlHelper.Field_SrsEntry_AssociatedKanji,
+                    "se." + SqlHelper.Field_SrsEntry_AssociatedVocab,
+                    "se." + SqlHelper.Field_SrsEntry_Meanings)
+        {
+        }
+    }
+
     
     public sealed class SrsEntryFilterTagsClause : StringFieldSearchFilterClause
     {

@@ -361,20 +361,20 @@ namespace Kanji.Common.Helpers
         }
 
         /// <summary>
-        /// Tries to parse the given input string as a DateTime.
+        /// Tries to parse the given input string as a DateTimeOffset.
         /// </summary>
         /// <param name="input">Input string.</param>
         /// <param name="format">Date format string.</param>
         /// <returns>Value parsed if successful. Null otherwise.</returns>
-        public static DateTime? ParseDateTime(string input, string format = "u")
+        public static DateTimeOffset? ParseDateTimeOffset(string input, string format = "u")
         {
             if (string.IsNullOrEmpty(input))
             {
                 return null;
             }
 
-            DateTime output = new DateTime();
-            if (DateTime.TryParseExact(input, format, DefaultCulture, DateTimeStyles.None, out output))
+            DateTimeOffset output = new DateTimeOffset();
+            if (DateTimeOffset.TryParseExact(input, format, DefaultCulture, DateTimeStyles.None, out output))
             {
                 return output;
             }
@@ -383,17 +383,17 @@ namespace Kanji.Common.Helpers
         }
 
         /// <summary>
-        /// Tries to parse the given input string as a DateTime.
+        /// Tries to parse the given input string as a DateTimeOffset.
         /// If the value cannot be parsed, throws a failure exception.
         /// </summary>
         /// <param name="input">Input string.</param>
         /// <param name="format">Date format string.</param>
         /// <param name="failureException">Exception to throw when the parse fails.</param>
         /// <returns>Value parsed.</returns>
-        public static DateTime ForceDateTime(string input, string format = "u",
+        public static DateTimeOffset ForceDateTimeOffset(string input, string format = "u",
             Exception failureException = null)
         {
-            DateTime? output = ParseDateTime(input, format);
+            DateTimeOffset? output = ParseDateTimeOffset(input, format);
             if (output.HasValue)
             {
                 return output.Value;
@@ -401,7 +401,7 @@ namespace Kanji.Common.Helpers
             else
             {
                 failureException = failureException
-                    ?? new Exception(string.Format("Cannot parse \"{0}\" as a DateTime.", input));
+                    ?? new Exception(string.Format("Cannot parse \"{0}\" as a DateTimeOffset.", input));
 
                 throw failureException;
             }

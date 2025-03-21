@@ -20,14 +20,14 @@ public class KanjiEntity : Entity
     [AutoIncrement]
     public long ID { get; set; }
     public string Character { get; set; }
-    public Nullable<int> StrokeCount { get; set; }
-    public Nullable<short> Grade { get; set; }
-    public Nullable<int> MostUsedRank { get; set; }
-    public Nullable<short> JlptLevel { get; set; }
-    public Nullable<int> UnicodeValue { get; set; }
-    public Nullable<int> NewspaperRank { get; set; }
+    public int? StrokeCount { get; set; }
+    public short? Grade { get; set; }
+    public int? MostUsedRank { get; set; }
+    public short? JlptLevel { get; set; }
+    public int? UnicodeValue { get; set; }
+    public int? NewspaperRank { get; set; }
     [Column(SqlHelper.Field_Kanji_WaniKaniLevel)]
-    public Nullable<int> WaniKaniLevel { get; set; }
+    public int? WaniKaniLevel { get; set; }
     public string OnYomi { get; set; }
     public string KunYomi { get; set; }
     public string Nanori { get; set; }

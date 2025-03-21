@@ -13,16 +13,14 @@ using Kanji.Interface.Utilities;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Dialogs;
-using Config.Net;
-using MsBox.Avalonia;
-using MsBox.Avalonia.Dto;
-using MsBox.Avalonia.Enums;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using Kanji.Interface.Properties;
 using Kanji.Desktop;
-using Avalonia.Threading;
 using Kanji.Database.Dao;
+using Microsoft.Extensions.Logging;
+using DesktopNotifications;
+using Kanji.Interface.Extensions;
+using Kanji.Interface.Properties;
+using Kanji.Interface.Models;
+using Avalonia.Controls;
 
 namespace Kanji.Interface
 {
@@ -35,16 +33,19 @@ namespace Kanji.Interface
 
         public static bool RunMainWindow;
 
+        public static INotificationManager? NotificationManager;
+
         #endregion
 
         public static AppBuilder BuildAvaloniaApp() => AppBuilder.Configure<App>().UsePlatformDetect()
             .With(new X11PlatformOptions { EnableIme = true })
+            .SetupDesktopNotifications(out NotificationManager!)
             .UseManagedSystemDialogs();
 
         [STAThread]
         public static void Main(string[] args)
         {
-            Directory.SetCurrentDirectory(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location));
+            Directory.SetCurrentDirectory(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly()!.Location)!);
 
             // This app uses a mutex to make sure it is started only one time.
             // In this context, keep in mind that the mutex is the only
@@ -84,9 +85,6 @@ namespace Kanji.Interface
         /// </summary>
         public static void Run(string[] args)
         {
-            // Initialize the logging system.
-            LogHelper.InitializeLoggingSystem();
-
             // Initialize the configuration system.
             ConfigurationHelper.Instance = new DesktopConfigurationHelper();
 
@@ -121,13 +119,21 @@ namespace Kanji.Interface
             {
                 // Listen for incoming pipe messages, to allow other processes to
                 // communicate with this one.
-                PipeActor.Initialize(pipeHandler);
+                PipeActor.Initialize(pipeHandler, );
                 pipeHandler.StartListening();
-                var app = BuildAvaloniaApp().AfterSetup((a) =>
-                {
-                    // Start the SRS business.
-            SrsBusiness.Initialize();
-                }).StartWithClassicDesktopLifetime(args);
+                var app = BuildAvaloniaApp().AfterPlatformServicesSetup(a =>
+                    {
+                        SrsBusiness.Initialize();
+                        TrayBusiness.Instance = new TrayBusiness(NotificationManager!);
+                    }).StartWithClassicDesktopLifetime(args, (lifetime) => {
+                        lifetime.ShutdownRequested += (NavigationActor.Instance as DesktopNavigationActor).OnShutdownRequested;
+                        lifetime.ShutdownMode = UserSettings.Instance.WindowCloseAction switch
+                        {
+                            WindowCloseActionEnum.Warn or
+                            WindowCloseActionEnum.None => ShutdownMode.OnExplicitShutdown,
+                            WindowCloseActionEnum.Exit => ShutdownMode.OnMainWindowClose
+                        };
+                    });
             }
         }
 
@@ -156,7 +162,7 @@ namespace Kanji.Interface
         /// <summary>
         /// Event trigger. Called when an exception occurs in some situations.
         /// </summary>
-        private static void OnUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+        private static void OnUnobservedTaskException(object? sender, UnobservedTaskExceptionEventArgs e)
         {
             OnUnhandledException(e.Exception);
         }
@@ -164,7 +170,7 @@ namespace Kanji.Interface
         /// <summary>
         /// Event trigger. Called when an unhandled exception is thrown by any thread.
         /// </summary>
-        private static void OnAppDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
+        private static void OnAppDomainUnhandledException(object? sender, UnhandledExceptionEventArgs e)
         {
             OnUnhandledException((e.ExceptionObject as Exception) ?? new Exception("Unknown fatal error."));
         }
@@ -172,7 +178,7 @@ namespace Kanji.Interface
         /// <summary>
         /// Event trigger. Called when an unhandled exception is thrown by the Dispatcher thread.
         /// </summary>
-        private static void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
+        private static void OnUnhandledException(object? sender, UnhandledExceptionEventArgs e)
         {
             OnUnhandledException(e.ExceptionObject as Exception ?? new Exception("Unknown fatal error."));
         }
@@ -183,13 +189,14 @@ namespace Kanji.Interface
         /// <param name="ex">Unhandled exception.</param>
         private static void OnUnhandledException(Exception ex)
         {
-            LogHelper.GetLogger("Main").Fatal("A fatal exception occured:", ex);
+            LogHelper.Factory.CreateLogger("Main").LogCritical(ex, "A fatal exception occured:");
 
             #if DEBUG
             throw ex;
             #else
 
-            DispatcherHelper.Invoke(async () =>
+            //TODO
+            /*DispatcherHelper.Invoke(async () =>
             {
                 if (await MessageBoxActor.Instance.ShowMessageBox(
                     new MessageBoxStandardParams
@@ -230,7 +237,7 @@ namespace Kanji.Interface
                             });
                     }
                 }
-            });
+            });*/
 
             Environment.Exit(1);
             #endif
@@ -241,7 +248,7 @@ namespace Kanji.Interface
         /// </summary>
         public static void Shutdown()
         {
-            DispatcherHelper.Invoke(() => { (App.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime).Shutdown(0); });
+            DispatcherHelper.Invoke(() => { (App.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.Shutdown(0); });
         }
     }
 }

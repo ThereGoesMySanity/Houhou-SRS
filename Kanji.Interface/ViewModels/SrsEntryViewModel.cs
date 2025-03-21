@@ -18,6 +18,7 @@ using MsBox.Avalonia;
 using MsBox.Avalonia.Dto;
 using MsBox.Avalonia.Enums;
 using Avalonia.Threading;
+using Microsoft.Extensions.Logging;
 
 namespace Kanji.Interface.ViewModels
 {
@@ -40,7 +41,7 @@ namespace Kanji.Interface.ViewModels
 
         private int _originalLevelValue;
 
-        private DateTime? _originalNextReviewDate;
+        private DateTimeOffset? _originalNextReviewDate;
 
         private string _errorMessage;
 
@@ -406,8 +407,8 @@ namespace Kanji.Interface.ViewModels
                     {
                         // An exception occured.
                         // Log the exception and set the error message.
-                        LogHelper.GetLogger(this.GetType().Name)
-                            .Error("Could not update the entity.", ex);
+                        LogHelper.Factory.CreateLogger(GetType())
+                            .LogError(ex, "Could not update the entity.");
                         ErrorMessage = R.SrsItem_EditFailure;
                     }
                 }
@@ -417,7 +418,7 @@ namespace Kanji.Interface.ViewModels
                     try
                     {
                         // Sets some properties
-                        Entry.Reference.CreationDate = DateTime.UtcNow;
+                        Entry.Reference.CreationDate = DateTimeOffset.Now;
 
                         // Add the entity to the database.
                         await _srsEntryDao.Add(_entry.Reference);
@@ -430,8 +431,8 @@ namespace Kanji.Interface.ViewModels
                     {
                         // An exception occured.
                         // Log the exception and set the error message.
-                        LogHelper.GetLogger(this.GetType().Name)
-                            .Error("Could not add the entity.", ex);
+                        LogHelper.Factory.CreateLogger(GetType())
+                            .LogError(ex, "Could not add the entity.");
                         ErrorMessage = R.SrsItem_EditFailure;
                     }
                 }
@@ -450,8 +451,8 @@ namespace Kanji.Interface.ViewModels
                     {
                         // An exception occured.
                         // Log the exception and set the error message.
-                        LogHelper.GetLogger(this.GetType().Name)
-                            .Error("Could not delete the entity.", ex);
+                        LogHelper.Factory.CreateLogger(GetType())
+                            .LogError(ex, "Could not delete the entity.");
                         ErrorMessage = R.SrsItem_EditFailure;
                     }
                 }
@@ -600,7 +601,7 @@ namespace Kanji.Interface.ViewModels
             }
             else
             {
-                Entry.SuspensionDate = DateTime.UtcNow;
+                Entry.SuspensionDate = DateTimeOffset.Now;
             }
         }
 
@@ -637,7 +638,7 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         private void OnDateToNow()
         {
-            Entry.NextAnswerDate = DateTime.Now;
+            Entry.NextAnswerDate = DateTimeOffset.Now;
         }
 
         /// <summary>
@@ -675,7 +676,7 @@ namespace Kanji.Interface.ViewModels
                 {
                     if (e.SelectedLevel.Delay.HasValue)
                     {
-                        Entry.NextAnswerDate = DateTime.Now + e.SelectedLevel.Delay.Value;
+                        Entry.NextAnswerDate = DateTimeOffset.Now + e.SelectedLevel.Delay.Value;
                     }
                     else
                     {

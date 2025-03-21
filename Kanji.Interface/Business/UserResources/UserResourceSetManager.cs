@@ -14,6 +14,7 @@ using Kanji.Common.Extensions;
 using Kanji.Common.Helpers;
 using Avalonia.Logging;
 using Avalonia;
+using Microsoft.Extensions.Logging;
 
 namespace Kanji.Interface.Business
 {
@@ -70,10 +71,10 @@ namespace Kanji.Interface.Business
                 }
                 if (xdate != null)
                 {
-                    DateTime dateValue = DateTime.MinValue;
-                    DateTime.TryParseExact(xdate.Value.Trim(), "yyyy-MM-dd",
+                    DateTimeOffset dateValue = DateTimeOffset.MinValue;
+                    DateTimeOffset.TryParseExact(xdate.Value.Trim(), "yyyy-MM-dd",
                         CultureInfo.InvariantCulture, DateTimeStyles.None, out dateValue);
-                    info.Date = dateValue == DateTime.MinValue ? (DateTime?)null : dateValue;
+                    info.Date = dateValue == DateTimeOffset.MinValue ? (DateTimeOffset?)null : dateValue;
                 }
                 if (xname != null)
                 {
@@ -92,10 +93,10 @@ namespace Kanji.Interface.Business
             }
             catch (Exception ex)
             {
-                LogHelper.GetLogger(GetType().Name)
-                    .Error(string.Format(
-                    "Error while loading the info of the set at \"{0}\".",
-                    directoryPath), ex);
+                LogHelper.Factory.CreateLogger(GetType())
+                    .LogError(ex,
+                    "Error while loading the info of the set at \"{directory}\".",
+                    directoryPath);
 
                 return null;
             }
@@ -114,12 +115,12 @@ namespace Kanji.Interface.Business
             }
             catch (Exception ex)
             {
-                LogHelper.GetLogger(GetType().Name)
-                    .Error(string.Format(
-                    "Error while loading the data of the set at \"{0}\".",
-                    directoryPath), ex);
+                LogHelper.Factory.CreateLogger(GetType())
+                    .LogError(ex,
+                    "Error while loading the data of the set at \"{directory}\".",
+                    directoryPath);
 
-                return default(T);
+                return default;
             }
         }
 

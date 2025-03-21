@@ -12,7 +12,7 @@ namespace Kanji.Common.Models
         /// <summary>
         /// Gets or sets the date the review info query was issued.
         /// </summary>
-        public DateTime QueryDate { get; set; }
+        public DateTimeOffset QueryDate { get; set; }
 
         /// <summary>
         /// Gets or sets the number of available reviews.
@@ -27,7 +27,7 @@ namespace Kanji.Common.Models
         /// <summary>
         /// Gets or sets the first review date in chronological order.
         /// </summary>
-        public DateTime? FirstReviewDate { get; set; }
+        public DateTimeOffset? FirstReviewDate { get; set; }
 
         /// <summary>
         /// Gets or sets the total number of kanji items.
@@ -93,6 +93,8 @@ namespace Kanji.Common.Models
             }
         }
 
+        public Dictionary<short, List<DateTimeOffset>> UpcomingReviews { get; set; }
+
         #endregion
 
         #endregion
@@ -104,7 +106,7 @@ namespace Kanji.Common.Models
         /// </summary>
         public ReviewInfo()
         {
-            QueryDate = DateTime.UtcNow;
+            QueryDate = DateTimeOffset.Now;
             ReviewsPerLevel = new Dictionary<short, long>();
         }
 

@@ -5,19 +5,16 @@ using GalaSoft.MvvmLight.Command;
 using Kanji.Database.Entities;
 using Kanji.Interface.Business;
 using Kanji.Interface.Models;
-using Kanji.Interface.Views;
-using Kanji.Interface.Extensions;
 using Kanji.Database.Dao;
 using System.ComponentModel;
 using Kanji.Interface.Actors;
 using Kanji.Common.Helpers;
 using Kanji.Common.Utility;
-using MsBox.Avalonia;
 using MsBox.Avalonia.Dto;
 using MsBox.Avalonia.Enums;
 using Avalonia.Controls;
 using System.Collections;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace Kanji.Interface.ViewModels
 {
@@ -920,7 +917,7 @@ namespace Kanji.Interface.ViewModels
                 // Apply the delay.
                 foreach (SrsEntry entry in SelectedItems.Cast<FilteringSrsEntry>().Select(e => e.Reference))
                 {
-                    DateTime start = entry.NextAnswerDate.HasValue ? entry.NextAnswerDate.Value : DateTime.Now;
+                    DateTimeOffset start = entry.NextAnswerDate.HasValue ? entry.NextAnswerDate.Value : DateTimeOffset.Now;
                     entry.NextAnswerDate = start + TimeSpan.FromHours(TimingDelay);
                 }
 
@@ -997,7 +994,7 @@ namespace Kanji.Interface.ViewModels
                 catch (Exception ex)
                 {
                     // A bit of logging.
-                    LogHelper.GetLogger("Export").Error("An exception occured during an export operation.", ex);
+                    LogHelper.Factory.CreateLogger("Export").LogError(ex, "An exception occured during an export operation.");
 
                     // And show a dialog with the error.
                     await MessageBoxActor.Instance.ShowMessageBox(new MessageBoxStandardParams

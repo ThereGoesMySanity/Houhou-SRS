@@ -175,7 +175,7 @@ namespace Kanji.Interface.ViewModels
                             log += "Duplicate found: DISABLE... ";
                             if (duplicate.SuspensionDate == null)
                             {
-                                duplicate.SuspensionDate = DateTime.Now;
+                                duplicate.SuspensionDate = DateTimeOffset.Now;
                             }
                             await _srsDao.Update(duplicate);
                         }

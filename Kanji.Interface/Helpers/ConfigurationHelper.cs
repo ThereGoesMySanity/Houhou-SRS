@@ -126,7 +126,7 @@ namespace Kanji.Interface.Helpers
             CreateDirectoryIfNotExist(CommonDataDirectoryPath);
 
             // Make sure the dictionary database exists in the common data directory.
-            FileHelper.CopyIfDifferent(OpenDataFile(DictionaryDatabaseFilePath), CommonDataDictionaryDatabaseFilePath);
+            FileHelper.CopyIfDifferent(() => OpenDataFile(DictionaryDatabaseFilePath), CommonDataDictionaryDatabaseFilePath);
 
             // Make sure the initial user config files exist.
             ReplicateInitialUserContent();
@@ -190,7 +190,9 @@ namespace Kanji.Interface.Helpers
 
                 if (!File.Exists(newPath))
                 {
-                    OpenDataFile(filePath).CopyTo(new FileStream(newPath, FileMode.Create, FileAccess.Write));
+                    using var inFile = OpenDataFile(filePath);
+                    using var outFile = new FileStream(newPath, FileMode.Create, FileAccess.Write);
+                    inFile.CopyTo(outFile);
                 }
             }
         }

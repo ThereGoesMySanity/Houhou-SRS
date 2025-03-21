@@ -93,7 +93,7 @@
 
           <!-- 3. Radical list -->
           <ListBox Name="RadicalList" Grid.Row="4" Grid.ColumnSpan="4" Classes="RadicalList" Margin="0 2"
-                   ItemsSource="{Binding Radicals, Mode=TwoWay}" SelectedItems="{Binding SelectedRadicals, Mode=TwoWay}" SelectionMode="Multiple,Toggle"/>
+                   ItemsSource="{Binding FilteredRadicals, Mode=TwoWay}" SelectedItems="{Binding SelectedRadicals, Mode=TwoWay}" SelectionMode="Multiple,Toggle"/>
 
           <!-- 4. Radical filter -->
           <Grid Grid.Row="5" Grid.ColumnSpan="4" Margin="0 5">

@@ -20,6 +20,7 @@ namespace Kanji.Database.Helpers
         public const string Table_KanjiStrokes = "KanjiStrokes";
 
         public const string Table_SrsEntry = "SrsEntrySet";
+        public const string Table_SrsLastCheck = "SrsLastCheck";
 
         #endregion
 
@@ -157,6 +158,8 @@ namespace Kanji.Database.Helpers
         public const string Field_SrsEntry_ServerId = "ServerId";
 
         #endregion
+
+        public const string Field_SrsLastCheck_LastChecked = "LastChecked";
 
         #region KanjiStrokes tables
 

@@ -9,6 +9,8 @@ using Kanji.Interface.Views;
 using Kanji.Interface.Extensions;
 using Avalonia.Controls;
 using Kanji.Database.Entities;
+using Kanji.Interface.Business;
+using Avalonia.Controls.ApplicationLifetimes;
 
 namespace Kanji.Interface.Actors
 {
@@ -51,10 +53,20 @@ namespace Kanji.Interface.Actors
             return SrsVm.ReviewVm;
         }
 
+        public override void CreateMainWindow()
+        {
+            var window = new MainWindow();
+            MainWindow = window;
+            ActiveWindow = MainWindow;
+            window.Closed += OnMainWindowClosed;
+            window.Closed += TrayBusiness.Instance.OnMainWindowClosed;
+            (App.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime).MainWindow ??= window;
+        }
+
         /// <summary>
         /// Opens the Main Window.
         /// </summary>
-        public void OpenMainWindow()
+        public override void OpenMainWindow()
         {
             lock (_mainWindowLock)
             {
@@ -78,7 +90,7 @@ namespace Kanji.Interface.Actors
         /// <summary>
         /// Opens the main window. If it is already open, focuses it.
         /// </summary>
-        public void OpenOrFocus()
+        public override void OpenOrFocus()
         {
             var MainWindow = this.MainWindow as MainWindow;
             lock (_mainWindowLock)
@@ -102,17 +114,6 @@ namespace Kanji.Interface.Actors
             }
         }
 
-        /// <summary>
-        /// Sends the main window close event.
-        /// </summary>
-        public override void SendMainWindowCloseEvent()
-        {
-            if (Properties.UserSettings.Instance.WindowCloseAction == WindowCloseActionEnum.Exit)
-            {
-                Program.Shutdown();
-            }
-        }
-
         #endregion
 
         #region Private
@@ -122,26 +123,8 @@ namespace Kanji.Interface.Actors
         /// </summary>
         private void DoOpenWindow()
         {
-            DispatcherHelper.Invoke(() =>
-            {
-                var window = new MainWindow();
-                MainWindow = window;
-                ActiveWindow = MainWindow;
-                window.Closed += OnMainWindowClosed;
-                window.Show();
-            });
-        }
-
-        public override void SetMainWindow(ContentControl window)
-        {
-            SetMainWindow(window as MainWindow);
-        }
-
-        public void SetMainWindow(MainWindow window)
-        {
-            MainWindow = window;
-            ActiveWindow = MainWindow;
-            window.Closed += OnMainWindowClosed;
+            CreateMainWindow();
+            (MainWindow as Window).Show();
         }
 
         /// <summary>
@@ -153,6 +136,7 @@ namespace Kanji.Interface.Actors
             {
                 // Unsubscribe and release windows.
                 (MainWindow as MainWindow).Closed -= OnMainWindowClosed;
+                (MainWindow as MainWindow).Closed -= TrayBusiness.Instance.OnMainWindowClosed;
                 MainWindow = null;
                 ActiveWindow = null;
 
@@ -163,6 +147,17 @@ namespace Kanji.Interface.Actors
                 SrsVm.Dispose();
                 SrsVm = null;
             }
+        }
+
+        public void OnShutdownRequested(object? sender, EventArgs e)
+        {
+            (MainWindow as MainWindow).Closed -= OnMainWindowClosed;
+            (MainWindow as MainWindow).Closed -= TrayBusiness.Instance.OnMainWindowClosed;
+        }
+
+        public override void SetMainWindow(ContentControl control)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

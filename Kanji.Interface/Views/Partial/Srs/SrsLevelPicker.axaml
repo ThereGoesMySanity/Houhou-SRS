@@ -49,7 +49,7 @@
                           <TranslateTransform X="-1" Y="-1"/>
                         </TextBlock.RenderTransform>
                       </TextBlock>
-                      <TextBlock Name="Name" FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{TemplateBinding Foreground}" Text="{Binding Name}"/>
+                      <TextBlock Name="Name" FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Name}"/>
                     </Panel>
                   </Border>
                 </DataTemplate>

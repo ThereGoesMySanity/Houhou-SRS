@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using Kanji.Database.Entities;
 using Kanji.Interface.Extensions;
 using Kanji.Interface.Models;
@@ -71,6 +72,8 @@ public abstract class NavigationActor : NotifyPropertyChanged, INavigationActor
 
     public TopLevel TopLevel => TopLevel.GetTopLevel(ActiveWindow ?? MainWindow);
 
+    public bool ShuttingDown { get; set; } = false;
+
     #endregion
 
     #region Constructors
@@ -141,10 +144,11 @@ public abstract class NavigationActor : NotifyPropertyChanged, INavigationActor
 
     public abstract Task<SrsEntryEditedEventArgs> OpenSrsEditWindow(SrsEntry entry);
     public abstract Task<SrsReviewViewModel> OpenReviewSession();
+    public abstract void CreateMainWindow();
+    public abstract void OpenMainWindow();
+    public abstract void OpenOrFocus();
 
     public abstract void SetMainWindow(ContentControl control);
-
-    public abstract void SendMainWindowCloseEvent();
 
     #endregion
 

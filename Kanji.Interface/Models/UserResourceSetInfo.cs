@@ -21,7 +21,7 @@ namespace Kanji.Interface.Models
         /// <summary>
         /// Gets or sets the last update date of the set.
         /// </summary>
-        public DateTime? Date { get; set; }
+        public DateTimeOffset? Date { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the set.

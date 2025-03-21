@@ -39,7 +39,7 @@ namespace Kanji.Interface.Business
 
                 return _vocabDao.GetFilteredVocab(
                     filter.Kanji.FirstOrDefault(), filter.Vocab,
-                    filter.ReadingString, filter.MeaningString,
+                    filter.ReadingString, filter.MeaningString, null,
                     filter.Category, filter.JlptLevel, filter.WkLevel,
                     filter.IsCommonFirst, filter.IsShortReadingFirst);
             }
@@ -53,7 +53,7 @@ namespace Kanji.Interface.Business
                 VocabFilter filter = (VocabFilter)_currentFilter;
 
                 return (int)await _vocabDao.GetFilteredVocabCount(filter.Kanji.FirstOrDefault(), filter.Vocab,
-                    filter.ReadingString, filter.MeaningString,
+                    filter.ReadingString, filter.MeaningString, null,
                     filter.Category, filter.JlptLevel, filter.WkLevel);
             }
 

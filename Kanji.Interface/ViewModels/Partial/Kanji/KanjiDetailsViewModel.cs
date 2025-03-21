@@ -20,6 +20,7 @@ using Avalonia.Input;
 using Avalonia.Svg.Skia;
 using SvgImage = Avalonia.Svg.Skia.SvgImage;
 using System.Threading.Tasks;
+using Svg.Skia;
 
 namespace Kanji.Interface.ViewModels
 {
@@ -348,11 +349,9 @@ namespace Kanji.Interface.ViewModels
                     StrokesCount = Regex.Matches(svgString, "<circle").Count;
                     DispatcherHelper.Invoke(() => 
                         {
-                            var svg = new SvgSource();
-                            svg.FromSvg(svgString);
-                            StrokesImage = new Avalonia.Svg.Skia.SvgImage
+                            StrokesImage = new SvgImage
                             {
-                                Source = svg
+                                Source = SvgSource.LoadFromSvg(svgString)
                             };
                             SetCurrentStroke(1);
                         });

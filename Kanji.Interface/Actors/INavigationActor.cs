@@ -8,6 +8,7 @@ namespace Kanji.Interface.Actors;
 
 public interface INavigationActor
 {
+    bool ShuttingDown { get; }
 
     NavigationPageEnum CurrentPage { get; }
 
@@ -56,7 +57,9 @@ public interface INavigationActor
 
     Task<SrsReviewViewModel> OpenReviewSession();
 
-    void SetMainWindow(ContentControl window);
+    void CreateMainWindow();
+    void OpenMainWindow();
+    void OpenOrFocus();
 
-    void SendMainWindowCloseEvent();
+    void SetMainWindow(ContentControl window);
 }

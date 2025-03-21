@@ -22,6 +22,12 @@ CREATE TABLE [SrsEntrySet] (
 	[ServerId] integer
 );
 
+CREATE TABLE [SrsLastCheck] (
+	LastChecked bigint
+);
+
+INSERT INTO SrsLastCheck VALUES (0);
+
 -- Create indexes to improve performance
 CREATE INDEX Index_SrsEntrySet_AssociatedVocab ON SrsEntrySet(AssociatedVocab);
 CREATE INDEX Index_SrsEntrySet_AssociatedKanji ON SrsEntrySet(AssociatedKanji);

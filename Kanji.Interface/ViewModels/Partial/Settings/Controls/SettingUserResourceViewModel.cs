@@ -8,6 +8,7 @@ using GalaSoft.MvvmLight.Command;
 using Kanji.Common.Helpers;
 using Kanji.Interface.Helpers;
 using Kanji.Interface.Models;
+using Microsoft.Extensions.Logging;
 
 namespace Kanji.Interface.ViewModels
 {
@@ -106,11 +107,10 @@ namespace Kanji.Interface.ViewModels
             }
             catch (Exception ex)
             {
-                LogHelper.GetLogger(GetType().Name)
-                    .Error(string.Format(
-                    "Could not open folder (path=\"{0}\") in explorer.",
-                    setInfo.Path),
-                    ex);
+                LogHelper.Factory.CreateLogger(GetType())
+                    .LogError(ex, 
+                    "Could not open folder (path=\"{path}\") in explorer.",
+                    setInfo.Path);
             }
         }
 

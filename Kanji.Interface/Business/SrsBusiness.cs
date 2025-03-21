@@ -33,7 +33,7 @@ namespace Kanji.Interface.Business
         /// <summary>
         /// Gets the loaded instance of SrsBusiness.
         /// </summary>
-        public static SrsBusiness Instance { get; private set; }
+        public static SrsBusiness? Instance { get; private set; }
 
         /// <summary>
         /// Initializes the SrsBusiness instance.

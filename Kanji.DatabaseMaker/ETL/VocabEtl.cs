@@ -14,6 +14,7 @@ using Kanji.Common.Helpers;
 using System.Xml;
 using SQLite;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace Kanji.DatabaseMaker
 {
@@ -67,7 +68,7 @@ namespace Kanji.DatabaseMaker
 
         #region Fields
 
-        private log4net.ILog _log;
+        private ILogger<VocabEtl> _log;
         private Dictionary<string, string> _cultureDictionary;
         private Dictionary<string, VocabCategory> _categoryDictionary;
         private Dictionary<string, KanjiEntity> _kanjiDictionary;
@@ -93,10 +94,10 @@ namespace Kanji.DatabaseMaker
 
         #region Constructors
 
-        public VocabEtl()
+        public VocabEtl(ILogger<VocabEtl> logger)
             : base()
         {
-            _log = log4net.LogManager.GetLogger(this.GetType());
+            _log = logger;
             _cultureDictionary = GetXmlLangToCultureDictionary();
 
             // Initialize the category dictionary.
@@ -124,11 +125,11 @@ namespace Kanji.DatabaseMaker
         /// </summary>
         public override async Task ExecuteAsync()
         {
-            _log.Info("Starting vocab ETL.");
+            _log.LogInformation("Starting vocab ETL.");
 
-            _log.Info("Getting top frequency words...");
+            _log.LogInformation("Getting top frequency words...");
             GetTopFrequencyWords();
-            _log.InfoFormat("Read {0} top frequency words.", _topFrequencyWords.Count);
+            _log.LogInformation("Read {0} top frequency words.", _topFrequencyWords.Count);
 
             // Read the dictionary and browse each resulting vocab.
             List<VocabEntity> vocabList = new List<VocabEntity>(BatchSize);
@@ -137,11 +138,11 @@ namespace Kanji.DatabaseMaker
                 if (string.IsNullOrEmpty(vocab.KanaWriting))
                 {
                     // No kana writing: invalid vocab entry.
-                    _log.InfoFormat("Cannot parse '{0}': no kana writing.", vocab.KanjiWriting);
+                    _log.LogInformation("Cannot parse '{0}': no kana writing.", vocab.KanjiWriting);
                 }
                 else
                 {
-                    _log.InfoFormat("Parsed vocab {0} ({1}).", vocab.KanjiWriting, vocab.KanaWriting);
+                    _log.LogInformation("Parsed vocab {0} ({1}).", vocab.KanjiWriting, vocab.KanaWriting);
 
                     // Add the vocab to the list.
                     vocabList.Add(vocab);
@@ -163,7 +164,7 @@ namespace Kanji.DatabaseMaker
 
         private async Task AttachWordFrequencyOnSingleKanaMatch()
         {
-            _log.InfoFormat("Attaching word frequency on single kana match...");
+            _log.LogInformation("Attaching word frequency on single kana match...");
             VocabDao dao = new VocabDao();
             foreach (string line in FileReadingHelper.ReadLineByLine(PathHelper.WordUsagePath, Encoding.UTF8))
             {
@@ -179,7 +180,7 @@ namespace Kanji.DatabaseMaker
                         {
                             if (await dao.UpdateFrequencyRankOnSingleKanaMatch(kanaReading, (int)rank.Value))
                             {
-                                _log.InfoFormat("{0} has a frequency of {1}", kanaReading, rank.Value);
+                                _log.LogInformation("{0} has a frequency of {1}", kanaReading, rank.Value);
                             }
                         }
                     }
@@ -223,7 +224,7 @@ namespace Kanji.DatabaseMaker
 
         private void AttachWordFrequency(List<VocabEntity> vocabList, Dictionary<string, List<VocabEntity>> fullDictionary)
         {
-            DateTime before = DateTime.Now;
+            DateTimeOffset before = DateTimeOffset.Now;
             foreach (string line in FileReadingHelper.ReadLineByLine(PathHelper.WordUsagePath, Encoding.UTF8))
             {
                 if (!string.IsNullOrWhiteSpace(line))
@@ -245,13 +246,13 @@ namespace Kanji.DatabaseMaker
                     }
                 }
             }
-            TimeSpan duration = DateTime.Now - before;
-            _log.InfoFormat("Attaching word frequency took {0}ms.", (long)duration.TotalMilliseconds);
+            TimeSpan duration = DateTimeOffset.Now - before;
+            _log.LogInformation("Attaching word frequency took {0}ms.", (long)duration.TotalMilliseconds);
         }
 
         private void AttachFurigana(List<VocabEntity> vocabList, Dictionary<string, List<VocabEntity>> fullDictionary)
         {
-            DateTime before = DateTime.Now;
+            DateTimeOffset before = DateTimeOffset.Now;
 
             using (StreamReader reader = new StreamReader(PathHelper.JmDictFuriganaPath))
             {
@@ -274,14 +275,14 @@ namespace Kanji.DatabaseMaker
                     }
                 }
             }
-            TimeSpan duration = DateTime.Now - before;
-            _log.InfoFormat("Attaching furigana took {0}ms.", (long)duration.TotalMilliseconds);
+            TimeSpan duration = DateTimeOffset.Now - before;
+            _log.LogInformation("Attaching furigana took {0}ms.", (long)duration.TotalMilliseconds);
         }
 
         private void AttachJlptLevel(List<VocabEntity> vocabList, Dictionary<string, List<VocabEntity>> fullDictionary,
             Dictionary<string, List<VocabEntity>> kanaDictionary)
         {
-            DateTime before = DateTime.Now;
+            DateTimeOffset before = DateTimeOffset.Now;
 
             using (StreamReader reader = new StreamReader(PathHelper.JlptVocabListPath))
             {
@@ -331,8 +332,8 @@ namespace Kanji.DatabaseMaker
                     }
                 }
             }
-            TimeSpan duration = DateTime.Now - before;
-            _log.InfoFormat("Attaching JLPT level took {0}ms.", (long)duration.TotalMilliseconds);
+            TimeSpan duration = DateTimeOffset.Now - before;
+            _log.LogInformation("Attaching JLPT level took {0}ms.", (long)duration.TotalMilliseconds);
         }
 
         private void AttachWkLevel(List<VocabEntity> vocabList)
@@ -410,11 +411,11 @@ namespace Kanji.DatabaseMaker
         {
             if (vocabList.Any())
             {
-                _log.InfoFormat("Inserting the entities for the {0} last vocab", vocabList.Count);
+                _log.LogInformation("Inserting the entities for the {0} last vocab", vocabList.Count);
 
                 // Insert vocab itself.
                 await connection.InsertAllAsync(vocabList);
-                _log.InfoFormat("Inserted {0} vocab entities", vocabList.Count);
+                _log.LogInformation("Inserted {0} vocab entities", vocabList.Count);
                 VocabCount += vocabList.Count;
 
                 // Insert meanings.
@@ -423,7 +424,7 @@ namespace Kanji.DatabaseMaker
                     .Where(vm => vm.ID <= 0)
                     .ToArray();
                 await connection.InsertAllAsync(newMeanings);
-                _log.InfoFormat("Inserted {0} vocab meaning entities", newMeanings.Length);
+                _log.LogInformation("Inserted {0} vocab meaning entities", newMeanings.Length);
                 VocabMeaningCount += newMeanings.Length;
 
                 // Insert kanji-vocab join entities.
@@ -434,7 +435,7 @@ namespace Kanji.DatabaseMaker
                         VocabId = v.ID
                     }
                 )));
-                _log.InfoFormat("Inserted {0} kanji-vocab join entities", kanjiVocabCount);
+                _log.LogInformation("Inserted {0} kanji-vocab join entities", kanjiVocabCount);
                 KanjiVocabCount += kanjiVocabCount;
 
                 // Insert Vocab-VocabCategory join entities.
@@ -446,7 +447,7 @@ namespace Kanji.DatabaseMaker
                         VocabId = v.ID
                     }
                 )));
-                _log.InfoFormat("Inserted {0} Vocab-VocabCategory join entities", vocabVocabCategoryCount);
+                _log.LogInformation("Inserted {0} Vocab-VocabCategory join entities", vocabVocabCategoryCount);
                 VocabVocabCategoryCount += vocabVocabCategoryCount;
 
                 // Insert Vocab-VocabMeaning join entities.
@@ -457,7 +458,7 @@ namespace Kanji.DatabaseMaker
                         VocabId = v.ID
                     }
                 )));
-                _log.InfoFormat("Inserted {0} Vocab-VocabMeaning join entities", vocabVocabMeaningCount);
+                _log.LogInformation("Inserted {0} Vocab-VocabMeaning join entities", vocabVocabMeaningCount);
                 VocabVocabMeaningCount += vocabVocabMeaningCount;
 
                 // Insert VocabMeaning-VocabCategory join entities.
@@ -468,7 +469,7 @@ namespace Kanji.DatabaseMaker
                         CategoryId = c.ID
                     }
                 )));
-                _log.InfoFormat("Inserted {0} VocabMeaning-VocabCategory join entities", vocabMeaningVocabCategoryCount);
+                _log.LogInformation("Inserted {0} VocabMeaning-VocabCategory join entities", vocabMeaningVocabCategoryCount);
                 VocabMeaningVocabCategoryCount += vocabMeaningVocabCategoryCount;
             }
         }
@@ -485,7 +486,7 @@ namespace Kanji.DatabaseMaker
             XDocument xdoc = XDocument.Load(XmlReader.Create(PathHelper.JmDictPath, settings));
 
             // Load vocab categories.
-            _log.Info("Loading vocab categories");
+            _log.LogInformation("Loading vocab categories");
             foreach (VocabCategory category in LoadVocabCategories(xdoc))
             {
                 // Store vocab categories in the database.
@@ -495,10 +496,10 @@ namespace Kanji.DatabaseMaker
                 // Add them to the dictionary too.
                 _categoryDictionary.Add(category.Label, category);
             }
-            _log.InfoFormat("Loaded {0} vocab categories", VocabCategoryCount);
+            _log.LogInformation("Loaded {0} vocab categories", VocabCategoryCount);
 
             // Load and return vocab items.
-            _log.Info("Loading vocab");
+            _log.LogInformation("Loading vocab");
             return LoadVocabItems(xdoc);
         }
 

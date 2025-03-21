@@ -6,6 +6,7 @@ using Kanji.Interface.Actors;
 using Kanji.Interface.Helpers;
 using Kanji.Interface.Models;
 using Kanji.Interface.Utilities;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -178,7 +179,7 @@ namespace Kanji.Interface.Business
             catch (Exception ex)
             {
                 // Lots of things could go wrong. Let's just log the error and give up with a Failed state.
-                LogHelper.GetLogger("AudioBusiness").Error("Could not open the audio.", ex);
+                LogHelper.Factory.CreateLogger("AudioBusiness").LogError(ex, "Could not open the audio.");
                 vocab.State = VocabAudioState.Failed;
                 IsBusy = false;
             }

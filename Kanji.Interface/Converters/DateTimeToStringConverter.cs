@@ -16,24 +16,24 @@ namespace Kanji.Interface.Converters
 
     public class DateTimeToStringConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(object? value, Type targetType, object? parameter, System.Globalization.CultureInfo culture)
         {
-            DateTime? v = null;
+            DateTimeOffset? v = null;
             if (value is DateTime)
             {
                 v = (DateTime)value;
             }
-            else if (value is DateTime?)
+            else if (value is DateTimeOffset?)
             {
-                v = (DateTime?)value;
+                v = (DateTimeOffset?)value;
             }
 
             if (v.HasValue)
             {
                 // If Kind is Unspecified, we want it treated as Local.
-                // This is because generally, Unspecified is only used for DateTime objects
+                // This is because generally, Unspecified is only used for DateTimeOffset objects
                 // returned from the DatePicker control.
-                DateTime t = v.Value.Kind == DateTimeKind.Utc ? v.Value.ToLocalTime() : v.Value;
+                DateTimeOffset t = v.Value.ToLocalTime();
 
                 // Get the conversion type.
                 DateTimeToStringConversionEnum conversion;
@@ -54,7 +54,7 @@ namespace Kanji.Interface.Converters
                 else
                 {
                     // Get the difference.
-                    TimeSpan diff = t - DateTime.Now;
+                    TimeSpan diff = t - DateTimeOffset.Now;
                     bool negate = diff.Ticks < 0L;
 
                     // Negate the TimeSpan if it is negative.
@@ -102,12 +102,12 @@ namespace Kanji.Interface.Converters
             }
             else
             {
-                // Non-valued DateTime? or any other type.
+                // Non-valued DateTimeOffset? or any other type.
                 return "Never";
             }
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object ConvertBack(object? value, Type targetType, object? parameter, System.Globalization.CultureInfo culture)
         {
             throw new NotImplementedException();
         }

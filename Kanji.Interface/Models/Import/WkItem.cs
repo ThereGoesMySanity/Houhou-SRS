@@ -24,6 +24,6 @@ namespace Kanji.Interface.Models.Import
 
         public string ReadingNote { get; set; }
 
-        public DateTime? NextReviewDate { get; set; }
+        public DateTimeOffset? NextReviewDate { get; set; }
     }
 }

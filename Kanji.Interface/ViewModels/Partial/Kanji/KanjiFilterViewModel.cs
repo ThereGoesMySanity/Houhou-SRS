@@ -1,23 +1,16 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using Avalonia.Threading;
 using GalaSoft.MvvmLight.Command;
 using Kanji.Common.Helpers;
 using Kanji.Common.Utility;
 using Kanji.Database.Entities;
 using Kanji.Interface.Business;
-using Kanji.Interface.Helpers;
 using Kanji.Interface.Models;
-using Kanji.Interface.Utilities;
 
 namespace Kanji.Interface.ViewModels
 {
@@ -66,6 +59,8 @@ namespace Kanji.Interface.ViewModels
 
         private IList<FilteringRadical> _radicals;
 
+        private IList<FilteringRadical> _filteredRadicals;
+
         private ObservableCollection<FilteringRadical> _selectedRadicals;
 
         private RadicalSortModeEnum _radicalSortMode;
@@ -103,6 +98,19 @@ namespace Kanji.Interface.ViewModels
                 if (value != _radicals)
                 {
                     _radicals = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        public IList<FilteringRadical> FilteredRadicals
+        {
+            get => _filteredRadicals;
+            set
+            {
+                if (value != _filteredRadicals)
+                {
+                    _filteredRadicals = value;
                     RaisePropertyChanged();
                 }
             }
@@ -290,7 +298,7 @@ namespace Kanji.Interface.ViewModels
             TextFilter = string.Empty;
             MainFilterMode = KanjiFilterModeEnum.Meaning;
             SelectedRadicals.Clear();
-            _filter.Radicals = new FilteringRadical[0] { };
+            _filter.Radicals = [];
             JlptLevel = Levels.IgnoreJlptLevel;
             WkLevel = Levels.IgnoreWkLevel;
 
@@ -332,11 +340,11 @@ namespace Kanji.Interface.ViewModels
                     radical.IsSelected = false;
                 }
             }
-            RaisePropertyChanged("TextFilter");
-            RaisePropertyChanged("MainFilter");
-            RaisePropertyChanged("MainFilterMode");
-            RaisePropertyChanged("JlptLevel");
-            RaisePropertyChanged("WkLevel");
+            RaisePropertyChanged(nameof(TextFilter));
+            RaisePropertyChanged(nameof(MainFilter));
+            RaisePropertyChanged(nameof(MainFilterMode));
+            RaisePropertyChanged(nameof(JlptLevel));
+            RaisePropertyChanged(nameof(WkLevel));
             Dispatcher.UIThread.Post(ComputeRadicalAvailability, DispatcherPriority.Background);
         }
 
@@ -374,6 +382,7 @@ namespace Kanji.Interface.ViewModels
             // Sort if wanted.
             if (_comparer.SortByRelevance)
             {
+                FilteredRadicals = FilteredRadicals.OrderBy(x => x, _comparer).ToList();
                 Radicals = Radicals.OrderBy(x => x, _comparer).ToList();
             }
         }
@@ -458,8 +467,9 @@ namespace Kanji.Interface.ViewModels
             {
                 RadicalSortMode = value;
                 _comparer.SortMode = value;
-                Kanji.Interface.Properties.UserSettings.Instance.RadicalSortMode = value;
-                Radicals = await Task.Run(() => Radicals.OrderBy(x => x, _comparer).ToList());
+                Properties.UserSettings.Instance.RadicalSortMode = value;
+                FilteredRadicals = FilteredRadicals.OrderBy(x => x, _comparer).ToArray();
+                Radicals = Radicals.OrderBy(x => x, _comparer).ToArray();
             }
         }
 
@@ -473,7 +483,7 @@ namespace Kanji.Interface.ViewModels
         /// </summary>
         private void OnRadicalsLoaded()
         {
-            Radicals = RadicalStore.Instance.CurrentSet
+            Radicals = FilteredRadicals = RadicalStore.Instance.CurrentSet
                     .Select(r => new FilteringRadical()
                     {
                         Reference = r,
@@ -535,13 +545,14 @@ namespace Kanji.Interface.ViewModels
                         : FilteringRadicalAvailabilityEnum.Hidden;
                 }
             }
+            FilteredRadicals = Radicals.Where(r => r.IsAvailable != FilteringRadicalAvailabilityEnum.Hidden).ToArray();
         }
 
         /// <summary>
         /// Callback. Called when the selection of the radicals MultiSelectCollectionView changes.
         /// Triggers the filter.
         /// </summary>
-        private void OnRadicalSelectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void OnRadicalSelectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             if (Radicals == null)
                 return;
@@ -558,9 +569,9 @@ namespace Kanji.Interface.ViewModels
                 radical.IsSelected = SelectedRadicals.Contains(radical);
             }
             
-            //DateTime before = DateTime.Now;
+            //DateTimeOffset before = DateTimeOffset.Now;
             //DispatcherHelper.Invoke(() => { Radicals.Refresh(); });
-            //double ms = (DateTime.Now - before).TotalMilliseconds;
+            //double ms = (DateTimeOffset.Now - before).TotalMilliseconds;
 
             // Apply filter on the radical list.
             FilterRadicals();

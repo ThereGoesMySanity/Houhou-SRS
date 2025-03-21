@@ -1,19 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using Avalonia.Threading;
 using Kanji.Common.Helpers;
+using Microsoft.Extensions.Logging;
 
 namespace Kanji.Interface.Helpers
 {
     public static class DispatcherHelper
     {
         private static readonly string LogName = "DispatcherHelper";
-        private static readonly string LogEntryFormat =
-            "Could not execute an action on the dispatcher:\n{0}";
+        private static readonly string LogEntryFormat = "Could not execute an action on the dispatcher.";
 
         /// <summary>
         /// Safely invokes the given synchronous action on the dispatcher.
@@ -42,8 +37,8 @@ namespace Kanji.Interface.Helpers
             }
             catch (Exception ex)
             {
-                LogHelper.GetLogger(LogName).WarnFormat(LogEntryFormat, ex);
-                return default(T);
+                LogHelper.Factory.CreateLogger(LogName).LogWarning(ex, LogEntryFormat);
+                return default;
             }
         }
 
@@ -59,7 +54,7 @@ namespace Kanji.Interface.Helpers
             }
             catch (Exception ex)
             {
-                LogHelper.GetLogger(LogName).WarnFormat(LogEntryFormat, ex);
+                LogHelper.Factory.CreateLogger(LogName).LogWarning(ex, LogEntryFormat);
             }
         }
     }

@@ -33,10 +33,6 @@ public abstract class KanjiActivity : AppCompatActivity
         {
             s_appBuilder = AppBuilder.Configure<App>().UseAndroid().SetupWithoutStarting();
 
-            // Initialize the logging system.
-            LogHelper.InitializeLoggingSystem();
-
-
             ConfigurationHelper.Instance = new AndroidConfigurationHelper(this);
 
             // Initialize the configuration system.

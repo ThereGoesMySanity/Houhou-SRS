@@ -3,7 +3,28 @@
     x:Class="Kanji.Interface.App"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:business="clr-namespace:Kanji.Interface.Business"
+    xmlns:converters="clr-namespace:Kanji.Interface.Converters"
     RequestedThemeVariant="Light">
+    <Application.Resources>
+      <converters:ReviewCountToIconConverter x:Key="ReviewCountToIconConverter"/>
+    </Application.Resources>
+    <TrayIcon.Icons>
+      <TrayIcons>
+        <TrayIcon Icon="{Binding CurrentReviewInfo, Source={x:Static business:SrsBusiness.Instance}, Converter={StaticResource ReviewCountToIconConverter},
+                    FallbackValue='avares://Kanji.Interface/Data/Resources/TrayIconIdle.ico'}"
+            ToolTipText="Houhou">
+          <TrayIcon.Menu>
+            <NativeMenu>
+              <NativeMenuItem Header="Open Houhou" Click="OnOpenOrFocus"/>
+              <NativeMenuItem Header="Start Reviewing" Click="OnOpenReviews"/>
+              <NativeMenuItem Header="Check Reviews" Click="OnCheckReviews"/>
+              <NativeMenuItem Header="Exit" Click="OnExit"/>
+            </NativeMenu>
+          </TrayIcon.Menu>
+        </TrayIcon>
+      </TrayIcons>
+    </TrayIcon.Icons>
     <Application.Styles>
       <StyleInclude Source="/ViewResources/Style.axaml"/>
       <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Simple.xaml"/>
